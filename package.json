@@ -1,0 +1,52 @@
+{
+  "name": "word-memory-app",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vinext dev",
+    "build": "vinext build",
+    "start": "vinext start",
+    "audio:bbdc": "py scripts/generate-bbdc-audio.py",
+    "enrich:bbdc": "node scripts/enrich-bbdc-details.mjs",
+    "import:bbdc": "node scripts/import-bbdc-pdf.mjs",
+    "lint": "eslint .",
+    "portable": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build-portable.ps1",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@tanstack/react-virtual": "^3.14.9",
+    "framer-motion": "^12.40.0",
+    "hyphenation.en-us": "^0.2.1",
+    "hypher": "^0.2.5",
+    "lucide-react": "^1.17.0",
+    "mammoth": "^1.12.0",
+    "next": "16.2.6",
+    "pdfjs-dist": "^6.0.227",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "react-server-dom-webpack": "19.2.6"
+  },
+  "devDependencies": {
+    "@cloudflare/vite-plugin": "1.37.1",
+    "@eslint/js": "^10.0.1",
+    "@tailwindcss/postcss": "4.2.1",
+    "@types/node": "22.19.19",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
+    "@vitejs/plugin-rsc": "0.5.26",
+    "autoprefixer": "^10.5.0",
+    "eslint": "^10.3.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.2",
+    "globals": "^17.6.0",
+    "pdf-parse": "^2.4.5",
+    "postcss": "^8.5.15",
+    "tailwindcss": "4.2.1",
+    "typescript": "5.9.3",
+    "vinext": "0.0.50",
+    "vite": "8.0.13",
+    "wrangler": "4.92.0"
+  }
+}
