@@ -13,7 +13,9 @@ import {
   Eye,
   EyeOff,
   FileUp,
+  Keyboard,
   ListPlus,
+  RotateCcw,
   Search,
   Star,
   Trash2,
@@ -34,6 +36,53 @@ import { speakNavigationWord, speakWord } from "./offlineTts";
 const STORAGE_KEY = "offline_vocab_reader_v1";
 const BACKUP_FORMAT = "word-memory-web-backup";
 const BACKUP_VERSION = 1;
+const DEFAULT_SHORTCUT_KEYS = Object.freeze({
+  previous: "ArrowUp",
+  next: "ArrowDown",
+  favorite: "f",
+});
+const SHORTCUT_ACTIONS = [
+  { id: "previous", label: "上一个单词", description: "向上切换" },
+  { id: "next", label: "下一个单词", description: "向下切换" },
+  { id: "favorite", label: "收藏 / 取消收藏", description: "切换当前单词收藏状态" },
+];
+const BLOCKED_SHORTCUT_KEYS = new Set(["Control", "Shift", "Alt", "Meta", "OS", "CapsLock", "Tab", "Escape"]);
+
+function canonicalShortcutKey(value) {
+  const key = String(value || "");
+  if (key === "Spacebar") return " ";
+  return key.length === 1 ? key.toLowerCase() : key;
+}
+
+function normalizeShortcutKey(value, fallback) {
+  const key = canonicalShortcutKey(value);
+  if (!key || BLOCKED_SHORTCUT_KEYS.has(key)) return fallback;
+  return key;
+}
+
+function normalizeShortcutKeys(value) {
+  const source = isRecord(value) ? value : {};
+  return {
+    previous: normalizeShortcutKey(source.previous, DEFAULT_SHORTCUT_KEYS.previous),
+    next: normalizeShortcutKey(source.next, DEFAULT_SHORTCUT_KEYS.next),
+    favorite: normalizeShortcutKey(source.favorite, DEFAULT_SHORTCUT_KEYS.favorite),
+  };
+}
+
+function shortcutKeyLabel(value) {
+  const labels = {
+    ArrowUp: "↑",
+    ArrowDown: "↓",
+    ArrowLeft: "←",
+    ArrowRight: "→",
+    " ": "空格",
+    Enter: "回车",
+    Backspace: "退格",
+    Delete: "删除",
+  };
+  const key = canonicalShortcutKey(value);
+  return labels[key] || (key.length === 1 ? key.toUpperCase() : key);
+}
 
 const SAMPLE_CHAPTERS = [];
 
@@ -604,6 +653,7 @@ function defaultState() {
     accent: "us",
     activeBookId: MAIN_BOOK_ID,
     searchHistory: [],
+    shortcutKeys: { ...DEFAULT_SHORTCUT_KEYS },
   };
 }
 
@@ -612,7 +662,12 @@ function loadState() {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return defaultState();
     const parsed = JSON.parse(raw);
-    return { ...defaultState(), ...parsed, accent: VOICE_OPTIONS[parsed.accent] ? parsed.accent : "us" };
+    return {
+      ...defaultState(),
+      ...parsed,
+      accent: VOICE_OPTIONS[parsed.accent] ? parsed.accent : "us",
+      shortcutKeys: normalizeShortcutKeys(parsed.shortcutKeys),
+    };
   } catch {
     return defaultState();
   }
@@ -637,6 +692,7 @@ function normalizeBackupState(value) {
     meaningsHidden: Boolean(value.meaningsHidden),
     accent: VOICE_OPTIONS[value.accent] ? value.accent : defaults.accent,
     activeBookId: typeof value.activeBookId === "string" ? value.activeBookId : defaults.activeBookId,
+    shortcutKeys: normalizeShortcutKeys(value.shortcutKeys),
   };
 }
 
@@ -1748,16 +1804,52 @@ function DashboardPage({
   onImportBook,
   onExportData,
   onImportData,
+  shortcutKeys,
+  onChangeShortcut,
+  onResetShortcuts,
 }) {
   const [bookChooserOpen, setBookChooserOpen] = useState(false);
   const [importing, setImporting] = useState(false);
   const [importMessage, setImportMessage] = useState("");
   const [backupImporting, setBackupImporting] = useState(false);
   const [backupMessage, setBackupMessage] = useState("");
+  const [recordingShortcut, setRecordingShortcut] = useState(null);
+  const [shortcutMessage, setShortcutMessage] = useState("");
   const favoriteSet = useMemo(() => new Set(favorites), [favorites]);
   const activeViewedCount = activeBook.words.filter((word) => viewed[word.id]).length;
   const progress = activeBook.total > 0 ? Math.round((activeViewedCount / activeBook.total) * 100) : 0;
   const listWords = activeBook.id === FAVORITES_BOOK_ID ? activeBook.words : activeBook.words.slice(0, 30);
+
+  const handleShortcutKeyDown = (actionId, event) => {
+    if (recordingShortcut !== actionId) return;
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (event.key === "Escape") {
+      setRecordingShortcut(null);
+      setShortcutMessage("已取消设置");
+      return;
+    }
+    if (event.ctrlKey || event.metaKey || event.altKey) {
+      setShortcutMessage("请直接按一个按键，不要组合 Ctrl、Alt 或 Command");
+      return;
+    }
+
+    const key = canonicalShortcutKey(event.key);
+    if (!key || BLOCKED_SHORTCUT_KEYS.has(key)) {
+      setShortcutMessage("这个按键不能用作快捷键，请换一个");
+      return;
+    }
+    const duplicate = SHORTCUT_ACTIONS.find((action) => action.id !== actionId && shortcutKeys[action.id] === key);
+    if (duplicate) {
+      setShortcutMessage(`${shortcutKeyLabel(key)} 已用于“${duplicate.label}”`);
+      return;
+    }
+
+    onChangeShortcut(actionId, key);
+    setRecordingShortcut(null);
+    setShortcutMessage(`“${SHORTCUT_ACTIONS.find((action) => action.id === actionId)?.label}”已改为 ${shortcutKeyLabel(key)}`);
+  };
 
   return (
     <main className="min-h-screen bg-slate-50 pb-8 text-slate-950 lg:h-screen lg:min-h-0 lg:overflow-y-auto">
@@ -1772,7 +1864,72 @@ function DashboardPage({
       </header>
 
       <section className="mx-auto max-w-3xl px-4 sm:px-5">
-        <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="rounded-lg border border-slate-100 bg-white p-4 shadow-sm sm:p-5">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div className="flex items-start gap-3">
+              <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-orange-50 text-orange-600">
+                <Keyboard className="h-5 w-5" />
+              </span>
+              <div>
+                <h2 className="text-lg font-bold">自定义按键</h2>
+                <p className="mt-1 text-xs font-semibold leading-5 text-slate-400 sm:text-sm">
+                  点击一个按键后，再按下你想使用的键；字母快捷键会优先于拼写练习。
+                </p>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={() => {
+                onResetShortcuts();
+                setRecordingShortcut(null);
+                setShortcutMessage("已恢复默认快捷键");
+              }}
+              className="inline-flex items-center gap-1.5 rounded-md bg-slate-100 px-3 py-2 text-xs font-bold text-slate-600 transition hover:bg-slate-200 sm:text-sm"
+            >
+              <RotateCcw className="h-4 w-4" />
+              恢复默认
+            </button>
+          </div>
+
+          <div className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-3 sm:gap-3">
+            {SHORTCUT_ACTIONS.map((action) => {
+              const recording = recordingShortcut === action.id;
+              return (
+                <button
+                  key={action.id}
+                  type="button"
+                  aria-pressed={recording}
+                  onClick={() => {
+                    setRecordingShortcut(recording ? null : action.id);
+                    setShortcutMessage(recording ? "已取消设置" : `请按下“${action.label}”的新按键`);
+                  }}
+                  onKeyDown={(event) => handleShortcutKeyDown(action.id, event)}
+                  onBlur={() => {
+                    if (recordingShortcut === action.id) setRecordingShortcut(null);
+                  }}
+                  className={`flex items-center justify-between gap-3 rounded-lg border px-3 py-3 text-left transition sm:block sm:px-4 ${
+                    recording
+                      ? "border-orange-400 bg-orange-50 ring-2 ring-orange-100"
+                      : "border-slate-200 bg-slate-50 hover:border-slate-300 hover:bg-slate-100"
+                  }`}
+                >
+                  <span>
+                    <span className="block text-sm font-bold text-slate-800">{action.label}</span>
+                    <span className="mt-0.5 block text-xs font-semibold text-slate-400">{action.description}</span>
+                  </span>
+                  <kbd className={`inline-flex min-w-12 shrink-0 items-center justify-center rounded-md border px-2.5 py-1.5 font-mono text-sm font-extrabold shadow-sm sm:mt-3 ${
+                    recording ? "border-orange-300 bg-white text-orange-600" : "border-slate-200 bg-white text-slate-800"
+                  }`}>
+                    {recording ? "请按键" : shortcutKeyLabel(shortcutKeys[action.id])}
+                  </kbd>
+                </button>
+              );
+            })}
+          </div>
+          <p className="mt-3 min-h-5 text-xs font-semibold text-slate-500" aria-live="polite">{shortcutMessage}</p>
+        </div>
+
+        <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
           <h2 className="text-2xl font-bold leading-tight sm:text-3xl">正在学习</h2>
           <div className="flex items-center gap-2">
             <label className="inline-flex cursor-pointer items-center gap-1.5 rounded-full bg-white px-3 py-2 text-sm font-bold text-slate-700 shadow-sm transition hover:bg-slate-100">
@@ -1874,7 +2031,7 @@ function DashboardPage({
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
               <h2 className="text-lg font-bold">数据迁移</h2>
-              <p className="mt-1 text-xs font-semibold text-slate-400 sm:text-sm">进度、收藏、笔记、搜索记录和导入词书</p>
+              <p className="mt-1 text-xs font-semibold text-slate-400 sm:text-sm">进度、收藏、快捷键、笔记、搜索记录和导入词书</p>
             </div>
             <div className="flex flex-wrap items-center gap-2">
               <button
@@ -2188,21 +2345,6 @@ export default function App() {
     setPendingScrollId(nextWord.id);
   }, [activeBook.words, activeWordIndexById, detailId, page, selectWord, selectedId]);
 
-  useEffect(() => {
-    const handleArrowNavigation = (event) => {
-      if (event.key !== "ArrowUp" && event.key !== "ArrowDown") return;
-      if (event.ctrlKey || event.metaKey || event.altKey || document.getElementById("chapter-jump-menu")) return;
-      const eventTarget = event.target;
-      if (eventTarget instanceof Element && eventTarget.closest("input, textarea, select, [contenteditable='true']")) return;
-
-      event.preventDefault();
-      moveWordSelection(event.key === "ArrowDown" ? 1 : -1);
-    };
-
-    window.addEventListener("keydown", handleArrowNavigation);
-    return () => window.removeEventListener("keydown", handleArrowNavigation);
-  }, [moveWordSelection]);
-
   const toggleFavorite = useCallback((id) => {
     setStored((current) => {
       const set = new Set(current.favorites);
@@ -2211,6 +2353,42 @@ export default function App() {
       return { ...current, favorites: Array.from(set) };
     });
   }, []);
+
+  const changeShortcut = useCallback((actionId, key) => {
+    if (!Object.prototype.hasOwnProperty.call(DEFAULT_SHORTCUT_KEYS, actionId)) return;
+    const normalizedKey = normalizeShortcutKey(key, DEFAULT_SHORTCUT_KEYS[actionId]);
+    setStored((current) => {
+      const currentKeys = normalizeShortcutKeys(current.shortcutKeys);
+      if (Object.entries(currentKeys).some(([id, value]) => id !== actionId && value === normalizedKey)) return current;
+      return { ...current, shortcutKeys: { ...currentKeys, [actionId]: normalizedKey } };
+    });
+  }, []);
+
+  const resetShortcuts = useCallback(() => {
+    setStored((current) => ({ ...current, shortcutKeys: { ...DEFAULT_SHORTCUT_KEYS } }));
+  }, []);
+
+  useEffect(() => {
+    const handleKeyboardShortcut = (event) => {
+      if (page !== "words" || event.ctrlKey || event.metaKey || event.altKey || document.getElementById("chapter-jump-menu")) return;
+      const eventTarget = event.target;
+      if (eventTarget instanceof Element && eventTarget.closest("input, textarea, select, [contenteditable='true']")) return;
+
+      const key = canonicalShortcutKey(event.key);
+      const shortcuts = normalizeShortcutKeys(stored.shortcutKeys);
+      const actionId = Object.entries(shortcuts).find(([, shortcutKey]) => shortcutKey === key)?.[0];
+      if (!actionId) return;
+
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      if (actionId === "previous") moveWordSelection(-1);
+      else if (actionId === "next") moveWordSelection(1);
+      else if (actionId === "favorite" && !event.repeat && selectedWord?.id) toggleFavorite(selectedWord.id);
+    };
+
+    window.addEventListener("keydown", handleKeyboardShortcut, true);
+    return () => window.removeEventListener("keydown", handleKeyboardShortcut, true);
+  }, [moveWordSelection, page, selectedWord?.id, stored.shortcutKeys, toggleFavorite]);
 
   const openDetail = useCallback((id) => {
     setSelectedId(id);
@@ -2326,6 +2504,9 @@ export default function App() {
               onImportBook={importBook}
               onExportData={exportData}
               onImportData={importData}
+              shortcutKeys={stored.shortcutKeys}
+              onChangeShortcut={changeShortcut}
+              onResetShortcuts={resetShortcuts}
             />
           ) : page === "search" ? (
             <SearchPage
