@@ -40,11 +40,13 @@ const DEFAULT_SHORTCUT_KEYS = Object.freeze({
   previous: "ArrowUp",
   next: "ArrowDown",
   favorite: "f",
+  meaning: " ",
 });
 const SHORTCUT_ACTIONS = [
   { id: "previous", label: "上一个单词", description: "向上切换" },
   { id: "next", label: "下一个单词", description: "向下切换" },
   { id: "favorite", label: "收藏 / 取消收藏", description: "切换当前单词收藏状态" },
+  { id: "meaning", label: "显示 / 隐藏释义", description: "切换当前单词中文意思" },
 ];
 const BLOCKED_SHORTCUT_KEYS = new Set(["Control", "Shift", "Alt", "Meta", "OS", "CapsLock", "Tab", "Escape"]);
 
@@ -62,11 +64,23 @@ function normalizeShortcutKey(value, fallback) {
 
 function normalizeShortcutKeys(value) {
   const source = isRecord(value) ? value : {};
-  return {
+  const normalized = {
     previous: normalizeShortcutKey(source.previous, DEFAULT_SHORTCUT_KEYS.previous),
     next: normalizeShortcutKey(source.next, DEFAULT_SHORTCUT_KEYS.next),
     favorite: normalizeShortcutKey(source.favorite, DEFAULT_SHORTCUT_KEYS.favorite),
+    meaning: normalizeShortcutKey(source.meaning, DEFAULT_SHORTCUT_KEYS.meaning),
   };
+  const fallbackKeys = {
+    previous: [DEFAULT_SHORTCUT_KEYS.previous, "ArrowLeft", "p"],
+    next: [DEFAULT_SHORTCUT_KEYS.next, "ArrowRight", "n"],
+    favorite: [DEFAULT_SHORTCUT_KEYS.favorite, "v"],
+  };
+  for (const actionId of ["previous", "next", "favorite"]) {
+    if (normalized[actionId] !== normalized.meaning) continue;
+    const reservedKeys = new Set(Object.entries(normalized).filter(([id]) => id !== actionId).map(([, key]) => key));
+    normalized[actionId] = fallbackKeys[actionId].find((key) => !reservedKeys.has(key)) || fallbackKeys[actionId][0];
+  }
+  return normalized;
 }
 
 function shortcutKeyLabel(value) {
@@ -649,7 +663,7 @@ function defaultState() {
     viewed: {},
     notes: {},
     customBooks: [],
-    meaningsHidden: false,
+    meaningsHidden: true,
     accent: "us",
     activeBookId: MAIN_BOOK_ID,
     searchHistory: [],
@@ -665,6 +679,7 @@ function loadState() {
     return {
       ...defaultState(),
       ...parsed,
+      meaningsHidden: true,
       accent: VOICE_OPTIONS[parsed.accent] ? parsed.accent : "us",
       shortcutKeys: normalizeShortcutKeys(parsed.shortcutKeys),
     };
@@ -689,7 +704,7 @@ function normalizeBackupState(value) {
     notes: isRecord(value.notes) ? value.notes : {},
     customBooks: Array.isArray(value.customBooks) ? value.customBooks.filter((book) => isRecord(book)) : [],
     searchHistory: Array.isArray(value.searchHistory) ? value.searchHistory.filter((item) => typeof item === "string") : [],
-    meaningsHidden: Boolean(value.meaningsHidden),
+    meaningsHidden: true,
     accent: VOICE_OPTIONS[value.accent] ? value.accent : defaults.accent,
     activeBookId: typeof value.activeBookId === "string" ? value.activeBookId : defaults.activeBookId,
     shortcutKeys: normalizeShortcutKeys(value.shortcutKeys),
@@ -1891,7 +1906,7 @@ function DashboardPage({
             </button>
           </div>
 
-          <div className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-3 sm:gap-3">
+          <div className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-3">
             {SHORTCUT_ACTIONS.map((action) => {
               const recording = recordingShortcut === action.id;
               return (
@@ -2136,6 +2151,7 @@ function DetailPane({
   word,
   favorite,
   accent,
+  meaningsHidden,
   tab,
   note,
   onTabChange,
@@ -2199,9 +2215,11 @@ function DetailPane({
         </div>
       </div>
 
-      <div className="mt-4 text-lg leading-8 text-slate-950 sm:mt-6 sm:text-xl">
-        <span className="font-semibold">{word.pos}</span> {word.meaning}
-      </div>
+      {!meaningsHidden && (
+        <div className="mt-4 text-lg leading-8 text-slate-950 sm:mt-6 sm:text-xl">
+          <span className="font-semibold">{word.pos}</span> {word.meaning}
+        </div>
+      )}
 
       <div className="mt-4 flex gap-4 overflow-x-auto border-b border-slate-100 text-sm font-bold text-slate-400 sm:mt-6 sm:gap-6 sm:text-base">
         {DETAIL_TABS.map((item) => (
@@ -2229,7 +2247,7 @@ function DetailPane({
   );
 }
 
-function DetailSheet({ word, favorite, accent, tab, note, onTabChange, onChangeNote, onClose, onToggleFavorite }) {
+function DetailSheet({ word, favorite, accent, meaningsHidden, tab, note, onTabChange, onChangeNote, onClose, onToggleFavorite }) {
   return (
     <AnimatePresence>
       {word && (
@@ -2247,6 +2265,7 @@ function DetailSheet({ word, favorite, accent, tab, note, onTabChange, onChangeN
               word={word}
               favorite={favorite}
               accent={accent}
+              meaningsHidden={meaningsHidden}
               tab={tab}
               note={note}
               onTabChange={onTabChange}
@@ -2317,10 +2336,10 @@ export default function App() {
     setSelectedId(id);
     setStored((current) => {
       const alreadyViewed = Boolean(current.viewed[id]);
-      if (!current.meaningsHidden && alreadyViewed) return current;
+      if (current.meaningsHidden && alreadyViewed) return current;
       return {
         ...current,
-        meaningsHidden: false,
+        meaningsHidden: true,
         viewed: alreadyViewed ? current.viewed : { ...current.viewed, [id]: Date.now() },
       };
     });
@@ -2368,6 +2387,10 @@ export default function App() {
     setStored((current) => ({ ...current, shortcutKeys: { ...DEFAULT_SHORTCUT_KEYS } }));
   }, []);
 
+  const toggleMeanings = useCallback(() => {
+    setStored((current) => ({ ...current, meaningsHidden: !current.meaningsHidden }));
+  }, []);
+
   useEffect(() => {
     const handleKeyboardShortcut = (event) => {
       if (page !== "words" || event.ctrlKey || event.metaKey || event.altKey || document.getElementById("chapter-jump-menu")) return;
@@ -2384,16 +2407,18 @@ export default function App() {
       if (actionId === "previous") moveWordSelection(-1);
       else if (actionId === "next") moveWordSelection(1);
       else if (actionId === "favorite" && !event.repeat && selectedWord?.id) toggleFavorite(selectedWord.id);
+      else if (actionId === "meaning" && !event.repeat) toggleMeanings();
     };
 
     window.addEventListener("keydown", handleKeyboardShortcut, true);
     return () => window.removeEventListener("keydown", handleKeyboardShortcut, true);
-  }, [moveWordSelection, page, selectedWord?.id, stored.shortcutKeys, toggleFavorite]);
+  }, [moveWordSelection, page, selectedWord?.id, stored.shortcutKeys, toggleFavorite, toggleMeanings]);
 
   const openDetail = useCallback((id) => {
     setSelectedId(id);
     setDetailId(id);
     setDetailTab(stored.notes?.[id]?.trim() ? NOTE_TAB : DEFAULT_DETAIL_TAB);
+    setStored((current) => (current.meaningsHidden ? current : { ...current, meaningsHidden: true }));
     markViewed(id);
   }, [markViewed, stored.notes]);
 
@@ -2431,10 +2456,6 @@ export default function App() {
 
   const clearSearchHistory = useCallback(() => {
     setStored((current) => ({ ...current, searchHistory: [] }));
-  }, []);
-
-  const toggleMeanings = useCallback(() => {
-    setStored((current) => ({ ...current, meaningsHidden: !current.meaningsHidden }));
   }, []);
 
   const toggleAccent = useCallback(() => {
@@ -2545,6 +2566,7 @@ export default function App() {
             word={selectedWord}
             favorite={selectedWord ? favoriteSet.has(selectedWord.id) : false}
             accent={stored.accent}
+            meaningsHidden={stored.meaningsHidden}
             tab={detailTab}
             note={selectedWord ? stored.notes?.[selectedWord.id] || "" : ""}
             onTabChange={setDetailTab}
@@ -2562,6 +2584,7 @@ export default function App() {
         word={detailWord}
         favorite={detailWord ? favoriteSet.has(detailWord.id) : false}
         accent={stored.accent}
+        meaningsHidden={stored.meaningsHidden}
         tab={detailTab}
         note={detailWord ? stored.notes?.[detailWord.id] || "" : ""}
         onTabChange={setDetailTab}
