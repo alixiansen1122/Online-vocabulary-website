@@ -2179,7 +2179,10 @@ function DetailPane({
       <div className="grid gap-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-start">
         <div className="min-w-0">
           <div className="flex flex-wrap items-center gap-2 sm:gap-3">
-            <h2 className="text-2xl font-bold text-orange-600 sm:text-4xl">
+            <h2
+              aria-hidden={meaningsHidden}
+              className={`text-2xl font-bold text-orange-600 sm:text-4xl ${meaningsHidden ? "invisible select-none" : ""}`}
+            >
               <SplitTerm word={word} />
             </h2>
             <span className="rounded bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-400 sm:text-sm">{word.source}</span>
