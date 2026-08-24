@@ -2181,7 +2181,8 @@ function DetailPane({
           <div className="flex flex-wrap items-center gap-2 sm:gap-3">
             <h2
               aria-hidden={meaningsHidden}
-              className={`text-2xl font-bold text-orange-600 sm:text-4xl ${meaningsHidden ? "invisible select-none" : ""}`}
+              style={{ visibility: meaningsHidden ? "hidden" : "visible" }}
+              className="text-2xl font-bold text-orange-600 sm:text-4xl"
             >
               <SplitTerm word={word} />
             </h2>
