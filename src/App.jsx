@@ -41,6 +41,7 @@ const DEFAULT_SHORTCUT_KEYS = Object.freeze({
   next: "ArrowDown",
   tabPrevious: "ArrowLeft",
   tabNext: "ArrowRight",
+  spellingMode: "_",
   favorite: "f",
   meaning: " ",
 });
@@ -49,6 +50,7 @@ const SHORTCUT_ACTIONS = [
   { id: "next", label: "下一个单词", description: "向下切换" },
   { id: "tabPrevious", label: "上一个扩展页", description: "向左切换例句、派生等页面" },
   { id: "tabNext", label: "下一个扩展页", description: "向右切换例句、派生等页面" },
+  { id: "spellingMode", label: "切换拼写分隔", description: "切换分隔与连续字母显示" },
   { id: "favorite", label: "收藏 / 取消收藏", description: "切换当前单词收藏状态" },
   { id: "meaning", label: "显示 / 隐藏释义", description: "切换当前单词中文意思" },
 ];
@@ -57,6 +59,7 @@ const BLOCKED_SHORTCUT_KEYS = new Set(["Control", "Shift", "Alt", "Meta", "OS", 
 function canonicalShortcutKey(value) {
   const key = String(value || "");
   if (key === "Spacebar") return " ";
+  if (key === "-") return "_";
   return key.length === 1 ? key.toLowerCase() : key;
 }
 
@@ -73,6 +76,7 @@ function normalizeShortcutKeys(value) {
     next: normalizeShortcutKey(source.next, DEFAULT_SHORTCUT_KEYS.next),
     tabPrevious: normalizeShortcutKey(source.tabPrevious, DEFAULT_SHORTCUT_KEYS.tabPrevious),
     tabNext: normalizeShortcutKey(source.tabNext, DEFAULT_SHORTCUT_KEYS.tabNext),
+    spellingMode: normalizeShortcutKey(source.spellingMode, DEFAULT_SHORTCUT_KEYS.spellingMode),
     favorite: normalizeShortcutKey(source.favorite, DEFAULT_SHORTCUT_KEYS.favorite),
     meaning: normalizeShortcutKey(source.meaning, DEFAULT_SHORTCUT_KEYS.meaning),
   };
@@ -80,12 +84,13 @@ function normalizeShortcutKeys(value) {
     meaning: [DEFAULT_SHORTCUT_KEYS.meaning, "m"],
     tabPrevious: [DEFAULT_SHORTCUT_KEYS.tabPrevious, "["],
     tabNext: [DEFAULT_SHORTCUT_KEYS.tabNext, "]"],
+    spellingMode: [DEFAULT_SHORTCUT_KEYS.spellingMode, "Enter"],
     previous: [DEFAULT_SHORTCUT_KEYS.previous, "p"],
     next: [DEFAULT_SHORTCUT_KEYS.next, "n"],
     favorite: [DEFAULT_SHORTCUT_KEYS.favorite, "v"],
   };
   const usedKeys = new Set();
-  for (const actionId of ["meaning", "tabPrevious", "tabNext", "previous", "next", "favorite"]) {
+  for (const actionId of ["meaning", "tabPrevious", "tabNext", "spellingMode", "previous", "next", "favorite"]) {
     if (usedKeys.has(normalized[actionId])) {
       normalized[actionId] = fallbackKeys[actionId].find((key) => !usedKeys.has(key)) || fallbackKeys[actionId][0];
     }
@@ -675,6 +680,7 @@ function defaultState() {
     notes: {},
     customBooks: [],
     meaningsHidden: true,
+    spellingSeparated: true,
     accent: "us",
     activeBookId: MAIN_BOOK_ID,
     searchHistory: [],
@@ -691,6 +697,7 @@ function loadState() {
       ...defaultState(),
       ...parsed,
       meaningsHidden: true,
+      spellingSeparated: parsed.spellingSeparated !== false,
       accent: VOICE_OPTIONS[parsed.accent] ? parsed.accent : "us",
       shortcutKeys: normalizeShortcutKeys(parsed.shortcutKeys),
     };
@@ -716,6 +723,7 @@ function normalizeBackupState(value) {
     customBooks: Array.isArray(value.customBooks) ? value.customBooks.filter((book) => isRecord(book)) : [],
     searchHistory: Array.isArray(value.searchHistory) ? value.searchHistory.filter((item) => typeof item === "string") : [],
     meaningsHidden: true,
+    spellingSeparated: value.spellingSeparated !== false,
     accent: VOICE_OPTIONS[value.accent] ? value.accent : defaults.accent,
     activeBookId: typeof value.activeBookId === "string" ? value.activeBookId : defaults.activeBookId,
     shortcutKeys: normalizeShortcutKeys(value.shortcutKeys),
@@ -837,13 +845,13 @@ function WordSplits({ word }) {
   );
 }
 
-function spellingPattern(word) {
+function spellingPattern(word, separated) {
   const target = String(word.term || "").toLowerCase().replace(/[^a-z]/g, "");
   const groups = [];
   let letterIndex = 0;
   let previousWasLetters = false;
 
-  for (const segment of splitTerm(word)) {
+  for (const segment of separated ? splitTerm(word) : [word.term]) {
     const letters = [...segment].filter((character) => /[a-z]/i.test(character));
     if (letters.length > 0) {
       if (previousWasLetters) groups.push({ type: "separator", text: "·" });
@@ -864,8 +872,8 @@ function spellingPattern(word) {
   return { target, groups };
 }
 
-function SpellingPractice({ word, accent, keyboardMode }) {
-  const pattern = useMemo(() => spellingPattern(word), [word]);
+function SpellingPractice({ word, accent, keyboardMode, separated }) {
+  const pattern = useMemo(() => spellingPattern(word, separated), [separated, word]);
   const [attempt, setAttempt] = useState({ term: pattern.target, value: "" });
   const spokenAttemptRef = useRef("");
   const typed = attempt.term === pattern.target ? attempt.value : "";
@@ -2163,6 +2171,7 @@ function DetailPane({
   favorite,
   accent,
   meaningsHidden,
+  spellingSeparated,
   tab,
   note,
   onTabChange,
@@ -2226,7 +2235,7 @@ function DetailPane({
               </IconButton>
             )}
           </div>
-          <SpellingPractice word={word} accent={accent} keyboardMode={keyboardMode} />
+          <SpellingPractice word={word} accent={accent} keyboardMode={keyboardMode} separated={spellingSeparated} />
         </div>
       </div>
 
@@ -2262,7 +2271,7 @@ function DetailPane({
   );
 }
 
-function DetailSheet({ word, favorite, accent, meaningsHidden, tab, note, onTabChange, onChangeNote, onClose, onToggleFavorite }) {
+function DetailSheet({ word, favorite, accent, meaningsHidden, spellingSeparated, tab, note, onTabChange, onChangeNote, onClose, onToggleFavorite }) {
   return (
     <AnimatePresence>
       {word && (
@@ -2281,6 +2290,7 @@ function DetailSheet({ word, favorite, accent, meaningsHidden, tab, note, onTabC
               favorite={favorite}
               accent={accent}
               meaningsHidden={meaningsHidden}
+              spellingSeparated={spellingSeparated}
               tab={tab}
               note={note}
               onTabChange={onTabChange}
@@ -2406,6 +2416,10 @@ export default function App() {
     setStored((current) => ({ ...current, meaningsHidden: !current.meaningsHidden }));
   }, []);
 
+  const toggleSpellingMode = useCallback(() => {
+    setStored((current) => ({ ...current, spellingSeparated: !current.spellingSeparated }));
+  }, []);
+
   const moveDetailTab = useCallback((direction) => {
     setDetailTab((current) => {
       const currentIndex = Math.max(0, DETAIL_TABS.indexOf(current));
@@ -2431,13 +2445,14 @@ export default function App() {
       else if (actionId === "next") moveWordSelection(1);
       else if (actionId === "tabPrevious") moveDetailTab(-1);
       else if (actionId === "tabNext") moveDetailTab(1);
+      else if (actionId === "spellingMode" && !event.repeat) toggleSpellingMode();
       else if (actionId === "favorite" && !event.repeat && selectedWord?.id) toggleFavorite(selectedWord.id);
       else if (actionId === "meaning" && !event.repeat) toggleMeanings();
     };
 
     window.addEventListener("keydown", handleKeyboardShortcut, true);
     return () => window.removeEventListener("keydown", handleKeyboardShortcut, true);
-  }, [moveDetailTab, moveWordSelection, page, selectedWord?.id, stored.shortcutKeys, toggleFavorite, toggleMeanings]);
+  }, [moveDetailTab, moveWordSelection, page, selectedWord?.id, stored.shortcutKeys, toggleFavorite, toggleMeanings, toggleSpellingMode]);
 
   const openDetail = useCallback((id) => {
     setSelectedId(id);
@@ -2592,6 +2607,7 @@ export default function App() {
             favorite={selectedWord ? favoriteSet.has(selectedWord.id) : false}
             accent={stored.accent}
             meaningsHidden={stored.meaningsHidden}
+            spellingSeparated={stored.spellingSeparated}
             tab={detailTab}
             note={selectedWord ? stored.notes?.[selectedWord.id] || "" : ""}
             onTabChange={setDetailTab}
@@ -2610,6 +2626,7 @@ export default function App() {
         favorite={detailWord ? favoriteSet.has(detailWord.id) : false}
         accent={stored.accent}
         meaningsHidden={stored.meaningsHidden}
+        spellingSeparated={stored.spellingSeparated}
         tab={detailTab}
         note={detailWord ? stored.notes?.[detailWord.id] || "" : ""}
         onTabChange={setDetailTab}
