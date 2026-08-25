@@ -39,12 +39,16 @@ const BACKUP_VERSION = 1;
 const DEFAULT_SHORTCUT_KEYS = Object.freeze({
   previous: "ArrowUp",
   next: "ArrowDown",
+  tabPrevious: "ArrowLeft",
+  tabNext: "ArrowRight",
   favorite: "f",
   meaning: " ",
 });
 const SHORTCUT_ACTIONS = [
   { id: "previous", label: "上一个单词", description: "向上切换" },
   { id: "next", label: "下一个单词", description: "向下切换" },
+  { id: "tabPrevious", label: "上一个扩展页", description: "向左切换例句、派生等页面" },
+  { id: "tabNext", label: "下一个扩展页", description: "向右切换例句、派生等页面" },
   { id: "favorite", label: "收藏 / 取消收藏", description: "切换当前单词收藏状态" },
   { id: "meaning", label: "显示 / 隐藏释义", description: "切换当前单词中文意思" },
 ];
@@ -67,18 +71,25 @@ function normalizeShortcutKeys(value) {
   const normalized = {
     previous: normalizeShortcutKey(source.previous, DEFAULT_SHORTCUT_KEYS.previous),
     next: normalizeShortcutKey(source.next, DEFAULT_SHORTCUT_KEYS.next),
+    tabPrevious: normalizeShortcutKey(source.tabPrevious, DEFAULT_SHORTCUT_KEYS.tabPrevious),
+    tabNext: normalizeShortcutKey(source.tabNext, DEFAULT_SHORTCUT_KEYS.tabNext),
     favorite: normalizeShortcutKey(source.favorite, DEFAULT_SHORTCUT_KEYS.favorite),
     meaning: normalizeShortcutKey(source.meaning, DEFAULT_SHORTCUT_KEYS.meaning),
   };
   const fallbackKeys = {
-    previous: [DEFAULT_SHORTCUT_KEYS.previous, "ArrowLeft", "p"],
-    next: [DEFAULT_SHORTCUT_KEYS.next, "ArrowRight", "n"],
+    meaning: [DEFAULT_SHORTCUT_KEYS.meaning, "m"],
+    tabPrevious: [DEFAULT_SHORTCUT_KEYS.tabPrevious, "["],
+    tabNext: [DEFAULT_SHORTCUT_KEYS.tabNext, "]"],
+    previous: [DEFAULT_SHORTCUT_KEYS.previous, "p"],
+    next: [DEFAULT_SHORTCUT_KEYS.next, "n"],
     favorite: [DEFAULT_SHORTCUT_KEYS.favorite, "v"],
   };
-  for (const actionId of ["previous", "next", "favorite"]) {
-    if (normalized[actionId] !== normalized.meaning) continue;
-    const reservedKeys = new Set(Object.entries(normalized).filter(([id]) => id !== actionId).map(([, key]) => key));
-    normalized[actionId] = fallbackKeys[actionId].find((key) => !reservedKeys.has(key)) || fallbackKeys[actionId][0];
+  const usedKeys = new Set();
+  for (const actionId of ["meaning", "tabPrevious", "tabNext", "previous", "next", "favorite"]) {
+    if (usedKeys.has(normalized[actionId])) {
+      normalized[actionId] = fallbackKeys[actionId].find((key) => !usedKeys.has(key)) || fallbackKeys[actionId][0];
+    }
+    usedKeys.add(normalized[actionId]);
   }
   return normalized;
 }
@@ -2395,6 +2406,14 @@ export default function App() {
     setStored((current) => ({ ...current, meaningsHidden: !current.meaningsHidden }));
   }, []);
 
+  const moveDetailTab = useCallback((direction) => {
+    setDetailTab((current) => {
+      const currentIndex = Math.max(0, DETAIL_TABS.indexOf(current));
+      const nextIndex = (currentIndex + direction + DETAIL_TABS.length) % DETAIL_TABS.length;
+      return DETAIL_TABS[nextIndex];
+    });
+  }, []);
+
   useEffect(() => {
     const handleKeyboardShortcut = (event) => {
       if (page !== "words" || event.ctrlKey || event.metaKey || event.altKey || document.getElementById("chapter-jump-menu")) return;
@@ -2410,13 +2429,15 @@ export default function App() {
       event.stopImmediatePropagation();
       if (actionId === "previous") moveWordSelection(-1);
       else if (actionId === "next") moveWordSelection(1);
+      else if (actionId === "tabPrevious") moveDetailTab(-1);
+      else if (actionId === "tabNext") moveDetailTab(1);
       else if (actionId === "favorite" && !event.repeat && selectedWord?.id) toggleFavorite(selectedWord.id);
       else if (actionId === "meaning" && !event.repeat) toggleMeanings();
     };
 
     window.addEventListener("keydown", handleKeyboardShortcut, true);
     return () => window.removeEventListener("keydown", handleKeyboardShortcut, true);
-  }, [moveWordSelection, page, selectedWord?.id, stored.shortcutKeys, toggleFavorite, toggleMeanings]);
+  }, [moveDetailTab, moveWordSelection, page, selectedWord?.id, stored.shortcutKeys, toggleFavorite, toggleMeanings]);
 
   const openDetail = useCallback((id) => {
     setSelectedId(id);
