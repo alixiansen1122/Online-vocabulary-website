@@ -9,12 +9,17 @@ import {
   BarChart3,
   BookOpen,
   Clock,
+  Cloud,
+  CloudOff,
   Download,
   Eye,
   EyeOff,
   FileUp,
   Keyboard,
   ListPlus,
+  LoaderCircle,
+  LogOut,
+  RefreshCw,
   RotateCcw,
   Search,
   Star,
@@ -34,6 +39,8 @@ import exampleAdditions from "./data/example-additions.json";
 import { speakNavigationWord, speakWord } from "./offlineTts";
 
 const STORAGE_KEY = "offline_vocab_reader_v1";
+const CLOUD_DIRTY_KEY = "offline_vocab_reader_cloud_dirty_v1";
+const CLOUD_SYNC_DELAY = 900;
 const BACKUP_FORMAT = "word-memory-web-backup";
 const BACKUP_VERSION = 1;
 const DEFAULT_SHORTCUT_KEYS = Object.freeze({
@@ -727,6 +734,28 @@ function normalizeBackupState(value) {
     accent: VOICE_OPTIONS[value.accent] ? value.accent : defaults.accent,
     activeBookId: typeof value.activeBookId === "string" ? value.activeBookId : defaults.activeBookId,
     shortcutKeys: normalizeShortcutKeys(value.shortcutKeys),
+  };
+}
+
+function mergeStoredStates(cloudValue, localValue) {
+  const cloud = normalizeBackupState(cloudValue);
+  const local = normalizeBackupState(localValue);
+  const viewed = { ...cloud.viewed };
+  Object.entries(local.viewed).forEach(([wordId, timestamp]) => {
+    if (!viewed[wordId] || Number(timestamp) > Number(viewed[wordId])) viewed[wordId] = timestamp;
+  });
+  const customBooks = new Map(cloud.customBooks.map((book) => [book.id, book]));
+  local.customBooks.forEach((book) => customBooks.set(book.id, book));
+
+  return {
+    ...cloud,
+    ...local,
+    favorites: Array.from(new Set([...cloud.favorites, ...local.favorites])),
+    viewed,
+    notes: { ...cloud.notes, ...local.notes },
+    customBooks: Array.from(customBooks.values()),
+    searchHistory: Array.from(new Set([...local.searchHistory, ...cloud.searchHistory])).slice(0, 30),
+    meaningsHidden: true,
   };
 }
 
@@ -1841,6 +1870,11 @@ function DashboardPage({
   shortcutKeys,
   onChangeShortcut,
   onResetShortcuts,
+  currentUser,
+  signOutPath,
+  syncStatus,
+  syncMessage,
+  onRetrySync,
 }) {
   const [bookChooserOpen, setBookChooserOpen] = useState(false);
   const [importing, setImporting] = useState(false);
@@ -1898,6 +1932,54 @@ function DashboardPage({
       </header>
 
       <section className="mx-auto max-w-3xl px-4 sm:px-5">
+        <div className="mb-4 rounded-lg border border-slate-100 bg-white p-4 shadow-sm sm:p-5">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div className="flex min-w-0 items-center gap-3">
+              <span className={`inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg ${
+                syncStatus === "offline" || syncStatus === "error"
+                  ? "bg-amber-50 text-amber-600"
+                  : "bg-emerald-50 text-emerald-600"
+              }`}>
+                {syncStatus === "loading" || syncStatus === "syncing" ? (
+                  <LoaderCircle className="h-5 w-5 animate-spin" />
+                ) : syncStatus === "offline" || syncStatus === "error" ? (
+                  <CloudOff className="h-5 w-5" />
+                ) : (
+                  <Cloud className="h-5 w-5" />
+                )}
+              </span>
+              <div className="min-w-0">
+                <h2 className="truncate text-base font-bold sm:text-lg">{currentUser?.displayName || "ChatGPT 用户"}</h2>
+                <p className="truncate text-xs font-semibold text-slate-400 sm:text-sm">{currentUser?.email}</p>
+                <p className={`mt-1 text-xs font-bold ${
+                  syncStatus === "offline" || syncStatus === "error" ? "text-amber-600" : "text-emerald-600"
+                }`} aria-live="polite">
+                  {syncMessage}
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              {(syncStatus === "offline" || syncStatus === "error") && (
+                <button
+                  type="button"
+                  onClick={onRetrySync}
+                  className="inline-flex items-center gap-1.5 rounded-md bg-slate-100 px-3 py-2 text-xs font-bold text-slate-700 transition hover:bg-slate-200 sm:text-sm"
+                >
+                  <RefreshCw className="h-4 w-4" />
+                  重试
+                </button>
+              )}
+              <a
+                href={signOutPath}
+                className="inline-flex items-center gap-1.5 rounded-md bg-slate-950 px-3 py-2 text-xs font-bold text-white transition hover:bg-slate-800 sm:text-sm"
+              >
+                <LogOut className="h-4 w-4" />
+                退出
+              </a>
+            </div>
+          </div>
+        </div>
+
         <div className="rounded-lg border border-slate-100 bg-white p-4 shadow-sm sm:p-5">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div className="flex items-start gap-3">
@@ -2309,8 +2391,18 @@ function DetailSheet({ word, favorite, accent, meaningsHidden, spellingSeparated
   );
 }
 
-export default function App() {
+export default function App({ currentUser, signOutPath = "/signout-with-chatgpt?return_to=%2F" }) {
   const [stored, setStored] = useState(loadState);
+  const [cloudReady, setCloudReady] = useState(false);
+  const [syncStatus, setSyncStatus] = useState("loading");
+  const [syncMessage, setSyncMessage] = useState("正在读取云端数据…");
+  const storedRef = useRef(stored);
+  const cloudReadyRef = useRef(false);
+  const syncInFlightRef = useRef(false);
+  const syncDirtyRef = useRef(false);
+  const syncTimerRef = useRef(null);
+  const cloudVersionRef = useRef(0);
+  const cloudBooksSnapshotRef = useRef("");
   const [selectedId, setSelectedId] = useState(ALL_WORDS[0].id);
   const [detailId, setDetailId] = useState(null);
   const [detailTab, setDetailTab] = useState(DEFAULT_DETAIL_TAB);
@@ -2336,10 +2428,133 @@ export default function App() {
     () => new Map(activeBook.words.map((word, index) => [word.id, index])),
     [activeBook.words],
   );
-  const selectedWordIndex = activeWordIndexById.get(selectedId);
+  const effectiveSelectedId = activeWordIndexById.has(selectedId) ? selectedId : activeBook.words[0]?.id;
+  const selectedWordIndex = activeWordIndexById.get(effectiveSelectedId);
   const selectedWord = selectedWordIndex === undefined ? undefined : activeBook.words[selectedWordIndex];
   const detailWord = useMemo(() => wordById.get(detailId), [detailId, wordById]);
   const favoriteSet = useMemo(() => new Set(stored.favorites), [stored.favorites]);
+
+  useEffect(() => {
+    storedRef.current = stored;
+  }, [stored]);
+
+  const flushCloudState = useCallback(async () => {
+    if (!cloudReadyRef.current || syncInFlightRef.current || !syncDirtyRef.current) return;
+    syncInFlightRef.current = true;
+    try {
+      while (syncDirtyRef.current) {
+        syncDirtyRef.current = false;
+        setSyncStatus("syncing");
+        setSyncMessage("正在同步到云端…");
+        const snapshot = storedRef.current;
+        const customBooks = Array.isArray(snapshot.customBooks) ? snapshot.customBooks : [];
+        const booksSnapshot = JSON.stringify(customBooks);
+        const syncBooks = booksSnapshot !== cloudBooksSnapshotRef.current;
+        const stateWithoutBooks = { ...snapshot };
+        delete stateWithoutBooks.customBooks;
+        const response = await fetch("/api/state", {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            state: stateWithoutBooks,
+            customBooks: syncBooks ? customBooks : undefined,
+            syncBooks,
+            version: cloudVersionRef.current,
+          }),
+        });
+        const result = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(result.error || "云端同步失败");
+        cloudVersionRef.current = Number(result.version || cloudVersionRef.current + 1);
+        if (syncBooks) cloudBooksSnapshotRef.current = booksSnapshot;
+      }
+      localStorage.removeItem(CLOUD_DIRTY_KEY);
+      setSyncStatus("saved");
+      setSyncMessage("所有学习数据已保存到云端");
+    } catch (error) {
+      syncDirtyRef.current = true;
+      localStorage.setItem(CLOUD_DIRTY_KEY, "1");
+      const offline = typeof navigator !== "undefined" && !navigator.onLine;
+      setSyncStatus(offline ? "offline" : "error");
+      setSyncMessage(offline ? "当前离线，恢复网络后会自动同步" : (error instanceof Error ? error.message : "云端同步失败"));
+    } finally {
+      syncInFlightRef.current = false;
+    }
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+    const hydrate = async () => {
+      try {
+        const response = await fetch("/api/state", { cache: "no-store" });
+        const result = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(result.error || "云端数据读取失败");
+        if (cancelled) return;
+
+        cloudVersionRef.current = Number(result.version || 0);
+        const localState = storedRef.current;
+        const hasUnsyncedLocalChanges = localStorage.getItem(CLOUD_DIRTY_KEY) === "1";
+        if (result.hasState && result.state) {
+          const cloudState = normalizeBackupState(result.state);
+          cloudBooksSnapshotRef.current = JSON.stringify(cloudState.customBooks);
+          const nextState = hasUnsyncedLocalChanges ? mergeStoredStates(cloudState, localState) : cloudState;
+          storedRef.current = nextState;
+          setStored(nextState);
+          syncDirtyRef.current = hasUnsyncedLocalChanges;
+        } else {
+          syncDirtyRef.current = true;
+          setSyncMessage("正在上传本机学习数据…");
+        }
+
+        cloudReadyRef.current = true;
+        setCloudReady(true);
+        if (syncDirtyRef.current) await flushCloudState();
+        else {
+          setSyncStatus("saved");
+          setSyncMessage("云端数据已加载");
+        }
+      } catch (error) {
+        if (cancelled) return;
+        cloudReadyRef.current = true;
+        setCloudReady(true);
+        syncDirtyRef.current = true;
+        localStorage.setItem(CLOUD_DIRTY_KEY, "1");
+        const offline = typeof navigator !== "undefined" && !navigator.onLine;
+        setSyncStatus(offline ? "offline" : "error");
+        setSyncMessage(offline ? "当前离线，正在使用本机缓存" : (error instanceof Error ? error.message : "云端数据读取失败"));
+      }
+    };
+    hydrate();
+    return () => {
+      cancelled = true;
+    };
+  }, [flushCloudState]);
+
+  useEffect(() => {
+    if (!cloudReady) return undefined;
+    syncDirtyRef.current = true;
+    localStorage.setItem(CLOUD_DIRTY_KEY, "1");
+    window.clearTimeout(syncTimerRef.current);
+    syncTimerRef.current = window.setTimeout(flushCloudState, CLOUD_SYNC_DELAY);
+    return () => window.clearTimeout(syncTimerRef.current);
+  }, [cloudReady, flushCloudState, stored]);
+
+  useEffect(() => {
+    const retry = () => {
+      if (!cloudReadyRef.current) return;
+      syncDirtyRef.current = true;
+      flushCloudState();
+    };
+    const markOffline = () => {
+      setSyncStatus("offline");
+      setSyncMessage("当前离线，恢复网络后会自动同步");
+    };
+    window.addEventListener("online", retry);
+    window.addEventListener("offline", markOffline);
+    return () => {
+      window.removeEventListener("online", retry);
+      window.removeEventListener("offline", markOffline);
+    };
+  }, [flushCloudState]);
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
@@ -2568,6 +2783,11 @@ export default function App() {
               shortcutKeys={stored.shortcutKeys}
               onChangeShortcut={changeShortcut}
               onResetShortcuts={resetShortcuts}
+              currentUser={currentUser}
+              signOutPath={signOutPath}
+              syncStatus={syncStatus}
+              syncMessage={syncMessage}
+              onRetrySync={flushCloudState}
             />
           ) : page === "search" ? (
             <SearchPage

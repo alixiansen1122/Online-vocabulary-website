@@ -11,11 +11,13 @@
     "enrich:bbdc": "node scripts/enrich-bbdc-details.mjs",
     "import:bbdc": "node scripts/import-bbdc-pdf.mjs",
     "lint": "eslint .",
+    "db:generate": "drizzle-kit generate",
     "portable": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build-portable.ps1",
     "preview": "vite preview"
   },
   "dependencies": {
     "@tanstack/react-virtual": "^3.14.9",
+    "drizzle-orm": "^0.45.2",
     "framer-motion": "^12.40.0",
     "hyphenation.en-us": "^0.2.1",
     "hypher": "^0.2.5",
@@ -37,6 +39,7 @@
     "@vitejs/plugin-react": "^6.0.1",
     "@vitejs/plugin-rsc": "0.5.26",
     "autoprefixer": "^10.5.0",
+    "drizzle-kit": "^0.31.10",
     "eslint": "^10.3.0",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.2",
