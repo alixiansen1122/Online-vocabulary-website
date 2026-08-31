@@ -105,6 +105,10 @@ export async function GET() {
     state,
     version: Number(stateRow?.version || 0),
     updatedAt: stateRow?.updated_at || null,
+    user: {
+      displayName: user.displayName,
+      email: user.email,
+    },
   });
 }
 

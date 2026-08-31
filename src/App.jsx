@@ -2391,8 +2391,9 @@ function DetailSheet({ word, favorite, accent, meaningsHidden, spellingSeparated
   );
 }
 
-export default function App({ currentUser, signOutPath = "/signout-with-chatgpt?return_to=%2F" }) {
+export default function App({ currentUser: initialCurrentUser = null, signOutPath = "/signout-with-chatgpt?return_to=%2F" }) {
   const [stored, setStored] = useState(loadState);
+  const [accountUser, setAccountUser] = useState(initialCurrentUser);
   const [cloudReady, setCloudReady] = useState(false);
   const [syncStatus, setSyncStatus] = useState("loading");
   const [syncMessage, setSyncMessage] = useState("正在读取云端数据…");
@@ -2487,9 +2488,14 @@ export default function App({ currentUser, signOutPath = "/signout-with-chatgpt?
       try {
         const response = await fetch("/api/state", { cache: "no-store" });
         const result = await response.json().catch(() => ({}));
+        if (response.status === 401) {
+          window.location.replace("/signin-with-chatgpt?return_to=%2F");
+          return;
+        }
         if (!response.ok) throw new Error(result.error || "云端数据读取失败");
         if (cancelled) return;
 
+        setAccountUser(result.user || initialCurrentUser);
         cloudVersionRef.current = Number(result.version || 0);
         const localState = storedRef.current;
         const hasUnsyncedLocalChanges = localStorage.getItem(CLOUD_DIRTY_KEY) === "1";
@@ -2527,7 +2533,7 @@ export default function App({ currentUser, signOutPath = "/signout-with-chatgpt?
     return () => {
       cancelled = true;
     };
-  }, [flushCloudState]);
+  }, [flushCloudState, initialCurrentUser]);
 
   useEffect(() => {
     if (!cloudReady) return undefined;
@@ -2783,7 +2789,7 @@ export default function App({ currentUser, signOutPath = "/signout-with-chatgpt?
               shortcutKeys={stored.shortcutKeys}
               onChangeShortcut={changeShortcut}
               onResetShortcuts={resetShortcuts}
-              currentUser={currentUser}
+              currentUser={accountUser}
               signOutPath={signOutPath}
               syncStatus={syncStatus}
               syncMessage={syncMessage}
