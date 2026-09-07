@@ -183,9 +183,10 @@ const BOOK_TITLE = bbdcBook.title || "IELTS Vocabulary";
 const BOOK_TOTAL = bbdcBook.declaredTotal || CHAPTERS.reduce((total, chapter) => total + chapter.words.length, 0);
 const NOTE_TAB = "\u7b14\u8bb0";
 const EXAMPLE_TAB = "\u4f8b\u53e5";
+const MNEMONIC_TAB = "便记";
 const AFFIX_TAB = "词缀";
 const DEFAULT_DETAIL_TAB = EXAMPLE_TAB;
-const DETAIL_TABS = [EXAMPLE_TAB, "\u6d3e\u751f", AFFIX_TAB, "\u8fd1\u4e49", NOTE_TAB];
+const DETAIL_TABS = [EXAMPLE_TAB, MNEMONIC_TAB, "\u6d3e\u751f", AFFIX_TAB, "\u8fd1\u4e49", NOTE_TAB];
 const VOICE_OPTIONS = {
   us: { label: "\u7f8e", lang: "en-US" },
   uk: { label: "\u82f1", lang: "en-GB" },
@@ -1268,6 +1269,90 @@ function getSynonymDetail(item) {
   };
 }
 
+function mnemonicCoreMeaning(word) {
+  const meanings = String(word.meaning || "")
+    .replace(/【[^】]*】/g, "")
+    .split(/[；;]/)
+    .map((item) => item.trim())
+    .filter(Boolean)
+    .slice(0, 2);
+  return meanings.join("；") || "当前词义";
+}
+
+function mnemonicFor(word) {
+  const term = String(word.term || "").trim();
+  const meaning = mnemonicCoreMeaning(word);
+  const explicitRoots = (word.roots || []).filter((root) => root?.part && root?.note);
+  const detectedRoots = detectAffixes(term).filter((root) => root?.part && root?.note);
+  const roots = explicitRoots.length > 0 ? explicitRoots : detectedRoots;
+
+  if (roots.length > 0) {
+    const pieces = roots.map((root) => root.part.replace(/^-|-$/g, ""));
+    const clues = roots.map((root) => root.note.replace(/^(?:前缀|后缀|词根|后缀\/词根|前缀\/词根)：?/, ""));
+    return {
+      kind: "构词联想",
+      pieces,
+      formula: roots.map((root) => `${root.part}（${root.note.replace(/^.*?：/, "")}）`).join(" + "),
+      tip: `把“${clues.join(" + ")}”的画面合在一起，联想到“${meaning}”。`,
+      recall: `遮住单词，只看“${meaning}”，先回想 ${pieces.join("、")}，再把它们拼成 ${term}。`,
+    };
+  }
+
+  const pieces = splitTerm(word)
+    .map((piece) => piece.trim())
+    .filter((piece) => /[a-z]/i.test(piece));
+
+  if (pieces.length > 1) {
+    return {
+      kind: /\s|-|\//.test(term) ? "词块联想" : "音节联想",
+      pieces,
+      formula: pieces.join(" · "),
+      tip: `按“${pieces.join("—")}”的节奏读写，把整串声音和“${meaning}”绑在一起。`,
+      recall: `看到“${meaning}”时，先按 ${pieces.length} 个节拍读出来，再连续拼写 ${term}。`,
+    };
+  }
+
+  const letters = [...term].filter((letter) => /[a-z]/i.test(letter));
+  const head = letters.slice(0, Math.min(3, Math.ceil(letters.length / 2))).join("");
+  const tail = letters.slice(-Math.min(3, Math.floor(letters.length / 2))).join("");
+  return {
+    kind: "首尾定位",
+    pieces: [head, tail].filter(Boolean),
+    formula: `${head} … ${tail}`,
+    tip: `先钉住开头“${head}”和结尾“${tail}”，再用“${meaning}”补回中间字母。`,
+    recall: `看一眼“${meaning}”，先写首尾定位点，再一次补全 ${term}。`,
+  };
+}
+
+function MnemonicContent({ word }) {
+  const mnemonic = mnemonicFor(word);
+  return (
+    <div className="space-y-3 sm:space-y-4">
+      <div className="rounded-xl border border-orange-100 bg-orange-50/70 p-4 sm:p-5">
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="rounded-full bg-orange-500 px-2.5 py-1 text-xs font-bold text-white">{mnemonic.kind}</span>
+          <span className="text-sm font-semibold text-slate-500">{word.pos} {mnemonicCoreMeaning(word)}</span>
+        </div>
+        <div className="mt-4 flex flex-wrap items-center gap-2" aria-label={`记忆拆分：${mnemonic.formula}`}>
+          {mnemonic.pieces.map((piece, index) => (
+            <span key={`${piece}-${index}`} className="inline-flex items-center gap-2">
+              {index > 0 && <span className="font-bold text-orange-300">+</span>}
+              <span className="rounded-lg bg-white px-3 py-1.5 font-mono text-base font-extrabold text-orange-600 shadow-sm sm:text-lg">
+                {piece}
+              </span>
+            </span>
+          ))}
+        </div>
+        <p className="mt-4 text-base leading-7 text-slate-800 sm:text-lg sm:leading-8">{mnemonic.tip}</p>
+      </div>
+      <div className="rounded-xl bg-slate-50 px-4 py-3 sm:px-5 sm:py-4">
+        <p className="text-xs font-bold tracking-wide text-slate-400">回想一下</p>
+        <p className="mt-1 text-sm leading-6 text-slate-700 sm:text-base sm:leading-7">{mnemonic.recall}</p>
+      </div>
+    </div>
+  );
+}
+
 function DetailContent({ tab, word, note, onChangeNote }) {
   if (tab === NOTE_TAB) {
     return (
@@ -1285,6 +1370,10 @@ function DetailContent({ tab, word, note, onChangeNote }) {
 
   if (tab === EXAMPLE_TAB) {
     return <ExampleContent word={word} />;
+  }
+
+  if (tab === MNEMONIC_TAB) {
+    return <MnemonicContent word={word} />;
   }
 
   if (tab === "\u6d3e\u751f") {
