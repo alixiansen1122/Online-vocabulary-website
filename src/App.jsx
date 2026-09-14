@@ -1084,7 +1084,7 @@ function HighlightedTerm({ text, term }) {
   );
 }
 
-function ExampleContent({ word }) {
+function ExampleContent({ word, accent }) {
   const localExamples = useMemo(() => staticBilingualExamples(word), [word]);
   const [lookup, setLookup] = useState({ term: word.term, loading: true, examples: [] });
 
@@ -1145,10 +1145,21 @@ function ExampleContent({ word }) {
     <div className="space-y-3">
       {examples.map((example, index) => (
         <div key={`${example.en}-${index}`} className="rounded-xl border border-slate-100 bg-slate-50/80 px-3.5 py-3 sm:px-4 sm:py-3.5">
-          <p className="text-sm leading-7 text-slate-800 sm:text-base">
-            <span className="mr-2 text-xs font-bold tabular-nums text-slate-300">{index + 1}</span>
-            <HighlightedTerm text={example.en} term={word.term} />
-          </p>
+          <div className="flex items-start gap-2">
+            <p className="min-w-0 flex-1 text-sm leading-7 text-slate-800 sm:text-base">
+              <span className="mr-2 text-xs font-bold tabular-nums text-slate-300">{index + 1}</span>
+              <HighlightedTerm text={example.en} term={word.term} />
+            </p>
+            <button
+              type="button"
+              aria-label={`朗读例句 ${index + 1}`}
+              title="朗读例句"
+              onClick={() => speakWord(example.en, accent)}
+              className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-slate-400 transition hover:bg-white hover:text-orange-500 active:scale-95"
+            >
+              <Volume2 className="h-4 w-4" />
+            </button>
+          </div>
           <p className="mt-1 pl-5 text-sm leading-6 text-slate-500 sm:text-[15px] sm:leading-7">
             {example.zh}
           </p>
@@ -1268,7 +1279,7 @@ function getSynonymDetail(item) {
   };
 }
 
-function DetailContent({ tab, word, note, onChangeNote }) {
+function DetailContent({ tab, word, note, accent, onChangeNote }) {
   if (tab === NOTE_TAB) {
     return (
       <div>
@@ -1284,7 +1295,7 @@ function DetailContent({ tab, word, note, onChangeNote }) {
   }
 
   if (tab === EXAMPLE_TAB) {
-    return <ExampleContent word={word} />;
+    return <ExampleContent word={word} accent={accent} />;
   }
 
   if (tab === "\u6d3e\u751f") {
@@ -2347,7 +2358,7 @@ function DetailPane({
       </div>
 
       <div className="pt-4 sm:pt-6">
-        <DetailContent tab={tab} word={word} note={note} onChangeNote={onChangeNote} />
+        <DetailContent tab={tab} word={word} note={note} accent={accent} onChangeNote={onChangeNote} />
       </div>
     </div>
   );
