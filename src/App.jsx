@@ -43,6 +43,9 @@ const CLOUD_DIRTY_KEY = "offline_vocab_reader_cloud_dirty_v1";
 const CLOUD_SYNC_DELAY = 900;
 const BACKUP_FORMAT = "word-memory-web-backup";
 const BACKUP_VERSION = 1;
+const DEFAULT_SENTENCE_RATE = 1;
+const MIN_SENTENCE_RATE = 0.6;
+const MAX_SENTENCE_RATE = 1.6;
 const DEFAULT_SHORTCUT_KEYS = Object.freeze({
   previous: "ArrowUp",
   next: "ArrowDown",
@@ -51,6 +54,9 @@ const DEFAULT_SHORTCUT_KEYS = Object.freeze({
   spellingMode: "_",
   favorite: "f",
   meaning: " ",
+  examplePrevious: "<",
+  exampleNext: ">",
+  exampleRepeat: "?",
 });
 const SHORTCUT_ACTIONS = [
   { id: "previous", label: "上一个单词", description: "向上切换" },
@@ -60,6 +66,9 @@ const SHORTCUT_ACTIONS = [
   { id: "spellingMode", label: "切换拼写分隔", description: "切换分隔与连续字母显示" },
   { id: "favorite", label: "收藏 / 取消收藏", description: "切换当前单词收藏状态" },
   { id: "meaning", label: "显示 / 隐藏释义", description: "切换当前单词中文意思" },
+  { id: "examplePrevious", label: "朗读上一个例句", description: "首条例句向前循环到最后一条" },
+  { id: "exampleNext", label: "朗读下一个例句", description: "首次按键从第一条例句开始" },
+  { id: "exampleRepeat", label: "重复当前例句", description: "尚未播放时从第一条例句开始" },
 ];
 const BLOCKED_SHORTCUT_KEYS = new Set(["Control", "Shift", "Alt", "Meta", "OS", "CapsLock", "Tab", "Escape"]);
 
@@ -67,7 +76,16 @@ function canonicalShortcutKey(value) {
   const key = String(value || "");
   if (key === "Spacebar") return " ";
   if (key === "-") return "_";
+  if (key === "《") return "<";
+  if (key === "》") return ">";
+  if (key === "？") return "?";
   return key.length === 1 ? key.toLowerCase() : key;
+}
+
+function normalizeSentenceRate(value) {
+  const rate = Number(value);
+  if (!Number.isFinite(rate)) return DEFAULT_SENTENCE_RATE;
+  return Math.round(Math.min(MAX_SENTENCE_RATE, Math.max(MIN_SENTENCE_RATE, rate)) * 10) / 10;
 }
 
 function normalizeShortcutKey(value, fallback) {
@@ -86,6 +104,9 @@ function normalizeShortcutKeys(value) {
     spellingMode: normalizeShortcutKey(source.spellingMode, DEFAULT_SHORTCUT_KEYS.spellingMode),
     favorite: normalizeShortcutKey(source.favorite, DEFAULT_SHORTCUT_KEYS.favorite),
     meaning: normalizeShortcutKey(source.meaning, DEFAULT_SHORTCUT_KEYS.meaning),
+    examplePrevious: normalizeShortcutKey(source.examplePrevious, DEFAULT_SHORTCUT_KEYS.examplePrevious),
+    exampleNext: normalizeShortcutKey(source.exampleNext, DEFAULT_SHORTCUT_KEYS.exampleNext),
+    exampleRepeat: normalizeShortcutKey(source.exampleRepeat, DEFAULT_SHORTCUT_KEYS.exampleRepeat),
   };
   const fallbackKeys = {
     meaning: [DEFAULT_SHORTCUT_KEYS.meaning, "m"],
@@ -95,9 +116,12 @@ function normalizeShortcutKeys(value) {
     previous: [DEFAULT_SHORTCUT_KEYS.previous, "p"],
     next: [DEFAULT_SHORTCUT_KEYS.next, "n"],
     favorite: [DEFAULT_SHORTCUT_KEYS.favorite, "v"],
+    examplePrevious: [DEFAULT_SHORTCUT_KEYS.examplePrevious, "{"],
+    exampleNext: [DEFAULT_SHORTCUT_KEYS.exampleNext, "}"],
+    exampleRepeat: [DEFAULT_SHORTCUT_KEYS.exampleRepeat, ";"],
   };
   const usedKeys = new Set();
-  for (const actionId of ["meaning", "tabPrevious", "tabNext", "spellingMode", "previous", "next", "favorite"]) {
+  for (const actionId of ["meaning", "tabPrevious", "tabNext", "spellingMode", "previous", "next", "favorite", "examplePrevious", "exampleNext", "exampleRepeat"]) {
     if (usedKeys.has(normalized[actionId])) {
       normalized[actionId] = fallbackKeys[actionId].find((key) => !usedKeys.has(key)) || fallbackKeys[actionId][0];
     }
@@ -116,6 +140,9 @@ function shortcutKeyLabel(value) {
     Enter: "回车",
     Backspace: "退格",
     Delete: "删除",
+    "<": "《",
+    ">": "》",
+    "?": "?",
   };
   const key = canonicalShortcutKey(value);
   return labels[key] || (key.length === 1 ? key.toUpperCase() : key);
@@ -689,6 +716,7 @@ function defaultState() {
     meaningsHidden: true,
     spellingSeparated: true,
     accent: "us",
+    sentenceRate: DEFAULT_SENTENCE_RATE,
     activeBookId: MAIN_BOOK_ID,
     searchHistory: [],
     shortcutKeys: { ...DEFAULT_SHORTCUT_KEYS },
@@ -706,6 +734,7 @@ function loadState() {
       meaningsHidden: true,
       spellingSeparated: parsed.spellingSeparated !== false,
       accent: VOICE_OPTIONS[parsed.accent] ? parsed.accent : "us",
+      sentenceRate: normalizeSentenceRate(parsed.sentenceRate),
       shortcutKeys: normalizeShortcutKeys(parsed.shortcutKeys),
     };
   } catch {
@@ -732,6 +761,7 @@ function normalizeBackupState(value) {
     meaningsHidden: true,
     spellingSeparated: value.spellingSeparated !== false,
     accent: VOICE_OPTIONS[value.accent] ? value.accent : defaults.accent,
+    sentenceRate: normalizeSentenceRate(value.sentenceRate),
     activeBookId: typeof value.activeBookId === "string" ? value.activeBookId : defaults.activeBookId,
     shortcutKeys: normalizeShortcutKeys(value.shortcutKeys),
   };
@@ -1065,6 +1095,15 @@ function loadCorpusExamples(term, signal) {
     });
 }
 
+async function examplesForPlayback(word) {
+  const localExamples = staticBilingualExamples(word);
+  const cacheKey = String(word.term || "").trim().toLowerCase();
+  const remoteExamples = exampleLookupCache.has(cacheKey)
+    ? exampleLookupCache.get(cacheKey)
+    : await loadCorpusExamples(word.term);
+  return mergeBilingualExamples(remoteExamples || [], localExamples);
+}
+
 function HighlightedTerm({ text, term }) {
   const source = String(text || "");
   const target = String(term || "").trim();
@@ -1084,7 +1123,7 @@ function HighlightedTerm({ text, term }) {
   );
 }
 
-function ExampleContent({ word, accent }) {
+function ExampleContent({ word, onPlayExample }) {
   const localExamples = useMemo(() => staticBilingualExamples(word), [word]);
   const [lookup, setLookup] = useState({ term: word.term, loading: true, examples: [] });
 
@@ -1154,7 +1193,7 @@ function ExampleContent({ word, accent }) {
               type="button"
               aria-label={`朗读例句 ${index + 1}`}
               title="朗读例句"
-              onClick={() => speakWord(example.en, accent)}
+              onClick={() => onPlayExample(word, examples, index)}
               className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-slate-400 transition hover:bg-white hover:text-orange-500 active:scale-95"
             >
               <Volume2 className="h-4 w-4" />
@@ -1279,7 +1318,7 @@ function getSynonymDetail(item) {
   };
 }
 
-function DetailContent({ tab, word, note, accent, onChangeNote }) {
+function DetailContent({ tab, word, note, onPlayExample, onChangeNote }) {
   if (tab === NOTE_TAB) {
     return (
       <div>
@@ -1295,7 +1334,7 @@ function DetailContent({ tab, word, note, accent, onChangeNote }) {
   }
 
   if (tab === EXAMPLE_TAB) {
-    return <ExampleContent word={word} accent={accent} />;
+    return <ExampleContent word={word} onPlayExample={onPlayExample} />;
   }
 
   if (tab === "\u6d3e\u751f") {
@@ -1878,6 +1917,8 @@ function DashboardPage({
   onImportBook,
   onExportData,
   onImportData,
+  sentenceRate,
+  onChangeSentenceRate,
   shortcutKeys,
   onChangeShortcut,
   onResetShortcuts,
@@ -1988,6 +2029,37 @@ function DashboardPage({
                 退出
               </a>
             </div>
+          </div>
+        </div>
+
+        <div className="mb-4 rounded-lg border border-slate-100 bg-white p-4 shadow-sm sm:p-5">
+          <div className="flex items-center justify-between gap-4">
+            <div className="flex min-w-0 items-center gap-3">
+              <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-orange-50 text-orange-600">
+                <Volume2 className="h-5 w-5" />
+              </span>
+              <div>
+                <h2 className="text-base font-bold sm:text-lg">例句朗读速度</h2>
+                <p className="mt-0.5 text-xs font-semibold text-slate-400 sm:text-sm">仅调整例句，不影响单词发音</p>
+              </div>
+            </div>
+            <span className="shrink-0 rounded-full bg-orange-50 px-3 py-1.5 text-sm font-extrabold tabular-nums text-orange-600">
+              {sentenceRate.toFixed(1)}×
+            </span>
+          </div>
+          <div className="mt-4 flex items-center gap-3">
+            <span className="text-xs font-bold text-slate-400">慢</span>
+            <input
+              type="range"
+              min={MIN_SENTENCE_RATE}
+              max={MAX_SENTENCE_RATE}
+              step="0.1"
+              value={sentenceRate}
+              onChange={(event) => onChangeSentenceRate(event.target.value)}
+              aria-label="例句朗读速度"
+              className="h-2 min-w-0 flex-1 cursor-pointer accent-orange-500"
+            />
+            <span className="text-xs font-bold text-slate-400">快</span>
           </div>
         </div>
 
@@ -2271,6 +2343,7 @@ function DetailPane({
   onChangeNote,
   onClose,
   onToggleFavorite,
+  onPlayExample,
   showClose = false,
   keyboardMode = "desktop",
   layoutId,
@@ -2358,13 +2431,13 @@ function DetailPane({
       </div>
 
       <div className="pt-4 sm:pt-6">
-        <DetailContent tab={tab} word={word} note={note} accent={accent} onChangeNote={onChangeNote} />
+        <DetailContent tab={tab} word={word} note={note} onPlayExample={onPlayExample} onChangeNote={onChangeNote} />
       </div>
     </div>
   );
 }
 
-function DetailSheet({ word, favorite, accent, meaningsHidden, spellingSeparated, tab, note, onTabChange, onChangeNote, onClose, onToggleFavorite }) {
+function DetailSheet({ word, favorite, accent, meaningsHidden, spellingSeparated, tab, note, onTabChange, onChangeNote, onClose, onToggleFavorite, onPlayExample }) {
   return (
     <AnimatePresence>
       {word && (
@@ -2390,6 +2463,7 @@ function DetailSheet({ word, favorite, accent, meaningsHidden, spellingSeparated
               onChangeNote={onChangeNote}
               onClose={onClose}
               onToggleFavorite={onToggleFavorite}
+              onPlayExample={onPlayExample}
               showClose
               keyboardMode="mobile"
               layoutId="active-detail-tab-mobile"
@@ -2421,6 +2495,8 @@ export default function App({ currentUser: initialCurrentUser = null, signOutPat
   const [search, setSearch] = useState("");
   const [page, setPage] = useState("words");
   const [pendingScrollId, setPendingScrollId] = useState(null);
+  const examplePlaybackRef = useRef({ wordId: null, index: -1, examples: [] });
+  const exampleRequestRef = useRef(0);
 
   const wordBooks = useMemo(() => buildWordBooks(stored.favorites, stored.customBooks), [stored.favorites, stored.customBooks]);
   const activeBook = useMemo(
@@ -2661,6 +2737,39 @@ export default function App({ currentUser: initialCurrentUser = null, signOutPat
   }, []);
 
   useEffect(() => {
+    exampleRequestRef.current += 1;
+    examplePlaybackRef.current = { wordId: selectedWord?.id || null, index: -1, examples: [] };
+  }, [selectedWord?.id]);
+
+  const playExampleAtIndex = useCallback((word, examples, index) => {
+    if (!word || !Array.isArray(examples) || examples.length === 0) return;
+    const safeIndex = Math.min(examples.length - 1, Math.max(0, Number(index) || 0));
+    const example = examples[safeIndex];
+    if (!example?.en) return;
+    examplePlaybackRef.current = { wordId: word.id, index: safeIndex, examples };
+    speakWord(example.en, stored.accent, { rate: stored.sentenceRate });
+  }, [stored.accent, stored.sentenceRate]);
+
+  const playExampleShortcut = useCallback(async (direction) => {
+    if (!selectedWord) return;
+    const requestId = ++exampleRequestRef.current;
+    const examples = await examplesForPlayback(selectedWord);
+    if (requestId !== exampleRequestRef.current || examples.length === 0) return;
+
+    const current = examplePlaybackRef.current;
+    const hasCurrent = current.wordId === selectedWord.id
+      && current.index >= 0
+      && current.index < examples.length;
+    let nextIndex = 0;
+    if (hasCurrent && direction === "previous") nextIndex = (current.index - 1 + examples.length) % examples.length;
+    else if (hasCurrent && direction === "next") nextIndex = (current.index + 1) % examples.length;
+    else if (hasCurrent && direction === "repeat") nextIndex = current.index;
+
+    setDetailTab(EXAMPLE_TAB);
+    playExampleAtIndex(selectedWord, examples, nextIndex);
+  }, [playExampleAtIndex, selectedWord]);
+
+  useEffect(() => {
     const handleKeyboardShortcut = (event) => {
       if (page !== "words" || event.ctrlKey || event.metaKey || event.altKey || document.getElementById("chapter-jump-menu")) return;
       const eventTarget = event.target;
@@ -2680,11 +2789,14 @@ export default function App({ currentUser: initialCurrentUser = null, signOutPat
       else if (actionId === "spellingMode" && !event.repeat) toggleSpellingMode();
       else if (actionId === "favorite" && !event.repeat && selectedWord?.id) toggleFavorite(selectedWord.id);
       else if (actionId === "meaning" && !event.repeat) toggleMeanings();
+      else if (actionId === "examplePrevious" && !event.repeat) playExampleShortcut("previous");
+      else if (actionId === "exampleNext" && !event.repeat) playExampleShortcut("next");
+      else if (actionId === "exampleRepeat" && !event.repeat) playExampleShortcut("repeat");
     };
 
     window.addEventListener("keydown", handleKeyboardShortcut, true);
     return () => window.removeEventListener("keydown", handleKeyboardShortcut, true);
-  }, [moveDetailTab, moveWordSelection, page, selectedWord?.id, stored.shortcutKeys, toggleFavorite, toggleMeanings, toggleSpellingMode]);
+  }, [moveDetailTab, moveWordSelection, page, playExampleShortcut, selectedWord?.id, stored.shortcutKeys, toggleFavorite, toggleMeanings, toggleSpellingMode]);
 
   const openDetail = useCallback((id) => {
     setSelectedId(id);
@@ -2732,6 +2844,10 @@ export default function App({ currentUser: initialCurrentUser = null, signOutPat
 
   const toggleAccent = useCallback(() => {
     setStored((current) => ({ ...current, accent: current.accent === "us" ? "uk" : "us" }));
+  }, []);
+
+  const changeSentenceRate = useCallback((value) => {
+    setStored((current) => ({ ...current, sentenceRate: normalizeSentenceRate(value) }));
   }, []);
 
   const changeNote = useCallback((wordId, value) => {
@@ -2800,6 +2916,8 @@ export default function App({ currentUser: initialCurrentUser = null, signOutPat
               shortcutKeys={stored.shortcutKeys}
               onChangeShortcut={changeShortcut}
               onResetShortcuts={resetShortcuts}
+              sentenceRate={stored.sentenceRate}
+              onChangeSentenceRate={changeSentenceRate}
               currentUser={accountUser}
               signOutPath={signOutPath}
               syncStatus={syncStatus}
@@ -2852,6 +2970,7 @@ export default function App({ currentUser: initialCurrentUser = null, signOutPat
               if (selectedWord) changeNote(selectedWord.id, value);
             }}
             onToggleFavorite={toggleFavorite}
+            onPlayExample={playExampleAtIndex}
             layoutId="active-detail-tab-desktop"
             className="mx-auto min-h-full max-w-4xl px-6 py-8 xl:px-10 xl:py-10"
           />
@@ -2872,6 +2991,7 @@ export default function App({ currentUser: initialCurrentUser = null, signOutPat
         }}
         onClose={() => setDetailId(null)}
         onToggleFavorite={toggleFavorite}
+        onPlayExample={playExampleAtIndex}
       />
     </>
   );

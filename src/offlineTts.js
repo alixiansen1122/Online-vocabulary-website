@@ -37,7 +37,12 @@ function speechSynthesisApi() {
   return window.speechSynthesis;
 }
 
-function playWord(word, accent) {
+function speechRate(value) {
+  const rate = Number(value);
+  return Number.isFinite(rate) ? Math.min(2, Math.max(0.5, rate)) : SPEECH_RATE;
+}
+
+function playWord(word, accent, rate = SPEECH_RATE) {
   const synthesis = speechSynthesisApi();
   if (!synthesis) return;
 
@@ -47,7 +52,7 @@ function playWord(word, accent) {
 
   const utterance = new SpeechSynthesisUtterance(word);
   utterance.lang = accent === "uk" ? "en-GB" : "en-US";
-  utterance.rate = SPEECH_RATE;
+  utterance.rate = speechRate(rate);
   utterance.pitch = 1;
 
   const voice = voiceFor(accent);
@@ -83,15 +88,16 @@ export function speakWord(text, accent = "us", options = {}) {
 
   synthesis.cancel();
   const delay = Math.max(0, Number(options.delay) || 0);
+  const rate = speechRate(options.rate);
   if (delay > 0) {
     pendingSpeechTimer = window.setTimeout(() => {
       pendingSpeechTimer = null;
-      playWord(word, accent);
+      playWord(word, accent, rate);
     }, delay);
     return;
   }
 
-  playWord(word, accent);
+  playWord(word, accent, rate);
 }
 
 export function speakNavigationWord(text, accent = "us") {
