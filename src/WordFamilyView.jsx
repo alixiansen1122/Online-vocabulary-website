@@ -1,78 +1,48 @@
 import { useId, useState } from "react";
-import { ChevronDown, ChevronRight, Star } from "lucide-react";
+import { ChevronDown, ChevronRight, Star, Volume2 } from "lucide-react";
 import { highlightedSegments, termKey } from "./wordFamilies";
 import "./wordFamily.css";
 
 function Term({ item, roots }) {
   const text = roots ? item.display || item.term : item.term;
-  return <span aria-label={item.term}>{highlightedSegments(text, item.highlights || []).map((part, index) => <span key={index} className={part.highlight ? "family-highlight" : undefined}>{part.text}</span>)}</span>;
+  return <span>{highlightedSegments(text, item.highlights || []).map((part, index) => <span key={index} className={part.highlight ? "family-highlight" : undefined}>{part.text}</span>)}</span>;
 }
 
-function Favorite({ item, favorites, onFavorite }) {
-  const selected = favorites.has(item.id);
-  return <button type="button" className={`family-star ${selected ? "is-saved" : ""}`} aria-label={`${selected ? "取消收藏" : "收藏"} ${item.term}`} aria-pressed={selected} onClick={() => onFavorite(item)}><Star aria-hidden="true" fill={selected ? "currentColor" : "none"} /></button>;
-}
-
-function Meaning({ item }) {
-  return <p className="family-meaning">{item.pos && <span>{item.pos} </span>}{item.meaning}</p>;
-}
-
-function RootDetails({ item }) {
-  return <>
-    {item.parts.map((part, index) => <div className="family-explanation" key={`${part.part}-${index}`}><span className="family-label">{part.type}</span><p>{part.part} = {part.meaning}</p></div>)}
-    {item.memory && <div className="family-explanation"><span className="family-label">记忆</span><p>{item.memory}</p></div>}
-    {!item.parts.length && <Meaning item={item} />}
-    {item.phrases?.map((phrase) => <div className="family-phrase" key={phrase.en}><p>{phrase.en}</p><p>{phrase.zh}</p></div>)}
-    {item.sourceUrl && <a className="family-source" href={item.sourceUrl} target="_blank" rel="noreferrer">词源参考 ↗</a>}
-  </>;
-}
-
-function DerivativeRow({ item, current, favorites, onFavorite }) {
-  const [open, setOpen] = useState(true);
+function FamilyRow({ item, current, roots, favorites, onFavorite, onSpeak }) {
+  const [open, setOpen] = useState(current);
   const id = useId();
+  const selected = favorites.has(item.id);
+  const hasDetails = item.parts.length > 0 || item.memory || item.phrases?.length;
   return <li className={`family-row ${current ? "is-current" : ""}`}>
     <div className="family-heading">
-      <button type="button" className="family-term-button" onClick={() => setOpen(!open)} aria-expanded={open} aria-controls={id} aria-label={`${open ? "收起" : "展开"} ${item.term} 派生释义`}>
-        <span className="family-node">{current ? open ? <ChevronDown /> : <ChevronRight /> : <i />}</span>
-        <strong><Term item={item} /></strong>
+      {hasDetails && <button type="button" className="family-toggle" onClick={() => setOpen(!open)} aria-expanded={open} aria-controls={id} aria-label={`${open ? "收起" : "展开"} ${item.term} 构词详情`}>{open ? <ChevronDown /> : <ChevronRight />}</button>}
+      <div className="family-heading-content">
+        <button type="button" className="family-term-button" onClick={() => onSpeak(item.term)} aria-label={`朗读 ${item.term}`} title={`朗读 ${item.term}`}><strong><Term item={item} roots={roots} /></strong><Volume2 className="family-speaker" aria-hidden="true" /></button>
+        <span className="family-inline-meaning">{item.pos && <span className="family-pos">{item.pos} </span>}{item.meaning}</span>
         {item.inBook && <span className="family-badge">{item.source || "词库"}</span>}
         {current && <span className="sr-only">当前单词</span>}
-      </button>
-      <Favorite item={item} favorites={favorites} onFavorite={onFavorite} />
+      </div>
+      <button type="button" className={`family-star ${selected ? "is-saved" : ""}`} aria-label={`${selected ? "取消收藏" : "收藏"} ${item.term}`} aria-pressed={selected} onClick={() => onFavorite(item)}><Star aria-hidden="true" fill={selected ? "currentColor" : "none"} /></button>
     </div>
-    <div id={id} className="family-body" hidden={!open}>
-      <Meaning item={item} />
-      {item.parts.filter((part) => part.type === "前缀" || part.type === "后缀").map((part) => <p className="family-affix-note" key={part.part}>{part.part} = {part.meaning}</p>)}
-    </div>
+    {hasDetails && <div id={id} className="family-body" hidden={!open}>
+      {item.parts.map((part, index) => <div className="family-explanation" key={`${part.part}-${index}`}><span className="family-label">{part.type}</span><p><strong>{part.part}</strong><span className="family-part-meaning">{part.meaning}</span></p></div>)}
+      {item.memory && <div className="family-explanation"><span className="family-label">构词</span><p>{item.memory}</p></div>}
+      {item.phrases?.map((phrase) => <div className="family-phrase" key={phrase.en}><button type="button" className="family-phrase-button" aria-label={`朗读 ${phrase.en}`} onClick={() => onSpeak(phrase.en)}>{phrase.en}<Volume2 aria-hidden="true" /></button><p>{phrase.zh}</p></div>)}
+      {item.sourceUrl && <a className="family-source" href={item.sourceUrl} target="_blank" rel="noreferrer">词典 / 词源参考 ↗</a>}
+    </div>}
   </li>;
 }
 
-function RootGroup({ group, word, favorites, onFavorite }) {
-  const [open, setOpen] = useState(group.words.some((item) => termKey(item.term) === termKey(word.term)));
-  const id = useId();
-  return <section className="family-root-group" aria-label={`${group.words[0].term} 词根组`}>
-    <ul className="family-timeline">
-      {group.words.map((item, index) => <li key={item.id} className={`family-row ${termKey(item.term) === termKey(word.term) ? "is-current" : ""}`}>
-        <div className="family-heading">
-          <button type="button" className="family-term-button" onClick={() => setOpen(!open)} aria-expanded={open} aria-controls={`${id}-${index}`} aria-label={`${open ? "收起" : "展开"} ${group.words[0].term} 词根组`}>
-            <span className="family-node">{index === 0 ? open ? <ChevronDown /> : <ChevronRight /> : <i />}</span>
-            <strong><Term item={item} roots /></strong>
-            {item.inBook && <span className="family-badge">{item.source || "词库"}</span>}
-            {termKey(item.term) === termKey(word.term) && <span className="sr-only">当前单词</span>}
-          </button>
-          <Favorite item={item} favorites={favorites} onFavorite={onFavorite} />
-        </div>
-        <div id={`${id}-${index}`} className="family-body" hidden={!open}><RootDetails item={item} /></div>
-      </li>)}
-    </ul>
-  </section>;
-}
-
-export default function WordFamilyView({ mode, word, rows = [], groups = [], favorites, onFavorite }) {
-  if (mode === "roots") {
-    if (!groups.length) return <p className="family-empty">暂无可靠的词根词缀资料</p>;
-    return <div className="word-family-view">{groups.map((group) => <RootGroup key={`${word.id}-${group.id}`} group={group} word={word} favorites={favorites} onFavorite={onFavorite} />)}</div>;
-  }
-  if (!rows.length) return <p className="family-empty">暂无已收录的派生词</p>;
-  return <div className="word-family-view"><ul className="family-timeline">{rows.map((item) => <DerivativeRow key={`${word.id}-${item.id}`} item={item} current={termKey(item.term) === termKey(word.term)} favorites={favorites} onFavorite={onFavorite} />)}</ul></div>;
+export default function WordFamilyView({ mode, word, rows = [], groups = [], favorites, onFavorite, onSpeak }) {
+  const renderRow = (item, groupId = "derivatives") => <FamilyRow key={`${word.id}-${groupId}-${item.id}`} item={item} current={termKey(item.term) === termKey(word.term)} roots={mode === "roots"} favorites={favorites} onFavorite={onFavorite} onSpeak={onSpeak} />;
+  if (mode === "roots" && !groups.length) return <p className="family-empty">暂无可靠的词根词缀资料</p>;
+  if (mode !== "roots" && !rows.length) return <p className="family-empty">暂无已收录的派生词</p>;
+  return <div className="word-family-view">
+    <p className="family-help">点击单词听发音 · 箭头展开构词含义</p>
+    {mode === "roots" ? groups.map((group) => <section className="family-root-group" key={`${word.id}-${group.id}`} aria-label={group.title || "词根组"}>
+      <h3 className="family-group-title">{group.title}</h3>
+      {group.description && <p className="family-group-description">{group.description}</p>}
+      <ul className="family-timeline">{group.words.map((item) => renderRow(item, group.id))}</ul>
+    </section>) : <ul className="family-timeline">{rows.map((item) => renderRow(item))}</ul>}
+  </div>;
 }

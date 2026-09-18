@@ -1,0 +1,1153 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-09-18",
+  "policy": "仅保留当前释义下意思相近的词；不使用拼写、词根或主题相关性推断近义关系。",
+  "entries": {
+    "atmosphere": {
+      "sourceUrl": "https://www.merriam-webster.com/thesaurus/atmosphere",
+      "items": [
+        {
+          "term": "ambience",
+          "pos": "n.",
+          "meaning": "环境气氛；格调",
+          "sense": "环境给人的气氛",
+          "matches": [
+            "气氛",
+            "氛围",
+            "情调"
+          ],
+          "usage": "侧重场所营造的整体感觉。"
+        },
+        {
+          "term": "ambiance",
+          "pos": "n.",
+          "meaning": "环境气氛；格调",
+          "sense": "环境给人的气氛",
+          "matches": [
+            "气氛",
+            "氛围",
+            "情调"
+          ],
+          "usage": "ambience 的另一种拼写。"
+        },
+        {
+          "term": "mood",
+          "pos": "n.",
+          "meaning": "气氛；基调",
+          "sense": "环境给人的气氛",
+          "matches": [
+            "气氛",
+            "氛围",
+            "情调"
+          ],
+          "usage": "这里指场景的情绪基调，不指个人一时的心情。"
+        },
+        {
+          "term": "aura",
+          "pos": "n.",
+          "meaning": "氛围；气质",
+          "sense": "环境给人的气氛",
+          "matches": [
+            "气氛",
+            "氛围",
+            "情调"
+          ],
+          "usage": "侧重人或地点散发出的独特感觉。"
+        },
+        {
+          "term": "air",
+          "pos": "n.",
+          "meaning": "空气",
+          "sense": "空气",
+          "matches": [
+            "空气"
+          ],
+          "usage": "仅对应“空气”义，不等同于所有“大气层”用法。"
+        }
+      ]
+    },
+    "core": {
+      "sourceUrl": "https://www.merriam-webster.com/thesaurus/core",
+      "items": [
+        {
+          "term": "crux",
+          "pos": "n.",
+          "meaning": "关键；症结",
+          "sense": "核心；最重要的部分",
+          "matches": [
+            "核心",
+            "中心部分"
+          ],
+          "usage": "常用于问题中最关键的部分。"
+        },
+        {
+          "term": "essence",
+          "pos": "n.",
+          "meaning": "本质；精髓",
+          "sense": "核心；最重要的部分",
+          "matches": [
+            "核心",
+            "中心部分"
+          ],
+          "usage": "侧重事物根本特征，不指果核。"
+        },
+        {
+          "term": "gist",
+          "pos": "n.",
+          "meaning": "要旨；核心意思",
+          "sense": "核心；最重要的部分",
+          "matches": [
+            "核心",
+            "中心部分"
+          ],
+          "usage": "限于讲话、文章或论点的主要意思。"
+        },
+        {
+          "term": "pith",
+          "pos": "n.",
+          "meaning": "精髓；要点",
+          "sense": "核心；最重要的部分",
+          "matches": [
+            "核心",
+            "中心部分"
+          ],
+          "usage": "较正式；这里取比喻义。"
+        },
+        {
+          "term": "substance",
+          "pos": "n.",
+          "meaning": "实质；核心内容",
+          "sense": "核心；最重要的部分",
+          "matches": [
+            "核心",
+            "中心部分"
+          ],
+          "usage": "这里取实质内容义，不取物质义。"
+        },
+        {
+          "term": "heart",
+          "pos": "n.",
+          "meaning": "核心；中心",
+          "sense": "核心；最重要的部分",
+          "matches": [
+            "核心",
+            "中心部分"
+          ],
+          "usage": "比喻最重要的中心部分。"
+        }
+      ]
+    },
+    "crust": {
+      "sourceUrl": "https://www.merriam-webster.com/thesaurus/crust",
+      "items": [
+        {
+          "term": "rind",
+          "pos": "n.",
+          "meaning": "硬皮；外皮",
+          "sense": "外部硬层",
+          "matches": [
+            "硬层",
+            "外壳",
+            "面包皮"
+          ],
+          "usage": "常指果皮、奶酪等表面的硬层，不用于替换“地壳”。"
+        }
+      ]
+    },
+    "mantle": {
+      "sourceUrl": "https://www.merriam-webster.com/thesaurus/mantle",
+      "items": [
+        {
+          "term": "blanket",
+          "pos": "v.",
+          "meaning": "覆盖；笼罩",
+          "sense": "覆盖；遮盖",
+          "matches": [
+            "覆盖",
+            "遮盖"
+          ],
+          "usage": "强调像毯子一样铺覆；不对应地幔或职责义。"
+        },
+        {
+          "term": "drape",
+          "pos": "v.",
+          "meaning": "披；用布覆盖",
+          "sense": "覆盖；遮盖",
+          "matches": [
+            "覆盖",
+            "遮盖"
+          ],
+          "usage": "限于织物垂搭、覆盖的语境。"
+        },
+        {
+          "term": "cloak",
+          "pos": "v.",
+          "meaning": "笼罩；遮盖",
+          "sense": "覆盖；遮盖",
+          "matches": [
+            "覆盖",
+            "遮盖"
+          ],
+          "usage": "常有掩盖、遮蔽的意味。"
+        },
+        {
+          "term": "cloak",
+          "pos": "n.",
+          "meaning": "斗篷；披风",
+          "sense": "披风",
+          "matches": [
+            "披风",
+            "披⻛"
+          ],
+          "usage": "指披在外面的无袖宽松衣物。"
+        }
+      ]
+    },
+    "latitude": {
+      "sourceUrl": "https://www.merriam-webster.com/thesaurus/latitude",
+      "items": [
+        {
+          "term": "freedom",
+          "pos": "n.",
+          "meaning": "自由；自主空间",
+          "sense": "行动或选择的自由",
+          "matches": [
+            "自由",
+            "余地"
+          ],
+          "usage": "对应行动自由，不对应纬度。"
+        },
+        {
+          "term": "leeway",
+          "pos": "n.",
+          "meaning": "余地；回旋空间",
+          "sense": "行动或选择的自由",
+          "matches": [
+            "自由",
+            "余地"
+          ],
+          "usage": "侧重可自由调整的范围。"
+        }
+      ]
+    },
+    "horizon": {
+      "sourceUrl": "https://www.merriam-webster.com/thesaurus/horizon",
+      "items": [
+        {
+          "term": "skyline",
+          "pos": "n.",
+          "meaning": "天际线",
+          "sense": "地平线",
+          "matches": [
+            "地平线"
+          ],
+          "usage": "指天空与地面、山脉或建筑轮廓的交界；不对应眼界义。"
+        },
+        {
+          "term": "visible horizon",
+          "pos": "n.",
+          "meaning": "可见地平线",
+          "sense": "地平线",
+          "matches": [
+            "地平线"
+          ],
+          "usage": "明确指观察者所见的地平线。"
+        },
+        {
+          "term": "apparent horizon",
+          "pos": "n.",
+          "meaning": "视地平线",
+          "sense": "地平线",
+          "matches": [
+            "地平线"
+          ],
+          "usage": "仅用于可见的天地交界线这一具体义项。"
+        },
+        {
+          "term": "purview",
+          "pos": "n.",
+          "meaning": "视野；知识或关注的范围",
+          "sense": "眼界；见识范围",
+          "matches": [
+            "眼界",
+            "范围",
+            "见识",
+            "⻅识"
+          ],
+          "usage": "限于抽象范围义；较正式。"
+        }
+      ]
+    },
+    "altitude": {
+      "sourceUrl": "https://www.merriam-webster.com/thesaurus/altitude",
+      "items": [
+        {
+          "term": "elevation",
+          "pos": "n.",
+          "meaning": "海拔；高度",
+          "sense": "高度；海拔",
+          "matches": [
+            "海拔",
+            "高度"
+          ],
+          "usage": "常指地点相对海平面的高度。"
+        },
+        {
+          "term": "height",
+          "pos": "n.",
+          "meaning": "高度",
+          "sense": "高度；海拔",
+          "matches": [
+            "海拔",
+            "高度"
+          ],
+          "usage": "含义较宽，需由语境明确测量基准。"
+        }
+      ]
+    },
+    "disaster": {
+      "sourceUrl": "https://www.merriam-webster.com/thesaurus/disaster",
+      "items": [
+        {
+          "term": "calamity",
+          "pos": "n.",
+          "meaning": "灾难；灾祸",
+          "sense": "灾难；灾祸",
+          "matches": [
+            "灾难",
+            "灾祸"
+          ],
+          "usage": "对应造成严重损失或痛苦的事件。"
+        },
+        {
+          "term": "catastrophe",
+          "pos": "n.",
+          "meaning": "大灾难；惨败",
+          "sense": "灾难；灾祸",
+          "matches": [
+            "灾难",
+            "灾祸"
+          ],
+          "usage": "语气强，常强调后果严重。"
+        },
+        {
+          "term": "cataclysm",
+          "pos": "n.",
+          "meaning": "大灾变",
+          "sense": "灾难；灾祸",
+          "matches": [
+            "灾难",
+            "灾祸"
+          ],
+          "usage": "强调猛烈、影响广泛的灾难。"
+        },
+        {
+          "term": "tragedy",
+          "pos": "n.",
+          "meaning": "悲剧；不幸事件",
+          "sense": "灾难；灾祸",
+          "matches": [
+            "灾难",
+            "灾祸"
+          ],
+          "usage": "强调灾难带来的痛苦或死亡。"
+        }
+      ]
+    },
+    "calamity": {
+      "sourceUrl": "https://www.merriam-webster.com/thesaurus/calamity",
+      "items": [
+        {
+          "term": "disaster",
+          "pos": "n.",
+          "meaning": "灾难；灾祸",
+          "sense": "灾难；灾祸",
+          "matches": [
+            "灾难",
+            "灾祸"
+          ],
+          "usage": "对应造成严重损失或痛苦的事件。"
+        },
+        {
+          "term": "catastrophe",
+          "pos": "n.",
+          "meaning": "大灾难；惨败",
+          "sense": "灾难；灾祸",
+          "matches": [
+            "灾难",
+            "灾祸"
+          ],
+          "usage": "语气强，常强调后果严重。"
+        },
+        {
+          "term": "cataclysm",
+          "pos": "n.",
+          "meaning": "大灾变",
+          "sense": "灾难；灾祸",
+          "matches": [
+            "灾难",
+            "灾祸"
+          ],
+          "usage": "强调猛烈、影响广泛的灾难。"
+        },
+        {
+          "term": "tragedy",
+          "pos": "n.",
+          "meaning": "悲剧；不幸事件",
+          "sense": "灾难；灾祸",
+          "matches": [
+            "灾难",
+            "灾祸"
+          ],
+          "usage": "强调灾难带来的痛苦或死亡。"
+        }
+      ]
+    },
+    "mishap": {
+      "sourceUrl": "https://www.merriam-webster.com/thesaurus/mishap",
+      "items": [
+        {
+          "term": "misadventure",
+          "pos": "n.",
+          "meaning": "不幸事故；意外遭遇",
+          "sense": "小事故；不幸的意外",
+          "matches": [
+            "事故",
+            "晦气",
+            "意外"
+          ],
+          "usage": "对应不走运的事件；部分语境更正式。"
+        },
+        {
+          "term": "mischance",
+          "pos": "n.",
+          "meaning": "不幸的意外；厄运",
+          "sense": "小事故；不幸的意外",
+          "matches": [
+            "事故",
+            "晦气",
+            "意外"
+          ],
+          "usage": "较正式，侧重偶然的不幸。"
+        },
+        {
+          "term": "accident",
+          "pos": "n.",
+          "meaning": "意外事故",
+          "sense": "小事故；不幸的意外",
+          "matches": [
+            "事故",
+            "晦气",
+            "意外"
+          ],
+          "usage": "含义较宽，mishap 常指较轻的小事故。"
+        }
+      ]
+    },
+    "catastrophic": {
+      "sourceUrl": "https://www.merriam-webster.com/thesaurus/catastrophic",
+      "items": [
+        {
+          "term": "disastrous",
+          "pos": "adj.",
+          "meaning": "灾难性的；造成严重失败的",
+          "sense": "灾难性的；极其糟糕的",
+          "matches": [
+            "灾难",
+            "极其糟糕"
+          ],
+          "usage": "可用于事件、后果或决定。"
+        },
+        {
+          "term": "calamitous",
+          "pos": "adj.",
+          "meaning": "灾难性的",
+          "sense": "灾难性的；极其糟糕的",
+          "matches": [
+            "灾难",
+            "极其糟糕"
+          ],
+          "usage": "较正式，强调严重损失。"
+        },
+        {
+          "term": "ruinous",
+          "pos": "adj.",
+          "meaning": "毁灭性的；造成重大损失的",
+          "sense": "灾难性的；极其糟糕的",
+          "matches": [
+            "灾难",
+            "极其糟糕"
+          ],
+          "usage": "强调严重破坏或经济损失。"
+        }
+      ]
+    },
+    "endanger": {
+      "sourceUrl": "https://www.merriam-webster.com/thesaurus/endanger",
+      "items": [
+        {
+          "term": "jeopardize",
+          "pos": "v.",
+          "meaning": "危及；使处于危险中",
+          "sense": "危及；使处于危险中",
+          "matches": [
+            "危及",
+            "危险",
+            "险境",
+            "危害"
+          ],
+          "usage": "常用于生命、利益、机会或计划。"
+        },
+        {
+          "term": "imperil",
+          "pos": "v.",
+          "meaning": "危及；使陷入险境",
+          "sense": "危及；使处于危险中",
+          "matches": [
+            "危及",
+            "危险",
+            "险境",
+            "危害"
+          ],
+          "usage": "较正式。"
+        },
+        {
+          "term": "threaten",
+          "pos": "v.",
+          "meaning": "威胁到；危及",
+          "sense": "危及；使处于危险中",
+          "matches": [
+            "危及",
+            "危险",
+            "险境",
+            "危害"
+          ],
+          "usage": "这里表示构成危险，不表示扬言或恐吓。"
+        },
+        {
+          "term": "menace",
+          "pos": "v.",
+          "meaning": "威胁；危及",
+          "sense": "危及；使处于危险中",
+          "matches": [
+            "危及",
+            "危险",
+            "险境",
+            "危害"
+          ],
+          "usage": "语气较强，强调危险的逼近。"
+        }
+      ]
+    },
+    "jeopardise": {
+      "sourceUrl": "https://www.merriam-webster.com/thesaurus/jeopardise",
+      "items": [
+        {
+          "term": "endanger",
+          "pos": "v.",
+          "meaning": "危及；使处于危险中",
+          "sense": "危及；使处于危险中",
+          "matches": [
+            "危及",
+            "危险",
+            "险境",
+            "危害"
+          ],
+          "usage": "常用于生命、利益、机会或计划。"
+        },
+        {
+          "term": "imperil",
+          "pos": "v.",
+          "meaning": "危及；使陷入险境",
+          "sense": "危及；使处于危险中",
+          "matches": [
+            "危及",
+            "危险",
+            "险境",
+            "危害"
+          ],
+          "usage": "较正式。"
+        },
+        {
+          "term": "threaten",
+          "pos": "v.",
+          "meaning": "威胁到；危及",
+          "sense": "危及；使处于危险中",
+          "matches": [
+            "危及",
+            "危险",
+            "险境",
+            "危害"
+          ],
+          "usage": "这里表示构成危险，不表示扬言或恐吓。"
+        },
+        {
+          "term": "menace",
+          "pos": "v.",
+          "meaning": "威胁；危及",
+          "sense": "危及；使处于危险中",
+          "matches": [
+            "危及",
+            "危险",
+            "险境",
+            "危害"
+          ],
+          "usage": "语气较强，强调危险的逼近。"
+        }
+      ]
+    },
+    "jeopardize": {
+      "sourceUrl": "https://www.merriam-webster.com/thesaurus/jeopardize",
+      "items": [
+        {
+          "term": "endanger",
+          "pos": "v.",
+          "meaning": "危及；使处于危险中",
+          "sense": "危及；使处于危险中",
+          "matches": [
+            "危及",
+            "危险",
+            "险境",
+            "危害"
+          ],
+          "usage": "常用于生命、利益、机会或计划。"
+        },
+        {
+          "term": "imperil",
+          "pos": "v.",
+          "meaning": "危及；使陷入险境",
+          "sense": "危及；使处于危险中",
+          "matches": [
+            "危及",
+            "危险",
+            "险境",
+            "危害"
+          ],
+          "usage": "较正式。"
+        },
+        {
+          "term": "threaten",
+          "pos": "v.",
+          "meaning": "威胁到；危及",
+          "sense": "危及；使处于危险中",
+          "matches": [
+            "危及",
+            "危险",
+            "险境",
+            "危害"
+          ],
+          "usage": "这里表示构成危险，不表示扬言或恐吓。"
+        },
+        {
+          "term": "menace",
+          "pos": "v.",
+          "meaning": "威胁；危及",
+          "sense": "危及；使处于危险中",
+          "matches": [
+            "危及",
+            "危险",
+            "险境",
+            "危害"
+          ],
+          "usage": "语气较强，强调危险的逼近。"
+        }
+      ]
+    },
+    "lithosphere": {
+      "items": [],
+      "sourceUrl": "https://dictionary.cambridge.org/dictionary/english/lithosphere"
+    },
+    "oxygen": {
+      "items": [],
+      "sourceUrl": "https://dictionary.cambridge.org/dictionary/english/oxygen"
+    },
+    "hydrogen": {
+      "items": [],
+      "sourceUrl": "https://dictionary.cambridge.org/dictionary/english/hydrogen"
+    },
+    "carbon dioxide": {
+      "items": [],
+      "sourceUrl": "https://dictionary.cambridge.org/dictionary/english/carbon-dioxide"
+    },
+    "longitude": {
+      "items": [],
+      "sourceUrl": "https://dictionary.cambridge.org/dictionary/english/longitude"
+    }
+  },
+  "audit": [
+    {
+      "word": "atmosphere",
+      "candidate": "air",
+      "decision": "keep",
+      "reason": "保留；限定对应词性、义项和使用语境。"
+    },
+    {
+      "word": "atmosphere",
+      "candidate": "ambiance",
+      "decision": "keep",
+      "reason": "保留；限定对应词性、义项和使用语境。"
+    },
+    {
+      "word": "atmosphere",
+      "candidate": "feeling",
+      "decision": "remove",
+      "reason": "atm 是缩写；atmospheric state 描述大气状态；feeling 过宽，缺少明确语境。"
+    },
+    {
+      "word": "atmosphere",
+      "candidate": "mood",
+      "decision": "keep",
+      "reason": "保留；限定对应词性、义项和使用语境。"
+    },
+    {
+      "word": "atmosphere",
+      "candidate": "ambience",
+      "decision": "keep",
+      "reason": "保留；限定对应词性、义项和使用语境。"
+    },
+    {
+      "word": "atmosphere",
+      "candidate": "atmospheric state",
+      "decision": "remove",
+      "reason": "atm 是缩写；atmospheric state 描述大气状态；feeling 过宽，缺少明确语境。"
+    },
+    {
+      "word": "atmosphere",
+      "candidate": "atm",
+      "decision": "remove",
+      "reason": "atm 是缩写；atmospheric state 描述大气状态；feeling 过宽，缺少明确语境。"
+    },
+    {
+      "word": "atmosphere",
+      "candidate": "aura",
+      "decision": "keep",
+      "reason": "保留；限定对应词性、义项和使用语境。"
+    },
+    {
+      "word": "lithosphere",
+      "candidate": "geosphere",
+      "decision": "remove",
+      "reason": "地圈包括地壳、地幔和地核，范围不同；不把上下位或范围相关概念当作近义词。"
+    },
+    {
+      "word": "oxygen",
+      "candidate": "sourstuff",
+      "decision": "remove",
+      "reason": "化学符号不是近义词；过时元素名称不作为现代常用近义词。"
+    },
+    {
+      "word": "oxygen",
+      "candidate": "o",
+      "decision": "remove",
+      "reason": "化学符号不是近义词；过时元素名称不作为现代常用近义词。"
+    },
+    {
+      "word": "carbon dioxide",
+      "candidate": "carbonic acid gas",
+      "decision": "remove",
+      "reason": "旧式化学名称不作为现代学习用近义词。"
+    },
+    {
+      "word": "hydrogen",
+      "candidate": "packaging agent",
+      "decision": "remove",
+      "reason": "packaging agent 含义不符；元素符号和过时名称不作为近义词。"
+    },
+    {
+      "word": "hydrogen",
+      "candidate": "waterstuff",
+      "decision": "remove",
+      "reason": "packaging agent 含义不符；元素符号和过时名称不作为近义词。"
+    },
+    {
+      "word": "hydrogen",
+      "candidate": "h",
+      "decision": "remove",
+      "reason": "packaging agent 含义不符；元素符号和过时名称不作为近义词。"
+    },
+    {
+      "word": "core",
+      "candidate": "crux",
+      "decision": "keep",
+      "reason": "保留；限定对应词性、义项和使用语境。"
+    },
+    {
+      "word": "core",
+      "candidate": "gist",
+      "decision": "keep",
+      "reason": "保留；限定对应词性、义项和使用语境。"
+    },
+    {
+      "word": "core",
+      "candidate": "homer",
+      "decision": "remove",
+      "reason": "homer/omer 为计量单位；effect 不是核心或本质的近义词。"
+    },
+    {
+      "word": "core",
+      "candidate": "omer",
+      "decision": "remove",
+      "reason": "homer/omer 为计量单位；effect 不是核心或本质的近义词。"
+    },
+    {
+      "word": "core",
+      "candidate": "essence",
+      "decision": "keep",
+      "reason": "保留；限定对应词性、义项和使用语境。"
+    },
+    {
+      "word": "core",
+      "candidate": "pith",
+      "decision": "keep",
+      "reason": "保留；限定对应词性、义项和使用语境。"
+    },
+    {
+      "word": "core",
+      "candidate": "effect",
+      "decision": "remove",
+      "reason": "homer/omer 为计量单位；effect 不是核心或本质的近义词。"
+    },
+    {
+      "word": "core",
+      "candidate": "substance",
+      "decision": "keep",
+      "reason": "保留；限定对应词性、义项和使用语境。"
+    },
+    {
+      "word": "crust",
+      "candidate": "daily bread",
+      "decision": "remove",
+      "reason": "剔除自身、音乐类型、合成误词，以及本词条未列出的生计、厚颜等义项。"
+    },
+    {
+      "word": "crust",
+      "candidate": "income",
+      "decision": "remove",
+      "reason": "剔除自身、音乐类型、合成误词，以及本词条未列出的生计、厚颜等义项。"
+    },
+    {
+      "word": "crust",
+      "candidate": "livelihood",
+      "decision": "remove",
+      "reason": "剔除自身、音乐类型、合成误词，以及本词条未列出的生计、厚颜等义项。"
+    },
+    {
+      "word": "crust",
+      "candidate": "crust",
+      "decision": "remove",
+      "reason": "剔除自身、音乐类型、合成误词，以及本词条未列出的生计、厚颜等义项。"
+    },
+    {
+      "word": "crust",
+      "candidate": "crustcore",
+      "decision": "remove",
+      "reason": "剔除自身、音乐类型、合成误词，以及本词条未列出的生计、厚颜等义项。"
+    },
+    {
+      "word": "crust",
+      "candidate": "stenchcore",
+      "decision": "remove",
+      "reason": "剔除自身、音乐类型、合成误词，以及本词条未列出的生计、厚颜等义项。"
+    },
+    {
+      "word": "crust",
+      "candidate": "gall",
+      "decision": "remove",
+      "reason": "剔除自身、音乐类型、合成误词，以及本词条未列出的生计、厚颜等义项。"
+    },
+    {
+      "word": "crust",
+      "candidate": "impertinence",
+      "decision": "remove",
+      "reason": "剔除自身、音乐类型、合成误词，以及本词条未列出的生计、厚颜等义项。"
+    },
+    {
+      "word": "mantle",
+      "candidate": "pall",
+      "decision": "remove",
+      "reason": "剔除 mantel/mantlepiece（壁炉架）以及只表示织物或遮蔽物的相关词。"
+    },
+    {
+      "word": "mantle",
+      "candidate": "drape",
+      "decision": "keep",
+      "reason": "保留；限定对应词性、义项和使用语境。"
+    },
+    {
+      "word": "mantle",
+      "candidate": "pallium",
+      "decision": "remove",
+      "reason": "剔除 mantel/mantlepiece（壁炉架）以及只表示织物或遮蔽物的相关词。"
+    },
+    {
+      "word": "mantle",
+      "candidate": "drapery",
+      "decision": "remove",
+      "reason": "剔除 mantel/mantlepiece（壁炉架）以及只表示织物或遮蔽物的相关词。"
+    },
+    {
+      "word": "mantle",
+      "candidate": "blanket",
+      "decision": "keep",
+      "reason": "保留；限定对应词性、义项和使用语境。"
+    },
+    {
+      "word": "mantle",
+      "candidate": "mantel",
+      "decision": "remove",
+      "reason": "剔除 mantel/mantlepiece（壁炉架）以及只表示织物或遮蔽物的相关词。"
+    },
+    {
+      "word": "mantle",
+      "candidate": "curtain",
+      "decision": "remove",
+      "reason": "剔除 mantel/mantlepiece（壁炉架）以及只表示织物或遮蔽物的相关词。"
+    },
+    {
+      "word": "mantle",
+      "candidate": "mantlepiece",
+      "decision": "remove",
+      "reason": "剔除 mantel/mantlepiece（壁炉架）以及只表示织物或遮蔽物的相关词。"
+    },
+    {
+      "word": "longitude",
+      "candidate": "meridian",
+      "decision": "remove",
+      "reason": "经度是位置的角度量，经线是线；仅相关而非同义。"
+    },
+    {
+      "word": "longitude",
+      "candidate": "line of longitude",
+      "decision": "remove",
+      "reason": "经度是位置的角度量，经线是线；仅相关而非同义。"
+    },
+    {
+      "word": "latitude",
+      "candidate": "parallel",
+      "decision": "remove",
+      "reason": "原有候选表示纬线，不是纬度；自由义另列经核对的近义词。"
+    },
+    {
+      "word": "latitude",
+      "candidate": "parallel of latitude",
+      "decision": "remove",
+      "reason": "原有候选表示纬线，不是纬度；自由义另列经核对的近义词。"
+    },
+    {
+      "word": "latitude",
+      "candidate": "line of latitude",
+      "decision": "remove",
+      "reason": "原有候选表示纬线，不是纬度；自由义另列经核对的近义词。"
+    },
+    {
+      "word": "horizon",
+      "candidate": "skyline",
+      "decision": "keep",
+      "reason": "保留；限定对应词性、义项和使用语境。"
+    },
+    {
+      "word": "horizon",
+      "candidate": "skysill",
+      "decision": "remove",
+      "reason": "剔除罕见用词和不同天文定义；view 过宽，不能笼统标为同义。"
+    },
+    {
+      "word": "horizon",
+      "candidate": "view",
+      "decision": "remove",
+      "reason": "剔除罕见用词和不同天文定义；view 过宽，不能笼统标为同义。"
+    },
+    {
+      "word": "horizon",
+      "candidate": "purview",
+      "decision": "keep",
+      "reason": "保留；限定对应词性、义项和使用语境。"
+    },
+    {
+      "word": "horizon",
+      "candidate": "apparent horizon",
+      "decision": "keep",
+      "reason": "保留；限定对应词性、义项和使用语境。"
+    },
+    {
+      "word": "horizon",
+      "candidate": "celestial horizon",
+      "decision": "remove",
+      "reason": "剔除罕见用词和不同天文定义；view 过宽，不能笼统标为同义。"
+    },
+    {
+      "word": "horizon",
+      "candidate": "sensible horizon",
+      "decision": "remove",
+      "reason": "剔除罕见用词和不同天文定义；view 过宽，不能笼统标为同义。"
+    },
+    {
+      "word": "horizon",
+      "candidate": "visible horizon",
+      "decision": "keep",
+      "reason": "保留；限定对应词性、义项和使用语境。"
+    },
+    {
+      "word": "altitude",
+      "candidate": "elevation",
+      "decision": "keep",
+      "reason": "保留；限定对应词性、义项和使用语境。"
+    },
+    {
+      "word": "altitude",
+      "candidate": "el",
+      "decision": "remove",
+      "reason": "alt/el 为缩写，不是近义词。"
+    },
+    {
+      "word": "altitude",
+      "candidate": "alt",
+      "decision": "remove",
+      "reason": "alt/el 为缩写，不是近义词。"
+    },
+    {
+      "word": "altitude",
+      "candidate": "height",
+      "decision": "keep",
+      "reason": "保留；限定对应词性、义项和使用语境。"
+    },
+    {
+      "word": "disaster",
+      "candidate": "calamity",
+      "decision": "keep",
+      "reason": "保留；限定对应词性、义项和使用语境。"
+    },
+    {
+      "word": "disaster",
+      "candidate": "cataclysm",
+      "decision": "keep",
+      "reason": "保留；限定对应词性、义项和使用语境。"
+    },
+    {
+      "word": "disaster",
+      "candidate": "catastrophe",
+      "decision": "keep",
+      "reason": "保留；限定对应词性、义项和使用语境。"
+    },
+    {
+      "word": "disaster",
+      "candidate": "tragedy",
+      "decision": "keep",
+      "reason": "保留；限定对应词性、义项和使用语境。"
+    },
+    {
+      "word": "mishap",
+      "candidate": "mischance",
+      "decision": "keep",
+      "reason": "保留；限定对应词性、义项和使用语境。"
+    },
+    {
+      "word": "mishap",
+      "candidate": "misadventure",
+      "decision": "keep",
+      "reason": "保留；限定对应词性、义项和使用语境。"
+    },
+    {
+      "word": "mishap",
+      "candidate": "bad luck",
+      "decision": "remove",
+      "reason": "bad luck 是运气不佳，不必然是一件意外事故。"
+    },
+    {
+      "word": "catastrophic",
+      "candidate": "catastrophal",
+      "decision": "remove",
+      "reason": "harmful 仅指有害，程度不足；罕见变体 catastrophal 不作为常用近义词。"
+    },
+    {
+      "word": "catastrophic",
+      "candidate": "harmful",
+      "decision": "remove",
+      "reason": "harmful 仅指有害，程度不足；罕见变体 catastrophal 不作为常用近义词。"
+    },
+    {
+      "word": "catastrophic",
+      "candidate": "ruinous",
+      "decision": "keep",
+      "reason": "保留；限定对应词性、义项和使用语境。"
+    },
+    {
+      "word": "calamity",
+      "candidate": "nakba",
+      "decision": "remove",
+      "reason": "Nakba 是特定历史事件的专名，不作为一般灾难的近义词。"
+    },
+    {
+      "word": "calamity",
+      "candidate": "cataclysm",
+      "decision": "keep",
+      "reason": "保留；限定对应词性、义项和使用语境。"
+    },
+    {
+      "word": "calamity",
+      "candidate": "catastrophe",
+      "decision": "keep",
+      "reason": "保留；限定对应词性、义项和使用语境。"
+    },
+    {
+      "word": "calamity",
+      "candidate": "disaster",
+      "decision": "keep",
+      "reason": "保留；限定对应词性、义项和使用语境。"
+    },
+    {
+      "word": "calamity",
+      "candidate": "tragedy",
+      "decision": "keep",
+      "reason": "保留；限定对应词性、义项和使用语境。"
+    },
+    {
+      "word": "endanger",
+      "candidate": "peril",
+      "decision": "remove",
+      "reason": "剔除罕见动词 peril、过时/其他义项 queer、破坏计划的 scupper，以及缺少补语的 expose。"
+    },
+    {
+      "word": "endanger",
+      "candidate": "queer",
+      "decision": "remove",
+      "reason": "剔除罕见动词 peril、过时/其他义项 queer、破坏计划的 scupper，以及缺少补语的 expose。"
+    },
+    {
+      "word": "endanger",
+      "candidate": "expose",
+      "decision": "remove",
+      "reason": "剔除罕见动词 peril、过时/其他义项 queer、破坏计划的 scupper，以及缺少补语的 expose。"
+    },
+    {
+      "word": "endanger",
+      "candidate": "menace",
+      "decision": "keep",
+      "reason": "保留；限定对应词性、义项和使用语境。"
+    },
+    {
+      "word": "endanger",
+      "candidate": "jeopardize",
+      "decision": "keep",
+      "reason": "保留；限定对应词性、义项和使用语境。"
+    },
+    {
+      "word": "endanger",
+      "candidate": "scupper",
+      "decision": "remove",
+      "reason": "剔除罕见动词 peril、过时/其他义项 queer、破坏计划的 scupper，以及缺少补语的 expose。"
+    },
+    {
+      "word": "endanger",
+      "candidate": "imperil",
+      "decision": "keep",
+      "reason": "保留；限定对应词性、义项和使用语境。"
+    },
+    {
+      "word": "endanger",
+      "candidate": "threaten",
+      "decision": "keep",
+      "reason": "保留；限定对应词性、义项和使用语境。"
+    }
+  ]
+}

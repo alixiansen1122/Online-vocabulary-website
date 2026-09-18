@@ -12,90 +12,57 @@ export function normalizeFamilyWords(value) {
   return [...words.values()];
 }
 
-export function createFamilyLookup(words, morphemes, curated) {
+// Shared spelling alone is not evidence of derivation. Use explicit relations;
+// homographic roots such as port (carry) / port (part) must remain distinct.
+export function createFamilyLookup(words, curated) {
   const byTerm = new Map(words.map((word) => [termKey(word.term), word]));
-  const roots = new Map();
-  for (const root of morphemes.roots) {
-    for (const part of [root.m, ...(root.v || [])]) roots.set(part, { type: "词根", part, meaning: root.n, rootId: root.m });
+  const familiesByTerm = new Map();
+  const groupsByTerm = new Map();
+  for (const family of curated.families) {
+    for (const term of family.terms) {
+      const key = termKey(term);
+      if (!familiesByTerm.has(key)) familiesByTerm.set(key, []);
+      familiesByTerm.get(key).push(family);
+    }
   }
-  const prefixes = morphemes.prefixes.map((p) => ({ type: "前缀", part: `${p.m}-`, meaning: p.n }));
-  const suffixes = morphemes.suffixes.map((p) => ({ type: "后缀", part: `-${p.m}`, meaning: p.n }));
-  const partCache = new Map();
-  const denied = new Set(["interior", "internal", "interim", "internet", "university", "universal", "universe"]);
-
+  for (const group of curated.rootGroups || []) {
+    for (const term of new Set([...group.terms, ...(group.relatedTerms || [])])) {
+      const key = termKey(term);
+      if (!groupsByTerm.has(key)) groupsByTerm.set(key, []);
+      groupsByTerm.get(key).push(group);
+    }
+  }
   function entry(term) {
     const key = termKey(term);
     const detail = curated.entries[key] || {};
     const book = byTerm.get(key);
-    return { id: `family-${key}`, term, source: "拓展", ...detail, ...book, inBook: Boolean(book), familyDetail: detail };
+    return { term, ...book, ...detail, id: book?.id || `family-${key}`, inBook: Boolean(book), source: book?.source || "拓展" };
   }
-
   function parts(word) {
-    const key = termKey(word.term);
-    if (curated.entries[key]?.parts) return curated.entries[key].parts;
-    if (word.roots?.length) return word.roots.map((root) => {
-      const type = root.note.includes("词根") ? "词根" : root.part.startsWith("-") ? "后缀" : "前缀";
-      const normalized = termKey(root.part);
-      return { type, part: root.part, meaning: root.note.replace(/^[^：]*：/, ""), rootId: roots.get(normalized)?.rootId || normalized };
-    });
-    if (partCache.has(key)) return partCache.get(key);
-    if (!key || denied.has(key) || /\s/.test(word.term)) return [];
-    const possiblePrefixes = [null, ...prefixes.filter((p) => key.startsWith(termKey(p.part)))];
-    const possibleSuffixes = [null, ...suffixes.filter((p) => key.endsWith(termKey(p.part)))];
-    let best = [];
-    let score = -1;
-    // Require the entire remaining stem to match; never attach a root on a substring alone.
-    for (const prefix of possiblePrefixes) for (const suffix of possibleSuffixes) {
-      const start = prefix ? termKey(prefix.part).length : 0;
-      const end = key.length - (suffix ? termKey(suffix.part).length : 0);
-      if (end - start < 3) continue;
-      const stem = key.slice(start, end);
-      let center = roots.has(stem) ? [roots.get(stem)] : null;
-      if (!center && suffix && byTerm.has(stem) && stem !== key) center = [{ type: "词基", part: stem, meaning: byTerm.get(stem).meaning }];
-      if (!center) for (let i = 3; i <= stem.length - 3; i++) {
-        if (roots.has(stem.slice(0, i)) && roots.has(stem.slice(i))) { center = [roots.get(stem.slice(0, i)), roots.get(stem.slice(i))]; break; }
-      }
-      if (!center || (!prefix && !suffix && center.length === 1)) continue;
-      const candidateScore = stem.length + center.filter((p) => p.type === "词根").length;
-      if (candidateScore > score) { best = [prefix, ...center, suffix].filter(Boolean); score = candidateScore; }
-    }
-    partCache.set(key, best);
-    return best;
+    return curated.entries[termKey(word.term)]?.parts || [];
   }
-
-  function family(word) { return curated.families.find((item) => item.terms.includes(word.term.toLowerCase())); }
-
-  function derivatives(word, fallback = []) {
-    const known = family(word);
-    const source = known ? known.derivatives.map(entry) : fallback;
-    const rows = source.some((item) => termKey(item.term) === termKey(word.term)) ? source : [word, ...source];
-    if (rows.length < 2) return [];
-    return rows.map((item) => {
-      const resolved = { ...entry(item.term), ...item };
-      const detail = curated.entries[termKey(item.term)];
-      return { ...resolved, parts: parts(resolved), highlights: detail?.derivativeHighlights || parts(resolved).filter((p) => p.type === "前缀" || p.type === "后缀").map((p) => termKey(p.part)) };
-    });
+  function decorate(item, mode) {
+    const resolved = { ...item, ...entry(item.term) };
+    const decomposition = parts(resolved);
+    return { ...resolved, parts: decomposition, highlights: (mode === "roots" ? resolved.rootHighlights : resolved.derivativeHighlights) || decomposition.filter((part) => mode === "roots" ? part.type === "词根" : part.type === "前缀" || part.type === "后缀").map((part) => termKey(part.part)) };
   }
-
+  function derivatives(word) {
+    const families = familiesByTerm.get(termKey(word.term)) || [];
+    const terms = [...new Set(families.flatMap((family) => family.derivatives))];
+    if (!terms.length) return [];
+    if (!terms.some((term) => termKey(term) === termKey(word.term))) terms.unshift(word.term);
+    return terms.map((term) => decorate(termKey(term) === termKey(word.term) ? word : entry(term), "derivatives")).filter((item) => item.meaning);
+  }
   function rootGroups(word) {
-    const known = family(word);
-    if (known) {
-      const groups = known.groups.map((group) => ({ ...group, words: group.terms.map((term) => {
-        const item = entry(term); return { ...item, ...item.familyDetail, parts: parts(item), highlights: item.familyDetail.rootHighlights || [] };
-      }) }));
-      if (!groups.some((group) => group.words.some((item) => termKey(item.term) === termKey(word.term)))) {
-        groups.unshift({ id: `current-${word.id}`, words: [{ ...word, parts: parts(word), highlights: [] }] });
-      }
-      return groups;
-    }
-    const currentParts = parts(word);
-    if (!currentParts.length) return [];
-    const rootIds = new Set(currentParts.filter((p) => p.type === "词根").map((p) => p.rootId || termKey(p.part)));
-    const relatives = rootIds.size ? words.filter((item) => item.id !== word.id && parts(item).some((p) => p.type === "词根" && rootIds.has(p.rootId || termKey(p.part)))).slice(0, 7) : [];
-    return [{ id: word.id, words: [word, ...relatives].map((item) => {
-      const decomposition = parts(item);
-      return { ...item, inBook: byTerm.has(termKey(item.term)), parts: decomposition, highlights: decomposition.filter((p) => p.type === "词根").map((p) => termKey(p.part)) };
-    }) }];
+    const groups = groupsByTerm.get(termKey(word.term)) || [];
+    if (groups.length) return groups.map((group) => {
+      const terms = group.terms.some((term) => termKey(term) === termKey(word.term)) ? group.terms : [word.term, ...group.terms];
+      return { ...group, words: terms.map((term) => decorate(termKey(term) === termKey(word.term) ? word : entry(term), "roots")) };
+    });
+    const rows = derivatives(word);
+    const current = decorate(word, "roots");
+    if (!current.parts.length && rows.length === 0) return [];
+    return [{ id: `family-${termKey(word.term)}`, title: "词基与词缀拓展", description: "从词基到派生形式，查看构词关系和各部分含义。", words: rows.length ? rows : [current] }];
   }
   return { entry, parts, derivatives, rootGroups };
 }

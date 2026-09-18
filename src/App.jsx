@@ -31,15 +31,14 @@ import {
 import bbdcBook from "./data/bbdc-yszch.json";
 import syllableExceptions from "./data/syllable-exceptions.json";
 import morphemes from "./data/morphemes.json";
-import derivativeExamples from "./data/derivative-examples.json";
-import derivativeDetails from "./data/derivative-details.json";
-import synonymDetails from "./data/synonym-details.json";
 import exampleTranslations from "./data/example-translations.json";
 import exampleAdditions from "./data/example-additions.json";
 import { speakNavigationWord, speakWord } from "./offlineTts";
 import SpellingPractice from "./SpellingPractice";
 import SpellingReviewPage from "./SpellingReviewPage";
 import WordFamilyView from "./WordFamilyView";
+import { createSynonymLookup } from "./synonyms";
+import reviewedSynonyms from "./data/reviewed-synonyms.json";
 import wordFamilies from "./data/word-families.json";
 import { createFamilyLookup, normalizeFamilyWords, termKey } from "./wordFamilies";
 import { mergeSpellingRecords, needsSpellingReview, normalizeSpellingRecords, recordSpellingAttempt } from "./spellingRecords";
@@ -229,109 +228,18 @@ const termSegmentCache = new Map();
 
 const MORPH_PREFIXES = morphemes.prefixes.map((p) => [p.m, p.n]).sort((a, b) => b[0].length - a[0].length);
 const MORPH_SUFFIXES = morphemes.suffixes.map((s) => [s.m, s.n]).sort((a, b) => b[0].length - a[0].length);
-const MORPH_ROOTS = morphemes.roots
-  .flatMap((r) => [{ m: r.m, n: r.n }, ...(r.v || []).map((v) => ({ m: v, n: r.n }))])
-  .sort((a, b) => b.m.length - a.m.length);
 
 const MORPH_DENY = new Set([
   "interior", "internal", "interim", "internet", "university", "universal", "universe",
 ]);
 
 const morphCache = new Map();
-const affixCache = new Map();
+
 const exampleLookupCache = new Map();
 
 function hasVowel(s) {
   for (const ch of s) if (VOWELS.has(ch) || ch === "y") return true;
   return false;
-}
-
-function detectAffixes(term) {
-  const key = String(term || "").toLowerCase().replace(/[^a-z]/g, "");
-  if (!key || key.length < 5) return [];
-  if (affixCache.has(key)) return affixCache.get(key);
-  if (MORPH_DENY.has(key)) {
-    affixCache.set(key, []);
-    return [];
-  }
-
-  const result = detectAffixesInner(key);
-  affixCache.set(key, result);
-  return result;
-}
-
-function detectAffixesInner(key) {
-  const found = [];
-  let prefixLen = 0;
-  let matchedPrefix = "";
-  for (const [prefix, note] of MORPH_PREFIXES) {
-    if (key.startsWith(prefix) && key.length - prefix.length >= 3) {
-      found.push({ part: `${prefix}-`, note: `前缀：${note}` });
-      prefixLen = prefix.length;
-      matchedPrefix = prefix;
-      break;
-    }
-  }
-
-  const stem = key.slice(prefixLen);
-  let suffixLen = 0;
-  let matchedSuffix = "";
-  for (const [suffix, note] of MORPH_SUFFIXES) {
-    if (stem.length - suffix.length >= 2 && stem.endsWith(suffix)) {
-      const rootCand = stem.slice(0, stem.length - suffix.length);
-      if (hasVowel(rootCand)) {
-        found.push({ part: `-${suffix}`, note: `后缀：${note}` });
-        suffixLen = suffix.length;
-        matchedSuffix = suffix;
-        break;
-      }
-    }
-  }
-
-  const rootCandidate = stem.slice(0, stem.length - suffixLen);
-  let rootFound = false;
-  if (rootCandidate.length >= 3) {
-    for (const { m, n } of MORPH_ROOTS) {
-      if (m.length < 3) continue;
-      if (rootCandidate === m || (rootCandidate.includes(m) && rootCandidate.length > m.length)) {
-        found.splice(found.length - (matchedSuffix ? 1 : 0), 0, { part: m, note: `词根：${n}` });
-        rootFound = true;
-        break;
-      }
-    }
-  }
-
-  if (!rootFound && matchedPrefix && matchedPrefix.length <= 2) {
-    const retryStem = key;
-    let retrySuffixLen = 0;
-    let retrySuffix = "";
-    let retrySuffixNote = "";
-    for (const [suffix, snote] of MORPH_SUFFIXES) {
-      if (retryStem.length - suffix.length >= 2 && retryStem.endsWith(suffix)) {
-        const rootCand = retryStem.slice(0, retryStem.length - suffix.length);
-        if (hasVowel(rootCand)) {
-          retrySuffixLen = suffix.length;
-          retrySuffix = suffix;
-          retrySuffixNote = snote;
-          break;
-        }
-      }
-    }
-    const retryRootCand = retryStem.slice(0, retryStem.length - retrySuffixLen);
-    if (retryRootCand.length >= 3) {
-      for (const { m, n } of MORPH_ROOTS) {
-        if (m.length < 3) continue;
-        if (retryRootCand === m || (retryRootCand.includes(m) && retryRootCand.length > m.length)) {
-          const retryResult = [];
-          retryResult.push({ part: m, note: `词根：${n}` });
-          if (retrySuffix) retryResult.push({ part: `-${retrySuffix}`, note: `后缀：${retrySuffixNote}` });
-          return retryResult;
-        }
-      }
-    }
-  }
-
-  return found;
 }
 
 function morphologySplit(term) {
@@ -382,284 +290,10 @@ function flattenWords() {
 }
 
 const ALL_WORDS = flattenWords();
-const FAMILY_LOOKUP = createFamilyLookup(ALL_WORDS, morphemes, wordFamilies);
+const FAMILY_LOOKUP = createFamilyLookup(ALL_WORDS, wordFamilies);
+const SYNONYM_LOOKUP = createSynonymLookup(ALL_WORDS, reviewedSynonyms);
 const MAIN_BOOK_ID = "main";
 const FAVORITES_BOOK_ID = "favorites";
-
-const FAMILY_SUFFIXES = ["s", "es", "ed", "ing", "er", "or", "est", "ly", "al", "ial", "ic", "ical", "ive", "ous", "ful", "less", "able", "ible", "ion", "tion", "sion", "ation", "ment", "ness", "ity", "ism", "ist", "ize", "ise", "en", "fy"];
-
-function stemVariants(term) {
-  const word = String(term || "").trim().toLowerCase().replace(/[^a-z]/g, "");
-  const stems = new Set([word]);
-  if (word.length < 3) return [...stems];
-
-  for (const suffix of FAMILY_SUFFIXES) {
-    if (word.endsWith(suffix) && word.length > suffix.length + 2) {
-      const stem = word.slice(0, -suffix.length);
-      if (stem.length >= 3) {
-        stems.add(stem);
-        if (stem.endsWith("e")) stems.add(stem.slice(0, -1));
-        else stems.add(`${stem}e`);
-        if (suffix === "ing" && stem.length > 1 && stem.endsWith(stem.at(-1))) stems.add(stem.slice(0, -1));
-        if (["tion", "sion", "ation"].includes(suffix)) stems.add(`${stem}e`);
-        if (["ity", "ness", "ly", "ic", "ical"].includes(suffix) && stem.endsWith("i")) stems.add(`${stem.slice(0, -1)}y`);
-        if (["ity", "ness", "ly", "ical"].includes(suffix) && stem.endsWith("e")) stems.add(stem.slice(0, -1));
-      }
-    }
-  }
-  if (word.endsWith("e") && word.length > 3) stems.add(word.slice(0, -1));
-  if (word.endsWith("y") && word.length > 3) stems.add(`${word.slice(0, -1)}i`);
-  if (word.endsWith("y") && word.length > 3) stems.add(`${word.slice(0, -1)}ie`);
-
-  return [...stems].filter((item) => item.length >= 3);
-}
-
-const derivativeStemIndex = new Map();
-{
-  const allTerms = [...new Set(ALL_WORDS.map((w) => String(w.term || "").trim().toLowerCase().replace(/[^a-z]/g, "")))].filter((t) => t && !t.includes(" "));
-  for (const term of allTerms) {
-    for (const stem of stemVariants(term)) {
-      if (!derivativeStemIndex.has(stem)) derivativeStemIndex.set(stem, new Set());
-      derivativeStemIndex.get(stem).add(term);
-    }
-  }
-}
-
-const derivativeCache = new Map();
-function findDerivatives(term) {
-  const word = String(term || "").trim().toLowerCase().replace(/[^a-z]/g, "");
-  if (!word || word.includes(" ") || word.length < 4) return [];
-  if (derivativeCache.has(word)) return derivativeCache.get(word);
-
-  const stems = stemVariants(word);
-  const matches = new Set();
-  for (const stem of stems) {
-    const bucket = derivativeStemIndex.get(stem);
-    if (bucket) {
-      for (const candidate of bucket) {
-        if (candidate === word) continue;
-        if (Math.abs(candidate.length - word.length) <= 8) matches.add(candidate);
-      }
-    }
-  }
-  for (const stem of stems) {
-    for (const [indexedStem, bucket] of derivativeStemIndex) {
-      if (indexedStem === word) continue;
-      if (indexedStem.startsWith(stem) && indexedStem.length <= stem.length + 6) {
-        for (const candidate of bucket) {
-          if (candidate !== word) matches.add(candidate);
-        }
-      }
-    }
-  }
-
-  const result = [...matches]
-    .sort((a, b) => Math.abs(a.length - word.length) - Math.abs(b.length - word.length))
-    .slice(0, 12);
-  derivativeCache.set(word, result);
-  return result;
-}
-
-const BOOK_TERM_MAP = new Map();
-for (const w of ALL_WORDS) {
-  const key = String(w.term || "").trim().toLowerCase().replace(/[^a-z]/g, "");
-  if (key && !BOOK_TERM_MAP.has(key)) {
-    BOOK_TERM_MAP.set(key, {
-      meaning: w.meaning || w.rawMeaning || "",
-      pos: w.pos || "",
-      term: w.term,
-      examples: w.examples || [],
-    });
-  }
-}
-
-const DERIV_EXAMPLES = new Map(Object.entries(derivativeExamples));
-
-const SUFFIX_NOTES = {
-  s: "复数/三单", es: "复数/三单", ed: "过去式/过去分词", ing: "现在分词/动名词",
-  er: "从事者；...的物", or: "从事者", able: "可...的", ible: "可...的",
-  ment: "行为；结果", ion: "行为；状态", tion: "行为；状态", sion: "行为；状态", ation: "行为；过程",
-  al: "...的（形容词）；行为", ic: "...的", ous: "充满...的", ful: "充满...的",
-  less: "没有...的", y: "...的", ize: "使...化", ise: "使...化",
-  ly: "...地", ness: "性质；状态", ity: "性质；状态", ish: "像...的",
-};
-
-const genDerivCache = new Map();
-function generateDerivatives(term, pos) {
-  const w = String(term || "").trim().toLowerCase().replace(/[^a-z]/g, "");
-  if (!w || w.length < 3) return [];
-  if (genDerivCache.has(w)) return genDerivCache.get(w);
-
-  const isVerb = /v/i.test(pos || "");
-  const isNoun = /n/i.test(pos || "") && !isVerb;
-  const isAdj = /adj/i.test(pos || "");
-
-  const endsWithE = w.endsWith("e");
-  const endsWithY = w.endsWith("y") && !/[aeiou]y$/.test(w);
-  const dropE = (sfx) => (endsWithE ? w.slice(0, -1) + sfx : w + sfx);
-  const yToI = (sfx) => (endsWithY ? w.slice(0, -1) + "i" + sfx : dropE(sfx));
-  const addS = () => (/[sxz]$|ch$|sh$/.test(w) ? w + "es" : w + "s");
-
-  const ionForm = () => {
-    if (w.endsWith("ate")) return w.slice(0, -3) + "ation";
-    if (w.endsWith("ce")) return w.slice(0, -2) + "tion";
-    if (w.endsWith("ct") || w.endsWith("rt") || w.endsWith("nt") || w.endsWith("st") || w.endsWith("pt")) return w + "ion";
-    if (w.endsWith("se")) return w.slice(0, -1) + "ion";
-    if (w.endsWith("de")) return w.slice(0, -2) + "sion";
-    if (w.endsWith("ss")) return w + "ion";
-    return w + "ation";
-  };
-
-  const forms = [];
-  const add = (term, sfx) => {
-    if (term !== w && term.length > w.length && term.length <= w.length + 6) {
-      forms.push({ term, suffix: sfx, note: SUFFIX_NOTES[sfx] || "" });
-    }
-  };
-  if (isVerb) {
-    add(addS(), /[sxz]$|ch$|sh$/.test(w) ? "es" : "s");
-    add(endsWithY ? yToI("ed") : dropE("ed"), "ed");
-    add(dropE("ing"), "ing");
-    add(dropE("er"), "er");
-    add(dropE("or"), "or");
-    add(dropE("able"), "able");
-    add(w + "ment", "ment");
-    add(ionForm(), "tion");
-  }
-  if (isNoun) {
-    add(dropE("al"), "al");
-    add(dropE("ic"), "ic");
-    add(dropE("ous"), "ous");
-    add(dropE("ful"), "ful");
-    add(dropE("less"), "less");
-    add(dropE("y"), "y");
-    add(dropE("ize"), "ize");
-    add(yToI("al"), "al");
-    add(yToI("ous"), "ous");
-  }
-  if (isAdj) {
-    add(endsWithY ? yToI("ly") : dropE("ly"), "ly");
-    add(yToI("ness"), "ness");
-    add(dropE("ity"), "ity");
-    add(dropE("ize"), "ize");
-    add(dropE("ish"), "ish");
-  }
-
-  const seen = new Set();
-  const result = forms.filter((f) => {
-    if (seen.has(f.term)) return false;
-    seen.add(f.term);
-    return true;
-  });
-  genDerivCache.set(w, result);
-  return result;
-}
-
-const DERIVATIVE_POS = {
-  s: "v.",
-  es: "v.",
-  ed: "v.",
-  ing: "v.",
-  er: "n.",
-  or: "n.",
-  able: "adj.",
-  ible: "adj.",
-  ment: "n.",
-  ion: "n.",
-  tion: "n.",
-  sion: "n.",
-  ation: "n.",
-  al: "adj.",
-  ic: "adj.",
-  ous: "adj.",
-  ful: "adj.",
-  less: "adj.",
-  y: "adj.",
-  ize: "v.",
-  ise: "v.",
-  ly: "adv.",
-  ness: "n.",
-  ity: "n.",
-  ish: "adj.",
-};
-
-function baseDerivativeMeaning(word) {
-  return String(word.meaning || word.rawMeaning || "")
-    .split("\n")[0]
-    .replace(/^(?:adj|adv|aux|conj|det|int|n|num|phr|pl|prep|pron|v|vi|vt)\.\s*/i, "")
-    .trim();
-}
-
-function derivativeConcepts(word) {
-  return baseDerivativeMeaning(word)
-    .split(/[；;，,]/)
-    .map((part) => part.trim().replace(/[的地]$/, ""))
-    .filter(Boolean)
-    .slice(0, 2)
-    .join("、");
-}
-
-function inferredDerivativeDetail(word, item) {
-  const key = item.term.toLowerCase().replace(/[^a-z]/g, "");
-  if (derivativeDetails[key]) return derivativeDetails[key];
-
-  const baseMeaning = baseDerivativeMeaning(word) || word.term;
-  const concepts = derivativeConcepts(word) || baseMeaning;
-  const suffix = item.suffix;
-
-  if (suffix === "ly") {
-    return {
-      pos: "adv.",
-      meaning: baseMeaning
-        .split(/[；;，,]/)
-        .map((part) => part.trim().replace(/的$/, "地"))
-        .filter(Boolean)
-        .join("；"),
-    };
-  }
-  if (suffix === "ness" || suffix === "ity") {
-    return { pos: "n.", meaning: `${concepts}的性质、状态或特征` };
-  }
-  if (suffix === "s" || suffix === "es") {
-    return { pos: "v.", meaning: `${baseMeaning}（动词第三人称单数形式）` };
-  }
-  if (suffix === "ed") {
-    return { pos: "v.", meaning: `${baseMeaning}（过去式或过去分词形式）` };
-  }
-  if (suffix === "ing") {
-    return { pos: "v.", meaning: `${baseMeaning}（现在分词或动名词形式）` };
-  }
-  if (suffix === "er" || suffix === "or") {
-    return { pos: "n.", meaning: `从事“${concepts}”的人或执行相关动作的事物` };
-  }
-  if (suffix === "able" || suffix === "ible") {
-    return { pos: "adj.", meaning: `能够${concepts}的；可以被${concepts}的` };
-  }
-  if (["ment", "ion", "tion", "sion", "ation"].includes(suffix)) {
-    return { pos: "n.", meaning: `${concepts}的行为、过程、状态或结果` };
-  }
-  if (suffix === "less") {
-    return { pos: "adj.", meaning: `缺少${concepts}的；没有${concepts}的` };
-  }
-  if (suffix === "ful") {
-    return { pos: "adj.", meaning: `充满${concepts}的；具有${concepts}特征的` };
-  }
-  if (suffix === "ize" || suffix === "ise") {
-    return { pos: "v.", meaning: `使……具有${concepts}的特征；使……变成相关状态` };
-  }
-  if (suffix === "ish") {
-    return { pos: "adj.", meaning: `有些${concepts}的；带有${concepts}特征的` };
-  }
-  return {
-    pos: DERIVATIVE_POS[suffix] || "",
-    meaning: `与“${baseMeaning}”有关的派生含义`,
-  };
-}
-
-function isReliableGeneratedDerivative(item) {
-  const key = item.term.toLowerCase().replace(/[^a-z]/g, "");
-  return Boolean(derivativeDetails[key] || DERIV_EXAMPLES.has(key));
-}
 
 function flattenBookWords(book) {
   return book.chapters.flatMap((chapter) => chapter.words.map((word) => ({ ...word, chapterId: chapter.id })));
@@ -1162,30 +796,7 @@ function DerivativeMeaning({ pos, meaning }) {
   );
 }
 
-function getSynonymDetail(item) {
-  const term = String(item || "").trim();
-  const key = term.toLowerCase();
-  const bookEntry = BOOK_TERM_MAP.get(key.replace(/[^a-z]/g, ""));
-  const detail = synonymDetails[key];
-
-  if (detail) return { term, ...detail, inBook: Boolean(bookEntry) };
-  if (bookEntry) {
-    return {
-      term: bookEntry.term,
-      pos: bookEntry.pos,
-      meaning: bookEntry.meaning,
-      inBook: true,
-    };
-  }
-  return {
-    term,
-    pos: "",
-    meaning: `与“${term}”所在词条意思相近`,
-    inBook: false,
-  };
-}
-
-function DetailContent({ tab, word, note, onPlayExample, onChangeNote, favorites, onFamilyFavorite }) {
+function DetailContent({ tab, word, accent, note, onPlayExample, onChangeNote, favorites, onFamilyFavorite }) {
   if (tab === NOTE_TAB) {
     return (
       <div>
@@ -1205,49 +816,22 @@ function DetailContent({ tab, word, note, onPlayExample, onChangeNote, favorites
   }
 
   if (tab === "\u6d3e\u751f") {
-    const inBook = findDerivatives(word.term);
-    const generated = generateDerivatives(word.term, word.pos);
-    const seen = new Set();
-    const allDeriv = [];
-    const addDeriv = (term, pos, meaning, clickable, examples) => {
-      const key = term.toLowerCase().replace(/[^a-z]/g, "");
-      if (seen.has(key) || key === word.term.toLowerCase().replace(/[^a-z]/g, "")) return;
-      seen.add(key);
-      allDeriv.push({ ...FAMILY_LOOKUP.entry(term), term, pos, meaning, clickable, examples: examples || [] });
-    };
-    for (const item of [...(word.derivatives || []), ...inBook]) {
-      const key = item.toLowerCase().replace(/[^a-z]/g, "");
-      const entry = BOOK_TERM_MAP.get(key);
-      if (entry) addDeriv(entry.term, entry.pos, entry.meaning, true, entry.examples);
-    }
-    for (const item of generated) {
-      const key = item.term.toLowerCase().replace(/[^a-z]/g, "");
-      const inBookEntry = BOOK_TERM_MAP.get(key);
-      if (inBookEntry) {
-        addDeriv(inBookEntry.term, inBookEntry.pos, inBookEntry.meaning, true, inBookEntry.examples);
-      } else if (isReliableGeneratedDerivative(item)) {
-        const detail = inferredDerivativeDetail(word, item);
-        const exs = DERIV_EXAMPLES.get(key) || [];
-        addDeriv(item.term, detail.pos, detail.meaning, false, exs);
-      }
-    }
-
-    return <WordFamilyView mode="derivatives" word={word} rows={FAMILY_LOOKUP.derivatives(word, allDeriv)} favorites={favorites} onFavorite={onFamilyFavorite} />;
+    return <WordFamilyView mode="derivatives" word={word} rows={FAMILY_LOOKUP.derivatives(word)} favorites={favorites} onFavorite={onFamilyFavorite} onSpeak={(term) => speakWord(term, accent)} />;
   }
 
   if (tab === AFFIX_TAB) {
-    return <WordFamilyView mode="roots" word={word} groups={FAMILY_LOOKUP.rootGroups(word)} favorites={favorites} onFavorite={onFamilyFavorite} />;
+    return <WordFamilyView mode="roots" word={word} groups={FAMILY_LOOKUP.rootGroups(word)} favorites={favorites} onFavorite={onFamilyFavorite} onSpeak={(term) => speakWord(term, accent)} />;
   }
 
   if (tab === "\u8fd1\u4e49") {
-    if (!word.synonyms?.length) return <p className="text-sm text-slate-400 sm:text-base">暂无近义词</p>;
-    const synonyms = word.synonyms.map(getSynonymDetail);
+    const synonyms = SYNONYM_LOOKUP(word);
+    if (!synonyms.length) return <p className="text-sm text-slate-400 sm:text-base">暂无符合当前释义的可靠近义词</p>;
     return (
       <div className="flex flex-col gap-2.5">
         {synonyms.map((item) => (
           <div key={item.term} className="rounded-lg bg-orange-50 px-3 py-2.5 sm:px-4 sm:py-3">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="text-base font-extrabold text-orange-700 sm:text-lg">{item.term}</span>
+              <button type="button" aria-label={`朗读 ${item.term}`} onClick={() => speakWord(item.term, accent)} className="inline-flex items-center gap-2 rounded text-base font-extrabold text-orange-700 focus-visible:outline-2 focus-visible:outline-orange-500 sm:text-lg">{item.term}<Volume2 aria-hidden="true" className="h-4 w-4" /></button>
               {item.inBook && (
                 <span className="rounded bg-orange-100 px-1.5 py-0.5 text-[10px] font-bold text-orange-700 sm:text-xs">
                   词库
@@ -1256,6 +840,7 @@ function DetailContent({ tab, word, note, onPlayExample, onChangeNote, favorites
             </div>
             <div className="mt-1.5">
               <DerivativeMeaning pos={item.pos} meaning={item.meaning} />
+              <p className="mt-1 text-xs leading-5 text-slate-500">对应义项：{item.sense}。{item.usage}</p>
             </div>
           </div>
         ))}
@@ -2253,7 +1838,7 @@ function DetailPane({
       </div>
 
       <div className="pt-4 sm:pt-6">
-        <DetailContent tab={tab} word={word} note={note} onPlayExample={onPlayExample} onChangeNote={onChangeNote} favorites={favorites} onFamilyFavorite={onFamilyFavorite} />
+        <DetailContent tab={tab} word={word} accent={accent} note={note} onPlayExample={onPlayExample} onChangeNote={onChangeNote} favorites={favorites} onFamilyFavorite={onFamilyFavorite} />
       </div>
     </div>
   );
@@ -2618,6 +2203,8 @@ export default function App({ currentUser: initialCurrentUser = null, signOutPat
       if (page !== "words" || event.ctrlKey || event.metaKey || event.altKey || document.getElementById("chapter-jump-menu")) return;
       const eventTarget = event.target;
       if (eventTarget instanceof Element && eventTarget.closest("input, textarea, select, [contenteditable='true']")) return;
+
+      if ((event.key === " " || event.key === "Enter") && eventTarget instanceof Element && eventTarget.closest("button, a, summary")) return;
 
       const key = canonicalShortcutKey(event.key);
       const shortcuts = normalizeShortcutKeys(stored.shortcutKeys);
