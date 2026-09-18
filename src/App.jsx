@@ -37,6 +37,9 @@ import synonymDetails from "./data/synonym-details.json";
 import exampleTranslations from "./data/example-translations.json";
 import exampleAdditions from "./data/example-additions.json";
 import { speakNavigationWord, speakWord } from "./offlineTts";
+import SpellingPractice from "./SpellingPractice";
+import SpellingReviewPage from "./SpellingReviewPage";
+import { mergeSpellingRecords, needsSpellingReview, normalizeSpellingRecords, recordSpellingAttempt } from "./spellingRecords";
 
 const STORAGE_KEY = "offline_vocab_reader_v1";
 const CLOUD_DIRTY_KEY = "offline_vocab_reader_cloud_dirty_v1";
@@ -711,6 +714,7 @@ function defaultState() {
   return {
     favorites: [],
     viewed: {},
+    spellingRecords: {},
     notes: {},
     customBooks: [],
     meaningsHidden: true,
@@ -731,6 +735,7 @@ function loadState() {
     return {
       ...defaultState(),
       ...parsed,
+      spellingRecords: normalizeSpellingRecords(parsed.spellingRecords),
       meaningsHidden: true,
       spellingSeparated: parsed.spellingSeparated !== false,
       accent: VOICE_OPTIONS[parsed.accent] ? parsed.accent : "us",
@@ -755,6 +760,7 @@ function normalizeBackupState(value) {
     ...value,
     favorites: Array.isArray(value.favorites) ? value.favorites.filter((item) => typeof item === "string") : [],
     viewed: isRecord(value.viewed) ? value.viewed : {},
+    spellingRecords: normalizeSpellingRecords(value.spellingRecords),
     notes: isRecord(value.notes) ? value.notes : {},
     customBooks: Array.isArray(value.customBooks) ? value.customBooks.filter((book) => isRecord(book)) : [],
     searchHistory: Array.isArray(value.searchHistory) ? value.searchHistory.filter((item) => typeof item === "string") : [],
@@ -783,6 +789,7 @@ function mergeStoredStates(cloudValue, localValue) {
     favorites: Array.from(new Set([...cloud.favorites, ...local.favorites])),
     viewed,
     notes: { ...cloud.notes, ...local.notes },
+    spellingRecords: mergeSpellingRecords(cloud.spellingRecords, local.spellingRecords),
     customBooks: Array.from(customBooks.values()),
     searchHistory: Array.from(new Set([...local.searchHistory, ...cloud.searchHistory])).slice(0, 30),
     meaningsHidden: true,
@@ -929,106 +936,6 @@ function spellingPattern(word, separated) {
   }
 
   return { target, groups };
-}
-
-function SpellingPractice({ word, accent, keyboardMode, separated }) {
-  const pattern = useMemo(() => spellingPattern(word, separated), [separated, word]);
-  const [attempt, setAttempt] = useState({ term: pattern.target, value: "" });
-  const spokenAttemptRef = useRef("");
-  const typed = attempt.term === pattern.target ? attempt.value : "";
-  const completed = pattern.target.length > 0 && typed.length === pattern.target.length;
-  const correct = completed && typed.toLowerCase() === pattern.target;
-  const wrong = completed && !correct;
-
-  useEffect(() => {
-    if (!correct) {
-      spokenAttemptRef.current = "";
-      return;
-    }
-
-    const signature = `${pattern.target}:${typed}`;
-    if (spokenAttemptRef.current === signature) return;
-    spokenAttemptRef.current = signature;
-    speakWord(word.term, accent);
-  }, [accent, correct, pattern.target, typed, word.term]);
-
-  useEffect(() => {
-    if (!pattern.target) return undefined;
-    const desktopQuery = window.matchMedia("(min-width: 1024px)");
-    const handleKeyDown = (event) => {
-      const modeMatches = keyboardMode === "desktop" ? desktopQuery.matches : !desktopQuery.matches;
-      if (!modeMatches || event.ctrlKey || event.metaKey || event.altKey) return;
-      const eventTarget = event.target;
-      if (eventTarget instanceof Element && eventTarget.closest("input, textarea, select, [contenteditable='true']")) return;
-
-      if (event.key === "Backspace") {
-        setAttempt((current) => {
-          const value = current.term === pattern.target ? current.value : "";
-          return { term: pattern.target, value: value.slice(0, -1) };
-        });
-        if (typed) event.preventDefault();
-        return;
-      }
-
-      if (!/^[a-z]$/i.test(event.key)) return;
-      event.preventDefault();
-      setAttempt((current) => {
-        const currentValue = current.term === pattern.target ? current.value : "";
-        const nextBase = currentValue.length >= pattern.target.length ? "" : currentValue;
-        return {
-          term: pattern.target,
-          value: `${nextBase}${event.key}`.slice(0, pattern.target.length),
-        };
-      });
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [keyboardMode, pattern.target, typed]);
-
-  const toneClass = correct
-    ? "border-orange-500 text-orange-600"
-    : wrong
-      ? "border-red-500 text-red-500"
-      : "border-slate-300 text-slate-800";
-  const status = correct
-    ? "拼写正确，再输入即可重练"
-    : wrong
-      ? "拼写错误，再输入即可重练"
-      : typed
-        ? `${typed.length}/${pattern.target.length}`
-        : "直接使用键盘拼写";
-
-  return (
-    <div className="max-w-full rounded-lg bg-slate-50 px-3 py-2.5 sm:max-w-sm sm:px-4 sm:py-3" aria-label={`${word.term} 键盘拼写练习`}>
-      <div className="flex max-w-full flex-wrap items-end justify-end gap-x-1.5 gap-y-2 font-mono text-base font-bold sm:text-lg">
-        {pattern.groups.map((group, groupIndex) =>
-          group.type === "separator" ? (
-            <span key={`separator-${groupIndex}`} className="pb-1 text-slate-300">
-              {group.text}
-            </span>
-          ) : (
-            <span key={`letters-${groupIndex}`} className="inline-flex items-end gap-1">
-              {group.slots.map((slot) => (
-                <span
-                  key={slot.index}
-                  className={`inline-flex h-6 w-3.5 items-end justify-center border-b-2 pb-0.5 transition-colors sm:h-7 sm:w-4 ${toneClass}`}
-                >
-                  {typed[slot.index] || "\u00a0"}
-                </span>
-              ))}
-            </span>
-          ),
-        )}
-      </div>
-      <p
-        aria-live="polite"
-        className={`mt-2 text-right text-[10px] font-bold sm:text-xs ${correct ? "text-orange-600" : wrong ? "text-red-500" : "text-slate-400"}`}
-      >
-        {status}
-      </p>
-    </div>
-  );
 }
 
 function staticBilingualExamples(word) {
@@ -1927,6 +1834,8 @@ function DashboardPage({
   syncStatus,
   syncMessage,
   onRetrySync,
+  spellingRecords,
+  onReviewSpelling,
 }) {
   const [bookChooserOpen, setBookChooserOpen] = useState(false);
   const [importing, setImporting] = useState(false);
@@ -1936,6 +1845,7 @@ function DashboardPage({
   const [recordingShortcut, setRecordingShortcut] = useState(null);
   const [shortcutMessage, setShortcutMessage] = useState("");
   const favoriteSet = useMemo(() => new Set(favorites), [favorites]);
+  const reviewCount = activeBook.words.filter((word) => needsSpellingReview(spellingRecords[word.id])).length;
   const activeViewedCount = activeBook.words.filter((word) => viewed[word.id]).length;
   const progress = activeBook.total > 0 ? Math.round((activeViewedCount / activeBook.total) * 100) : 0;
   const listWords = activeBook.id === FAVORITES_BOOK_ID ? activeBook.words : activeBook.words.slice(0, 30);
@@ -1984,6 +1894,15 @@ function DashboardPage({
       </header>
 
       <section className="mx-auto max-w-3xl px-4 sm:px-5">
+        <div className="mb-4 rounded-lg border border-orange-100 bg-white p-4 shadow-sm sm:p-5">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <h2 className="text-lg font-bold">拼写错词 · {reviewCount} 词待复习</h2>
+              <p className="mt-1 text-sm text-slate-500">{activeBook.title} · 完整拼错后自动记录</p>
+            </div>
+            <button type="button" onClick={onReviewSpelling} className="rounded-lg bg-orange-500 px-4 py-2.5 text-sm font-bold text-white hover:bg-orange-600">查看错词与重练</button>
+          </div>
+        </div>
         <div className="mb-4 rounded-lg border border-slate-100 bg-white p-4 shadow-sm sm:p-5">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="flex min-w-0 items-center gap-3">
@@ -2230,7 +2149,7 @@ function DashboardPage({
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
               <h2 className="text-lg font-bold">数据迁移</h2>
-              <p className="mt-1 text-xs font-semibold text-slate-400 sm:text-sm">进度、收藏、快捷键、笔记、搜索记录和导入词书</p>
+              <p className="mt-1 text-xs font-semibold text-slate-400 sm:text-sm">进度、拼写错词、收藏、快捷键、笔记、搜索记录和导入词书</p>
             </div>
             <div className="flex flex-wrap items-center gap-2">
               <button
@@ -2344,6 +2263,8 @@ function DetailPane({
   onClose,
   onToggleFavorite,
   onPlayExample,
+  onSpellingAttempt,
+  spellingEnabled = true,
   showClose = false,
   keyboardMode = "desktop",
   layoutId,
@@ -2401,7 +2322,7 @@ function DetailPane({
               </IconButton>
             )}
           </div>
-          <SpellingPractice word={word} accent={accent} keyboardMode={keyboardMode} separated={spellingSeparated} />
+          <SpellingPractice key={word.id} word={word} pattern={spellingPattern(word, spellingSeparated)} accent={accent} keyboardMode={keyboardMode} enabled={spellingEnabled} onAttempt={onSpellingAttempt} />
         </div>
       </div>
 
@@ -2437,7 +2358,7 @@ function DetailPane({
   );
 }
 
-function DetailSheet({ word, favorite, accent, meaningsHidden, spellingSeparated, tab, note, onTabChange, onChangeNote, onClose, onToggleFavorite, onPlayExample }) {
+function DetailSheet({ word, favorite, accent, meaningsHidden, spellingSeparated, tab, note, onTabChange, onChangeNote, onClose, onToggleFavorite, onPlayExample, onSpellingAttempt }) {
   return (
     <AnimatePresence>
       {word && (
@@ -2464,6 +2385,7 @@ function DetailSheet({ word, favorite, accent, meaningsHidden, spellingSeparated
               onClose={onClose}
               onToggleFavorite={onToggleFavorite}
               onPlayExample={onPlayExample}
+              onSpellingAttempt={onSpellingAttempt}
               showClose
               keyboardMode="mobile"
               layoutId="active-detail-tab-mobile"
@@ -2657,6 +2579,13 @@ export default function App({ currentUser: initialCurrentUser = null, signOutPat
   }, [stored]);
 
   const clearPendingScroll = useCallback(() => setPendingScrollId(null), []);
+
+  const recordAttempt = useCallback((wordId, result, review = false) => {
+    setStored((current) => ({
+      ...current,
+      spellingRecords: recordSpellingAttempt(current.spellingRecords, wordId, result, review),
+    }));
+  }, []);
 
   const markViewed = useCallback((id) => {
     setStored((current) => {
@@ -2897,6 +2826,10 @@ export default function App({ currentUser: initialCurrentUser = null, signOutPat
     setPage("dashboard");
   }, []);
 
+  if (page === "spelling") {
+    return <SpellingReviewPage book={activeBook} records={stored.spellingRecords} accent={stored.accent} separated={stored.spellingSeparated} getPattern={spellingPattern} onAttempt={recordAttempt} onBack={() => setPage("dashboard")} />;
+  }
+
   return (
     <>
       <div className="lg:grid lg:h-screen lg:grid-cols-[minmax(420px,46%)_minmax(0,54%)] lg:overflow-hidden xl:grid-cols-[minmax(460px,42%)_minmax(0,58%)]">
@@ -2923,6 +2856,8 @@ export default function App({ currentUser: initialCurrentUser = null, signOutPat
               syncStatus={syncStatus}
               syncMessage={syncMessage}
               onRetrySync={flushCloudState}
+              spellingRecords={stored.spellingRecords}
+              onReviewSpelling={() => { setDetailId(null); setPage("spelling"); }}
             />
           ) : page === "search" ? (
             <SearchPage
@@ -2971,6 +2906,8 @@ export default function App({ currentUser: initialCurrentUser = null, signOutPat
             }}
             onToggleFavorite={toggleFavorite}
             onPlayExample={playExampleAtIndex}
+            onSpellingAttempt={recordAttempt}
+            spellingEnabled={page === "words"}
             layoutId="active-detail-tab-desktop"
             className="mx-auto min-h-full max-w-4xl px-6 py-8 xl:px-10 xl:py-10"
           />
@@ -2992,6 +2929,7 @@ export default function App({ currentUser: initialCurrentUser = null, signOutPat
         onClose={() => setDetailId(null)}
         onToggleFavorite={toggleFavorite}
         onPlayExample={playExampleAtIndex}
+        onSpellingAttempt={recordAttempt}
       />
     </>
   );
