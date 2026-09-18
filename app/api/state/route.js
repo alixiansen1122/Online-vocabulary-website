@@ -1,6 +1,7 @@
 import { getAppUser } from "../../app-auth.js";
 import { ensureDatabase, getBooksBucket, getD1, resultRows } from "../../../db/runtime.js";
 import { normalizeSpellingRecords } from "../../../src/spellingRecords.js";
+import { normalizeFamilyWords } from "../../../src/wordFamilies.js";
 
 export const dynamic = "force-dynamic";
 
@@ -31,6 +32,7 @@ function sanitizeState(value) {
     favorites: cleanStrings(value.favorites),
     viewed: isRecord(value.viewed) ? value.viewed : {},
     spellingRecords: normalizeSpellingRecords(value.spellingRecords),
+    familyWords: normalizeFamilyWords(value.familyWords),
     notes: isRecord(value.notes) ? value.notes : {},
     customBooks: Array.isArray(value.customBooks) ? value.customBooks.slice(0, MAX_BOOKS) : [],
     meaningsHidden: value.meaningsHidden !== false,

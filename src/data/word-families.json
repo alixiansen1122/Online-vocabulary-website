@@ -1,0 +1,57 @@
+{
+  "entries": {
+    "oxide": {
+      "pos": "n.", "meaning": "氧化物", "derivativeHighlights": ["ide"], "rootHighlights": ["ox"],
+      "parts": [{"type":"词根","part":"ox","meaning":"oxygen 氧（oxygen 的缩合形式）"},{"type":"后缀","part":"-ide","meaning":"构成化合物名称：……化物"}],
+      "memory": "ox（氧）+ -ide（化合物名称）→ 氧化物",
+      "phrases": [{"en":"iron oxide","zh":"氧化铁"}],
+      "sourceUrl": "https://www.ahdictionary.com/word/search.html?q=oxide"
+    },
+    "oxidize": {
+      "pos": "v.", "meaning": "使氧化；氧化", "derivativeHighlights": ["ize"], "rootHighlights": ["ox"],
+      "parts": [{"type":"词基","part":"oxid-","meaning":"oxide 氧化物的构词形式"},{"type":"后缀","part":"-ize","meaning":"构成动词：使……；使……化"}],
+      "memory": "由 oxide 构成动词 → 使氧化；氧化"
+    },
+    "dioxide": {
+      "pos": "n.", "meaning": "二氧化物", "derivativeHighlights": ["di","ide"], "rootHighlights": ["ox"],
+      "parts": [{"type":"前缀","part":"di-","meaning":"two 二"},{"type":"词根","part":"ox","meaning":"oxygen 氧"},{"type":"后缀","part":"-ide","meaning":"构成化合物名称：……化物"}],
+      "memory": "di-（二）+ oxide（氧化物）→ 二氧化物",
+      "phrases": [{"en":"carbon dioxide","zh":"二氧化碳"}]
+    },
+    "oxygen": {
+      "pos": "n.", "meaning": "氧；氧气", "display": "oxy·gen", "derivativeHighlights": [], "rootHighlights": ["oxy","gen"],
+      "parts": [{"type":"词根","part":"oxy","meaning":"sharp；acid 尖锐的；酸"},{"type":"词根","part":"gen","meaning":"born；producing 出生；产生"}],
+      "memory": "名称原意是“产生酸的物质”，源于当时认为酸都含氧的旧认识 → 氧",
+      "sourceUrl": "https://www.ahdictionary.com/word/search.html?q=oxygen"
+    },
+    "oxygenate": {
+      "pos": "v.", "meaning": "给……供氧；使充氧", "derivativeHighlights": ["ate"], "rootHighlights": ["oxy","gen"],
+      "parts": [{"type":"词基","part":"oxygen","meaning":"氧；氧气"},{"type":"后缀","part":"-ate","meaning":"构成动词：使……；给予……"}],
+      "memory": "oxygen（氧）+ -ate（动词后缀）→ 给……供氧",
+      "sourceUrl": "https://www.ahdictionary.com/word/search.html?q=oxygenate"
+    },
+    "oxymoron": {
+      "pos": "n.", "meaning": "矛盾修饰法", "display": "oxy·moron", "rootHighlights": ["oxy","moron"],
+      "parts": [{"type":"词根","part":"oxy","meaning":"sharp 尖锐的；敏锐的"},{"type":"词根","part":"moron","meaning":"源自 mōros：dull；foolish 迟钝的；愚蠢的"}],
+      "memory": "把“敏锐”与“愚钝”组合在一起 → 矛盾修饰法",
+      "sourceUrl": "https://www.ahdictionary.com/word/search.html?q=oxymoron"
+    },
+    "paroxysm": {
+      "pos": "n.", "meaning": "（情绪等的）突然爆发；阵发；痉挛", "rootHighlights": ["oxy"],
+      "parts": [{"type":"前缀","part":"par-","meaning":"para- 的形式，此处表示加强"},{"type":"词根","part":"oxy","meaning":"sharp 尖锐的；引申为刺激"}],
+      "memory": "词源与“强烈刺激”有关 → 情绪突然爆发或症状阵发",
+      "phrases": [{"en":"a paroxysm of anger","zh":"勃然大怒"}],
+      "sourceUrl": "https://www.ahdictionary.com/word/search.html?q=paroxysm"
+    }
+  },
+  "families": [
+    {
+      "terms": ["oxide", "oxygen", "dioxide", "oxygenate", "oxidize", "oxymoron", "paroxysm", "carbon dioxide"],
+      "derivatives": ["oxygen", "dioxide", "oxide", "oxygenate"],
+      "groups": [
+        {"id":"ox-chemistry","terms":["oxide","oxidize","dioxide"]},
+        {"id":"oxy-origin","terms":["oxygen","oxymoron","paroxysm"]}
+      ]
+    }
+  ]
+}

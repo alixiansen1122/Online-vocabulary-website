@@ -39,6 +39,9 @@ import exampleAdditions from "./data/example-additions.json";
 import { speakNavigationWord, speakWord } from "./offlineTts";
 import SpellingPractice from "./SpellingPractice";
 import SpellingReviewPage from "./SpellingReviewPage";
+import WordFamilyView from "./WordFamilyView";
+import wordFamilies from "./data/word-families.json";
+import { createFamilyLookup, normalizeFamilyWords, termKey } from "./wordFamilies";
 import { mergeSpellingRecords, needsSpellingReview, normalizeSpellingRecords, recordSpellingAttempt } from "./spellingRecords";
 
 const STORAGE_KEY = "offline_vocab_reader_v1";
@@ -213,7 +216,7 @@ const BOOK_TITLE = bbdcBook.title || "IELTS Vocabulary";
 const BOOK_TOTAL = bbdcBook.declaredTotal || CHAPTERS.reduce((total, chapter) => total + chapter.words.length, 0);
 const NOTE_TAB = "\u7b14\u8bb0";
 const EXAMPLE_TAB = "\u4f8b\u53e5";
-const AFFIX_TAB = "词缀";
+const AFFIX_TAB = "词根";
 const DEFAULT_DETAIL_TAB = EXAMPLE_TAB;
 const DETAIL_TABS = [EXAMPLE_TAB, "\u6d3e\u751f", AFFIX_TAB, "\u8fd1\u4e49", NOTE_TAB];
 const VOICE_OPTIONS = {
@@ -379,6 +382,7 @@ function flattenWords() {
 }
 
 const ALL_WORDS = flattenWords();
+const FAMILY_LOOKUP = createFamilyLookup(ALL_WORDS, morphemes, wordFamilies);
 const MAIN_BOOK_ID = "main";
 const FAVORITES_BOOK_ID = "favorites";
 
@@ -661,7 +665,7 @@ function flattenBookWords(book) {
   return book.chapters.flatMap((chapter) => chapter.words.map((word) => ({ ...word, chapterId: chapter.id })));
 }
 
-function buildWordBooks(favorites, customBooks = []) {
+function buildWordBooks(favorites, customBooks = [], familyWords = []) {
   const favoriteSet = new Set(favorites);
   const importedBooks = customBooks
     .filter((book) => Array.isArray(book.chapters))
@@ -687,7 +691,7 @@ function buildWordBooks(favorites, customBooks = []) {
     },
     ...importedBooks,
   ];
-  const allWords = studyBooks.flatMap((book) => book.words);
+  const allWords = [...studyBooks.flatMap((book) => book.words), ...familyWords];
   const favoriteWords = allWords.filter((word) => favoriteSet.has(word.id));
 
   return [
@@ -717,6 +721,7 @@ function defaultState() {
     spellingRecords: {},
     notes: {},
     customBooks: [],
+    familyWords: [],
     meaningsHidden: true,
     spellingSeparated: true,
     accent: "us",
@@ -736,6 +741,7 @@ function loadState() {
       ...defaultState(),
       ...parsed,
       spellingRecords: normalizeSpellingRecords(parsed.spellingRecords),
+      familyWords: normalizeFamilyWords(parsed.familyWords),
       meaningsHidden: true,
       spellingSeparated: parsed.spellingSeparated !== false,
       accent: VOICE_OPTIONS[parsed.accent] ? parsed.accent : "us",
@@ -761,6 +767,7 @@ function normalizeBackupState(value) {
     favorites: Array.isArray(value.favorites) ? value.favorites.filter((item) => typeof item === "string") : [],
     viewed: isRecord(value.viewed) ? value.viewed : {},
     spellingRecords: normalizeSpellingRecords(value.spellingRecords),
+    familyWords: normalizeFamilyWords(value.familyWords),
     notes: isRecord(value.notes) ? value.notes : {},
     customBooks: Array.isArray(value.customBooks) ? value.customBooks.filter((book) => isRecord(book)) : [],
     searchHistory: Array.isArray(value.searchHistory) ? value.searchHistory.filter((item) => typeof item === "string") : [],
@@ -791,6 +798,7 @@ function mergeStoredStates(cloudValue, localValue) {
     notes: { ...cloud.notes, ...local.notes },
     spellingRecords: mergeSpellingRecords(cloud.spellingRecords, local.spellingRecords),
     customBooks: Array.from(customBooks.values()),
+    familyWords: normalizeFamilyWords([...cloud.familyWords, ...local.familyWords]),
     searchHistory: Array.from(new Set([...local.searchHistory, ...cloud.searchHistory])).slice(0, 30),
     meaningsHidden: true,
   };
@@ -1128,54 +1136,6 @@ function ExampleContent({ word, onPlayExample }) {
   );
 }
 
-function DerivativeTerm({ term, baseTerm }) {
-  const source = String(term || "");
-  const base = String(baseTerm || "").toLowerCase().replace(/[^a-z]/g, "");
-  const lowerSource = source.toLowerCase();
-  let start = lowerSource.indexOf(base);
-  let length = start >= 0 ? base.length : 0;
-
-  if (start < 0 && base) {
-    const candidates = [
-      base.endsWith("e") ? base.slice(0, -1) : "",
-      base.endsWith("y") ? base.slice(0, -1) : "",
-    ].filter((candidate) => candidate.length >= 3);
-
-    for (const candidate of candidates) {
-      const candidateStart = lowerSource.indexOf(candidate);
-      if (candidateStart >= 0 && candidate.length > length) {
-        start = candidateStart;
-        length = candidate.length;
-      }
-    }
-  }
-
-  if (start < 0 && base) {
-    let commonLength = 0;
-    while (
-      commonLength < base.length
-      && commonLength < lowerSource.length
-      && base[commonLength] === lowerSource[commonLength]
-    ) {
-      commonLength += 1;
-    }
-    if (commonLength >= 3) {
-      start = 0;
-      length = commonLength;
-    }
-  }
-
-  if (start < 0 || length < 3) return <span className="text-slate-950">{source}</span>;
-
-  return (
-    <span aria-label={source}>
-      <span className="text-slate-950">{source.slice(0, start)}</span>
-      <span className="text-orange-600">{source.slice(start, start + length)}</span>
-      <span className="text-slate-950">{source.slice(start + length)}</span>
-    </span>
-  );
-}
-
 function derivativeMeaningLines(pos, meaning) {
   return String(meaning || "")
     .split("\n")
@@ -1225,7 +1185,7 @@ function getSynonymDetail(item) {
   };
 }
 
-function DetailContent({ tab, word, note, onPlayExample, onChangeNote }) {
+function DetailContent({ tab, word, note, onPlayExample, onChangeNote, favorites, onFamilyFavorite }) {
   if (tab === NOTE_TAB) {
     return (
       <div>
@@ -1253,7 +1213,7 @@ function DetailContent({ tab, word, note, onPlayExample, onChangeNote }) {
       const key = term.toLowerCase().replace(/[^a-z]/g, "");
       if (seen.has(key) || key === word.term.toLowerCase().replace(/[^a-z]/g, "")) return;
       seen.add(key);
-      allDeriv.push({ term, pos, meaning, clickable, examples: examples || [] });
+      allDeriv.push({ ...FAMILY_LOOKUP.entry(term), term, pos, meaning, clickable, examples: examples || [] });
     };
     for (const item of [...(word.derivatives || []), ...inBook]) {
       const key = item.toLowerCase().replace(/[^a-z]/g, "");
@@ -1272,72 +1232,11 @@ function DetailContent({ tab, word, note, onPlayExample, onChangeNote }) {
       }
     }
 
-    if (!allDeriv.length) return <p className="text-sm text-slate-400 sm:text-base">暂无派生词</p>;
-    return (
-      <div className="flex flex-col gap-2.5">
-        {allDeriv.map((item) => (
-          <div
-            key={item.term}
-            className={`rounded-lg px-3 py-2.5 sm:px-4 sm:py-3 ${
-              item.clickable ? "bg-orange-50" : "bg-slate-50"
-            }`}
-          >
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="shrink-0 text-base font-extrabold sm:text-lg">
-                <DerivativeTerm term={item.term} baseTerm={word.term} />
-              </span>
-              {item.clickable && (
-                <span className="rounded bg-orange-100 px-1.5 py-0.5 text-[10px] font-bold text-orange-700 sm:text-xs">
-                  词库
-                </span>
-              )}
-            </div>
-            {item.meaning && (
-              <div className="mt-1.5">
-                <DerivativeMeaning pos={item.pos} meaning={item.meaning} />
-              </div>
-            )}
-            {item.examples.length > 0 && (
-              <div className="mt-2 space-y-1">
-                {item.examples.slice(0, 2).map((ex, i) => (
-                  <p key={i} className="border-l-2 border-orange-300 pl-2.5 text-sm leading-6 text-slate-600 sm:pl-3 sm:leading-7">
-                    {ex}
-                  </p>
-                ))}
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
-    );
+    return <WordFamilyView mode="derivatives" word={word} rows={FAMILY_LOOKUP.derivatives(word, allDeriv)} favorites={favorites} onFavorite={onFamilyFavorite} />;
   }
 
   if (tab === AFFIX_TAB) {
-    const detected = detectAffixes(word.term);
-    const seen = new Set();
-    const allRoots = [];
-    for (const root of [...(word.roots || []), ...detected]) {
-      const key = root.part.toLowerCase();
-      if (seen.has(key)) continue;
-      seen.add(key);
-      allRoots.push(root);
-    }
-    if (!allRoots.length) return <p className="text-sm text-slate-400 sm:text-base">暂无词缀信息</p>;
-    return (
-      <div className="space-y-4 sm:space-y-5">
-        <div className="rounded-lg bg-slate-950 p-4 text-white sm:p-5">
-          <p className="text-sm leading-6 text-slate-200">识别前缀、词根和后缀，能帮你更快理解派生词和词义变化。</p>
-        </div>
-        <div className="space-y-3">
-          {allRoots.map((root) => (
-            <div key={word.id + "-" + root.part} className="flex items-start justify-between gap-3 border-b pb-3 sm:gap-4">
-              <span className="text-lg font-bold text-orange-600 sm:text-xl">{root.part}</span>
-              <span className="text-right text-sm text-slate-600 sm:text-base">{root.note}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
+    return <WordFamilyView mode="roots" word={word} groups={FAMILY_LOOKUP.rootGroups(word)} favorites={favorites} onFavorite={onFamilyFavorite} />;
   }
 
   if (tab === "\u8fd1\u4e49") {
@@ -2264,6 +2163,8 @@ function DetailPane({
   onToggleFavorite,
   onPlayExample,
   onSpellingAttempt,
+  favorites,
+  onFamilyFavorite,
   spellingEnabled = true,
   showClose = false,
   keyboardMode = "desktop",
@@ -2352,13 +2253,13 @@ function DetailPane({
       </div>
 
       <div className="pt-4 sm:pt-6">
-        <DetailContent tab={tab} word={word} note={note} onPlayExample={onPlayExample} onChangeNote={onChangeNote} />
+        <DetailContent tab={tab} word={word} note={note} onPlayExample={onPlayExample} onChangeNote={onChangeNote} favorites={favorites} onFamilyFavorite={onFamilyFavorite} />
       </div>
     </div>
   );
 }
 
-function DetailSheet({ word, favorite, accent, meaningsHidden, spellingSeparated, tab, note, onTabChange, onChangeNote, onClose, onToggleFavorite, onPlayExample, onSpellingAttempt }) {
+function DetailSheet({ word, favorite, accent, meaningsHidden, spellingSeparated, tab, note, onTabChange, onChangeNote, onClose, onToggleFavorite, onPlayExample, onSpellingAttempt, favorites, onFamilyFavorite }) {
   return (
     <AnimatePresence>
       {word && (
@@ -2385,6 +2286,8 @@ function DetailSheet({ word, favorite, accent, meaningsHidden, spellingSeparated
               onClose={onClose}
               onToggleFavorite={onToggleFavorite}
               onPlayExample={onPlayExample}
+              favorites={favorites}
+              onFamilyFavorite={onFamilyFavorite}
               onSpellingAttempt={onSpellingAttempt}
               showClose
               keyboardMode="mobile"
@@ -2420,7 +2323,7 @@ export default function App({ currentUser: initialCurrentUser = null, signOutPat
   const examplePlaybackRef = useRef({ wordId: null, index: -1, examples: [] });
   const exampleRequestRef = useRef(0);
 
-  const wordBooks = useMemo(() => buildWordBooks(stored.favorites, stored.customBooks), [stored.favorites, stored.customBooks]);
+  const wordBooks = useMemo(() => buildWordBooks(stored.favorites, stored.customBooks, stored.familyWords), [stored.favorites, stored.customBooks, stored.familyWords]);
   const activeBook = useMemo(
     () => wordBooks.find((book) => book.id === stored.activeBookId) || wordBooks[0],
     [stored.activeBookId, wordBooks]
@@ -2431,8 +2334,9 @@ export default function App({ currentUser: initialCurrentUser = null, signOutPat
       if (book.id === FAVORITES_BOOK_ID) return;
       book.words.forEach((word) => byId.set(word.id, word));
     });
+    stored.familyWords.forEach((word) => byId.set(word.id, word));
     return Array.from(byId.values());
-  }, [wordBooks]);
+  }, [wordBooks, stored.familyWords]);
   const wordById = useMemo(() => new Map(allAvailableWords.map((word) => [word.id, word])), [allAvailableWords]);
   const activeWordIndexById = useMemo(
     () => new Map(activeBook.words.map((word, index) => [word.id, index])),
@@ -2634,6 +2538,17 @@ export default function App({ currentUser: initialCurrentUser = null, signOutPat
       return { ...current, favorites: Array.from(set) };
     });
   }, []);
+
+  const toggleFamilyFavorite = useCallback((item) => {
+    setStored((current) => {
+      const known = allAvailableWords.find((word) => word.id === item.id);
+      const word = known || { id: `family-${termKey(item.term)}`, term: item.term, pos: item.pos || "", meaning: item.meaning || "", source: "拓展", roots: [] };
+      const favorites = new Set(current.favorites);
+      if (favorites.has(word.id)) favorites.delete(word.id);
+      else favorites.add(word.id);
+      return { ...current, favorites: [...favorites], familyWords: known ? current.familyWords : normalizeFamilyWords([...current.familyWords, word]) };
+    });
+  }, [allAvailableWords]);
 
   const changeShortcut = useCallback((actionId, key) => {
     if (!Object.prototype.hasOwnProperty.call(DEFAULT_SHORTCUT_KEYS, actionId)) return;
@@ -2906,6 +2821,8 @@ export default function App({ currentUser: initialCurrentUser = null, signOutPat
             }}
             onToggleFavorite={toggleFavorite}
             onPlayExample={playExampleAtIndex}
+            favorites={favoriteSet}
+            onFamilyFavorite={toggleFamilyFavorite}
             onSpellingAttempt={recordAttempt}
             spellingEnabled={page === "words"}
             layoutId="active-detail-tab-desktop"
@@ -2929,6 +2846,8 @@ export default function App({ currentUser: initialCurrentUser = null, signOutPat
         onClose={() => setDetailId(null)}
         onToggleFavorite={toggleFavorite}
         onPlayExample={playExampleAtIndex}
+        favorites={favoriteSet}
+        onFamilyFavorite={toggleFamilyFavorite}
         onSpellingAttempt={recordAttempt}
       />
     </>
