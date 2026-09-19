@@ -1,4 +1,5 @@
-﻿import { useEffect, useMemo, useState } from "react";
+import { MAX_EXAMPLES, MIN_EXAMPLES, mergeBilingualExamples } from "./examples.js";
+import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { memo, useCallback, useRef } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
@@ -600,42 +601,20 @@ function staticBilingualExamples(word) {
   return combined;
 }
 
-function normalizedSentence(sentence) {
-  return String(sentence || "")
-    .toLowerCase()
-    .replace(/[^\p{L}\p{N}]+/gu, " ")
-    .trim();
-}
-
-function mergeBilingualExamples(remoteExamples, localExamples) {
-  const seenEnglish = new Set();
-  const seenChinese = new Set();
-  const merged = [];
-
-  for (const example of [...remoteExamples, ...localExamples]) {
-    const englishKey = normalizedSentence(example.en);
-    const chineseKey = normalizedSentence(example.zh);
-    if (!englishKey || !chineseKey || seenEnglish.has(englishKey) || seenChinese.has(chineseKey)) continue;
-    seenEnglish.add(englishKey);
-    seenChinese.add(chineseKey);
-    merged.push(example);
-    if (merged.length >= 4) break;
-  }
-
-  return merged;
-}
-
 function loadCorpusExamples(term, signal) {
   const key = String(term || "").trim().toLowerCase();
   if (!key) return Promise.resolve([]);
-  if (exampleLookupCache.has(key)) return Promise.resolve(exampleLookupCache.get(key));
+  const cached = exampleLookupCache.get(key);
+  if (cached && cached.expires > Date.now()) return Promise.resolve(cached.examples);
+  exampleLookupCache.delete(key);
 
   return fetch(`/api/examples?word=${encodeURIComponent(term)}`, { signal })
     .then(async (response) => {
       if (!response.ok) throw new Error("例句查询失败");
       const payload = await response.json();
       const examples = Array.isArray(payload.examples) ? payload.examples : [];
-      exampleLookupCache.set(key, examples);
+      if (exampleLookupCache.size >= 200) exampleLookupCache.delete(exampleLookupCache.keys().next().value);
+      exampleLookupCache.set(key, { examples, expires: Date.now() + (examples.length < MIN_EXAMPLES ? 60000 : 3600000) });
       return examples;
     })
     .catch((error) => {
@@ -646,10 +625,7 @@ function loadCorpusExamples(term, signal) {
 
 async function examplesForPlayback(word) {
   const localExamples = staticBilingualExamples(word);
-  const cacheKey = String(word.term || "").trim().toLowerCase();
-  const remoteExamples = exampleLookupCache.has(cacheKey)
-    ? exampleLookupCache.get(cacheKey)
-    : await loadCorpusExamples(word.term);
+  const remoteExamples = await loadCorpusExamples(word.term);
   return mergeBilingualExamples(remoteExamples || [], localExamples);
 }
 
@@ -731,6 +707,7 @@ function ExampleContent({ word, onPlayExample }) {
 
   return (
     <div className="space-y-3">
+      <p className="px-1 text-xs text-slate-400">双语例句 {examples.length} / {MAX_EXAMPLES}</p>
       {examples.map((example, index) => (
         <div key={`${example.en}-${index}`} className="rounded-xl border border-slate-100 bg-slate-50/80 px-3.5 py-3 sm:px-4 sm:py-3.5">
           <div className="flex items-start gap-2">
@@ -758,12 +735,15 @@ function ExampleContent({ word, onPlayExample }) {
               rel="noreferrer"
               className="mt-1.5 inline-block pl-5 text-[10px] font-semibold text-slate-300 transition hover:text-orange-500 sm:text-xs"
             >
-              {example.sourceLabel || "Tatoeba"} · CC BY 2.0 FR
+              {example.sourceLabel || "例句来源"}{example.sourceLicense ? ` · ${example.sourceLicense}` : ""}
             </a>
           )}
         </div>
       ))}
-      {loading && examples.length < 4 && (
+      {!loading && examples.length < MIN_EXAMPLES && (
+        <p className="px-1 text-xs text-slate-400">目前找到 {examples.length} 条不重复的双语例句，后续查询会继续尝试补充。</p>
+      )}
+      {loading && examples.length < MAX_EXAMPLES && (
         <p className="px-1 text-xs font-semibold text-slate-400">正在继续搜索更多不重复的双语例句…</p>
       )}
     </div>
