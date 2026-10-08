@@ -54,7 +54,7 @@ export default function SpellingReviewPage({ book, records, accent, separated, g
             <p className="mt-3 text-xl font-bold leading-relaxed">{currentWord.pos} {currentWord.meaning}</p>
             <button type="button" onClick={() => speakWord(currentWord.term, accent)} className="my-5 inline-flex items-center gap-2 rounded-full bg-orange-50 px-4 py-2 text-sm font-bold text-orange-700"><Volume2 className="h-4 w-4" />播放读音</button>
             <SpellingPractice key={`${round.id}:${currentWord.id}`} word={currentWord} pattern={getPattern(currentWord, separated)} accent={accent} showInput stopAfterCorrect
-              onProgress={setFeedback} onAttempt={(id, result) => onAttempt(id, result, true)} />
+              record={records[currentWord.id]} onProgress={setFeedback} onAttempt={(id, result) => onAttempt(id, result, true)} />
             {feedback?.complete && <p className="mt-4 text-base text-slate-600">正确拼写：<strong className="font-mono text-orange-600">{currentWord.term}</strong></p>}
             <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
               <button type="button" onClick={() => advance()} className="rounded-lg px-3 py-2.5 text-sm font-semibold text-slate-500 hover:bg-slate-100">{feedback?.correct ? "继续练习下一词" : "暂时跳过"}</button>

@@ -1747,6 +1747,7 @@ function DetailPane({
   onToggleFavorite,
   onPlayExample,
   onSpellingAttempt,
+  spellingRecord,
   favorites,
   onFamilyFavorite,
   spellingEnabled = true,
@@ -1807,7 +1808,7 @@ function DetailPane({
               </IconButton>
             )}
           </div>
-          <SpellingPractice key={word.id} word={word} pattern={spellingPattern(word, spellingSeparated)} accent={accent} keyboardMode={keyboardMode} enabled={spellingEnabled} onAttempt={onSpellingAttempt} />
+          <SpellingPractice key={word.id} word={word} pattern={spellingPattern(word, spellingSeparated)} accent={accent} keyboardMode={keyboardMode} enabled={spellingEnabled} onAttempt={onSpellingAttempt} record={spellingRecord} />
         </div>
       </div>
 
@@ -1843,7 +1844,7 @@ function DetailPane({
   );
 }
 
-function DetailSheet({ word, favorite, accent, meaningsHidden, spellingSeparated, tab, note, onTabChange, onChangeNote, onClose, onToggleFavorite, onPlayExample, onSpellingAttempt, favorites, onFamilyFavorite }) {
+function DetailSheet({ word, favorite, accent, meaningsHidden, spellingSeparated, tab, note, onTabChange, onChangeNote, onClose, onToggleFavorite, onPlayExample, onSpellingAttempt, spellingRecord, favorites, onFamilyFavorite }) {
   return (
     <AnimatePresence>
       {word && (
@@ -1873,6 +1874,7 @@ function DetailSheet({ word, favorite, accent, meaningsHidden, spellingSeparated
               favorites={favorites}
               onFamilyFavorite={onFamilyFavorite}
               onSpellingAttempt={onSpellingAttempt}
+              spellingRecord={spellingRecord}
               showClose
               keyboardMode="mobile"
               layoutId="active-detail-tab-mobile"
@@ -2465,6 +2467,7 @@ export default function App({ currentUser: initialCurrentUser = null, signOutPat
             favorites={favoriteSet}
             onFamilyFavorite={toggleFamilyFavorite}
             onSpellingAttempt={recordAttempt}
+            spellingRecord={selectedWord ? stored.spellingRecords[selectedWord.id] : undefined}
             spellingEnabled={page === "words"}
             layoutId="active-detail-tab-desktop"
             className="mx-auto min-h-full max-w-4xl px-6 py-8 xl:px-10 xl:py-10"
@@ -2490,6 +2493,7 @@ export default function App({ currentUser: initialCurrentUser = null, signOutPat
         favorites={favoriteSet}
         onFamilyFavorite={toggleFamilyFavorite}
         onSpellingAttempt={recordAttempt}
+        spellingRecord={detailWord ? stored.spellingRecords[detailWord.id] : undefined}
       />
     </>
   );

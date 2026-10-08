@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { speakWord } from "./offlineTts";
 import { spellingFeedback } from "./spellingRecords";
 
-export default function SpellingPractice({ word, pattern, accent, keyboardMode = "desktop", enabled = true, onAttempt, onProgress, showInput = false, stopAfterCorrect = false }) {
+export default function SpellingPractice({ word, pattern, accent, keyboardMode = "desktop", enabled = true, onAttempt, onProgress, record, showInput = false, stopAfterCorrect = false }) {
   const [attempt, setAttempt] = useState({ input: "", completedAttempts: 0, result: null });
   const attemptRef = useRef(attempt);
   const inputRef = useRef(null);
@@ -11,6 +11,8 @@ export default function SpellingPractice({ word, pattern, accent, keyboardMode =
   const completed = Boolean(result?.complete);
   const correct = Boolean(result?.correct);
   const wrong = completed && !correct;
+  const successCount = Number(record?.firstTryCorrect || 0) + Number(record?.retryCorrect || 0);
+  const failureCount = Number(record?.errors || 0);
 
   const updateInput = useCallback((input, restart = false) => {
     const previous = attemptRef.current;
@@ -54,29 +56,41 @@ export default function SpellingPractice({ word, pattern, accent, keyboardMode =
   const hasInput = showInput || keyboardMode === "mobile";
 
   return (
-    <div className="max-w-full rounded-lg bg-slate-50 px-3 py-3 sm:px-4" aria-label="键盘拼写练习">
-      <div className="flex max-w-full flex-wrap items-end justify-end gap-x-1.5 gap-y-2 font-mono text-base font-bold sm:text-lg">
-        {pattern.groups.map((group, groupIndex) => group.type === "separator" ? (
-          <span key={`separator-${groupIndex}`} className="pb-1 text-slate-300">{group.text}</span>
-        ) : (
-          <span key={`letters-${groupIndex}`} className="inline-flex items-end gap-1">
-            {group.slots.map((slot) => {
-              const incorrect = wrong && result.wrongIndices.includes(slot.index);
-              const tone = incorrect ? "border-red-500 bg-red-100 text-red-600" : completed ? "border-orange-500 text-orange-600" : "border-slate-300 text-slate-800";
-              return <span key={slot.index} aria-label={incorrect ? `第 ${slot.index + 1} 个字母错误` : undefined} className={`inline-flex h-7 w-4 items-end justify-center border-b-2 pb-0.5 ${tone}`}>{typed[slot.index] || "\u00a0"}</span>;
-            })}
-          </span>
-        ))}
+    <div className="flex max-w-full items-stretch justify-end gap-2">
+      <div className="grid shrink-0 content-center gap-1 rounded-lg bg-slate-50 px-3 py-2 text-xs font-semibold" aria-label={`当前单词拼写成功 ${successCount} 次，失败 ${failureCount} 次`}>
+        <div className="flex items-baseline justify-between gap-2 text-slate-500">
+          <span>成功</span>
+          <span className="text-orange-600"><strong className="text-base tabular-nums">{successCount}</strong> 次</span>
+        </div>
+        <div className="flex items-baseline justify-between gap-2 text-slate-500">
+          <span>失败</span>
+          <span className="text-red-600"><strong className="text-base tabular-nums">{failureCount}</strong> 次</span>
+        </div>
       </div>
-      {hasInput && <input ref={inputRef} type="text" value={typed} disabled={!enabled || (stopAfterCorrect && correct)} aria-label="输入单词拼写" placeholder="在这里输入英文" autoComplete="off" autoCapitalize="off" autoCorrect="off" spellCheck={false}
-        onFocus={() => { if (completed) inputRef.current?.select(); }}
-        onChange={(event) => {
-          const value = event.target.value;
-          const restart = completed && value.startsWith(typed) && value.length > typed.length;
-          updateInput(restart ? value.slice(typed.length) : value, restart);
-        }}
-        className="mt-3 w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-base outline-none focus:border-orange-500" />}
-      <p aria-live="polite" className={`mt-2 text-right text-sm font-semibold ${correct ? "text-orange-600" : wrong ? "text-red-600" : "text-slate-500"}`}>{status}</p>
+      <div className="min-w-0 rounded-lg bg-slate-50 px-3 py-3 sm:px-4" aria-label="键盘拼写练习">
+        <div className="flex max-w-full flex-wrap items-end justify-end gap-x-1.5 gap-y-2 font-mono text-base font-bold sm:text-lg">
+          {pattern.groups.map((group, groupIndex) => group.type === "separator" ? (
+            <span key={`separator-${groupIndex}`} className="pb-1 text-slate-300">{group.text}</span>
+          ) : (
+            <span key={`letters-${groupIndex}`} className="inline-flex items-end gap-1">
+              {group.slots.map((slot) => {
+                const incorrect = wrong && result.wrongIndices.includes(slot.index);
+                const tone = incorrect ? "border-red-500 bg-red-100 text-red-600" : completed ? "border-orange-500 text-orange-600" : "border-slate-300 text-slate-800";
+                return <span key={slot.index} aria-label={incorrect ? `第 ${slot.index + 1} 个字母错误` : undefined} className={`inline-flex h-7 w-4 items-end justify-center border-b-2 pb-0.5 ${tone}`}>{typed[slot.index] || "\u00a0"}</span>;
+              })}
+            </span>
+          ))}
+        </div>
+        {hasInput && <input ref={inputRef} type="text" value={typed} disabled={!enabled || (stopAfterCorrect && correct)} aria-label="输入单词拼写" placeholder="在这里输入英文" autoComplete="off" autoCapitalize="off" autoCorrect="off" spellCheck={false}
+          onFocus={() => { if (completed) inputRef.current?.select(); }}
+          onChange={(event) => {
+            const value = event.target.value;
+            const restart = completed && value.startsWith(typed) && value.length > typed.length;
+            updateInput(restart ? value.slice(typed.length) : value, restart);
+          }}
+          className="mt-3 w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-base outline-none focus:border-orange-500" />}
+        <p aria-live="polite" className={`mt-2 text-right text-sm font-semibold ${correct ? "text-orange-600" : wrong ? "text-red-600" : "text-slate-500"}`}>{status}</p>
+      </div>
     </div>
   );
 }
