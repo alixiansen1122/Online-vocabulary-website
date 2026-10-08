@@ -17,3 +17,116 @@
     }
   }
 }
+
+@layer components {
+  .rich-note-editor .tiptap-note-content {
+    min-height: 12rem;
+    padding: 1rem;
+    color: #0f172a;
+    font-size: 0.925rem;
+    line-height: 1.75;
+    outline: none;
+  }
+
+  .rich-note-editor.fixed .tiptap-note-content {
+    min-height: 100%;
+  }
+
+  .tiptap-note-content > * + * {
+    margin-top: 0.65rem;
+  }
+
+  .tiptap-note-content h2 {
+    margin-top: 1.1rem;
+    font-size: 1.35rem;
+    font-weight: 800;
+    line-height: 1.35;
+  }
+
+  .tiptap-note-content h3 {
+    margin-top: 0.9rem;
+    font-size: 1.05rem;
+    font-weight: 800;
+    line-height: 1.45;
+  }
+
+  .tiptap-note-content ul:not([data-type="taskList"]) {
+    list-style: disc;
+    padding-left: 1.5rem;
+  }
+
+  .tiptap-note-content ol {
+    list-style: decimal;
+    padding-left: 1.5rem;
+  }
+
+  .tiptap-note-content li > p {
+    margin: 0;
+  }
+
+  .tiptap-note-content ul[data-type="taskList"] {
+    list-style: none;
+    padding: 0;
+  }
+
+  .tiptap-note-content ul[data-type="taskList"] li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.55rem;
+  }
+
+  .tiptap-note-content ul[data-type="taskList"] li > label {
+    padding-top: 0.2rem;
+  }
+
+  .tiptap-note-content ul[data-type="taskList"] li > div {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .tiptap-note-content input[type="checkbox"] {
+    accent-color: #ea580c;
+  }
+
+  .tiptap-note-content blockquote {
+    border-left: 3px solid #fb923c;
+    padding-left: 0.85rem;
+    color: #475569;
+  }
+
+  .tiptap-note-content code {
+    border-radius: 0.25rem;
+    background: #f1f5f9;
+    padding: 0.1rem 0.3rem;
+    color: #c2410c;
+    font-size: 0.875em;
+  }
+
+  .tiptap-note-content mark {
+    border-radius: 0.2rem;
+    background: #fef08a;
+    padding: 0.05rem 0.12rem;
+  }
+
+  .tiptap-note-content a {
+    color: #ea580c;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .tiptap-note-content p.is-editor-empty:first-child::before {
+    float: left;
+    height: 0;
+    color: #94a3b8;
+    content: attr(data-placeholder);
+    pointer-events: none;
+  }
+
+  @media (min-width: 640px) {
+    .rich-note-editor .tiptap-note-content {
+      min-height: 15rem;
+      padding: 1.25rem;
+      font-size: 1rem;
+    }
+  }
+}

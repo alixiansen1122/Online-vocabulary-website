@@ -1,5 +1,5 @@
 import { MAX_EXAMPLES, MIN_EXAMPLES, mergeBilingualExamples } from "./examples.js";
-import { useEffect, useMemo, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { memo, useCallback, useRef } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
@@ -46,6 +46,9 @@ import { createFamilyLookup, normalizeFamilyWords, termKey } from "./wordFamilie
 import { mergeSpellingRecords, needsSpellingReview, normalizeSpellingRecords, recordSpellingAttempt } from "./spellingRecords";
 import StudyStatsPage from "./StudyStatsPage";
 import { useStudyEventQueue } from "./studyEvents";
+import { mergeNotes, normalizeNotes, noteHasContent } from "./notes.js";
+
+const RichNoteEditor = lazy(() => import("./RichNoteEditor.jsx"));
 
 const STORAGE_KEY = "offline_vocab_reader_v1";
 const CLOUD_DIRTY_KEY = "offline_vocab_reader_cloud_dirty_v1";
@@ -381,6 +384,7 @@ function loadState() {
       ...parsed,
       spellingRecords: normalizeSpellingRecords(parsed.spellingRecords),
       familyWords: normalizeFamilyWords(parsed.familyWords),
+      notes: normalizeNotes(parsed.notes),
       meaningsHidden: true,
       spellingSeparated: parsed.spellingSeparated !== false,
       accent: VOICE_OPTIONS[parsed.accent] ? parsed.accent : "us",
@@ -407,7 +411,7 @@ function normalizeBackupState(value) {
     viewed: isRecord(value.viewed) ? value.viewed : {},
     spellingRecords: normalizeSpellingRecords(value.spellingRecords),
     familyWords: normalizeFamilyWords(value.familyWords),
-    notes: isRecord(value.notes) ? value.notes : {},
+    notes: normalizeNotes(value.notes),
     customBooks: Array.isArray(value.customBooks) ? value.customBooks.filter((book) => isRecord(book)) : [],
     searchHistory: Array.isArray(value.searchHistory) ? value.searchHistory.filter((item) => typeof item === "string") : [],
     meaningsHidden: true,
@@ -434,7 +438,7 @@ function mergeStoredStates(cloudValue, localValue) {
     ...local,
     favorites: Array.from(new Set([...cloud.favorites, ...local.favorites])),
     viewed,
-    notes: { ...cloud.notes, ...local.notes },
+    notes: mergeNotes(cloud.notes, local.notes),
     spellingRecords: mergeSpellingRecords(cloud.spellingRecords, local.spellingRecords),
     customBooks: Array.from(customBooks.values()),
     familyWords: normalizeFamilyWords([...cloud.familyWords, ...local.familyWords]),
@@ -783,15 +787,9 @@ function DerivativeMeaning({ pos, meaning }) {
 function DetailContent({ tab, word, accent, note, onPlayExample, onChangeNote, favorites, onFamilyFavorite }) {
   if (tab === NOTE_TAB) {
     return (
-      <div>
-        <textarea
-          value={note}
-          onChange={(event) => onChangeNote(event.target.value)}
-          placeholder="\u5199\u4e0b\u4f60\u5bf9\u8fd9\u4e2a\u5355\u8bcd\u7684\u8bb0\u5fc6\u70b9\u3001\u6613\u9519\u70b9\u6216\u4f8b\u53e5..."
-          className="min-h-32 w-full resize-none rounded-lg border border-slate-200 bg-slate-50 p-3 text-sm leading-6 text-slate-900 outline-none transition focus:border-orange-400 focus:bg-white focus:ring-2 focus:ring-orange-100 sm:min-h-40 sm:text-base sm:leading-7"
-        />
-        <p className="mt-2 text-xs font-semibold text-slate-400">笔记会自动永久保存到本地。</p>
-      </div>
+      <Suspense fallback={<div className="min-h-48 animate-pulse rounded-xl border border-slate-200 bg-slate-50" aria-label="正在加载笔记编辑器" />}>
+        <RichNoteEditor key={word.id} value={note} onChange={onChangeNote} word={word} />
+      </Suspense>
     );
   }
 
@@ -2280,7 +2278,7 @@ export default function App({ currentUser: initialCurrentUser = null, signOutPat
   const openDetail = useCallback((id) => {
     setSelectedId(id);
     setDetailId(id);
-    setDetailTab(stored.notes?.[id]?.trim() ? NOTE_TAB : DEFAULT_DETAIL_TAB);
+    setDetailTab(noteHasContent(stored.notes?.[id]) ? NOTE_TAB : DEFAULT_DETAIL_TAB);
     setStored((current) => (current.meaningsHidden ? current : { ...current, meaningsHidden: true }));
     markViewed(id);
   }, [markViewed, stored.notes]);
@@ -2330,10 +2328,12 @@ export default function App({ currentUser: initialCurrentUser = null, signOutPat
   }, []);
 
   const changeNote = useCallback((wordId, value) => {
-    setStored((current) => ({
-      ...current,
-      notes: { ...current.notes, [wordId]: value },
-    }));
+    setStored((current) => {
+      const notes = { ...current.notes };
+      if (noteHasContent(value)) notes[wordId] = value;
+      else delete notes[wordId];
+      return { ...current, notes };
+    });
   }, []);
 
   const changeBook = useCallback((bookId) => {
