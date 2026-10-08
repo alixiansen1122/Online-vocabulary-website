@@ -55,3 +55,34 @@ export const studyEvents = sqliteTable(
     index("idx_study_events_user_word").on(table.userId, table.wordId),
   ],
 );
+
+export const memoryImages = sqliteTable(
+  "memory_images",
+  {
+    fingerprint: text("fingerprint").primaryKey(),
+    term: text("term").notNull(),
+    pos: text("pos").notNull().default(""),
+    meaning: text("meaning").notNull(),
+    imageKey: text("image_key").notNull(),
+    sceneTitle: text("scene_title").notNull(),
+    sceneDescription: text("scene_description").notNull(),
+    explanation: text("explanation").notNull(),
+    memoryTip: text("memory_tip").notNull(),
+    createdBy: text("created_by").notNull(),
+    model: text("model").notNull(),
+    createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+    updatedAt: text("updated_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+  },
+  (table) => [index("idx_memory_images_term").on(table.term)],
+);
+
+export const memoryImageUsage = sqliteTable(
+  "memory_image_usage",
+  {
+    userId: text("user_id").notNull(),
+    usageDate: text("usage_date").notNull(),
+    count: integer("count").notNull().default(0),
+    updatedAt: text("updated_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+  },
+  (table) => [primaryKey({ columns: [table.userId, table.usageDate] })],
+);

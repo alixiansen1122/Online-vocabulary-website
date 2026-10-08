@@ -15,6 +15,13 @@
       "when": 1791430415519,
       "tag": "0001_round_mystique",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1791458062904,
+      "tag": "0002_magical_natasha_romanoff",
+      "breakpoints": true
     }
   ]
 }
