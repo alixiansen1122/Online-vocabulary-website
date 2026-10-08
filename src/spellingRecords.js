@@ -1,5 +1,11 @@
 const isRecord = (value) => value !== null && typeof value === "object" && !Array.isArray(value);
 const count = (value) => Number.isSafeInteger(value) && value >= 0 ? value : 0;
+const DAY_MS = 24 * 60 * 60 * 1000;
+export const SPELLING_REVIEW_INTERVAL_DAYS = [1, 3, 7, 14, 30];
+
+function reviewStage(value) {
+  return Math.min(SPELLING_REVIEW_INTERVAL_DAYS.length, count(value));
+}
 
 export function normalizeSpellingRecords(value) {
   if (!isRecord(value)) return {};
@@ -11,19 +17,29 @@ export function normalizeSpellingRecords(value) {
     lastAttemptAt: count(record.lastAttemptAt),
     lastWrongAt: count(record.lastWrongAt),
     clearedAt: count(record.clearedAt),
+    reviewStage: reviewStage(record.reviewStage),
+    nextReviewAt: count(record.nextReviewAt),
+    lastReviewAt: count(record.lastReviewAt),
     lastWrongInput: typeof record.lastWrongInput === "string" ? record.lastWrongInput.slice(0, 200) : "",
   }]));
 }
 
-export function needsSpellingReview(record) {
-  return Boolean(record && record.lastWrongAt > record.clearedAt);
+export function needsSpellingReview(record, timestamp = Date.now()) {
+  if (!record) return false;
+  if (record.lastWrongAt > record.clearedAt) return true;
+  return record.nextReviewAt > 0 && record.nextReviewAt <= timestamp;
+}
+
+export function hasScheduledSpellingReview(record) {
+  return Boolean(record?.nextReviewAt > 0);
 }
 
 // One completed answer is recorded once; re-renders and audio playback never record answers.
 export function recordSpellingAttempt(records, wordId, result, review = false, timestamp = Date.now()) {
   const previous = normalizeSpellingRecords({ [wordId]: records?.[wordId] })[wordId] || {
     attempts: 0, errors: 0, firstTryCorrect: 0, retryCorrect: 0,
-    lastAttemptAt: 0, lastWrongAt: 0, clearedAt: 0, lastWrongInput: "",
+    lastAttemptAt: 0, lastWrongAt: 0, clearedAt: 0, reviewStage: 0,
+    nextReviewAt: 0, lastReviewAt: 0, lastWrongInput: "",
   };
   const now = Math.max(timestamp, previous.lastAttemptAt + 1);
   const next = {
@@ -37,8 +53,18 @@ export function recordSpellingAttempt(records, wordId, result, review = false, t
   if (!result.correct) {
     next.lastWrongAt = now;
     next.lastWrongInput = result.input.slice(0, 200);
-  } else if (review && result.firstTry) {
-    next.clearedAt = now;
+    next.reviewStage = 0;
+    next.nextReviewAt = now;
+  } else if (result.firstTry) {
+    const pendingMistake = previous.lastWrongAt > previous.clearedAt;
+    const due = previous.nextReviewAt === 0 || previous.nextReviewAt <= now;
+    if (review || (!pendingMistake && due)) {
+      const stage = Math.min(previous.reviewStage + 1, SPELLING_REVIEW_INTERVAL_DAYS.length);
+      next.reviewStage = stage;
+      next.lastReviewAt = now;
+      next.nextReviewAt = now + SPELLING_REVIEW_INTERVAL_DAYS[stage - 1] * DAY_MS;
+      if (review) next.clearedAt = now;
+    }
   }
   return { ...records, [wordId]: next };
 }

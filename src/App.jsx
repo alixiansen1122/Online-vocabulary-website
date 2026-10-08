@@ -43,7 +43,7 @@ import { createSynonymLookup } from "./synonyms";
 import reviewedSynonyms from "./data/reviewed-synonyms.json";
 import wordFamilies from "./data/word-families.json";
 import { createFamilyLookup, normalizeFamilyWords, termKey } from "./wordFamilies";
-import { mergeSpellingRecords, needsSpellingReview, normalizeSpellingRecords, recordSpellingAttempt } from "./spellingRecords";
+import { hasScheduledSpellingReview, mergeSpellingRecords, needsSpellingReview, normalizeSpellingRecords, recordSpellingAttempt } from "./spellingRecords";
 import StudyStatsPage from "./StudyStatsPage";
 import { useStudyEventQueue } from "./studyEvents";
 import { mergeNotes, normalizeNotes, noteHasContent } from "./notes.js";
@@ -1322,6 +1322,8 @@ function DashboardPage({
   const [shortcutMessage, setShortcutMessage] = useState("");
   const favoriteSet = useMemo(() => new Set(favorites), [favorites]);
   const reviewCount = activeBook.words.filter((word) => needsSpellingReview(spellingRecords[word.id])).length;
+  const scheduledReviewCount = activeBook.words.filter((word) => hasScheduledSpellingReview(spellingRecords[word.id]) && !needsSpellingReview(spellingRecords[word.id])).length;
+  const mistakeCount = activeBook.words.filter((word) => spellingRecords[word.id]?.errors > 0).length;
   const activeViewedCount = activeBook.words.filter((word) => viewed[word.id]).length;
   const progress = activeBook.total > 0 ? Math.round((activeViewedCount / activeBook.total) * 100) : 0;
   const listWords = activeBook.id === FAVORITES_BOOK_ID ? activeBook.words : activeBook.words.slice(0, 30);
@@ -1380,10 +1382,13 @@ function DashboardPage({
         <div className="mb-4 rounded-lg border border-orange-100 bg-white p-4 shadow-sm sm:p-5">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
-              <h2 className="text-lg font-bold">拼写错词 · {reviewCount} 词待复习</h2>
-              <p className="mt-1 text-sm text-slate-500">{activeBook.title} · 完整拼错后自动记录</p>
+              <h2 className="text-lg font-bold">今日复习 · {reviewCount} 词到期</h2>
+              <p className="mt-1 text-sm text-slate-500">{activeBook.title} · {scheduledReviewCount} 词已安排后续复习 · 1/3/7/14/30 天</p>
             </div>
-            <button type="button" onClick={onReviewSpelling} className="rounded-lg bg-orange-500 px-4 py-2.5 text-sm font-bold text-white hover:bg-orange-600">查看错词与重练</button>
+            <div className="flex flex-wrap gap-2">
+              <button type="button" onClick={() => onReviewSpelling("mistakes")} className="rounded-lg bg-slate-100 px-4 py-2.5 text-sm font-bold text-slate-700 hover:bg-slate-200">只练错词 · {mistakeCount}</button>
+              <button type="button" onClick={() => onReviewSpelling("due")} className="rounded-lg bg-orange-500 px-4 py-2.5 text-sm font-bold text-white hover:bg-orange-600">开始今日复习</button>
+            </div>
           </div>
         </div>
         <div className="mb-4 rounded-lg border border-slate-100 bg-white p-4 shadow-sm sm:p-5">
@@ -1905,6 +1910,7 @@ export default function App({ currentUser: initialCurrentUser = null, signOutPat
   const [detailTab, setDetailTab] = useState(DEFAULT_DETAIL_TAB);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState("words");
+  const [reviewScope, setReviewScope] = useState("due");
   const [pendingScrollId, setPendingScrollId] = useState(null);
   const examplePlaybackRef = useRef({ wordId: null, index: -1, examples: [] });
   const exampleRequestRef = useRef(0);
@@ -2383,7 +2389,7 @@ export default function App({ currentUser: initialCurrentUser = null, signOutPat
   }
 
   if (page === "spelling") {
-    return <SpellingReviewPage book={activeBook} records={stored.spellingRecords} accent={stored.accent} separated={stored.spellingSeparated} getPattern={spellingPattern} onAttempt={recordAttempt} onBack={() => setPage("dashboard")} />;
+    return <SpellingReviewPage book={activeBook} records={stored.spellingRecords} accent={stored.accent} separated={stored.spellingSeparated} getPattern={spellingPattern} onAttempt={recordAttempt} onBack={() => setPage("dashboard")} initialScope={reviewScope} />;
   }
 
   return (
@@ -2413,7 +2419,7 @@ export default function App({ currentUser: initialCurrentUser = null, signOutPat
               syncMessage={syncMessage}
               onRetrySync={flushCloudState}
               spellingRecords={stored.spellingRecords}
-              onReviewSpelling={() => { setDetailId(null); setPage("spelling"); }}
+              onReviewSpelling={(scope) => { setDetailId(null); setReviewScope(scope); setPage("spelling"); }}
               onOpenStats={() => { setDetailId(null); setPage("stats"); flushStudyEvents(); }}
             />
           ) : page === "search" ? (
