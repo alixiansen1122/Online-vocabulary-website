@@ -56,6 +56,8 @@ export const studyEvents = sqliteTable(
   ],
 );
 
+// Kept only to preserve the already-deployed tables and any existing data.
+// The memory-image feature no longer reads from or writes to these tables.
 export const memoryImages = sqliteTable(
   "memory_images",
   {

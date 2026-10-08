@@ -18,14 +18,12 @@ import {
   EyeOff,
   FileUp,
   Keyboard,
-  Image as ImageIcon,
   ListPlus,
   LoaderCircle,
   LogOut,
   RefreshCw,
   RotateCcw,
   Search,
-  Sparkles,
   Star,
   Trash2,
   Upload,
@@ -225,10 +223,9 @@ const BOOK_TITLE = bbdcBook.title || "IELTS Vocabulary";
 const BOOK_TOTAL = bbdcBook.declaredTotal || CHAPTERS.reduce((total, chapter) => total + chapter.words.length, 0);
 const NOTE_TAB = "\u7b14\u8bb0";
 const EXAMPLE_TAB = "\u4f8b\u53e5";
-const MEMORY_IMAGE_TAB = "记忆图";
 const AFFIX_TAB = "词根";
 const DEFAULT_DETAIL_TAB = EXAMPLE_TAB;
-const DETAIL_TABS = [EXAMPLE_TAB, MEMORY_IMAGE_TAB, "\u6d3e\u751f", AFFIX_TAB, "\u8fd1\u4e49", NOTE_TAB];
+const DETAIL_TABS = [EXAMPLE_TAB, "\u6d3e\u751f", AFFIX_TAB, "\u8fd1\u4e49", NOTE_TAB];
 const VOICE_OPTIONS = {
   us: { label: "\u7f8e", lang: "en-US" },
   uk: { label: "\u82f1", lang: "en-GB" },
@@ -761,102 +758,6 @@ function ExampleContent({ word, onPlayExample }) {
   );
 }
 
-function memoryImageEndpoint(word) {
-  return `/api/memory-image?${new URLSearchParams({
-    term: word.term,
-    pos: word.pos || "",
-    meaning: word.meaning || "",
-  })}`;
-}
-
-function MemoryImageContent({ word }) {
-  const key = `${word.term}\n${word.pos || ""}\n${word.meaning || ""}`;
-  const [state, setState] = useState({ key: "", loading: true, generating: false, image: null, error: "" });
-
-  useEffect(() => {
-    const controller = new AbortController();
-    fetch(memoryImageEndpoint(word), { cache: "no-store", signal: controller.signal })
-      .then(async (response) => {
-        const payload = await response.json();
-        if (!response.ok) throw new Error(payload.error || "记忆图读取失败");
-        setState({ key, loading: false, generating: false, image: payload.image || null, error: "" });
-      })
-      .catch((error) => {
-        if (error.name !== "AbortError") setState({ key, loading: false, generating: false, image: null, error: error.message || "记忆图读取失败" });
-      });
-    return () => controller.abort();
-  }, [key, word]);
-
-  const current = state.key === key ? state : { key, loading: true, generating: false, image: null, error: "" };
-
-  async function generate(regenerate = false) {
-    setState({ ...current, key, loading: false, generating: true, error: "" });
-    try {
-      const response = await fetch("/api/memory-image", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ term: word.term, pos: word.pos || "", meaning: word.meaning || "", regenerate }),
-      });
-      const payload = await response.json();
-      if (!response.ok) throw new Error(payload.error || "记忆图生成失败");
-      setState({ key, loading: false, generating: false, image: payload.image, error: "" });
-    } catch (error) {
-      setState({ ...current, key, loading: false, generating: false, error: error instanceof Error ? error.message : "记忆图生成失败" });
-    }
-  }
-
-  if (current.loading) {
-    return (
-      <div className="grid animate-pulse gap-4 lg:grid-cols-[minmax(0,1.15fr)_minmax(240px,.85fr)]" aria-label="正在读取记忆图">
-        <div className="aspect-square rounded-2xl bg-slate-100" />
-        <div className="space-y-3 rounded-2xl bg-slate-50 p-5"><div className="h-5 w-2/3 rounded bg-slate-200" /><div className="h-3 w-full rounded bg-slate-100" /><div className="h-3 w-5/6 rounded bg-slate-100" /></div>
-      </div>
-    );
-  }
-
-  if (!current.image) {
-    return (
-      <div className="rounded-2xl border border-dashed border-orange-200 bg-gradient-to-br from-orange-50 to-white px-5 py-9 text-center sm:px-8">
-        <span className="mx-auto inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-orange-500 shadow-sm"><ImageIcon className="h-6 w-6" /></span>
-        <h3 className="mt-4 text-lg font-extrabold">为 {word.term} 生成专属记忆图</h3>
-        <p className="mx-auto mt-2 max-w-lg text-sm leading-6 text-slate-500">图片会围绕当前义项设计，并同时生成画面解释和记忆提示。相同义项只生成一次，之后直接读取。</p>
-        <button type="button" disabled={current.generating} onClick={() => generate(false)} className="mt-5 inline-flex items-center gap-2 rounded-xl bg-orange-500 px-5 py-3 text-sm font-extrabold text-white shadow-sm transition hover:bg-orange-600 disabled:cursor-wait disabled:opacity-70">
-          {current.generating ? <LoaderCircle className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />}
-          {current.generating ? "正在设计并生成，可能需要一分钟…" : "生成记忆图"}
-        </button>
-        {current.error && <p aria-live="polite" className="mt-3 text-sm font-semibold text-red-600">{current.error}</p>}
-      </div>
-    );
-  }
-
-  const image = current.image;
-  return (
-    <div className="grid gap-4 lg:grid-cols-[minmax(0,1.15fr)_minmax(240px,.85fr)] lg:items-start">
-      <div className="overflow-hidden rounded-2xl border border-slate-100 bg-slate-50 shadow-sm">
-        <img src={image.imageUrl} alt={`${word.term} 的记忆图：${image.sceneDescription}`} className="aspect-square h-auto w-full object-cover" />
-      </div>
-      <div className="space-y-3">
-        <section className="rounded-2xl bg-orange-50 p-4 sm:p-5">
-          <span className="text-xs font-extrabold tracking-wide text-orange-500">画面解释</span>
-          <h3 className="mt-1.5 text-lg font-extrabold text-slate-950">{image.sceneTitle}</h3>
-          <p className="mt-2 text-sm leading-6 text-slate-600">{image.sceneDescription}</p>
-          <p className="mt-3 border-t border-orange-100 pt-3 text-sm leading-6 text-slate-700">{image.explanation}</p>
-        </section>
-        <section className="rounded-2xl bg-slate-50 p-4 sm:p-5">
-          <span className="text-xs font-extrabold tracking-wide text-slate-400">记忆钩子</span>
-          <p className="mt-2 text-sm font-semibold leading-6 text-slate-700">{image.memoryTip}</p>
-        </section>
-        <button type="button" disabled={current.generating} onClick={() => generate(true)} className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-bold text-slate-600 transition hover:border-orange-200 hover:text-orange-600 disabled:cursor-wait disabled:opacity-60">
-          {current.generating ? <LoaderCircle className="h-4 w-4 animate-spin" /> : <RefreshCw className="h-4 w-4" />}
-          {current.generating ? "正在重新生成…" : "重新生成图片与解释"}
-        </button>
-        {current.error && <p aria-live="polite" className="text-sm font-semibold text-red-600">{current.error}</p>}
-        <p className="text-xs leading-5 text-slate-400">AI 生成内容用于辅助记忆，具体含义仍以词典释义为准。</p>
-      </div>
-    </div>
-  );
-}
-
 function derivativeMeaningLines(pos, meaning) {
   return String(meaning || "")
     .split("\n")
@@ -894,10 +795,6 @@ function DetailContent({ tab, word, accent, note, onPlayExample, onChangeNote, f
 
   if (tab === EXAMPLE_TAB) {
     return <ExampleContent word={word} onPlayExample={onPlayExample} />;
-  }
-
-  if (tab === MEMORY_IMAGE_TAB) {
-    return <MemoryImageContent word={word} />;
   }
 
   if (tab === "\u6d3e\u751f") {
