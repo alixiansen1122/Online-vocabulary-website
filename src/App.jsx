@@ -9,6 +9,7 @@ import {
   ArrowLeft,
   BarChart3,
   BookOpen,
+  CalendarDays,
   Clock,
   Cloud,
   CloudOff,
@@ -43,10 +44,13 @@ import reviewedSynonyms from "./data/reviewed-synonyms.json";
 import wordFamilies from "./data/word-families.json";
 import { createFamilyLookup, normalizeFamilyWords, termKey } from "./wordFamilies";
 import { mergeSpellingRecords, needsSpellingReview, normalizeSpellingRecords, recordSpellingAttempt } from "./spellingRecords";
+import StudyStatsPage from "./StudyStatsPage";
+import { useStudyEventQueue } from "./studyEvents";
 
 const STORAGE_KEY = "offline_vocab_reader_v1";
 const CLOUD_DIRTY_KEY = "offline_vocab_reader_cloud_dirty_v1";
 const CLOUD_SYNC_DELAY = 900;
+const STATS_LEGACY_VIEWS_KEY = "word-memory-stats-legacy-views-v1";
 const BACKUP_FORMAT = "word-memory-web-backup";
 const BACKUP_VERSION = 1;
 const DEFAULT_SENTENCE_RATE = 1;
@@ -916,6 +920,7 @@ function WordListPage({
   onToggleMeanings,
   onToggleAccent,
   onOpenSearch,
+  onOpenStats,
   onOpenDashboard,
   pendingScrollId,
   onPendingScrollHandled,
@@ -1126,10 +1131,18 @@ function WordListPage({
       </section>
 
       <nav className="fixed inset-x-0 bottom-0 z-30 border-t border-slate-100 bg-white lg:static lg:shrink-0">
-        <div className="mx-auto grid h-14 max-w-3xl grid-cols-2 sm:h-16">
+        <div className="mx-auto grid h-14 max-w-3xl grid-cols-3 sm:h-16">
           <button type="button" className="flex flex-col items-center justify-center gap-1 text-orange-600">
             <BookOpen className="h-5 w-5 sm:h-6 sm:w-6" />
             <span className="text-xs font-semibold">词汇</span>
+          </button>
+          <button
+            type="button"
+            onClick={onOpenStats}
+            className="flex flex-col items-center justify-center gap-1 text-slate-500"
+          >
+            <CalendarDays className="h-5 w-5 sm:h-6 sm:w-6" />
+            <span className="text-xs font-semibold">统计</span>
           </button>
           <button
             type="button"
@@ -1300,6 +1313,7 @@ function DashboardPage({
   onRetrySync,
   spellingRecords,
   onReviewSpelling,
+  onOpenStats,
 }) {
   const [bookChooserOpen, setBookChooserOpen] = useState(false);
   const [importing, setImporting] = useState(false);
@@ -1358,6 +1372,13 @@ function DashboardPage({
       </header>
 
       <section className="mx-auto max-w-3xl px-4 sm:px-5">
+        <button type="button" onClick={onOpenStats} className="mb-4 flex w-full items-center justify-between gap-4 rounded-xl bg-slate-950 p-4 text-left text-white shadow-sm transition hover:bg-slate-800 sm:p-5">
+          <span className="flex min-w-0 items-center gap-3">
+            <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-white/10 text-orange-300"><CalendarDays className="h-5 w-5" /></span>
+            <span><strong className="block text-base sm:text-lg">全年学习统计</strong><span className="mt-1 block text-xs font-semibold text-white/55 sm:text-sm">年度日历、每日详情、连续学习与薄弱单词</span></span>
+          </span>
+          <span className="shrink-0 text-sm font-bold text-orange-300">查看</span>
+        </button>
         <div className="mb-4 rounded-lg border border-orange-100 bg-white p-4 shadow-sm sm:p-5">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
@@ -1887,6 +1908,7 @@ export default function App({ currentUser: initialCurrentUser = null, signOutPat
   const [pendingScrollId, setPendingScrollId] = useState(null);
   const examplePlaybackRef = useRef({ wordId: null, index: -1, examples: [] });
   const exampleRequestRef = useRef(0);
+  const { enqueueStudyEvent, flushStudyEvents, statsRevision } = useStudyEventQueue();
 
   const wordBooks = useMemo(() => buildWordBooks(stored.favorites, stored.customBooks, stored.familyWords), [stored.favorites, stored.customBooks, stored.familyWords]);
   const activeBook = useMemo(
@@ -1903,6 +1925,15 @@ export default function App({ currentUser: initialCurrentUser = null, signOutPat
     return Array.from(byId.values());
   }, [wordBooks, stored.familyWords]);
   const wordById = useMemo(() => new Map(allAvailableWords.map((word) => [word.id, word])), [allAvailableWords]);
+  const wordBookById = useMemo(() => {
+    const byId = new Map();
+    wordBooks.filter((book) => book.id !== FAVORITES_BOOK_ID).forEach((book) => {
+      book.words.forEach((word) => {
+        if (!byId.has(word.id)) byId.set(word.id, { id: book.id, title: book.title });
+      });
+    });
+    return byId;
+  }, [wordBooks]);
   const activeWordIndexById = useMemo(
     () => new Map(activeBook.words.map((word, index) => [word.id, index])),
     [activeBook.words],
@@ -1916,6 +1947,17 @@ export default function App({ currentUser: initialCurrentUser = null, signOutPat
   useEffect(() => {
     storedRef.current = stored;
   }, [stored]);
+
+  useEffect(() => {
+    if (!cloudReady || localStorage.getItem(STATS_LEGACY_VIEWS_KEY) === "1") return;
+    Object.entries(stored.viewed || {}).forEach(([wordId, timestamp]) => {
+      const word = wordById.get(wordId);
+      const book = wordBookById.get(wordId);
+      enqueueStudyEvent({ type: "word_viewed", wordId, wordTerm: word?.term || "", bookId: book?.id || "", bookTitle: book?.title || "", occurredAt: Number(timestamp) || Date.now() });
+    });
+    localStorage.setItem(STATS_LEGACY_VIEWS_KEY, "1");
+    flushStudyEvents();
+  }, [cloudReady, enqueueStudyEvent, flushStudyEvents, stored.viewed, wordBookById, wordById]);
 
   const flushCloudState = useCallback(async () => {
     if (!cloudReadyRef.current || syncInFlightRef.current || !syncDirtyRef.current) return;
@@ -2049,22 +2091,48 @@ export default function App({ currentUser: initialCurrentUser = null, signOutPat
 
   const clearPendingScroll = useCallback(() => setPendingScrollId(null), []);
 
+  const trackWordViewed = useCallback((wordId) => {
+    const word = wordById.get(wordId);
+    const book = wordBookById.get(wordId) || activeBook;
+    enqueueStudyEvent({
+      type: "word_viewed",
+      wordId,
+      wordTerm: word?.term || "",
+      bookId: book.id,
+      bookTitle: book.title,
+    });
+  }, [activeBook, enqueueStudyEvent, wordBookById, wordById]);
+
   const recordAttempt = useCallback((wordId, result, review = false) => {
+    const word = wordById.get(wordId);
+    const book = wordBookById.get(wordId) || activeBook;
+    enqueueStudyEvent({
+      type: "spelling_attempt",
+      wordId,
+      wordTerm: word?.term || "",
+      bookId: book.id,
+      bookTitle: book.title,
+      correct: result.correct,
+      firstTry: result.firstTry,
+      review,
+    });
     setStored((current) => ({
       ...current,
       spellingRecords: recordSpellingAttempt(current.spellingRecords, wordId, result, review),
     }));
-  }, []);
+  }, [activeBook, enqueueStudyEvent, wordBookById, wordById]);
 
   const markViewed = useCallback((id) => {
+    trackWordViewed(id);
     setStored((current) => {
       if (current.viewed[id]) return current;
       return { ...current, viewed: { ...current.viewed, [id]: Date.now() } };
     });
-  }, []);
+  }, [trackWordViewed]);
 
   const selectWord = useCallback((id, speechMode = "immediate") => {
     setSelectedId(id);
+    trackWordViewed(id);
     setStored((current) => {
       const alreadyViewed = Boolean(current.viewed[id]);
       if (current.meaningsHidden && alreadyViewed) return current;
@@ -2079,7 +2147,7 @@ export default function App({ currentUser: initialCurrentUser = null, signOutPat
       if (speechMode === "navigation") speakNavigationWord(word.term, stored.accent);
       else speakWord(word.term, stored.accent);
     }
-  }, [stored.accent, wordById]);
+  }, [stored.accent, trackWordViewed, wordById]);
 
   const moveWordSelection = useCallback((direction) => {
     if (page !== "words" || activeBook.words.length === 0) return;
@@ -2308,6 +2376,10 @@ export default function App({ currentUser: initialCurrentUser = null, signOutPat
     setPage("dashboard");
   }, []);
 
+  if (page === "stats") {
+    return <StudyStatsPage viewed={stored.viewed} spellingRecords={stored.spellingRecords} wordById={wordById} onOpenWord={openWordFromDashboard} onBack={() => setPage("dashboard")} statsRevision={statsRevision} />;
+  }
+
   if (page === "spelling") {
     return <SpellingReviewPage book={activeBook} records={stored.spellingRecords} accent={stored.accent} separated={stored.spellingSeparated} getPattern={spellingPattern} onAttempt={recordAttempt} onBack={() => setPage("dashboard")} />;
   }
@@ -2340,6 +2412,7 @@ export default function App({ currentUser: initialCurrentUser = null, signOutPat
               onRetrySync={flushCloudState}
               spellingRecords={stored.spellingRecords}
               onReviewSpelling={() => { setDetailId(null); setPage("spelling"); }}
+              onOpenStats={() => { setDetailId(null); setPage("stats"); flushStudyEvents(); }}
             />
           ) : page === "search" ? (
             <SearchPage
@@ -2366,6 +2439,7 @@ export default function App({ currentUser: initialCurrentUser = null, signOutPat
               onToggleMeanings={toggleMeanings}
               onToggleAccent={toggleAccent}
               onOpenSearch={() => setPage("search")}
+              onOpenStats={() => { setDetailId(null); setPage("stats"); flushStudyEvents(); }}
               onOpenDashboard={() => setPage("dashboard")}
               pendingScrollId={pendingScrollId}
               onPendingScrollHandled={clearPendingScroll}
