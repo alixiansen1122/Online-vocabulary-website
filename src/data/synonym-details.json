@@ -1,78 +1,7434 @@
 {
-  "air": { "pos": "n.", "meaning": "空气；天空；气氛（强调周围给人的感觉）" },
-  "alt": { "pos": "abbr.", "meaning": "altitude 的缩写：海拔；高度" },
-  "ambiance": { "pos": "n.", "meaning": "环境气氛；格调，尤指某个场所营造出的感觉" },
-  "ambience": { "pos": "n.", "meaning": "环境气氛；格调，与 ambiance 同义" },
-  "apparent horizon": { "pos": "n.", "meaning": "视地平线；观察者看见的天空与地面交界线" },
-  "atm": { "pos": "abbr.", "meaning": "atmosphere 的缩写；也可表示标准大气压单位" },
-  "atmospheric state": { "pos": "n.", "meaning": "大气状态；某时某地大气的物理状况" },
-  "aura": { "pos": "n.", "meaning": "氛围；气质，指人或场所散发出的独特感觉" },
-  "bad luck": { "pos": "n.", "meaning": "坏运气；不幸，强调倒霉的遭遇" },
-  "blanket": { "pos": "n./v.", "meaning": "覆盖层；覆盖、笼罩，强调像毯子一样完全盖住" },
-  "calamity": { "pos": "n.", "meaning": "灾难；灾祸，常指造成严重损失或痛苦的事件" },
-  "carbonic acid gas": { "pos": "n.", "meaning": "二氧化碳的旧称，现代通常使用 carbon dioxide" },
-  "cataclysm": { "pos": "n.", "meaning": "大灾变；剧烈而影响深远的灾难或社会动荡" },
-  "catastrophal": { "pos": "adj.", "meaning": "灾难性的；毁灭性的，是 catastrophic 的罕见变体" },
-  "catastrophe": { "pos": "n.", "meaning": "重大灾难；惨败，语气通常比 disaster 更强" },
-  "celestial horizon": { "pos": "n.", "meaning": "天球地平圈；天文学中与铅垂线垂直的大圆" },
-  "crust": { "pos": "n.", "meaning": "外壳；硬层；地壳，强调物体最外面的硬质部分" },
-  "crustcore": { "pos": "n.", "meaning": "地壳与地核的合称或罕见合成词，并非 crust 的常用近义词" },
-  "crux": { "pos": "n.", "meaning": "关键；症结，指问题最核心、最重要的部分" },
-  "curtain": { "pos": "n./v.", "meaning": "帘幕；遮蔽物；遮蔽，强调隔开或挡住视线" },
-  "daily bread": { "pos": "n.", "meaning": "生计；赖以维生之物，强调维持日常生活的基本来源" },
-  "disaster": { "pos": "n.", "meaning": "灾难；彻底失败的人或事情，是较通用的灾难用词" },
-  "drape": { "pos": "n./v.", "meaning": "垂下的织物；披、覆盖，强调松散地搭盖在表面" },
-  "drapery": { "pos": "n.", "meaning": "帷幔；垂褶织物，泛指用于装饰或遮盖的布料" },
-  "effect": { "pos": "n.", "meaning": "作用；影响；结果，仅在“实质或结果”语境下与 core 相关" },
-  "el": { "pos": "abbr.", "meaning": "elevation 的缩写：海拔；标高" },
-  "elevation": { "pos": "n.", "meaning": "海拔；高度；升高，常用于地理位置相对海平面的高度" },
-  "essence": { "pos": "n.", "meaning": "本质；精髓，指某事物最根本、最重要的特征" },
-  "expose": { "pos": "v.", "meaning": "使暴露；使面临，使人或事物处于危险或不利影响之下" },
-  "feeling": { "pos": "n.", "meaning": "感觉；情绪；氛围，强调人对环境的主观感受" },
-  "gall": { "pos": "n.", "meaning": "厚颜；无礼，也可表示胆汁或怨恨；此处对应 crust 的“厚脸皮”义" },
-  "geosphere": { "pos": "n.", "meaning": "地圈；地球的固体部分，包括地壳、地幔和地核，范围通常比 lithosphere 更广" },
-  "gist": { "pos": "n.", "meaning": "要点；主旨，指讲话或文章的核心意思" },
-  "h": { "pos": "symbol", "meaning": "氢元素的化学符号" },
-  "harmful": { "pos": "adj.", "meaning": "有害的；会造成伤害或不良影响的" },
-  "height": { "pos": "n.", "meaning": "高度；高处，泛指从底部到顶部的垂直距离" },
-  "homer": { "pos": "n.", "meaning": "贺梅尔，古代希伯来容积单位；并非 core 的常用近义词" },
-  "imperil": { "pos": "v.", "meaning": "使陷入危险；危及，较正式用词" },
-  "impertinence": { "pos": "n.", "meaning": "无礼；放肆，对应 crust 的“厚颜、冒失”义" },
-  "income": { "pos": "n.", "meaning": "收入；所得，强调个人或机构定期获得的钱" },
-  "jeopardize": { "pos": "v.", "meaning": "危及；使受到损害或失败的威胁" },
-  "line of latitude": { "pos": "n.", "meaning": "纬线；连接地球上相同纬度地点的假想线" },
-  "line of longitude": { "pos": "n.", "meaning": "经线；连接南北两极并表示经度的假想线" },
-  "livelihood": { "pos": "n.", "meaning": "生计；谋生手段，强调赖以生活的工作或收入来源" },
-  "mantel": { "pos": "n.", "meaning": "壁炉架；壁炉台，与 mantle 拼写相近但含义不同" },
-  "mantlepiece": { "pos": "n.", "meaning": "壁炉上方的架子；壁炉台，并非 mantle 的常用近义词" },
-  "menace": { "pos": "v./n.", "meaning": "威胁；危及，强调可能造成伤害的人或事物" },
-  "meridian": { "pos": "n.", "meaning": "经线；子午线，是从两极穿过的经度线" },
-  "misadventure": { "pos": "n.", "meaning": "意外事故；不幸遭遇，常指计划外发生的坏事" },
-  "mischance": { "pos": "n.", "meaning": "不幸；意外事故，较书面或旧式用词" },
-  "mood": { "pos": "n.", "meaning": "情绪；心境；气氛，既可指人的心情，也可指场景基调" },
-  "nakba": { "pos": "n.", "meaning": "大灾难；浩劫，阿拉伯语词，常特指巴勒斯坦“浩劫”" },
-  "o": { "pos": "symbol", "meaning": "氧元素的化学符号" },
-  "omer": { "pos": "n.", "meaning": "俄梅珥，古希伯来容量单位；并非 core 的常用近义词" },
-  "packaging agent": { "pos": "n.", "meaning": "包装剂或包装用气体，属于工业用途概念，并非 hydrogen 的通用近义词" },
-  "pall": { "pos": "n./v.", "meaning": "覆盖物；阴影；笼罩，强调沉重或阴暗地覆盖" },
-  "pallium": { "pos": "n.", "meaning": "披肩式礼服；外套，也可指覆盖层，属于专业或历史用词" },
-  "parallel": { "pos": "n.", "meaning": "纬线；平行线，此处指与赤道平行的纬度圈" },
-  "parallel of latitude": { "pos": "n.", "meaning": "纬圈；连接所有相同纬度地点的圆圈" },
-  "peril": { "pos": "n.", "meaning": "重大危险；险境，强调严重且迫近的风险" },
-  "pith": { "pos": "n.", "meaning": "精髓；核心，也可指植物茎内的髓部" },
-  "purview": { "pos": "n.", "meaning": "范围；权限；眼界，强调职责、活动或考虑所覆盖的范围" },
-  "queer": { "pos": "v.", "meaning": "使陷入困境；破坏、危及，是较旧式的动词用法" },
-  "ruinous": { "pos": "adj.", "meaning": "毁灭性的；导致破产或严重损失的" },
-  "scupper": { "pos": "v.", "meaning": "使失败；破坏；使陷入困境，常用于计划或机会" },
-  "sensible horizon": { "pos": "n.", "meaning": "测者地平圈；通过观察者且与铅垂线垂直的平面" },
-  "skyline": { "pos": "n.", "meaning": "天际线；建筑物或地形映衬天空形成的轮廓线" },
-  "skysill": { "pos": "n.", "meaning": "地平线，是罕见、非标准或诗歌中的用词" },
-  "sourstuff": { "pos": "n.", "meaning": "氧气的历史性仿造称呼，现代英语中极少使用" },
-  "stenchcore": { "pos": "n.", "meaning": "污秽硬核，一种朋克音乐风格；并非 crust“外壳”义的近义词" },
-  "substance": { "pos": "n.", "meaning": "实质；主旨；物质，此处指事物的核心内容" },
-  "threaten": { "pos": "v.", "meaning": "威胁；危及，表示可能造成伤害或不良后果" },
-  "tragedy": { "pos": "n.", "meaning": "惨剧；悲剧，强调造成巨大痛苦或死亡的不幸事件" },
-  "view": { "pos": "n.", "meaning": "视野；眼界；看法，可指能看到的范围或思考问题的范围" },
-  "visible horizon": { "pos": "n.", "meaning": "可见地平线；肉眼看到的地面与天空交界线" },
-  "waterstuff": { "pos": "n.", "meaning": "氢的历史性仿造称呼，字面为“成水之物”，现代英语中极少使用" }
+  "abdomen": {
+    "pos": "n.",
+    "meaning": "腹部"
+  },
+  "aboriginal": {
+    "pos": "adj.",
+    "meaning": "澳大利亚土著的；土生土⻓的\nn. (尤指澳大利亚的) 土著，土人"
+  },
+  "abroad": {
+    "pos": "adv.",
+    "meaning": "在国外，去国外；广为流传地"
+  },
+  "absorb": {
+    "pos": "vt.",
+    "meaning": "吸收；理解，掌握；吞并；缓冲\nvt. 吸引 (注意力);承受，承担"
+  },
+  "abstract": {
+    "pos": "adj.",
+    "meaning": "抽象的；抽象派的\nn. 摘要，梗概；抽象派艺术作品\nvt. 提取，抽取；写...的摘要"
+  },
+  "accent": {
+    "pos": "n.",
+    "meaning": "腔调，口音；重音；变音符号\nvt. 突出，强调"
+  },
+  "access": {
+    "pos": "n.",
+    "meaning": "进入 (权),通道；使用权\nvt. 访问，存取；进入"
+  },
+  "accessory": {
+    "pos": "n.",
+    "meaning": "配件，附属品；配饰；帮凶"
+  },
+  "accident": {
+    "pos": "n.",
+    "meaning": "(交通) 事故；意外，偶然"
+  },
+  "accompany": {
+    "pos": "vt.",
+    "meaning": "陪伴，陪同；伴随；为...伴奏"
+  },
+  "accomplish": {
+    "pos": "vt.",
+    "meaning": "完成，达成"
+  },
+  "accord": {
+    "pos": "n.",
+    "meaning": "协议，条约；一致，符合\nvt. 给予，赠予\nvi. (与...) 一致，符合"
+  },
+  "account": {
+    "pos": "n.",
+    "meaning": "账戶；账目；叙述；解释，说明\nvt. 认为是，视为"
+  },
+  "accounting": {
+    "pos": "n.",
+    "meaning": "会计行业，会计学"
+  },
+  "accredit": {
+    "pos": "vt.",
+    "meaning": "鉴定...为合格；把...归于；委派"
+  },
+  "accumulate": {
+    "pos": "vt.",
+    "meaning": "积累，积聚\nvi. 累积，逐渐增加"
+  },
+  "accurate": {
+    "pos": "adj.",
+    "meaning": "准确的，精确的"
+  },
+  "achieve": {
+    "pos": "vt.",
+    "meaning": "达到，获得，完成\nvi. 成功"
+  },
+  "acid": {
+    "pos": "n.",
+    "meaning": "酸；迷幻药\nadj. 酸性的；酸味的；尖酸刻薄的"
+  },
+  "acquire": {
+    "pos": "vt.",
+    "meaning": "获得 (技能、习惯等);购得，得到"
+  },
+  "acquisition": {
+    "pos": "n.",
+    "meaning": "获得，习得；收购 (物);购得物"
+  },
+  "act": {
+    "pos": "n.",
+    "meaning": "行为；法案；装样子；一幕\nvi. 行动；表现得；假装；充当\nvt. vi. 扮演"
+  },
+  "acute": {
+    "pos": "adj.",
+    "meaning": "严重的，剧烈的;(疾病) 急性的\nadj. (感官) 灵敏的；敏锐的；锐⻆的"
+  },
+  "adapt": {
+    "pos": "vi. vt.",
+    "meaning": "适应\nvt. 改造 (以适应新情况);改编"
+  },
+  "add": {
+    "pos": "vi. vt.",
+    "meaning": "增加，相加\nvt. 补充说，继续说；添加 (特色)"
+  },
+  "adequate": {
+    "pos": "adj.",
+    "meaning": "足够的，满足要求的"
+  },
+  "adjust": {
+    "pos": "vt.",
+    "meaning": "调整，调节；整理 (衣着)\nvi. vt. (使) 适应"
+  },
+  "administration": {
+    "pos": "n.",
+    "meaning": "管理，行政；政府，管理部⻔"
+  },
+  "admission": {
+    "pos": "n.",
+    "meaning": "准许加入；承认，招认;⻔票钱"
+  },
+  "admit": {
+    "pos": "vi. vt.",
+    "meaning": "承认\nvt. 准许...进入；准许...加入；收治"
+  },
+  "adopt": {
+    "pos": "vt.",
+    "meaning": "采纳，采用；正式通过\nvi. vt. 收养，领养"
+  },
+  "adorn": {
+    "pos": "vt.",
+    "meaning": "装饰，装扮"
+  },
+  "advance": {
+    "pos": "n.",
+    "meaning": "前进；进步，发展；预付款；上涨\nvi. vt. 前进；进步，发展\nvt. 促进；预付；提议；提前\nadj. 预先的，事先的；先行的"
+  },
+  "adventure": {
+    "pos": "n.",
+    "meaning": "冒险，奇遇；冒险精神"
+  },
+  "advise": {
+    "pos": "vi. vt.",
+    "meaning": "建议，忠告；提供专业咨询\nvt. 正式通知"
+  },
+  "affair": {
+    "pos": "n.",
+    "meaning": "事务；私事；事情；暧昧关系"
+  },
+  "affect": {
+    "pos": "vt.",
+    "meaning": "影响;(疾病) 侵袭；打动；假装"
+  },
+  "affirm": {
+    "pos": "vt.",
+    "meaning": "证实，确认；断言，申明"
+  },
+  "afford": {
+    "pos": "vt.",
+    "meaning": "买得起；承担得起；提供，给予"
+  },
+  "agent": {
+    "pos": "n.",
+    "meaning": "代理人，经纪人；特工；动因；剂"
+  },
+  "agony": {
+    "pos": "n.",
+    "meaning": "极度痛苦，剧痛"
+  },
+  "agreement": {
+    "pos": "n.",
+    "meaning": "协议，协定；一致；应允，同意"
+  },
+  "aid": {
+    "pos": "n.",
+    "meaning": "援助，救援物资；辅助 (设备)\nvt. vi. 帮助，援助"
+  },
+  "air": {
+    "pos": "n.",
+    "meaning": "空气；天空；气氛（强调周围给人的感觉）"
+  },
+  "alien": {
+    "pos": "n.",
+    "meaning": "外星生物；外国人，侨⺠\nadj. 陌生的；外国的；与...不相容的\nadj. 外星的"
+  },
+  "alleviate": {
+    "pos": "vt.",
+    "meaning": "减轻，缓解 (痛苦等)"
+  },
+  "allow": {
+    "pos": "vt.",
+    "meaning": "允许，听任；使可能；留出"
+  },
+  "alloy": {
+    "pos": "n.",
+    "meaning": "合金\nvt. 把...铸成合金"
+  },
+  "allure": {
+    "pos": "n.",
+    "meaning": "诱惑力，吸引力\nvt. 诱惑，引诱"
+  },
+  "alter": {
+    "pos": "vi. vt.",
+    "meaning": "(使) 变化,(使) 改变\nvt. 改动 (衣服使其更合身)"
+  },
+  "amaze": {
+    "pos": "vt.",
+    "meaning": "使惊奇，使大吃一惊"
+  },
+  "amazing": {
+    "pos": "adj.",
+    "meaning": "惊人的，了不起的"
+  },
+  "ambiance": {
+    "pos": "n.",
+    "meaning": "环境气氛；格调，尤指某个场所营造出的感觉"
+  },
+  "ambience": {
+    "pos": "n.",
+    "meaning": "环境气氛；格调，与 ambiance 同义"
+  },
+  "amplify": {
+    "pos": "vt.",
+    "meaning": "放大 (声音等)\nvi. vt. 详述，进一步阐述"
+  },
+  "anatomy": {
+    "pos": "n.",
+    "meaning": "解剖学;(动植物的) 结构；人体"
+  },
+  "ancestor": {
+    "pos": "n.",
+    "meaning": "祖先;(动物) 原种；原型"
+  },
+  "anchor": {
+    "pos": "n.",
+    "meaning": "锚；主持人；顶梁柱\nvi. vt. 抛锚，使停泊；主持 (节目)\nvt. 使固定；使扎根"
+  },
+  "angle": {
+    "pos": "n.",
+    "meaning": "⻆;⻆度；立场，观点\nvt. 斜移，斜置；以(某⻆度)报道"
+  },
+  "announce": {
+    "pos": "vt.",
+    "meaning": "宣布，通知；郑重地说；通报"
+  },
+  "annoy": {
+    "pos": "vt.",
+    "meaning": "使生气，使烦恼，烦扰"
+  },
+  "annual": {
+    "pos": "adj.",
+    "meaning": "一年一次的；年度的\nn. 年刊，年册；一年生植物"
+  },
+  "anticipate": {
+    "pos": "vt.",
+    "meaning": "预料；期待，期盼；先于...做"
+  },
+  "apathetic": {
+    "pos": "adj.",
+    "meaning": "冷淡的，无动于衷的"
+  },
+  "apologise": {
+    "pos": "vi.",
+    "meaning": "道歉，认错"
+  },
+  "apology": {
+    "pos": "n.",
+    "meaning": "道歉，认错"
+  },
+  "appeal": {
+    "pos": "vi.",
+    "meaning": "吸引；呼吁，恳求；上诉；打动\nn. 上诉；吸引力，魅力；呼吁"
+  },
+  "applaud": {
+    "pos": "vi. vt.",
+    "meaning": "(为...) 鼓掌\nvt. 称赞，赞许"
+  },
+  "appliance": {
+    "pos": "n.",
+    "meaning": "(家用) 电器，装置"
+  },
+  "apply": {
+    "pos": "vi. vt.",
+    "meaning": "申请;(对...) 适用\nvt. 应用，运用；涂抹；按，踩"
+  },
+  "appointment": {
+    "pos": "n.",
+    "meaning": "约定，预约；任命，指派；职位"
+  },
+  "approach": {
+    "pos": "vi. vt.",
+    "meaning": "接近，靠近\nvt. 接洽，要求；处理，对付\nn. 方法，态度；接近，靠近；路径"
+  },
+  "arch": {
+    "pos": "n.",
+    "meaning": "拱；拱⻔;足弓；拱形物\nvt. vi. (使) 拱起,(使) 成拱形\nadj. 调皮的，淘气的\npref. 最高等级的，主要的"
+  },
+  "arctic": {
+    "pos": "adj.",
+    "meaning": "北极的；严寒的"
+  },
+  "arduous": {
+    "pos": "adj.",
+    "meaning": "艰苦的，艰难的"
+  },
+  "arena": {
+    "pos": "n.",
+    "meaning": "竞技场，剧场；活动场地"
+  },
+  "argument": {
+    "pos": "n.",
+    "meaning": "争论；论据，理由；争议，异议"
+  },
+  "arouse": {
+    "pos": "vt.",
+    "meaning": "引起，激起，激发；唤醒"
+  },
+  "arrest": {
+    "pos": "vt.",
+    "meaning": "逮捕；阻止；吸引...的注意力\nn. 逮捕;(身体部分) 突然停止工作"
+  },
+  "article": {
+    "pos": "n.",
+    "meaning": "文章；条款；东西，物品；冠词"
+  },
+  "aspect": {
+    "pos": "n.",
+    "meaning": "方面；外观;(建筑等的) 朝向"
+  },
+  "assault": {
+    "pos": "n.",
+    "meaning": "攻击，袭击；攻坚；抨击\nvt. 袭击，殴打；使...感到难受"
+  },
+  "assemble": {
+    "pos": "vi. vt.",
+    "meaning": "(使) 集合,(使) 聚集\nvt. 组装，装配"
+  },
+  "assert": {
+    "pos": "vt.",
+    "meaning": "断言；坚持 (主张);维护 (权威)"
+  },
+  "assess": {
+    "pos": "vt.",
+    "meaning": "评估；估算"
+  },
+  "assign": {
+    "pos": "vt.",
+    "meaning": "分配，分派；指派；为...设定"
+  },
+  "assignment": {
+    "pos": "n.",
+    "meaning": "作业，任务;(任务等的) 分配"
+  },
+  "assist": {
+    "pos": "vi. vt.",
+    "meaning": "帮助，协助\nvt. 促进，有助于\nn. 助攻"
+  },
+  "assort": {
+    "pos": "vt.",
+    "meaning": "把...归为一类，分类"
+  },
+  "assume": {
+    "pos": "vt.",
+    "meaning": "假设；承担，取得；呈现出；假装"
+  },
+  "assure": {
+    "pos": "vt.",
+    "meaning": "向...保证；弄清楚；确保"
+  },
+  "astonish": {
+    "pos": "vt.",
+    "meaning": "使吃惊，使惊讶"
+  },
+  "astound": {
+    "pos": "vt.",
+    "meaning": "使惊骇，使震惊"
+  },
+  "asylum": {
+    "pos": "n.",
+    "meaning": "(政治) 避难，庇护；精神病院"
+  },
+  "atom": {
+    "pos": "n.",
+    "meaning": "原子；一点儿，极少"
+  },
+  "attach": {
+    "pos": "vt.",
+    "meaning": "附上，系上，贴上；认为...具有\nvi. vt. (使) 与...有关联"
+  },
+  "attack": {
+    "pos": "n.",
+    "meaning": "攻击，袭击；抨击;(疾病) 发作\nvi. vt. 攻击，袭击\nvt. 抨击；破坏，侵蚀；解决 (问题)\nvi. (在足球等比赛中) 进攻"
+  },
+  "attain": {
+    "pos": "vt.",
+    "meaning": "获得，赢得；达到"
+  },
+  "attempt": {
+    "pos": "vt.",
+    "meaning": "尝试，试图\nn. 尝试，试图；谋杀企图"
+  },
+  "attend": {
+    "pos": "vi. vt.",
+    "meaning": "出席，参加\nvt. 去 (学校等);陪同；伴随\nvi. 注意，专心；照顾"
+  },
+  "attract": {
+    "pos": "vt.",
+    "meaning": "吸引；引起 (注意等)"
+  },
+  "attraction": {
+    "pos": "n.",
+    "meaning": "吸引力；有吸引力的事物"
+  },
+  "attribute": {
+    "pos": "vt.",
+    "meaning": "把...归因于；认为是...所作\nn. 特性，属性"
+  },
+  "audio": {
+    "pos": "adj.",
+    "meaning": "录音的，音频的\nn. 声音，音频"
+  },
+  "audit": {
+    "pos": "n.",
+    "meaning": "审计；审查，检查\nvt. 审计；旁听 (大学的课)"
+  },
+  "aura": {
+    "pos": "n.",
+    "meaning": "氛围；气质，指人或场所散发出的独特感觉"
+  },
+  "author": {
+    "pos": "n.",
+    "meaning": "作者，作家;(计划等的) 筹划者\nvt. 创作，写作，撰写"
+  },
+  "authority": {
+    "pos": "n.",
+    "meaning": "权威；权力；当权者，官方；授权"
+  },
+  "avoid": {
+    "pos": "vt.",
+    "meaning": "避免；回避；避免撞上"
+  },
+  "await": {
+    "pos": "vt.",
+    "meaning": "等待，期待；即将发生于"
+  },
+  "awake": {
+    "pos": "adj.",
+    "meaning": "醒着的，没睡着的\nvi. vt. (使) 醒来；唤起 (情感或记忆)"
+  },
+  "award": {
+    "pos": "n.",
+    "meaning": "奖，奖品;(赔偿) 裁定额\nvt. 授予，奖励"
+  },
+  "awesome": {
+    "pos": "adj.",
+    "meaning": "很棒的；让人惊叹的"
+  },
+  "awful": {
+    "pos": "adj.",
+    "meaning": "极坏的；非常的；可怕的\nadv. 非常，极度地"
+  },
+  "awkward": {
+    "pos": "adj.",
+    "meaning": "尴尬的；难处理的；笨拙的"
+  },
+  "backbone": {
+    "pos": "n.",
+    "meaning": "脊柱；支柱;⻣气"
+  },
+  "backup": {
+    "pos": "n.",
+    "meaning": "备用品；后备人员；备份；替补"
+  },
+  "bad luck": {
+    "pos": "n.",
+    "meaning": "坏运气；不幸，强调倒霉的遭遇"
+  },
+  "baggage": {
+    "pos": "n.",
+    "meaning": "行李;(思想) 负担，包袱"
+  },
+  "bait": {
+    "pos": "n.",
+    "meaning": "⻥饵；用作诱饵的人或物\nvt. 给 (⻥钩或陷阱) 上诱饵；挑衅"
+  },
+  "band": {
+    "pos": "n.",
+    "meaning": "乐队；一伙人；带，细绳；范围\nvt. 给...加彩条等\nvi. 联手，团结"
+  },
+  "banner": {
+    "pos": "n.",
+    "meaning": "横幅，标语；旗帜，口号\nadj. 特别成功的"
+  },
+  "banquet": {
+    "pos": "n.",
+    "meaning": "宴会，宴席"
+  },
+  "bar": {
+    "pos": "n.",
+    "meaning": "酒吧；吧台；小馆；棒;律师界\nvt. 闩上 (⻔或窗);阻挡；禁止\nprep. 除...之外"
+  },
+  "bare": {
+    "pos": "adj.",
+    "meaning": "赤裸的；荒芜的；基本的；空的\nvt. 使暴露"
+  },
+  "barrel": {
+    "pos": "n.",
+    "meaning": "桶；枪管\nvi. 高速行驶,⻜驰"
+  },
+  "barren": {
+    "pos": "adj.",
+    "meaning": "贫瘠的，荒芜的；不孕不育的"
+  },
+  "basin": {
+    "pos": "n.",
+    "meaning": "洗脸池；盆;流域；盆地；内港"
+  },
+  "bat": {
+    "pos": "n.",
+    "meaning": "蝙蝠；球棒，球拍\nvi. vt. 用球棒击球\nvt. 挥打 (空中的小东西)"
+  },
+  "bath": {
+    "pos": "n.",
+    "meaning": "洗澡；浴缸；浴室\nvt. 给...洗澡"
+  },
+  "battle": {
+    "pos": "n.",
+    "meaning": "战役，战斗；较量，斗争；抗争\nvi. vt. 奋战，与...搏斗"
+  },
+  "beak": {
+    "pos": "n.",
+    "meaning": "⻦嘴，喙；鹰钩鼻"
+  },
+  "beam": {
+    "pos": "n.",
+    "meaning": "光束，光线；横梁；平衡木\nvi. vt. 眉开眼笑；照耀\nvt. 发射 (信号)"
+  },
+  "bear": {
+    "pos": "vt.",
+    "meaning": "承受，忍受；承担 (责任);支撑\nvt. 带有；生孩子；结果实\nn. 熊"
+  },
+  "beast": {
+    "pos": "n.",
+    "meaning": "野兽；残暴的人；某种东西"
+  },
+  "beat": {
+    "pos": "vt.",
+    "meaning": "打败；难倒；胜过；快速搅拌\nvt. vi. 打，敲打;(使) 规律作响\nn. 跳动；敲击；节拍；辖区"
+  },
+  "behave": {
+    "pos": "vi.",
+    "meaning": "表现；产生自然反应，发生作用\nvi. vt. 举止得体，有礼貌\nvt. 表现得...的"
+  },
+  "belief": {
+    "pos": "n.",
+    "meaning": "信念；信任；信仰"
+  },
+  "beloved": {
+    "pos": "adj.",
+    "meaning": "钟爱的，挚爱的，被深爱的\nn. 心爱的人，爱人"
+  },
+  "bench": {
+    "pos": "n.",
+    "meaning": "⻓椅；法官席；替补席；工作台\nvt. 把 (运动员) 从比赛中撤下"
+  },
+  "bend": {
+    "pos": "vi. vt.",
+    "meaning": "弯腰，低头;(使) (四肢) 弯曲\nvt. 使...弯曲，把...弄弯\nn. 转弯处；减压病"
+  },
+  "benefit": {
+    "pos": "n.",
+    "meaning": "好处；救济金；福利；慈善活动\nvt. vi. 使受益，得益于"
+  },
+  "bet": {
+    "pos": "vi. vt.",
+    "meaning": "用...打赌，下赌注\nvt. 敢说，可以肯定\nn. 打赌，赌注；估计，猜想"
+  },
+  "betray": {
+    "pos": "vt.",
+    "meaning": "背叛，出卖；流露 (情感)"
+  },
+  "bewilder": {
+    "pos": "vt.",
+    "meaning": "使困惑，使糊涂"
+  },
+  "bias": {
+    "pos": "n.",
+    "meaning": "偏⻅,偏袒；偏好\nvt. 使有偏⻅,使偏心"
+  },
+  "bid": {
+    "pos": "vi. vt.",
+    "meaning": "出价；叫牌\nvi. 投标；努力争取\nvt. 向...表示问候，向...告别；吩咐\nn. 出价；投标；争取，尝试；叫牌"
+  },
+  "billion": {
+    "pos": "num.",
+    "meaning": "十亿；数以十亿计，大量"
+  },
+  "bind": {
+    "pos": "vt.",
+    "meaning": "捆绑；包扎；联合；约束；装订\nvi. vt. (使) 凝结,(使) 黏合\nn. 窘境，困境"
+  },
+  "bite": {
+    "pos": "vi. vt.",
+    "meaning": "咬；叮，蜇\nvi. 上钩，咬钩；产生严重影响\nn. 咬;(⻝物) 一口;(被叮后的) 包"
+  },
+  "blade": {
+    "pos": "n.",
+    "meaning": "刀刃，刀片；叶片；冰刀"
+  },
+  "blame": {
+    "pos": "vt.",
+    "meaning": "责怪，把...归咎于\nn. (坏事或错事的) 责任，责备"
+  },
+  "blanket": {
+    "pos": "n.",
+    "meaning": "毯子，毛毯；厚层，覆盖层\nvt. 覆盖，笼罩\nadj. 总括的，全面的"
+  },
+  "blast": {
+    "pos": "n.",
+    "meaning": "爆炸，气浪；强劲的气流；响声\nvi. vt. 炸毁，爆破；发出刺耳的高音\nvt. 严厉批评；猛击；向...喷射"
+  },
+  "blend": {
+    "pos": "vt.",
+    "meaning": "使混合，掺和；调制，配制\nvi. 融合\nvi. vt. (使) 协调，融合\nn. 混合物；融合"
+  },
+  "blind": {
+    "pos": "adj.",
+    "meaning": "失明的；视而不⻅的；盲目的\nn. 窗帘，卷帘\nvt. 使变瞎；使眼花；使失去判断力"
+  },
+  "block": {
+    "pos": "n.",
+    "meaning": "大块；大楼；街区；一批；阻碍\nvt. 堵塞；挡住；妨碍；拦截 (球等)"
+  },
+  "bloom": {
+    "pos": "vi.",
+    "meaning": "开花，绽放；精神焕发，繁荣\nn. 花，花朵;⻘春焕发"
+  },
+  "blossom": {
+    "pos": "n.",
+    "meaning": "(树或灌木的) 花，花簇\nvi. 开花；变得健康 (快乐等),兴旺"
+  },
+  "blow": {
+    "pos": "vt. vi.",
+    "meaning": "吹 (气);刮 (⻛);吹动；吹奏\nvt. 擤；送⻜吻；炸开；挥霍；吹出\nn. 猛击；打击；吹"
+  },
+  "blueprint": {
+    "pos": "n.",
+    "meaning": "蓝图；行动方案;(基因的) 模型"
+  },
+  "bomb": {
+    "pos": "n.",
+    "meaning": "炸弹；核武器；彻底的失败\nvt. 轰炸，对...投炸弹\nvt. vi. (考试) 考砸\nvi. (戏剧、电影等) 演砸，不卖座"
+  },
+  "bond": {
+    "pos": "n.",
+    "meaning": "纽带；债券；保释金；枷锁；键\nvt. vi. (使) 黏合，连结；增强信任"
+  },
+  "bone": {
+    "pos": "n.",
+    "meaning": "⻣头;⻣质\nvt. 挑刺，剔⻣"
+  },
+  "boot": {
+    "pos": "n.",
+    "meaning": "靴子；后备箱；猛踢\nvt. 猛踢；给 (违停⻋辆) 上夹锁\nvi. vt. 启动 (计算机)"
+  },
+  "border": {
+    "pos": "n.",
+    "meaning": "边界，国界；镶边；狭⻓花坛\nvt. 与...接壤；沿...的边"
+  },
+  "bore": {
+    "pos": "vt.",
+    "meaning": "使厌烦\nvi. vt. 钻 (孔),挖 (洞)\nvi. 盯着看\nn. 无趣的人；无聊的事；孔，口径"
+  },
+  "born": {
+    "pos": "vt.",
+    "meaning": "出生，出世；出现，形成\nadj. 天生的"
+  },
+  "boss": {
+    "pos": "n.",
+    "meaning": "老板，上司；领导，头儿\nvt. 对...颐指气使，对...指手画脚\nadj. 一流的，卓越的"
+  },
+  "botany": {
+    "pos": "n.",
+    "meaning": "植物学"
+  },
+  "bother": {
+    "pos": "vt.",
+    "meaning": "使...烦恼；打扰\nvi. vt. 费心，费力，麻烦\nn. 麻烦，困难；令人烦恼的情况"
+  },
+  "bounce": {
+    "pos": "vi. vt.",
+    "meaning": "(使) 弹起，弹跳；拒付 (支票)\nvi. (在...上) 跳动，蹦；颠簸行进\nvt. 把小孩放在膝上颠着玩；解雇\nn. 弹跳，跳动；弹性；活力；蓬松"
+  },
+  "bound": {
+    "pos": "adj.",
+    "meaning": "肯定会的；受约束的；前往...的\nvi. 跳跃着跑\nvt. 形成...的边界\nn. 界限，限度；蹦跳，跳跃"
+  },
+  "boundary": {
+    "pos": "n.",
+    "meaning": "分界线，边界"
+  },
+  "bow": {
+    "pos": "vi.",
+    "meaning": "鞠躬；屈从于\nvt. 低 (头),垂 (首)\nn. 鞠躬；船头；弓;蝴蝶结；琴弓"
+  },
+  "bowl": {
+    "pos": "n.",
+    "meaning": "碗；物体的碗状部分"
+  },
+  "brain": {
+    "pos": "n.",
+    "meaning": "大脑；智力；非常聪明的人"
+  },
+  "branch": {
+    "pos": "n.",
+    "meaning": "树枝；分部；分支机构；分支\nvi. (路或河) 分岔"
+  },
+  "brass": {
+    "pos": "n.",
+    "meaning": "⻩铜；铜管乐器；要员"
+  },
+  "breed": {
+    "pos": "vi.",
+    "meaning": "(动物) 繁殖\nvt. 饲养，培育；导致，酿成\nn. 品种;(人或物的) 类型"
+  },
+  "breeze": {
+    "pos": "n.",
+    "meaning": "微⻛;轻而易举的事\nvi. 轻盈而自信地走"
+  },
+  "brilliant": {
+    "pos": "adj.",
+    "meaning": "聪颖的；杰出的；明亮的；极好的"
+  },
+  "brim": {
+    "pos": "n.",
+    "meaning": "(容器的) 边，沿；帽檐\nvi. 盛满 (液体),充满 (容器)"
+  },
+  "bristle": {
+    "pos": "n.",
+    "meaning": "短而硬的毛发；刷子毛\nvi. 被激怒;(动物的毛) 竖起"
+  },
+  "brochure": {
+    "pos": "n.",
+    "meaning": "小册子，宣传册，手册"
+  },
+  "broken": {
+    "pos": "adj.",
+    "meaning": "破损的；破灭的；不连续的"
+  },
+  "bronze": {
+    "pos": "n.",
+    "meaning": "⻘铜;⻘铜色;⻘铜制品；铜牌\nadj. ⻘铜色的"
+  },
+  "brood": {
+    "pos": "vi.",
+    "meaning": "沉思，忧伤\nvi. vt. 孵 (蛋),抱窝\nn. 一窝雏⻦;一家孩子"
+  },
+  "brook": {
+    "pos": "n.",
+    "meaning": "小溪，小河\nvt. 容许，容忍"
+  },
+  "broom": {
+    "pos": "n.",
+    "meaning": "扫帚，扫把"
+  },
+  "brow": {
+    "pos": "n.",
+    "meaning": "额头；眉毛；山脊，坡顶"
+  },
+  "bruise": {
+    "pos": "n.",
+    "meaning": "⻘肿，瘀伤\nvt. vi. (使) 出现伤痕，擦伤\nvt. 打击，挫伤 (信心)"
+  },
+  "brute": {
+    "pos": "n.",
+    "meaning": "残酷的人，暴君\nadj. 蛮干不动脑筋的；赤裸裸的"
+  },
+  "bucket": {
+    "pos": "n.",
+    "meaning": "桶；铲斗；大量"
+  },
+  "buffet": {
+    "pos": "n.",
+    "meaning": "自助餐;(火⻋上的) 餐⻋\nvt. (⻛、雨等) 连续猛击，打击"
+  },
+  "build": {
+    "pos": "vt. vi.",
+    "meaning": "建筑，建造\nvt. 创建，开发\nvi. (感觉) 逐渐增强\nn. 体格，体形，身材"
+  },
+  "bull": {
+    "pos": "n.",
+    "meaning": "公牛；雄性动物；胡说；买空者"
+  },
+  "bully": {
+    "pos": "n.",
+    "meaning": "恃强凌弱者，恶霸\nvt. 欺负，恐吓，胁迫"
+  },
+  "bunch": {
+    "pos": "n.",
+    "meaning": "串，束,扎；大量，大批；群体\nvi. vt. (使)变紧，成皱褶"
+  },
+  "bundle": {
+    "pos": "n.",
+    "meaning": "捆，包；一批 (同类事物);巨款\nvt. 匆匆送走；捆绑销售"
+  },
+  "burden": {
+    "pos": "n.",
+    "meaning": "负担，重担\nvt. 使担负，使烦恼；使负重"
+  },
+  "bureau": {
+    "pos": "n.",
+    "meaning": "局，司,处，署；办事处；衣橱"
+  },
+  "burrow": {
+    "pos": "n.",
+    "meaning": "(动物的) 洞穴，地道\nvi. vt. 挖洞，挖隧道；依偎，紧靠\nvi. 翻找，搜寻"
+  },
+  "burst": {
+    "pos": "vi. vt.",
+    "meaning": "(使) 爆裂，胀开\nvi. 猛冲；爆满，涨满；突然爆发\nn. 迸发，爆发；爆裂，裂口"
+  },
+  "bury": {
+    "pos": "vt.",
+    "meaning": "埋葬；埋藏；覆盖；掩藏"
+  },
+  "cabbage": {
+    "pos": "n.",
+    "meaning": "卷心菜，洋白菜"
+  },
+  "calamity": {
+    "pos": "n.",
+    "meaning": "灾难，灾祸"
+  },
+  "calculate": {
+    "pos": "vt.",
+    "meaning": "计算，核算；预测，推测"
+  },
+  "campaign": {
+    "pos": "n.",
+    "meaning": "(社会、政治) 运动，活动；战役\nvi. vt. 发起运动，开展活动"
+  },
+  "can": {
+    "pos": "",
+    "meaning": "modal. 能，会；懂得；可以\nn. 金属罐；一罐的量\nvt. 把 (⻝品) 装罐保存"
+  },
+  "canal": {
+    "pos": "n.",
+    "meaning": "运河，沟渠;⻝道，气管"
+  },
+  "cancel": {
+    "pos": "vt.",
+    "meaning": "取消，废除；盖销，注销"
+  },
+  "candidate": {
+    "pos": "n.",
+    "meaning": "候选人，申请人；考生"
+  },
+  "canvas": {
+    "pos": "n.",
+    "meaning": "帆布；画布，油画"
+  },
+  "cap": {
+    "pos": "n.",
+    "meaning": "帽子；盖子；最高限额\nvt. 覆盖顶部；设置最高限额"
+  },
+  "captain": {
+    "pos": "n.",
+    "meaning": "船⻓,机⻓;上尉，上校；队⻓"
+  },
+  "capture": {
+    "pos": "vt.",
+    "meaning": "抓住，俘虏，捕捉；攻占，夺取\nn. 捕获，攻占，夺取"
+  },
+  "carbonic acid gas": {
+    "pos": "n.",
+    "meaning": "二氧化碳的旧称，现代通常使用 carbon dioxide"
+  },
+  "career": {
+    "pos": "n.",
+    "meaning": "职业，事业；职业生涯\nvi. (失控地) 猛冲，疾驶"
+  },
+  "careful": {
+    "pos": "adj.",
+    "meaning": "小心谨慎的；细心的，周密的"
+  },
+  "cargo": {
+    "pos": "n.",
+    "meaning": "(轮船、⻜机所装载的) 货物"
+  },
+  "carpet": {
+    "pos": "n.",
+    "meaning": "地毯;(树叶、植物等的) 一层\nvt. 给...铺地毯;(树叶等) 铺满"
+  },
+  "carriage": {
+    "pos": "n.",
+    "meaning": "⻢⻋;火⻋⻋厢；运费；仪态"
+  },
+  "cart": {
+    "pos": "n.",
+    "meaning": "运货⻢⻋;手推⻋;专用小汽⻋\nvt. 用⻢⻋运送；用手提；强行带走"
+  },
+  "cataclysm": {
+    "pos": "n.",
+    "meaning": "大灾变；剧烈而影响深远的灾难或社会动荡"
+  },
+  "catastrophal": {
+    "pos": "adj.",
+    "meaning": "灾难性的；毁灭性的，是 catastrophic 的罕见变体"
+  },
+  "catastrophe": {
+    "pos": "n.",
+    "meaning": "重大灾难，横祸"
+  },
+  "catch": {
+    "pos": "vt.",
+    "meaning": "接住，抓住；逮捕；赶上；得病\nvi. vt. 被绊住；烧着\nn. 接 (球等);总捕获量；扣件"
+  },
+  "cater": {
+    "pos": "vi. vt.",
+    "meaning": "提供饮⻝,承办酒席\nvi. 满足，迎合"
+  },
+  "cause": {
+    "pos": "n.",
+    "meaning": "原因；理由；事业；诉讼案\nvt. 导致，使发生"
+  },
+  "cave": {
+    "pos": "n.",
+    "meaning": "山洞，洞穴\nvi. 坍塌；屈服"
+  },
+  "cease": {
+    "pos": "vi. vt.",
+    "meaning": "(使) 停止"
+  },
+  "ceiling": {
+    "pos": "n.",
+    "meaning": "天花板；上限；升限"
+  },
+  "certify": {
+    "pos": "vt.",
+    "meaning": "证明，证实；授予专业合格证书"
+  },
+  "chain": {
+    "pos": "n.",
+    "meaning": "链条；一连串；连锁店\nvt. 用链子捆住，拴住"
+  },
+  "champion": {
+    "pos": "n.",
+    "meaning": "冠军；拥护者，捍卫者\nvt. 拥护，捍卫"
+  },
+  "chance": {
+    "pos": "n.",
+    "meaning": "机会；可能性;⻛险；偶然\nvt. 冒险，拿...去冒⻛险\nvi. 偶然发生，碰巧"
+  },
+  "change": {
+    "pos": "vi.",
+    "meaning": "改变，变化\nvt. vi. (使) 变换；换衣服；换乘\nvt. 使不同；转换；替代；互换\nn. 改变，变化；替代；零钱"
+  },
+  "channel": {
+    "pos": "n.",
+    "meaning": "频道；途径，渠道；海峡；水渠\nvt. 为...输送 (资金等);输送，传送"
+  },
+  "character": {
+    "pos": "n.",
+    "meaning": "性格;⻆色；特点；字符；名誉"
+  },
+  "charter": {
+    "pos": "n.",
+    "meaning": "章程，宪章；特许状；包租\nvt. 包租 (⻜机、船只等)\nadj. (⻜机、船只等) 包租的"
+  },
+  "cheat": {
+    "pos": "vt.",
+    "meaning": "欺骗，蒙骗\nvi. 作弊，舞弊；对 (配偶) 不忠\nn. 骗子，作弊者；欺骗行为"
+  },
+  "check": {
+    "pos": "vt.",
+    "meaning": "检查；托运；打钩；抑制\nvi. vt. 查明，核实\nn. 检查；调查；格子；支票；账单"
+  },
+  "cheek": {
+    "pos": "n.",
+    "meaning": "脸颊；无礼的话 (或行为)\nvt. 对...粗鲁无礼地说"
+  },
+  "cheer": {
+    "pos": "n.",
+    "meaning": "欢呼声；欢乐的气氛\nvi. vt. 欢呼，加油\nvt. 鼓励，鼓舞;(使) 振奋起来"
+  },
+  "chest": {
+    "pos": "n.",
+    "meaning": "胸部，胸膛；大箱子"
+  },
+  "chew": {
+    "pos": "vi. vt.",
+    "meaning": "咀嚼，嚼碎\nn. 口香糖"
+  },
+  "chicken": {
+    "pos": "n.",
+    "meaning": "鸡；鸡肉；胆小⻤\nadj. 胆怯的，懦弱的"
+  },
+  "chill": {
+    "pos": "n.",
+    "meaning": "寒冷，寒意；着凉；害怕的感觉\nvt. 使寒冷，使冰冷；使恐惧，恐吓\nvi. vt. 冷却，冷藏；冷静；放松，休息\nadj. 寒冷的，阴冷的"
+  },
+  "chocolate": {
+    "pos": "n.",
+    "meaning": "巧克力；巧克力糖；巧克力热饮"
+  },
+  "choke": {
+    "pos": "vi. vt.",
+    "meaning": "(使) 窒息，噎住；使哽咽\nvt. 掐死，勒死；阻塞，塞满\nvi. (因紧张而) 失败，发挥失常\nn. 窒息，哽噎声"
+  },
+  "choose": {
+    "pos": "vi. vt.",
+    "meaning": "选择，挑选"
+  },
+  "chore": {
+    "pos": "n.",
+    "meaning": "家务活；令人厌烦的工作"
+  },
+  "chunk": {
+    "pos": "n.",
+    "meaning": "厚块；大量，大部分；语块"
+  },
+  "circle": {
+    "pos": "n.",
+    "meaning": "圆，圆形；圈，环；圈子，阶层\nvi. vt. 盘旋，环行，绕...转圈\nvt. 围绕...画圈"
+  },
+  "circuit": {
+    "pos": "n.",
+    "meaning": "环行 (路线);电路；巡回活动"
+  },
+  "circulate": {
+    "pos": "vi. vt.",
+    "meaning": "循环，流通；流传，散布\nvt. 传递，传阅\nvi. (在聚会上) 往来应酬"
+  },
+  "circumstance": {
+    "pos": "n.",
+    "meaning": "情况，情形；生活状况；客观环境"
+  },
+  "cite": {
+    "pos": "vt.",
+    "meaning": "引用 (例子);引述；传讯"
+  },
+  "civil": {
+    "pos": "adj.",
+    "meaning": "公⺠的，国内的;⺠用的\nadj. ⺠法的；文明的"
+  },
+  "civilisation": {
+    "pos": "n.",
+    "meaning": "文明；文明国家；文明社会"
+  },
+  "clan": {
+    "pos": "n.",
+    "meaning": "家族，氏族；集团，帮派"
+  },
+  "clap": {
+    "pos": "vi. vt.",
+    "meaning": "鼓掌；拍手\nvt. (友好地) 轻拍某人；急速放置\nn. 鼓掌，掌声；砰然巨响"
+  },
+  "clasp": {
+    "pos": "vt.",
+    "meaning": "握紧，抓紧；抱紧，紧拥\nn. 扣子，扣环；紧握，紧抱"
+  },
+  "classify": {
+    "pos": "vt.",
+    "meaning": "(将...) 分类；界定，划分"
+  },
+  "clause": {
+    "pos": "n.",
+    "meaning": "从句;(法律文书的) 条款"
+  },
+  "claw": {
+    "pos": "n.",
+    "meaning": "爪；螯，钳\nvi. vt. 抓，挠"
+  },
+  "clear": {
+    "pos": "adj.",
+    "meaning": "清楚的；明显的；无疑的\nvt. 清理，清除，移走；使人离开\nvi. 变晴朗，变清澈；散去，消失\nvt. vi. 兑现 (支票);获利，净赚"
+  },
+  "clever": {
+    "pos": "adj.",
+    "meaning": "聪明的；灵巧的；巧妙的"
+  },
+  "client": {
+    "pos": "n.",
+    "meaning": "客戶，顾客，当事人，委托人"
+  },
+  "climate": {
+    "pos": "n.",
+    "meaning": "气候；气候带；局势,⻛气"
+  },
+  "climb": {
+    "pos": "vt. vi.",
+    "meaning": "爬，攀登\nvi. 爬升，上升；增⻓\nn. 攀登；增值"
+  },
+  "cloak": {
+    "pos": "n.",
+    "meaning": "斗篷，披⻛;遮盖物，掩盖物\nvt. 遮盖，掩盖"
+  },
+  "clothe": {
+    "pos": "vt.",
+    "meaning": "给...穿衣；为...提供衣服"
+  },
+  "clue": {
+    "pos": "n.",
+    "meaning": "线索，迹象；提示\nvt. 给...提供线索"
+  },
+  "clumsy": {
+    "pos": "adj.",
+    "meaning": "笨拙的；不得体的；笨重的"
+  },
+  "coach": {
+    "pos": "n.",
+    "meaning": "教练；客⻋;私人教师；经济舱\nvt. 训练，培训；辅导；指示"
+  },
+  "cock": {
+    "pos": "n.",
+    "meaning": "公鸡\nvt. 翘起，竖起；扳上 (枪的) 扳机"
+  },
+  "coffee": {
+    "pos": "n.",
+    "meaning": "咖啡，咖啡豆"
+  },
+  "collaborate": {
+    "pos": "vi.",
+    "meaning": "合作，协作；勾结，叛国"
+  },
+  "collapse": {
+    "pos": "vi.",
+    "meaning": "倒塌；昏倒；崩溃；暴跌\nvi. vt. 折叠，可折叠;(肺或血管) 萎陷\nn. 崩溃；倒塌；暴跌"
+  },
+  "collar": {
+    "pos": "n.",
+    "meaning": "衣领，领子;(动物的) 项圈\nvt. 抓住，逮住"
+  },
+  "collect": {
+    "pos": "vt.",
+    "meaning": "收集；收藏；领取，收走；收账\nvi. vt. 聚积，积累；募捐，募集；赢得\nvi. 聚集，集合，汇集\nadj. (电话) 由受话人付费的"
+  },
+  "column": {
+    "pos": "n.",
+    "meaning": "柱，柱状物；列;栏；专栏"
+  },
+  "combine": {
+    "pos": "vi. vt.",
+    "meaning": "(使) 结合，组合；合并，协力\nvt. 兼备，使融合；同时做\nn. 联合收割机；集团，联合企业"
+  },
+  "comfort": {
+    "pos": "n.",
+    "meaning": "舒服；安慰；令人感到安慰的人\nn. 舒适的设施 (或条件)\nvt. 安慰"
+  },
+  "command": {
+    "pos": "n.",
+    "meaning": "命令；指挥，管辖；掌握，精通\nvt. 命令；应得，博得；掌握，掌管\nvt. vi. 指挥，统率"
+  },
+  "commit": {
+    "pos": "vt.",
+    "meaning": "犯 (错或罪);承诺；花费\nvi. 忠于，全心全意投入"
+  },
+  "common": {
+    "pos": "adj.",
+    "meaning": "常⻅的，普通的；共有的"
+  },
+  "communicate": {
+    "pos": "vi. vt.",
+    "meaning": "交流，沟通；表达，传达"
+  },
+  "company": {
+    "pos": "n.",
+    "meaning": "公司；陪伴；宾客；剧团；连队"
+  },
+  "compel": {
+    "pos": "vt.",
+    "meaning": "强迫，逼迫"
+  },
+  "competition": {
+    "pos": "n.",
+    "meaning": "竞争；比赛；竞争对手"
+  },
+  "competitor": {
+    "pos": "n.",
+    "meaning": "竞争者，对手；选手，参赛者"
+  },
+  "compile": {
+    "pos": "vt.",
+    "meaning": "汇编，编纂；编译"
+  },
+  "complain": {
+    "pos": "vi. vt.",
+    "meaning": "抱怨，投诉，发牢骚"
+  },
+  "component": {
+    "pos": "n.",
+    "meaning": "成分，部件，组成部分\nadj. 组成的，构成的"
+  },
+  "compose": {
+    "pos": "vt.",
+    "meaning": "组成；使平静\nvt. vi. 作(曲),写(信、诗等)"
+  },
+  "composition": {
+    "pos": "n.",
+    "meaning": "构成，成分；构图\nn. 作品；创作，作曲；作文"
+  },
+  "compound": {
+    "pos": "n.",
+    "meaning": "化合物；混合物；有围墙的大院\nadj. 复合的\nvt. 使恶化；混合"
+  },
+  "comprehend": {
+    "pos": "vi. vt.",
+    "meaning": "理解，领悟"
+  },
+  "compulsory": {
+    "pos": "adj.",
+    "meaning": "强制性的，义务的"
+  },
+  "compute": {
+    "pos": "vt.",
+    "meaning": "计算"
+  },
+  "concentrate": {
+    "pos": "vi. vt.",
+    "meaning": "全神贯注;(使) 集中\nn. 浓缩液，浓缩物"
+  },
+  "concern": {
+    "pos": "n.",
+    "meaning": "担心；关心；对...重要的事\nvt. 关于；使...担心；涉及，影响"
+  },
+  "conclude": {
+    "pos": "vt.",
+    "meaning": "推断出，作出结论；达成 (协议)\nvi. vt. (使) 结束，终止"
+  },
+  "condense": {
+    "pos": "vi. vt.",
+    "meaning": "(使) 凝结;(使) 浓缩，变浓稠\nvt. 压缩，精简 (文章或讲话)"
+  },
+  "condition": {
+    "pos": "n.",
+    "meaning": "状态；健康状况；疾病；条件\nvt. 训练，使习惯于；影响；养护"
+  },
+  "condom": {
+    "pos": "n.",
+    "meaning": "避孕套"
+  },
+  "conduct": {
+    "pos": "vt.",
+    "meaning": "实施，执行；表现；传导；引导\nvi. vt. 指挥 (歌唱或演奏)\nn. 行为，举止；实施办法"
+  },
+  "conference": {
+    "pos": "n.",
+    "meaning": "会议"
+  },
+  "confidence": {
+    "pos": "n.",
+    "meaning": "信心，信任；自信；把握；秘密"
+  },
+  "confine": {
+    "pos": "vt.",
+    "meaning": "限制，使...局限于；监禁，关押"
+  },
+  "confirm": {
+    "pos": "vt.",
+    "meaning": "证实，证明；确认 (安排);批准"
+  },
+  "conflict": {
+    "pos": "n.",
+    "meaning": "冲突，争执；矛盾\nvi. 相互矛盾，冲突"
+  },
+  "conform": {
+    "pos": "vi.",
+    "meaning": "遵守；顺应大流；相一致"
+  },
+  "connect": {
+    "pos": "vt. vi.",
+    "meaning": "(使) 连接,(使) 联结\nvt. 把...联系起来；为...接通电话\nvi. 衔接；与某人建立关系；击中"
+  },
+  "conquer": {
+    "pos": "vt.",
+    "meaning": "占领，征服；克服"
+  },
+  "consequence": {
+    "pos": "n.",
+    "meaning": "结果，后果；重要性，价值"
+  },
+  "consonant": {
+    "pos": "n.",
+    "meaning": "辅音；辅音字母\nadj. (与...) 一致的，符合的"
+  },
+  "construct": {
+    "pos": "vt.",
+    "meaning": "建造，修建；组成，构成；绘制\nn. 构想，概念，观念"
+  },
+  "consume": {
+    "pos": "vt.",
+    "meaning": "消耗，耗费；吃，喝；使充满..."
+  },
+  "contact": {
+    "pos": "n.",
+    "meaning": "联系；接触；熟人；隐形眼镜\nvt. 联系"
+  },
+  "contain": {
+    "pos": "vt.",
+    "meaning": "容纳，包含；控制，遏制；克制"
+  },
+  "contemplate": {
+    "pos": "vt.",
+    "meaning": "打算，考虑，沉思；端详，凝视"
+  },
+  "contend": {
+    "pos": "vt.",
+    "meaning": "声称，主张\nvi. 竞争，争夺；处理，对付"
+  },
+  "content": {
+    "pos": "n.",
+    "meaning": "内容；目录；所含之物；含量\nadj. 满足的，满意的；愿意的\nvt. 使满意，使满足"
+  },
+  "contention": {
+    "pos": "n.",
+    "meaning": "争执，争论；看法，观点"
+  },
+  "contest": {
+    "pos": "n.",
+    "meaning": "比赛，竞赛；争夺，竞争\nvt. 争辩，提出异议；争取赢得"
+  },
+  "context": {
+    "pos": "n.",
+    "meaning": "背景，环境；上下文，语境"
+  },
+  "contribute": {
+    "pos": "vt. vi.",
+    "meaning": "捐赠，捐助；做贡献；撰稿\nvi. 促使，是导致...的原因之一"
+  },
+  "controversy": {
+    "pos": "n.",
+    "meaning": "争论，争议"
+  },
+  "convention": {
+    "pos": "n.",
+    "meaning": "习俗，惯例；大会；公约，协定"
+  },
+  "convert": {
+    "pos": "vt. vi.",
+    "meaning": "(使) 转变，改变；使改变 (信仰)\nvi. 可转变为，可变化成\nn. 皈依者，改变信仰的人"
+  },
+  "convey": {
+    "pos": "vt.",
+    "meaning": "表达，传递，传达；运输，运送"
+  },
+  "convince": {
+    "pos": "vt.",
+    "meaning": "使确信，使信服；说服，劝服"
+  },
+  "cook": {
+    "pos": "vi. vt.",
+    "meaning": "烹饪，做饭\nvt. 篡改，杜撰\nn. 做饭的人，厨师"
+  },
+  "cooperate": {
+    "pos": "vi.",
+    "meaning": "合作，协作；协助，配合"
+  },
+  "cope": {
+    "pos": "vi.",
+    "meaning": "(成功地) 应付，处理"
+  },
+  "copper": {
+    "pos": "n.",
+    "meaning": "铜；铜币，铜板；警察"
+  },
+  "copy": {
+    "pos": "n.",
+    "meaning": "复印件，副本；一份；稿件\nvt. 复制；抄写；模仿\nvi. 作弊，抄袭"
+  },
+  "core": {
+    "pos": "n.",
+    "meaning": "果核；中心部分；核心\nadj. 核心的，最重要的\nvt. 去核"
+  },
+  "correct": {
+    "pos": "adj.",
+    "meaning": "准确无误的；合适的，恰当的\nvt. 校正，矫正；批改"
+  },
+  "correspond": {
+    "pos": "vi.",
+    "meaning": "相符，一致；类似，相当；通信"
+  },
+  "cosmos": {
+    "pos": "n.",
+    "meaning": "宇宙"
+  },
+  "count": {
+    "pos": "vi.",
+    "meaning": "(按顺序) 数数；重要，要紧\nvt. vi. 计算...的总数；正式认可；算作\nvt. 把...算入\nn. 总数；数数；罪状；论点；伯爵"
+  },
+  "counter": {
+    "pos": "n.",
+    "meaning": "柜台；料理台；计算器\nvt. vi. 反驳，驳斥\nvt. 抵制，抵消\nadv. 逆向地，反对地"
+  },
+  "counterbalance": {
+    "pos": "vt.",
+    "meaning": "使...平衡，抗衡，抵消\nn. 平衡力，抗衡力"
+  },
+  "counterfeit": {
+    "pos": "adj.",
+    "meaning": "(钱币等) 伪造的，仿冒的\nn. 仿品，赝品\nvi. vt. 仿造，伪造"
+  },
+  "couple": {
+    "pos": "n.",
+    "meaning": "两个，几个;(一对) 夫妻，情侣\nvt. 结合，将...与...联系起来"
+  },
+  "coupon": {
+    "pos": "n.",
+    "meaning": "优惠券，赠券"
+  },
+  "course": {
+    "pos": "n.",
+    "meaning": "课程；跑道；航线；菜;进程\nvi. 快速流动"
+  },
+  "cover": {
+    "pos": "vt.",
+    "meaning": "遮盖；覆盖；包括；够付；报道\nvi. 遮掩，敷衍\nn. 覆盖物；封面，封皮"
+  },
+  "crack": {
+    "pos": "vi. vt.",
+    "meaning": "(使) 破裂，裂开；砸开，破开\nvt. 重击，猛击；找到解决方法\nn. 裂缝；缝隙；爆裂声；尝试\nadj. 训练有素的，一流的"
+  },
+  "crash": {
+    "pos": "n.",
+    "meaning": "撞⻋,坠机；碰撞声；暴跌\nvi. vt. 碰撞，撞击；崩溃\nvi. 使发出巨响；暴跌，贬值；睡觉\nadj. 应急的，速成的"
+  },
+  "crawl": {
+    "pos": "vi.",
+    "meaning": "爬，爬行；缓慢行进；巴结\nn. 缓慢的速度；自由泳"
+  },
+  "crazy": {
+    "pos": "adj.",
+    "meaning": "疯狂的；狂热的；精神错乱的"
+  },
+  "cream": {
+    "pos": "n.",
+    "meaning": "奶油；乳膏，乳霜；淡⻩色；精髓\nadj. 淡⻩色的\nvt. 把...搅成糊状；彻底打败"
+  },
+  "creature": {
+    "pos": "n.",
+    "meaning": "生物;(具有某种特征的) 人"
+  },
+  "credit": {
+    "pos": "n.",
+    "meaning": "信贷；赞扬；信誉；学分；结余\nvt. 把钱存入 (账戶);把...归功于"
+  },
+  "creep": {
+    "pos": "vi.",
+    "meaning": "悄悄行进；匍匐行进；渐渐出现\nn. 讨厌⻤;(对既定目标的) 偏离"
+  },
+  "crew": {
+    "pos": "n.",
+    "meaning": "全体船员，机组人员；专业团队\nvt. vi. (在...) 当船员"
+  },
+  "crop": {
+    "pos": "n.",
+    "meaning": "庄稼；收成；一批；短⻢鞭\nvt. 剪短 (头发);剪裁；啃吃\nvi. 有收成;(意外地) 出现，发生"
+  },
+  "cross": {
+    "pos": "vi. vt.",
+    "meaning": "越过，渡过；相交\nvt. 使交叉；反对\nn. 叉号；十字架\nadj. 恼怒的，生气的"
+  },
+  "crowd": {
+    "pos": "n.",
+    "meaning": "人群，观众；一伙人；群众\nvt. 挤满，塞满；挤，靠近"
+  },
+  "crown": {
+    "pos": "n.",
+    "meaning": "王冠；王国；王权；冠军宝座；牙冠\nvt. 为...加冕；给...加顶；使圆满"
+  },
+  "crude": {
+    "pos": "adj.",
+    "meaning": "粗略的；粗糙的；天然的\nn. 原油，石油"
+  },
+  "cruel": {
+    "pos": "adj.",
+    "meaning": "残酷的"
+  },
+  "crush": {
+    "pos": "vt.",
+    "meaning": "压坏；捣碎；镇压；使非常伤心\nvt. vi. (使) 变皱\nn. 迷恋；拥挤的人群；果汁饮料"
+  },
+  "crux": {
+    "pos": "n.",
+    "meaning": "关键；症结，指问题最核心、最重要的部分"
+  },
+  "crystal": {
+    "pos": "n.",
+    "meaning": "结晶，晶体；水晶；水晶玻璃"
+  },
+  "cube": {
+    "pos": "n.",
+    "meaning": "立方体；立方形的东西；立方\nvt. 将 (⻝物) 切成小方块"
+  },
+  "culture": {
+    "pos": "n.",
+    "meaning": "文化；种植，栽培"
+  },
+  "cunning": {
+    "pos": "adj.",
+    "meaning": "狡猾的，奸诈的；巧妙的\nn. 狡猾，诡诈"
+  },
+  "curative": {
+    "pos": "adj.",
+    "meaning": "能治病的，有疗效的"
+  },
+  "curb": {
+    "pos": "vt.",
+    "meaning": "控制，限制，抑制\nn. 控制，限制，抑制;⻢路牙子"
+  },
+  "cure": {
+    "pos": "vt.",
+    "meaning": "治愈，治好；解决；矫正\nn. 药物，疗法；治疗；对策，措施"
+  },
+  "curious": {
+    "pos": "adj.",
+    "meaning": "好奇的；稀奇古怪的，不寻常的"
+  },
+  "current": {
+    "pos": "adj.",
+    "meaning": "当前的，现在的，流行的\nn. 水流，气流；电流；思潮"
+  },
+  "curriculum": {
+    "pos": "n.",
+    "meaning": "课程"
+  },
+  "curse": {
+    "pos": "n.",
+    "meaning": "骂人的话；诅咒；祸根\nvi. 咒骂\nvt. 咒骂；诅咒"
+  },
+  "curtain": {
+    "pos": "n.",
+    "meaning": "窗帘,⻔帘；幕布；覆盖物"
+  },
+  "curve": {
+    "pos": "n.",
+    "meaning": "曲线，弧线；曲线球\nvi. vt. (使) 弯曲,(使) 成曲线"
+  },
+  "custom": {
+    "pos": "n.",
+    "meaning": "⻛俗；个人习惯；惠顾；海关\nadj. 定做的"
+  },
+  "customer": {
+    "pos": "n.",
+    "meaning": "顾客，客戶；家伙"
+  },
+  "cycle": {
+    "pos": "n.",
+    "meaning": "循环，周期；自行⻋,摩托⻋\nvi. 骑 (自行⻋)"
+  },
+  "damp": {
+    "pos": "adj.",
+    "meaning": "潮湿的，湿气重的\nn. 潮湿，湿气\nvt. 使潮湿；抑制(感情等)"
+  },
+  "darling": {
+    "pos": "n.",
+    "meaning": "亲爱的；好心的人；宠儿\nadj. 可爱的，迷人的"
+  },
+  "dash": {
+    "pos": "vi.",
+    "meaning": "⻜奔，猛冲\nvt. vi. 猛摔，猛撞\nn. ⻜奔，猛冲；少量；破折号"
+  },
+  "dawn": {
+    "pos": "n.",
+    "meaning": "黎明，拂晓；开端，起始阶段\nvi. 破晓，天亮；开始；变得明朗"
+  },
+  "deal": {
+    "pos": "n.",
+    "meaning": "大量，很多；交易，协议；待遇\nvi. 处理，对付；与...做生意；涉及\nvi. vt. 发牌；非法买卖毒品，贩毒"
+  },
+  "dear": {
+    "pos": "adj.",
+    "meaning": "亲爱的；昂贵的\nn. 亲爱的，乖乖\nint. 哎呀，天哪"
+  },
+  "death": {
+    "pos": "n.",
+    "meaning": "死亡；终结，灭亡；死神"
+  },
+  "debate": {
+    "pos": "n.",
+    "meaning": "辩论，讨论，争论\nvt. vi. 辩论，讨论，争论；考虑，盘算"
+  },
+  "debris": {
+    "pos": "n.",
+    "meaning": "残骸，碎片；残屑，垃圾"
+  },
+  "decay": {
+    "pos": "vi. vt.",
+    "meaning": "(使) 腐烂，朽烂\nvi. (建筑等) 变破败；衰败，衰落\nn. 腐烂，朽烂；衰败，衰落"
+  },
+  "deceive": {
+    "pos": "vt. vi.",
+    "meaning": "欺骗，蒙骗，误导"
+  },
+  "decent": {
+    "pos": "adj.",
+    "meaning": "像样的，得体的；正派的"
+  },
+  "decide": {
+    "pos": "vt. vi.",
+    "meaning": "决定；裁定\nvt. 使...下定决心"
+  },
+  "decipher": {
+    "pos": "vt.",
+    "meaning": "破译，辨认"
+  },
+  "deck": {
+    "pos": "n.",
+    "meaning": "甲板;(⻋、船的) 层；一副 (牌)\nn. 木质平台;(录音机的) 走带装置\nvt. 装饰，装点"
+  },
+  "declare": {
+    "pos": "vt.",
+    "meaning": "宣布，宣称；申报"
+  },
+  "decline": {
+    "pos": "n.",
+    "meaning": "下降，减少；衰退，恶化\nvi. 下降，减少；衰退，恶化\nvi. vt. 婉拒，谢绝"
+  },
+  "decompose": {
+    "pos": "vi. vt.",
+    "meaning": "(使) 腐烂;(使) 分解"
+  },
+  "decorate": {
+    "pos": "vt.",
+    "meaning": "装饰；装修；授予...勋章"
+  },
+  "decrease": {
+    "pos": "vi. vt.",
+    "meaning": "减少，降低\nn. 减少，降低"
+  },
+  "deduce": {
+    "pos": "vt.",
+    "meaning": "推断，推理，演绎"
+  },
+  "deed": {
+    "pos": "n.",
+    "meaning": "行为；契约"
+  },
+  "defend": {
+    "pos": "vt. vi.",
+    "meaning": "防御，保卫；防守；为被告辩护\nvt. 为...辩护；卫冕"
+  },
+  "defer": {
+    "pos": "vt.",
+    "meaning": "推迟，延缓\nvi. 遵从，听从"
+  },
+  "deflect": {
+    "pos": "vi. vt.",
+    "meaning": "(使) 转向,(使) 偏斜\nvt. 转移 (注意力等);阻止"
+  },
+  "degree": {
+    "pos": "n.",
+    "meaning": "度；程度；学位"
+  },
+  "delegate": {
+    "pos": "n.",
+    "meaning": "代表,(尤指) 会议代表\nvi. vt. 授 (权),把 (职责等) 委托给某人\nvt. 选派 (某人做某项工作)"
+  },
+  "delegation": {
+    "pos": "n.",
+    "meaning": "代表团；授权，委派"
+  },
+  "delete": {
+    "pos": "vt.",
+    "meaning": "删除，删去"
+  },
+  "deliberate": {
+    "pos": "adj.",
+    "meaning": "故意的;(动作) 从容的\nvi. vt. 慎重考虑"
+  },
+  "delicate": {
+    "pos": "adj.",
+    "meaning": "微妙的；易受损的；精美的\nadj. (仪器等) 精密的；柔弱的"
+  },
+  "delicious": {
+    "pos": "adj.",
+    "meaning": "美味的，可口的；令人愉快的"
+  },
+  "delight": {
+    "pos": "n.",
+    "meaning": "高兴，愉快；令人高兴的事 (人)\nvt. 使高兴，使愉快"
+  },
+  "deliver": {
+    "pos": "vt. vi.",
+    "meaning": "递送，传送；履行，兑现\nvt. 发表 (讲话);交与；接生；分娩"
+  },
+  "demand": {
+    "pos": "n.",
+    "meaning": "要求；需求\nvt. 要求；需要"
+  },
+  "demise": {
+    "pos": "n.",
+    "meaning": "终止，消亡；死亡，逝世"
+  },
+  "democracy": {
+    "pos": "n.",
+    "meaning": "⺠主,⺠主制;⺠主国家"
+  },
+  "demolish": {
+    "pos": "vt.",
+    "meaning": "拆毁 (建筑等);毁坏；驳倒\nvt. 打败"
+  },
+  "demonstrate": {
+    "pos": "vt.",
+    "meaning": "表明，证明；示范，演示；展露\nvi. 示威，游行"
+  },
+  "dense": {
+    "pos": "adj.",
+    "meaning": "密集的；浓的；笨的；密度大的"
+  },
+  "depart": {
+    "pos": "vi. vt.",
+    "meaning": "离开，启程；离职\nvi. 背离，违背"
+  },
+  "department": {
+    "pos": "n.",
+    "meaning": "部⻔,科，系"
+  },
+  "dependent": {
+    "pos": "adj.",
+    "meaning": "依赖的；有瘾的；取决于...的\nn. 受抚养者"
+  },
+  "depict": {
+    "pos": "vt.",
+    "meaning": "描绘；描述，刻画"
+  },
+  "deposit": {
+    "pos": "n.",
+    "meaning": "存款；订金；押金；沉积物\nvt. 存入银行；放下，放置；使沉积"
+  },
+  "derive": {
+    "pos": "vi.",
+    "meaning": "起源于，来自\nvt. 从...中获得"
+  },
+  "descend": {
+    "pos": "vi. vt.",
+    "meaning": "下来，下降，向下\nvi. (黑夜等) 降临；是某人的后裔"
+  },
+  "describe": {
+    "pos": "vt.",
+    "meaning": "描述，描写；形成...形状"
+  },
+  "desert": {
+    "pos": "n.",
+    "meaning": "沙漠，荒漠\nvt. 抛弃；背离\nvi. vt. 擅离 (部队)"
+  },
+  "design": {
+    "pos": "n.",
+    "meaning": "设计；设计方案；花纹；意图\nvt. 设计"
+  },
+  "designate": {
+    "pos": "vt.",
+    "meaning": "指定，选定；指派，任命；表示\nadj. 尚未就职的"
+  },
+  "desirable": {
+    "pos": "adj.",
+    "meaning": "理想的，值得拥有的；性感的"
+  },
+  "desolate": {
+    "pos": "adj.",
+    "meaning": "荒无人烟的；孤独凄凉的\nvt. 使感到凄凉"
+  },
+  "despatch": {
+    "pos": "vt.",
+    "meaning": "派遣；派送；迅速处理；处决\nn. 派遣，调遣；急件，快信；电讯"
+  },
+  "destination": {
+    "pos": "n.",
+    "meaning": "目的地，终点\nadj. 将要去的，预订了的"
+  },
+  "destitute": {
+    "pos": "adj.",
+    "meaning": "贫困的，赤贫的；缺乏...的"
+  },
+  "detail": {
+    "pos": "n.",
+    "meaning": "细节；详情；资料信息；小分队\nvt. 详细列举，详述；派遣"
+  },
+  "detect": {
+    "pos": "vt.",
+    "meaning": "发现，察觉，测出"
+  },
+  "deter": {
+    "pos": "vt. vi.",
+    "meaning": "威慑，制止，阻止"
+  },
+  "determine": {
+    "pos": "vt.",
+    "meaning": "确定，查明；决定\nvt. vi. 决意，下决心"
+  },
+  "devastate": {
+    "pos": "vt.",
+    "meaning": "彻底破坏；使伤心欲绝"
+  },
+  "develop": {
+    "pos": "vi. vt.",
+    "meaning": "(使) 发展，成⻓;患 (病);加强\nvt. 开发，研制；修建；阐明；冲洗"
+  },
+  "deviate": {
+    "pos": "vi.",
+    "meaning": "背离，偏离"
+  },
+  "devil": {
+    "pos": "n.",
+    "meaning": "魔⻤,恶魔；淘气⻤;家伙"
+  },
+  "devise": {
+    "pos": "vt.",
+    "meaning": "想出，发明，设计"
+  },
+  "devote": {
+    "pos": "vt.",
+    "meaning": "奉献，献身；把...用于"
+  },
+  "devour": {
+    "pos": "vt.",
+    "meaning": "狼吞虎咽地吃；急切地读；吞噬"
+  },
+  "diagonal": {
+    "pos": "adj.",
+    "meaning": "斜线的，对⻆线的\nn. 对⻆线，斜线"
+  },
+  "dialect": {
+    "pos": "n.",
+    "meaning": "方言，地方话"
+  },
+  "diary": {
+    "pos": "n.",
+    "meaning": "日记；日程簿，记事簿"
+  },
+  "differ": {
+    "pos": "vi.",
+    "meaning": "相异，不同；持不同看法"
+  },
+  "differentiate": {
+    "pos": "vi. vt.",
+    "meaning": "区分，辨别\nvt. 构成...间的差别"
+  },
+  "digest": {
+    "pos": "vt. vi.",
+    "meaning": "(使) 消化\nvt. 理解，领会\nn. 摘要，文摘"
+  },
+  "dilute": {
+    "pos": "vt.",
+    "meaning": "稀释，冲淡；削弱，降低\nadj. 稀释了的，冲淡了的"
+  },
+  "dimension": {
+    "pos": "n.",
+    "meaning": "尺寸，维度；方面；规模，程度"
+  },
+  "diminish": {
+    "pos": "vi. vt.",
+    "meaning": "减少，降低，减弱\nvt. 贬低，轻视"
+  },
+  "dip": {
+    "pos": "vt.",
+    "meaning": "蘸，浸\nvi. vt. (使) 下降,(使) 下沉\nn. 游泳；下降；低洼处；蘸酱"
+  },
+  "direct": {
+    "pos": "adj.",
+    "meaning": "直接的；径直的；坦率的\nvt. 对准；指导；指路；指示\nvt. vi. 导演，指挥\nadv. 直接"
+  },
+  "director": {
+    "pos": "n.",
+    "meaning": "导演；主任，主管；经理，董事"
+  },
+  "disagree": {
+    "pos": "vi.",
+    "meaning": "不同意，有分歧；不一致"
+  },
+  "disappear": {
+    "pos": "vi.",
+    "meaning": "消失，不⻅;不复存在；失踪"
+  },
+  "disaster": {
+    "pos": "n.",
+    "meaning": "灾难；不幸；失败的人 (或事物)"
+  },
+  "disc": {
+    "pos": "n.",
+    "meaning": "圆盘；磁盘；光盘；唱片"
+  },
+  "discard": {
+    "pos": "vt.",
+    "meaning": "抛弃，丢弃\nn. 被抛弃的人或物"
+  },
+  "discern": {
+    "pos": "vt.",
+    "meaning": "觉察出，了解;(依稀) 分辨出"
+  },
+  "discharge": {
+    "pos": "vt.",
+    "meaning": "准许离开，解雇；履行；开火\nvi. vt. 排出，放出；放 (电)\nn. 排出 (物);获准离开；履行"
+  },
+  "discipline": {
+    "pos": "n.",
+    "meaning": "纪律；训练方法；自制力；学科\nvt. 处罚；训导，管教；自我控制"
+  },
+  "disclose": {
+    "pos": "vt.",
+    "meaning": "透露，披露；使显露"
+  },
+  "discount": {
+    "pos": "n.",
+    "meaning": "减价，折扣\nvt. 不相信，不重视；打折出售"
+  },
+  "discourage": {
+    "pos": "vt.",
+    "meaning": "打消...的念头，阻止；使灰心"
+  },
+  "discover": {
+    "pos": "vt.",
+    "meaning": "发现；找到；了解到；发掘"
+  },
+  "discussion": {
+    "pos": "n.",
+    "meaning": "讨论，谈论；论述，阐述"
+  },
+  "disguise": {
+    "pos": "vt.",
+    "meaning": "装扮，假扮；掩盖，掩饰\nn. 伪装物，化装用具；伪装 (行为)"
+  },
+  "dish": {
+    "pos": "n.",
+    "meaning": "盘子;(待清洗的) 餐具；菜肴"
+  },
+  "dismiss": {
+    "pos": "vt.",
+    "meaning": "不予考虑；解雇，开除；消除\nvt. 解散，让 (某人) 离开；驳回"
+  },
+  "dispose": {
+    "pos": "vi.",
+    "meaning": "丢掉；处理\nvt. 布置，安排；使倾向于"
+  },
+  "dispute": {
+    "pos": "n.",
+    "meaning": "争论，争端\nvt. 对...表示异议，对...表示质疑\nvt. vi. 就...争论，就...争执"
+  },
+  "disregard": {
+    "pos": "vt.",
+    "meaning": "不理会，不顾，忽视\nn. 忽视，轻视"
+  },
+  "disseminate": {
+    "pos": "vt.",
+    "meaning": "散布，传播 (观点、知识等)"
+  },
+  "dissertation": {
+    "pos": "n.",
+    "meaning": "(尤指) 学位论文"
+  },
+  "dissolve": {
+    "pos": "vi. vt.",
+    "meaning": "(使) 溶解；消除,(使) 消散\nvt. 解除，终止，解散\nvi. 禁不住 (笑起来或哭起来等)"
+  },
+  "distant": {
+    "pos": "adj.",
+    "meaning": "遥远的；远亲的；疏远的"
+  },
+  "distil": {
+    "pos": "vt.",
+    "meaning": "蒸馏；提炼(信息)"
+  },
+  "distinguish": {
+    "pos": "vi. vt.",
+    "meaning": "区分，辨别，分清\nvt. 使有别于；辨别出；使表现突出"
+  },
+  "distress": {
+    "pos": "n.",
+    "meaning": "悲伤，忧虑；贫困；遇险\nvt. 使忧虑，使悲伤，使苦恼"
+  },
+  "distribute": {
+    "pos": "vt.",
+    "meaning": "分发，分配；分销；使分布"
+  },
+  "disturb": {
+    "pos": "vt.",
+    "meaning": "打扰，干扰；使烦恼；弄乱"
+  },
+  "ditch": {
+    "pos": "n.",
+    "meaning": "沟，渠\nvt. 丢弃，抛弃；逃学\nvt. vi. (在海上) 迫降"
+  },
+  "dive": {
+    "pos": "vi.",
+    "meaning": "跳水；潜水；俯冲；暴跌\nn. 跳水；潜水；俯冲"
+  },
+  "divide": {
+    "pos": "vi. vt.",
+    "meaning": "(使) 分开，分成；除以，除\nvt. 分配；使分离；使产生分歧\nvi. (道路) 分岔\nn. 不同，分歧；分水岭"
+  },
+  "doctor": {
+    "pos": "n.",
+    "meaning": "医生；博士\nvt. 篡改，伪造"
+  },
+  "doctrine": {
+    "pos": "n.",
+    "meaning": "信条，主义，教义"
+  },
+  "domain": {
+    "pos": "n.",
+    "meaning": "领域，范畴；领地；域"
+  },
+  "dominate": {
+    "pos": "vt. vi.",
+    "meaning": "主宰，统治，支配\nvt. 高耸，耸立"
+  },
+  "doom": {
+    "pos": "n.",
+    "meaning": "厄运，死亡，毁灭\nvt. 使...注定遭受 (不幸等)"
+  },
+  "dose": {
+    "pos": "n.",
+    "meaning": "剂量；一点\nvt. 给...服药"
+  },
+  "dot": {
+    "pos": "n.",
+    "meaning": "点，小圆点\nvt. 在...加点；遍布"
+  },
+  "double": {
+    "pos": "adj.",
+    "meaning": "两倍的，双重的；双人的\nn. 两倍，两倍量\nvi. vt. 是...的两倍，使加倍\nvt. 把...对折"
+  },
+  "downpour": {
+    "pos": "n.",
+    "meaning": "暴雨，骤雨"
+  },
+  "drag": {
+    "pos": "vt.",
+    "meaning": "拖，拉；生拉硬拽；用鼠标拖动\nvi. vt. 缓慢而费力地移动\nvi. (时间或活动) 过得很慢\nn. 累赘；讨厌的人或事；空气阻力"
+  },
+  "drain": {
+    "pos": "vt. vi.",
+    "meaning": "排空,(使) 放干;(使) 流走\nvt. 喝光；使 (精力、钱) 耗尽\nn. 下水道；排水孔；消耗，耗竭"
+  },
+  "drape": {
+    "pos": "n./v.",
+    "meaning": "垂下的织物；披、覆盖，强调松散地搭盖在表面"
+  },
+  "draw": {
+    "pos": "vt. vi.",
+    "meaning": "画，描绘；拔出，抽出\nvt. 拖动；拉帘；吸引；得出；支取\nvi. 移动，行进\nn. 抽奖，抽签；平局，和局"
+  },
+  "dread": {
+    "pos": "vt.",
+    "meaning": "非常害怕，极为担心\nn. 恐惧，令人惧怕的事物"
+  },
+  "dress": {
+    "pos": "n.",
+    "meaning": "连衣裙；服装\nvi. vt. (给...) 穿衣服\nvi. 穿正式服装\nvt. 清洗，包扎；给...加调味酱"
+  },
+  "drift": {
+    "pos": "vi.",
+    "meaning": "漂流，漂；缓缓移动\nvt. 使漂流，使漂浮\nn. 雪堆；水流，气流；主旨；偏航"
+  },
+  "drill": {
+    "pos": "n.",
+    "meaning": "钻机；练习；演习；军事训练\nvt. vi. 钻 (孔);培训；进行军事训练"
+  },
+  "drink": {
+    "pos": "vt. vi.",
+    "meaning": "喝，饮；喝酒\nn. 饮料；酒"
+  },
+  "drip": {
+    "pos": "vi.",
+    "meaning": "(液体) 滴下\nvi. vt. 滴 (水),滴下 (液体);充满\nn. 滴落，滴水声；滴液；点滴瓶"
+  },
+  "drop": {
+    "pos": "vi. vt.",
+    "meaning": "(使) 落下;(使) 降低，减少\nvt. 中途卸客；寄送；省略；终止\nn. 滴，水珠；微量；下降；滴剂"
+  },
+  "drown": {
+    "pos": "vi. vt.",
+    "meaning": "(使...) 溺死，淹死\nvt. (指声音) 盖过"
+  },
+  "drum": {
+    "pos": "n.",
+    "meaning": "鼓；大桶；鼓状物\nvi. 打鼓，击鼓\nvt. vi. 不停地击打"
+  },
+  "dumb": {
+    "pos": "adj.",
+    "meaning": "傻的；哑的；哑口无言的\nvt. 降低...的理解难度"
+  },
+  "dump": {
+    "pos": "vt.",
+    "meaning": "扔掉；抛弃；倾销；甩掉 (某人)\nn. 垃圾场，废物堆；邋遢场所"
+  },
+  "duplicate": {
+    "pos": "vt.",
+    "meaning": "复制，复印；重复，重做\nadj. 完全一样的，副本的\nn. 复制品，副本"
+  },
+  "duration": {
+    "pos": "n.",
+    "meaning": "持续时间，期间"
+  },
+  "dust": {
+    "pos": "n.",
+    "meaning": "尘埃；沙土，尘土；粉末\nvi. vt. 擦去...的灰尘\nvt. 把 (粉末) 撒于"
+  },
+  "duty": {
+    "pos": "n.",
+    "meaning": "责任，义务；职责；税"
+  },
+  "dwarf": {
+    "pos": "n.",
+    "meaning": "小矮人；侏儒\nadj. (动植物) 矮小的\nvt. 使显得矮小，使相形⻅绌"
+  },
+  "earnest": {
+    "pos": "adj.",
+    "meaning": "诚挚的，认真的"
+  },
+  "ease": {
+    "pos": "n.",
+    "meaning": "容易，轻易；舒适，安逸\nvi. vt. (使) 宽慰，缓解;(使) 缓缓移动\nvt. 使...容易些"
+  },
+  "eccentric": {
+    "pos": "adj.",
+    "meaning": "古怪的，怪异的\nn. 行为古怪的人"
+  },
+  "echo": {
+    "pos": "n.",
+    "meaning": "回声，回音；十分相似的东西\nvi. (声音) 回响，发出回声\nvi. vt. (场所) 充满回声\nvt. 附和 (想法等);重复 (别人的话)"
+  },
+  "eclipse": {
+    "pos": "n.",
+    "meaning": "日⻝,月⻝;(权势等的) 丧失\nvt. 遮住...的光；使黯然失色"
+  },
+  "economy": {
+    "pos": "n.",
+    "meaning": "经济；经济体；节约"
+  },
+  "edge": {
+    "pos": "n.",
+    "meaning": "边，边缘；刀刃；优势；尖锐\nvi. vt. (使) 慢慢移动\nvt. 给...加边\nvi. 略微增加 (或减少)"
+  },
+  "education": {
+    "pos": "n.",
+    "meaning": "教育，培训；教育学"
+  },
+  "effective": {
+    "pos": "adj.",
+    "meaning": "有效的；生效的；实际的"
+  },
+  "efficient": {
+    "pos": "adj.",
+    "meaning": "效率高的"
+  },
+  "effort": {
+    "pos": "n.",
+    "meaning": "努力，力气；特别行动"
+  },
+  "element": {
+    "pos": "n.",
+    "meaning": "要素，基本部分；元素；少量"
+  },
+  "elementary": {
+    "pos": "adj.",
+    "meaning": "基本的；初级的；小学的"
+  },
+  "elevation": {
+    "pos": "n.",
+    "meaning": "海拔；高度；升高，常用于地理位置相对海平面的高度"
+  },
+  "elicit": {
+    "pos": "vt.",
+    "meaning": "引出，诱出，套出"
+  },
+  "embarrass": {
+    "pos": "vt.",
+    "meaning": "使尴尬，使难堪"
+  },
+  "embellish": {
+    "pos": "vt.",
+    "meaning": "装饰；给(故事)润色"
+  },
+  "embroider": {
+    "pos": "vt. vi.",
+    "meaning": "在...上刺绣\nvt. 加以渲染 (或润饰)"
+  },
+  "employ": {
+    "pos": "vt.",
+    "meaning": "雇用，雇佣；使用，运用"
+  },
+  "enclose": {
+    "pos": "vt.",
+    "meaning": "围住；随信附上"
+  },
+  "encounter": {
+    "pos": "vt.",
+    "meaning": "遭遇；偶遇\nn. 偶遇；冲突；经历"
+  },
+  "endanger": {
+    "pos": "vt.",
+    "meaning": "危及，使处于险境"
+  },
+  "endow": {
+    "pos": "vt.",
+    "meaning": "向 (院校、医院等) 捐款；赋予"
+  },
+  "endure": {
+    "pos": "vt.",
+    "meaning": "忍耐，忍受\nvi. 持续，延续，持久"
+  },
+  "enforce": {
+    "pos": "vt.",
+    "meaning": "强制执行；迫使"
+  },
+  "engagement": {
+    "pos": "n.",
+    "meaning": "订婚；约定；交战；参加，卷入"
+  },
+  "engineering": {
+    "pos": "n.",
+    "meaning": "工程，工程设计"
+  },
+  "enlarge": {
+    "pos": "vt. vi.",
+    "meaning": "(使) 增大，扩大\nvt. 放大"
+  },
+  "enlighten": {
+    "pos": "vt.",
+    "meaning": "启发，开导，教化"
+  },
+  "enrol": {
+    "pos": "vi. vt.",
+    "meaning": "(使) 加入，招收 (成员),注册"
+  },
+  "enter": {
+    "pos": "vi. vt.",
+    "meaning": "进入；报名参加\nvt. 加入；开始进入；登记，输入"
+  },
+  "entrance": {
+    "pos": "n.",
+    "meaning": "入口；登场；进入权；准许加入\nvt. 使狂喜，使入迷"
+  },
+  "entry": {
+    "pos": "n.",
+    "meaning": "进入；加入；参赛作品；条目"
+  },
+  "environment": {
+    "pos": "n.",
+    "meaning": "生活环境，周围状况；自然环境"
+  },
+  "erase": {
+    "pos": "vt.",
+    "meaning": "消除，抹去；擦掉 (笔迹);删除"
+  },
+  "error": {
+    "pos": "n.",
+    "meaning": "错误，差错"
+  },
+  "erupt": {
+    "pos": "vi. vt.",
+    "meaning": "(火山) 爆发；突然发出 (叫喊)\nvi. 突然发生，爆发;(斑疹) 冒出"
+  },
+  "escape": {
+    "pos": "vi.",
+    "meaning": "逃跑；幸免于难；泄漏\nvi. vt. 逃脱，摆脱\nvt. 避免；被忘掉，被忽视\nn. 逃跑；解脱；渗出 (量)"
+  },
+  "essay": {
+    "pos": "n.",
+    "meaning": "文章，论文；随笔，小品文\nvt. 企图，尝试"
+  },
+  "essence": {
+    "pos": "n.",
+    "meaning": "本质；精髓，指某事物最根本、最重要的特征"
+  },
+  "establish": {
+    "pos": "vt.",
+    "meaning": "建立，创立；使被认可；证实"
+  },
+  "esteem": {
+    "pos": "n.",
+    "meaning": "尊重，敬重\nvt. 尊重，敬重"
+  },
+  "estimate": {
+    "pos": "vt.",
+    "meaning": "估计，估算，估价\nn. 估计，估算，估价"
+  },
+  "evaluate": {
+    "pos": "vt.",
+    "meaning": "评价，评估"
+  },
+  "evaporate": {
+    "pos": "vi. vt.",
+    "meaning": "(使) 蒸发,(使) 挥发\nvi. 逐渐消失"
+  },
+  "event": {
+    "pos": "n.",
+    "meaning": "事件；公开活动；体育项目"
+  },
+  "everlasting": {
+    "pos": "adj.",
+    "meaning": "永久的，永恒的；没完没了的"
+  },
+  "evidence": {
+    "pos": "n.",
+    "meaning": "证据，证明\nvt. 证明，表明"
+  },
+  "evil": {
+    "pos": "adj.",
+    "meaning": "邪恶的，道德败坏的；恶魔的\nn. 邪恶；弊端，坏处"
+  },
+  "evolve": {
+    "pos": "vi. vt.",
+    "meaning": "进化；逐步发展"
+  },
+  "exaggerate": {
+    "pos": "vi. vt.",
+    "meaning": "夸张，夸大"
+  },
+  "examination": {
+    "pos": "n.",
+    "meaning": "考试；检查，审查；体检"
+  },
+  "example": {
+    "pos": "n.",
+    "meaning": "例子，范例；榜样，楷模"
+  },
+  "exceed": {
+    "pos": "vt.",
+    "meaning": "超出 (数量等);超越 (规定等)"
+  },
+  "excellent": {
+    "pos": "adj.",
+    "meaning": "极好的，优秀的；棒极了"
+  },
+  "excessive": {
+    "pos": "adj.",
+    "meaning": "过分的，过多的"
+  },
+  "exchange": {
+    "pos": "n.",
+    "meaning": "交换，交流；交谈；兑换；互访\nvt. 交换，交流；兑换，交易"
+  },
+  "exclude": {
+    "pos": "vt.",
+    "meaning": "将...排斥在外；不包括；排除"
+  },
+  "excursion": {
+    "pos": "n.",
+    "meaning": "(集体) 短途旅游；涉足，涉猎"
+  },
+  "excuse": {
+    "pos": "n.",
+    "meaning": "借口，理由；假条\nvt. 原谅；为...辩解；准许...离开"
+  },
+  "execute": {
+    "pos": "vt.",
+    "meaning": "将...处死；执行；创作；使生效"
+  },
+  "exercise": {
+    "pos": "n.",
+    "meaning": "锻炼；练习；习题；运用；操练\nn. (为达到特定结果的) 活动\nvt. 行使，运用\nvi. vt. 锻炼，训练"
+  },
+  "exert": {
+    "pos": "vt.",
+    "meaning": "施加，运用，行使；努力，竭力"
+  },
+  "exhale": {
+    "pos": "vi. vt.",
+    "meaning": "呼气"
+  },
+  "exhaust": {
+    "pos": "vt.",
+    "meaning": "使...精疲力竭；耗尽；详尽探讨\nn. (发动机排出的) 废气；排气管"
+  },
+  "exist": {
+    "pos": "vi.",
+    "meaning": "存在；生存"
+  },
+  "exit": {
+    "pos": "n.",
+    "meaning": "出口，通道；离去，退场\nvi. vt. 离去，退场；退出 (计算机程序)"
+  },
+  "expand": {
+    "pos": "vi. vt.",
+    "meaning": "扩充，扩大；扩展 (业务)\nvi. 详谈，详述"
+  },
+  "expect": {
+    "pos": "vt.",
+    "meaning": "预计；盼望；要求，期望\nvi. vt. 猜想"
+  },
+  "expedition": {
+    "pos": "n.",
+    "meaning": "远征，探险；探险队；短途旅行"
+  },
+  "expel": {
+    "pos": "vt.",
+    "meaning": "开除；驱逐出境；排出"
+  },
+  "experience": {
+    "pos": "n.",
+    "meaning": "经验，阅历;(一次) 经历\nvt. 经历；感受，体会"
+  },
+  "expire": {
+    "pos": "vi.",
+    "meaning": "(协议等) 到期，失效；死亡"
+  },
+  "exploit": {
+    "pos": "vt.",
+    "meaning": "剥削；利用；开采\nn. 英勇的行为"
+  },
+  "exponent": {
+    "pos": "n.",
+    "meaning": "倡导者，拥护者；大师；指数"
+  },
+  "expose": {
+    "pos": "vt.",
+    "meaning": "显露；揭露；使遭受；使体验"
+  },
+  "express": {
+    "pos": "vt.",
+    "meaning": "表达，表现；显而易⻅;代表\nadj. 快速的，快递的；明确的\nn. 特快列⻋;快递服务"
+  },
+  "expression": {
+    "pos": "n.",
+    "meaning": "表达；表情，神情；措词，说法"
+  },
+  "exquisite": {
+    "pos": "adj.",
+    "meaning": "精美的;(感觉) 强烈的；敏锐的"
+  },
+  "extract": {
+    "pos": "n.",
+    "meaning": "摘录，引文；浓缩物，精华\nvt. 提取；拔出；摘录；设法获取"
+  },
+  "extravagant": {
+    "pos": "adj.",
+    "meaning": "奢侈的，铺张浪费的；离谱的"
+  },
+  "fabric": {
+    "pos": "n.",
+    "meaning": "织物，布料；结构，构造"
+  },
+  "facilitate": {
+    "pos": "vt.",
+    "meaning": "促进，使便利"
+  },
+  "factor": {
+    "pos": "n.",
+    "meaning": "因素，要素；因子，因数；倍数\nvt. 把...因素包括进去"
+  },
+  "faculty": {
+    "pos": "n.",
+    "meaning": "全体教员；院系；机能；能力"
+  },
+  "fade": {
+    "pos": "vi. vt.",
+    "meaning": "(使) 褪色,(使) 变暗淡\nvi. 逐渐消失"
+  },
+  "faint": {
+    "pos": "adj.",
+    "meaning": "(光、声等) 微弱的；渺茫的\nvi. 晕倒，昏厥\nn. 昏厥"
+  },
+  "fair": {
+    "pos": "adj.",
+    "meaning": "公平的；相当大的；不错的\nadj. 浅色的；晴朗的；美丽的\nn. 展销会；露天游乐场；集市\nadv. 按照规则，公平合理地"
+  },
+  "fake": {
+    "pos": "adj.",
+    "meaning": "假装的；假的，伪造的\nn. 假货，赝品；冒充者\nvt. 伪造，冒充\nvt. vi. 假装，装出"
+  },
+  "false": {
+    "pos": "adj.",
+    "meaning": "错误的；虚假的，伪造的"
+  },
+  "familiar": {
+    "pos": "adj.",
+    "meaning": "熟悉的；对...熟知的；随便的"
+  },
+  "fan": {
+    "pos": "n.",
+    "meaning": "粉丝，狂热爱好者;⻛扇；扇子\nvt. 扇 (⻛);煽起，激起"
+  },
+  "fancy": {
+    "pos": "adj.",
+    "meaning": "花哨的；精致的；奢华的\nvt. 想要，想做；爱慕；自负；认为\nvi. vt. 真没想到，竟然\nn. 想象；想要，爱好"
+  },
+  "fantasy": {
+    "pos": "n.",
+    "meaning": "幻想，想象；幻想作品"
+  },
+  "fare": {
+    "pos": "n.",
+    "meaning": "⻋费，票价；乘客；饭菜\nvi. 进展，进行"
+  },
+  "fascinate": {
+    "pos": "vt. vi.",
+    "meaning": "使着迷，迷住"
+  },
+  "fashion": {
+    "pos": "n.",
+    "meaning": "时尚；流行款式；时装业；方式\nvt. 制作，塑造"
+  },
+  "fasten": {
+    "pos": "vt. vi.",
+    "meaning": "扣紧，系牢;(使) 盖好；抓牢\nvt. 使牢固，使固定"
+  },
+  "fate": {
+    "pos": "n.",
+    "meaning": "命运；宿命"
+  },
+  "fatigue": {
+    "pos": "n.",
+    "meaning": "疲惫，疲倦;(士兵的) 作训服"
+  },
+  "fault": {
+    "pos": "n.",
+    "meaning": "过错，责任；缺点，弱点；故障\nvt. 发现错误，找出缺点"
+  },
+  "fauna": {
+    "pos": "n.",
+    "meaning": "(尤指某个地区的) 动物群"
+  },
+  "fear": {
+    "pos": "n.",
+    "meaning": "害怕，惧怕，担忧\nvt. 害怕，惧怕\nvt. vi. 担心，担忧\nvi. 恐怕"
+  },
+  "feast": {
+    "pos": "n.",
+    "meaning": "盛宴；宗教节日；特别的享受\nvi. 尽情享用 (美味佳肴)"
+  },
+  "feather": {
+    "pos": "n.",
+    "meaning": "羽毛"
+  },
+  "feature": {
+    "pos": "n.",
+    "meaning": "特征，特点；特写，专题；五官\nvt. 以...为特色\nvi. 起重要作用"
+  },
+  "fee": {
+    "pos": "n.",
+    "meaning": "费用"
+  },
+  "feeble": {
+    "pos": "adj.",
+    "meaning": "虚弱无力的；无效的，牵强的"
+  },
+  "feed": {
+    "pos": "vt.",
+    "meaning": "喂养；养活；施肥；灌输\nvt. 将...塞进机器；满足；供给\nvi. (婴儿或动物) 进⻝\nn. (婴儿或动物) 一餐；饲料，肥料"
+  },
+  "feel": {
+    "pos": "vt. vi.",
+    "meaning": "觉得，感到；触，摸；认为\nvt. (深深) 体验到\nvi. (用手、足等) 摸索\nn. 触觉；触摸；感受"
+  },
+  "feeling": {
+    "pos": "n.",
+    "meaning": "感觉；情绪；氛围，强调人对环境的主观感受"
+  },
+  "fellowship": {
+    "pos": "n.",
+    "meaning": "友谊，交情；团体，协会\nn. 研究生奖学金;(大学的) 研究员"
+  },
+  "fence": {
+    "pos": "n.",
+    "meaning": "栅栏，篱笆，围栏；销赃犯\nvt. (用栅栏、篱笆) 围住，隔开\nvi. 参加击剑运动；搪塞，回避"
+  },
+  "fertile": {
+    "pos": "adj.",
+    "meaning": "肥沃的；能生育的；主意多的"
+  },
+  "fertilise": {
+    "pos": "vt.",
+    "meaning": "使受精，使受粉；施肥于"
+  },
+  "fibre": {
+    "pos": "n.",
+    "meaning": "纤维；纤维织物"
+  },
+  "field": {
+    "pos": "n.",
+    "meaning": "田，地；领域；运动场；实地\nvi. 担任守队 (队员)\nvt. 使参加竞选；处理，应付"
+  },
+  "fierce": {
+    "pos": "adj.",
+    "meaning": "凶猛的；激烈的;(天气) 猛烈的"
+  },
+  "figure": {
+    "pos": "n.",
+    "meaning": "数字；算术；人物；人影；身材\nn. 塑像;(书中的) 图表\nvt. 认为，以为；计算\nvt. vi. 弄懂，弄清楚"
+  },
+  "file": {
+    "pos": "n.",
+    "meaning": "文件夹；文件；档案\nvt. 把...归档；发送 (报道);锉光滑\nvi. vt. 提起 (诉讼),提交 (申请)\nvi. 排成纵队行走"
+  },
+  "film": {
+    "pos": "n.",
+    "meaning": "电影；电影业；纪实镜头;㬵片\nn. 薄层，薄膜\nvi. vt. 拍摄，录制，把...拍成电影"
+  },
+  "finger": {
+    "pos": "n.",
+    "meaning": "手指；狭⻓物\nvt. 用手指触摸；告发，告密"
+  },
+  "finish": {
+    "pos": "vt. vi.",
+    "meaning": "完成;(使) 结束\nvt. 用尽；使筋疲力尽\nvi. 获...成绩\nn. 结尾，结局；抛光"
+  },
+  "fire": {
+    "pos": "n.",
+    "meaning": "火；火灾；炉火；取暖器；射击\nvi. vt. 射击，开火；射出 (子弹)\nvt. 解雇，开除；激励，使充满热情"
+  },
+  "firm": {
+    "pos": "n.",
+    "meaning": "公司，商行，事务所\nadj. 坚硬的；牢固的；坚定的\nvt. 使强壮，使坚固\nvi. 回升，稳步上涨"
+  },
+  "first": {
+    "pos": "det.",
+    "meaning": "ord. 第一；最重要的，首要的\nadv. 首先，第一；首次，第一次\nn. 第一个人 (或事);空前的成就"
+  },
+  "fix": {
+    "pos": "vt.",
+    "meaning": "修理，解决；使固定；确定\nn. (简单暂时的) 解决办法；困境"
+  },
+  "flag": {
+    "pos": "n.",
+    "meaning": "旗，旗帜\nvt. 标记，标注\nvi. 疲乏，衰弱"
+  },
+  "flame": {
+    "pos": "n.",
+    "meaning": "火焰；强烈的感情；橘红色\nvi. 燃烧\nvi. vt. (因强烈情绪而) 脸红"
+  },
+  "flare": {
+    "pos": "vi.",
+    "meaning": "(短暂) 烧旺，燃烧；突发，加剧\nvt. vi. 张大，张开 (鼻孔);发怒地说\nn. 闪光信号灯；旺火；喇叭裤 (复)"
+  },
+  "flash": {
+    "pos": "vi. vt.",
+    "meaning": "(使) 闪光；用光发出信号；闪现\nvt. (快速地) 出示；快速发送 (信息)\nvi. ⻜速运动；猛然想起；突然显露\nn. 闪光；闪光灯；闪现；情感突发"
+  },
+  "flat": {
+    "pos": "adj.",
+    "meaning": "平的；枯燥的；单调的；断然的\nn. 公寓；平面部分；瘪轮胎\nadv. 平直地，平躺地；直截了当地"
+  },
+  "flavour": {
+    "pos": "n.",
+    "meaning": "味道,⻛味；特色；调味品\nvt. 给...调味"
+  },
+  "flaw": {
+    "pos": "n.",
+    "meaning": "瑕疵，缺点；错误；性格缺陷"
+  },
+  "fleet": {
+    "pos": "n.",
+    "meaning": "舰队；捕⻥船队;⻋队\nadj. 快速的，敏捷的"
+  },
+  "flesh": {
+    "pos": "n.",
+    "meaning": "肉;(人体的) 皮肤；果肉；肉体\nvt. 使具体，使充实"
+  },
+  "flip": {
+    "pos": "vi. vt.",
+    "meaning": "(使) 快速翻转\nvt. 弹，抛；按;迅速转售\nvi. 十分气愤，异常激动，神志不清\nn. 空翻，筋斗"
+  },
+  "float": {
+    "pos": "vi.",
+    "meaning": "漂浮；飘浮；轻盈走动\nvt. 使浮动；提出 (想法或计划)\nvt. vi. (使货币汇率) 自由浮动\nn. 彩⻋;⻥漂；浮板；备用零钱"
+  },
+  "flock": {
+    "pos": "n.",
+    "meaning": "(动物) 群；一大群(人)\nvi. 蜂拥，群集，涌向"
+  },
+  "flora": {
+    "pos": "n.",
+    "meaning": "植物群落"
+  },
+  "flourish": {
+    "pos": "vi.",
+    "meaning": "繁荣，兴旺；茁壮成⻓\nvt. (为引起注意) 挥舞，挥动\nn. 夸张动作；华丽辞藻"
+  },
+  "flower": {
+    "pos": "n.",
+    "meaning": "花，花朵\nvi. 开花；繁荣，兴旺"
+  },
+  "fluid": {
+    "pos": "n.",
+    "meaning": "液体，流体\nadj. 流畅优美的；不稳定的；流动的"
+  },
+  "focus": {
+    "pos": "vi. vt.",
+    "meaning": "集中 (注意力等) 于；调节焦距\nvt. 聚焦于\nn. 焦点，中心；焦距，调焦"
+  },
+  "folk": {
+    "pos": "n.",
+    "meaning": "人们；各位；家属;⺠间音乐\nadj. ⺠间的,⺠俗的；流传⺠间的"
+  },
+  "follow": {
+    "pos": "vt. vi.",
+    "meaning": "跟随；在...后发生；理解，明白\nvt. 沿着；遵循，听从；追随；关注"
+  },
+  "fond": {
+    "pos": "adj.",
+    "meaning": "喜爱...的；深情的；难以实现的"
+  },
+  "food": {
+    "pos": "n.",
+    "meaning": "⻝物"
+  },
+  "fool": {
+    "pos": "n.",
+    "meaning": "傻瓜，笨蛋；小丑，弄臣\nvt. 欺骗，愚弄\nvi. 说蠢话，干傻事\nadj. 傻的，愚蠢的"
+  },
+  "forbid": {
+    "pos": "vt.",
+    "meaning": "禁止，不准；妨碍，阻碍"
+  },
+  "force": {
+    "pos": "n.",
+    "meaning": "武力；力;影响大的事物；部队\nvt. 强迫，迫使；强行移动；使发生"
+  },
+  "forecast": {
+    "pos": "n.",
+    "meaning": "预测，预报\nvt. 预测，预报"
+  },
+  "forehead": {
+    "pos": "n.",
+    "meaning": "前额，额头"
+  },
+  "foreigner": {
+    "pos": "n.",
+    "meaning": "外国人"
+  },
+  "foremost": {
+    "pos": "adj.",
+    "meaning": "最重要的，最好的\nadv. 最重要地，首要地"
+  },
+  "foresee": {
+    "pos": "vt.",
+    "meaning": "预⻅,预知，预料"
+  },
+  "forge": {
+    "pos": "vt.",
+    "meaning": "缔造，建立；伪造；锻造，制作\nvi. 稳步前进\nn. 铁匠铺；锻造炉，锻造⻋间"
+  },
+  "formation": {
+    "pos": "n.",
+    "meaning": "形成，产生；组成物；编队"
+  },
+  "formula": {
+    "pos": "n.",
+    "meaning": "公式；分子式；方案；配方"
+  },
+  "fortune": {
+    "pos": "n.",
+    "meaning": "运气；时运；命运；巨款"
+  },
+  "foul": {
+    "pos": "adj.",
+    "meaning": "难闻的，恶心的；很令人不快的\nvt. (体育运动) 犯规\nn. (体育运动) 犯规"
+  },
+  "found": {
+    "pos": "vt.",
+    "meaning": "创立；兴建；基于"
+  },
+  "foundation": {
+    "pos": "n.",
+    "meaning": "地基；基础；基金会；创办\nn. 粉底"
+  },
+  "fountain": {
+    "pos": "n.",
+    "meaning": "喷泉，喷水池；喷射；源泉"
+  },
+  "fox": {
+    "pos": "n.",
+    "meaning": "狐狸；狐皮；狡猾的人；美人\nvt. 难住，使迷惑"
+  },
+  "fraction": {
+    "pos": "n.",
+    "meaning": "少量，一点儿;(数学上的) 分数"
+  },
+  "fragile": {
+    "pos": "adj.",
+    "meaning": "易碎的；脆弱的；精致的；虚弱的"
+  },
+  "frame": {
+    "pos": "n.",
+    "meaning": "框架；镜框；体形；体系；帧\nvt. 给...做框；作伪证陷害；表达"
+  },
+  "framework": {
+    "pos": "n.",
+    "meaning": "框架，结构"
+  },
+  "freeze": {
+    "pos": "vi. vt.",
+    "meaning": "(使) 结冰;(使) 冻住;(使) 冻死\nvi. 冰冻;(因害怕等) 不动，惊呆\nvt. 冷藏；使定格；使固定；冻结\nn. 冻结；停止；冰冻期；霜冻"
+  },
+  "freight": {
+    "pos": "n.",
+    "meaning": "货物，货运；运费\nvt. (用⻜机等) 运送，托运"
+  },
+  "frigid": {
+    "pos": "adj.",
+    "meaning": "寒冷的；性冷淡的；冷淡的"
+  },
+  "fringe": {
+    "pos": "n.",
+    "meaning": "刘海;(地区等的) 边缘；流苏\nadj. 边缘的，非主流的\nvt. 形成...的边缘"
+  },
+  "fry": {
+    "pos": "vt. vi.",
+    "meaning": "油炸，油煎，油炒\nvi. (被阳光) 灼伤，晒伤\nn. 炸薯条;⻥苗"
+  },
+  "fulfil": {
+    "pos": "vt.",
+    "meaning": "实现，达到；履行；使有成就感"
+  },
+  "fund": {
+    "pos": "n.",
+    "meaning": "基金，专款；资金；大量\nvt. 资助，为...提供资金"
+  },
+  "fundamental": {
+    "pos": "adj.",
+    "meaning": "根本的，最重要的；基础的\nn. 根本，基础"
+  },
+  "furious": {
+    "pos": "adj.",
+    "meaning": "暴怒的；激烈的，高速的"
+  },
+  "furnish": {
+    "pos": "vt.",
+    "meaning": "布置，配备家具陈设；提供"
+  },
+  "fuse": {
+    "pos": "n.",
+    "meaning": "保险丝；引信，导火线\nvi. vt. (使) 融合，熔接;(使) 熔化"
+  },
+  "gain": {
+    "pos": "vt.",
+    "meaning": "获得，赢得；增加；到达\nvt. vi. 受益；增值\nn. 增加；好处；利润"
+  },
+  "gallery": {
+    "pos": "n.",
+    "meaning": "展览馆，画廊；走廊,⻓廊"
+  },
+  "gang": {
+    "pos": "n.",
+    "meaning": "一帮 (罪犯，混混等);一伙朋友"
+  },
+  "gap": {
+    "pos": "n.",
+    "meaning": "缝隙;(时间) 间隔；差距；漏洞"
+  },
+  "garment": {
+    "pos": "n.",
+    "meaning": "衣服，服装"
+  },
+  "gas": {
+    "pos": "n.",
+    "meaning": "气体；煤气；汽油；毒气，瓦斯\nvt. 使吸入毒气"
+  },
+  "gasoline": {
+    "pos": "n.",
+    "meaning": "汽油"
+  },
+  "gather": {
+    "pos": "vi. vt.",
+    "meaning": "聚集，召集；认为，推测\nvt. 搜集，采集；收拢；收割；攒\nvi. 逐渐增加，积聚"
+  },
+  "gauge": {
+    "pos": "n.",
+    "meaning": "测量仪器；宽度；口径；标准\nvt. 判断 (尤指感受);测量；估算"
+  },
+  "gay": {
+    "pos": "adj.",
+    "meaning": "同性恋的；欢乐的\nn. (男) 同性恋者"
+  },
+  "gaze": {
+    "pos": "vi.",
+    "meaning": "注视，凝视\nn. 注视，凝视"
+  },
+  "gem": {
+    "pos": "n.",
+    "meaning": "宝石；难能可贵的人 (或物)"
+  },
+  "gender": {
+    "pos": "n.",
+    "meaning": "性别；男性，女性;(语法中的) 性"
+  },
+  "gene": {
+    "pos": "n.",
+    "meaning": "基因"
+  },
+  "general": {
+    "pos": "adj.",
+    "meaning": "普遍的，总的；通常的；大概的\nadj. 泛的；首席的，总管的\nn. 将军"
+  },
+  "generator": {
+    "pos": "n.",
+    "meaning": "发电机；发生器，生成器"
+  },
+  "genius": {
+    "pos": "n.",
+    "meaning": "天才人物；天才，天赋；本领"
+  },
+  "gentle": {
+    "pos": "adj.",
+    "meaning": "温柔的；和煦的；轻柔的；平缓的"
+  },
+  "geosphere": {
+    "pos": "n.",
+    "meaning": "地圈；地球的固体部分，包括地壳、地幔和地核，范围通常比 lithosphere 更广"
+  },
+  "germ": {
+    "pos": "n.",
+    "meaning": "细菌，病菌；起源，萌芽；胚胎"
+  },
+  "germinate": {
+    "pos": "vi. vt.",
+    "meaning": "(使) 发芽,(使) 开始生⻓"
+  },
+  "gesture": {
+    "pos": "n.",
+    "meaning": "手势，姿势；姿态，表示\nvi. vt. 打手势，用手势表示"
+  },
+  "gist": {
+    "pos": "n.",
+    "meaning": "要点，主旨，大意"
+  },
+  "gizmo": {
+    "pos": "n.",
+    "meaning": "小玩意儿，小装置"
+  },
+  "glance": {
+    "pos": "vi.",
+    "meaning": "一瞥，扫视；浏览，粗略地看\nn. 一瞥，扫视"
+  },
+  "glare": {
+    "pos": "vi.",
+    "meaning": "瞪，怒视；发出强烈刺眼的光\nn. 瞪，怒视；强烈刺眼的光"
+  },
+  "glass": {
+    "pos": "n.",
+    "meaning": "玻璃；玻璃杯；眼镜"
+  },
+  "glide": {
+    "pos": "vi.",
+    "meaning": "滑行，滑动；滑翔\nn. 滑行，掠过，滑翔"
+  },
+  "global": {
+    "pos": "adj.",
+    "meaning": "全球的；全面的，整体的"
+  },
+  "glorious": {
+    "pos": "adj.",
+    "meaning": "辉煌的；壮丽的；美好的"
+  },
+  "glow": {
+    "pos": "vi.",
+    "meaning": "发出微光；喜形于色；皮肤发红\nn. 微弱稳定的光；容光焕发；喜悦"
+  },
+  "glue": {
+    "pos": "n.",
+    "meaning": "㬵,㬵水\nvt. 㬵合，黏合"
+  },
+  "goal": {
+    "pos": "n.",
+    "meaning": "目标；进球得分；球⻔"
+  },
+  "government": {
+    "pos": "n.",
+    "meaning": "政府；政体；治理，统治"
+  },
+  "gown": {
+    "pos": "n.",
+    "meaning": "女礼服；礼袍；罩衣"
+  },
+  "grab": {
+    "pos": "vt. vi.",
+    "meaning": "抓住，夺取；抓住 (机会)\nvi. (试图) 抓住，夺取\nvt. (尤指匆忙地) 取，吃,喝；抢占"
+  },
+  "grace": {
+    "pos": "n.",
+    "meaning": "(动作) 优雅；文雅;⻛度；恩典\nn. 宽限期；阁下\nvt. 为...增色；使生辉，承蒙光临"
+  },
+  "grade": {
+    "pos": "n.",
+    "meaning": "年级；成绩；等级\nvt. 按...分级；给...评分"
+  },
+  "graduate": {
+    "pos": "n.",
+    "meaning": "毕业生\nvi. vt. 毕业\nvt. 授予 (某人) 学位\nvi. 逐渐发展"
+  },
+  "grand": {
+    "pos": "adj.",
+    "meaning": "壮丽的；宏伟的；极好的\nn. 一千英镑 (或美元);三⻆钢琴"
+  },
+  "grant": {
+    "pos": "vt.",
+    "meaning": "批准，准予，给予；承认\nn. 拨款，补助金"
+  },
+  "grasp": {
+    "pos": "vt.",
+    "meaning": "抓紧；理解；急忙抓住 (机会)\nn. 紧抓，控制；理解 (力)"
+  },
+  "grass": {
+    "pos": "n.",
+    "meaning": "草,⻘草；草地，草坪\nvi. (向警方) 告密，告发"
+  },
+  "grave": {
+    "pos": "n.",
+    "meaning": "坟墓，墓穴；死亡，去世\nadj. 严重的，严峻的；严肃的"
+  },
+  "greenhouse": {
+    "pos": "n.",
+    "meaning": "温室，暖房\nadj. 温室效应的"
+  },
+  "greet": {
+    "pos": "vt.",
+    "meaning": "同...打招呼；回应；呈现在...前"
+  },
+  "grief": {
+    "pos": "n.",
+    "meaning": "悲伤；伤心事；担心，忧虑"
+  },
+  "grind": {
+    "pos": "vt.",
+    "meaning": "磨碎，碾碎；绞碎；把...磨锋利\nvi. vt. 摩擦 (发出刺耳声)\nn. 苦差事，令人疲惫的工作"
+  },
+  "grip": {
+    "pos": "n.",
+    "meaning": "紧握，紧抓；掌控，控制；理解\nvi. vt. 紧握，紧抓\nvt. 使感兴趣；对...具有强烈影响"
+  },
+  "grocery": {
+    "pos": "n.",
+    "meaning": "⻝品杂货店;⻝品杂货"
+  },
+  "groom": {
+    "pos": "vt.",
+    "meaning": "洗刷 (动物);训练，栽培\nn. 新郎;⻢夫,⻢倌"
+  },
+  "gross": {
+    "pos": "adj.",
+    "meaning": "总的；严重的；令人恶心的\nadv. 总共，全部\nvt. (税前) 总收入为\nn. (影片的) 总收入"
+  },
+  "growth": {
+    "pos": "n.",
+    "meaning": "成⻓,生⻓;增加，增⻓,增强"
+  },
+  "guarantee": {
+    "pos": "vt.",
+    "meaning": "担保，确保；提供保修\nn. 保证；保修单；保证金"
+  },
+  "guard": {
+    "pos": "n.",
+    "meaning": "卫兵，看守；警戒，保卫；后卫\nvt. 守卫，保卫；看守；提防"
+  },
+  "guest": {
+    "pos": "n.",
+    "meaning": "宾客；旅客，房客；特邀嘉宾"
+  },
+  "gum": {
+    "pos": "n.",
+    "meaning": "口香糖；牙龈，牙床；树㬵,树脂"
+  },
+  "gust": {
+    "pos": "n.",
+    "meaning": "一阵狂⻛;(感情的) 迸发\nvi. (⻛) 猛刮"
+  },
+  "hail": {
+    "pos": "vt.",
+    "meaning": "赞扬；招手 (停⻋);朝...呼喊\nvi. 下冰雹；来自，出生于\nn. 冰雹；雹子般的一阵"
+  },
+  "hallowed": {
+    "pos": "adj.",
+    "meaning": "受崇敬的；神圣的"
+  },
+  "halt": {
+    "pos": "vi. vt.",
+    "meaning": "(使) 停止\nn. 停止，暂停"
+  },
+  "hammer": {
+    "pos": "n.",
+    "meaning": "锤子;(拍卖用) 木槌；击铁\nvi. vt. (用锤子) 敲，捶打；反复敲打\nvt. 猛踢，猛击；轻易打败"
+  },
+  "handle": {
+    "pos": "vt.",
+    "meaning": "处理，应付；触，拿；驾驭\nn. 把手；柄，把"
+  },
+  "handsome": {
+    "pos": "adj.",
+    "meaning": "(男人) 帅气的；美观的；巨额的"
+  },
+  "hang": {
+    "pos": "vt. vi.",
+    "meaning": "悬挂，吊;(使) 低垂;(被) 绞死\nvi. 垂下，垂落；悬浮 (在空中)\nvt. 挂...装饰；贴 (壁纸)"
+  },
+  "happen": {
+    "pos": "vi.",
+    "meaning": "发生，出现\nvlink. 碰巧，恰好"
+  },
+  "harbour": {
+    "pos": "n.",
+    "meaning": "港口，港湾\nvt. 心怀；包含，藏有；窝藏，庇护"
+  },
+  "harmful": {
+    "pos": "adj.",
+    "meaning": "有害的"
+  },
+  "harness": {
+    "pos": "vt.",
+    "meaning": "控制，利用；给 (⻢等) 上挽具\nn. ⻢具，挽具；保护带，背带"
+  },
+  "harvest": {
+    "pos": "n.",
+    "meaning": "收获，收割；收成，收获量\nvi. vt. 收获，收割\nvt. 采集，搜集"
+  },
+  "hasten": {
+    "pos": "vt.",
+    "meaning": "加速，加快\nvi. 急忙做 (某事);赶往 (某处)"
+  },
+  "hat": {
+    "pos": "n.",
+    "meaning": "帽子；职位,⻆色"
+  },
+  "hatch": {
+    "pos": "vi.",
+    "meaning": "孵出;(蛋) 孵化\nvt. 使...孵出；策划，密谋\nn. 舱口;⻜机舱⻔;开口,⻔"
+  },
+  "hate": {
+    "pos": "vt.",
+    "meaning": "厌恶，憎恨\nvi. 不愿，不想\nn. 厌恶，憎恨"
+  },
+  "haunt": {
+    "pos": "vt.",
+    "meaning": "(⻤魂) 出没于；萦绕;⻓期困扰\nn. 常去的地方"
+  },
+  "hazard": {
+    "pos": "n.",
+    "meaning": "危险，隐患，危害\nvt. 大胆提出或猜测；使...冒⻛险"
+  },
+  "headache": {
+    "pos": "n.",
+    "meaning": "头痛；令人头痛的人 (或物)"
+  },
+  "heading": {
+    "pos": "n.",
+    "meaning": "标题，题目；类目，主题"
+  },
+  "headmaster": {
+    "pos": "n.",
+    "meaning": "校⻓"
+  },
+  "heal": {
+    "pos": "vi. vt.",
+    "meaning": "治愈；结束 (冲突),修复 (关系)"
+  },
+  "heap": {
+    "pos": "n.",
+    "meaning": "(凌乱的) 一堆；许多；破旧的⻋\nvt. 堆放；对...大加赞扬 (或批评)"
+  },
+  "heaven": {
+    "pos": "n.",
+    "meaning": "天堂，极乐之地；天空"
+  },
+  "height": {
+    "pos": "n.",
+    "meaning": "高度；高处，泛指从底部到顶部的垂直距离"
+  },
+  "heir": {
+    "pos": "n.",
+    "meaning": "继承人；接班人，继承者"
+  },
+  "hell": {
+    "pos": "n.",
+    "meaning": "地狱；悲惨的境况\nint. 该死,⻅⻤"
+  },
+  "herald": {
+    "pos": "vt.",
+    "meaning": "是...的前兆；宣布 (好或重要)\nn. 预兆；信使，传令官"
+  },
+  "hero": {
+    "pos": "n.",
+    "meaning": "英雄；男主人公；偶像"
+  },
+  "hesitate": {
+    "pos": "vi. vt.",
+    "meaning": "犹豫，迟疑\nvi. (因有顾虑而) 不愿意 (做某事)"
+  },
+  "hint": {
+    "pos": "n.",
+    "meaning": "暗示，提示；迹象；少许；建议\nvt. vi. 暗示，提示"
+  },
+  "hire": {
+    "pos": "vt.",
+    "meaning": "租用，租借；临时雇用\nvt. vi. 聘用，录用\nn. 租用，租借；新员工"
+  },
+  "history": {
+    "pos": "n.",
+    "meaning": "历史，历史学;(某人的) 经历"
+  },
+  "hit": {
+    "pos": "vt.",
+    "meaning": "打；碰撞；击中；达到；使想起\nvt. vi. 产生不良影响，打击；袭击\nn. 打；击中；很受欢迎的人 (或物)"
+  },
+  "hollow": {
+    "pos": "adj.",
+    "meaning": "空心的；虚假的；凹陷的\nn. 凹陷处，坑洼处；洞，孔\nvt. 挖空，挖出 (孔、洞)"
+  },
+  "honour": {
+    "pos": "n.",
+    "meaning": "荣幸；荣誉；荣誉称号；道义\nvt. 尊敬 (某人);表彰；信守 (承诺)"
+  },
+  "hook": {
+    "pos": "n.",
+    "meaning": "钩，挂钩,⻥钩；勾拳；诱饵\nvi. vt. (使) 钩住，挂住\nvt. 钓 (⻥);吸引"
+  },
+  "horn": {
+    "pos": "n.",
+    "meaning": "(动物的) ⻆;(乐器) 号；喇叭"
+  },
+  "horrible": {
+    "pos": "adj.",
+    "meaning": "糟透的；可怕的；不友好的"
+  },
+  "horse": {
+    "pos": "n.",
+    "meaning": "⻢;赛⻢"
+  },
+  "hostel": {
+    "pos": "n.",
+    "meaning": "招待所，旅舍；收容所"
+  },
+  "hover": {
+    "pos": "vi.",
+    "meaning": "盘旋，悬停；徘徊，摇摆不定"
+  },
+  "humble": {
+    "pos": "adj.",
+    "meaning": "谦逊的；卑微的；不起眼的\nvt. 使感到卑微；低声下气"
+  },
+  "humiliate": {
+    "pos": "vt.",
+    "meaning": "(尤指公开) 羞辱，使丢脸"
+  },
+  "hunger": {
+    "pos": "n.",
+    "meaning": "饥饿，饥荒；饥饿感；渴望"
+  },
+  "hunt": {
+    "pos": "vi. vt.",
+    "meaning": "打猎，猎取；追踪，追捕；猎狐\nvi. 搜寻，搜索\nn. 搜寻，搜索；打猎"
+  },
+  "hurdle": {
+    "pos": "n.",
+    "meaning": "障碍，难关；跳栏；跨栏赛跑\nvt. vi. (奔跑中) 跳跃，跨越"
+  },
+  "hurry": {
+    "pos": "vi.",
+    "meaning": "赶快，匆忙 (做某事);迅速移动\nvt. 催促 (某人);仓促 (做某事)\nn. 匆忙，急忙"
+  },
+  "hurt": {
+    "pos": "vt. vi.",
+    "meaning": "(使) 受伤,(使) 疼痛；使伤心\nvt. 伤害，损害\nadj. 受伤的\nn. 心灵创伤，委屈"
+  },
+  "hybridise": {
+    "pos": "vi. vt.",
+    "meaning": "(使) 产生杂交品种"
+  },
+  "hypothesis": {
+    "pos": "n.",
+    "meaning": "假说，假设"
+  },
+  "idiom": {
+    "pos": "n.",
+    "meaning": "习语，成语"
+  },
+  "illuminate": {
+    "pos": "vt.",
+    "meaning": "照亮，照明，照射；阐释，说明"
+  },
+  "illusion": {
+    "pos": "n.",
+    "meaning": "错觉，幻想，错误观念；假象"
+  },
+  "imitate": {
+    "pos": "vt.",
+    "meaning": "(为逗乐) 模仿；仿效，模拟"
+  },
+  "impact": {
+    "pos": "n.",
+    "meaning": "影响；撞击，碰撞\nvi. vt. 影响；撞击，碰撞"
+  },
+  "impart": {
+    "pos": "vt.",
+    "meaning": "传达，传授；赋予...特定品质"
+  },
+  "impede": {
+    "pos": "vt.",
+    "meaning": "妨碍，阻碍"
+  },
+  "imperial": {
+    "pos": "adj.",
+    "meaning": "帝国的，皇帝的；英制的"
+  },
+  "imperil": {
+    "pos": "v.",
+    "meaning": "使陷入危险；危及，较正式用词"
+  },
+  "impetus": {
+    "pos": "n.",
+    "meaning": "动力，促进，刺激"
+  },
+  "implement": {
+    "pos": "vt.",
+    "meaning": "履行，实施，贯彻\nn. 工具，器具，用具"
+  },
+  "imply": {
+    "pos": "vt.",
+    "meaning": "暗示，暗指；意味着，表明"
+  },
+  "import": {
+    "pos": "vt.",
+    "meaning": "进口，引进；导入，输入\nn. 进口 (货);舶来品；重要性，意义"
+  },
+  "impose": {
+    "pos": "vt.",
+    "meaning": "强制实行；将...强加于；使承受\nvi. 给...添麻烦"
+  },
+  "impress": {
+    "pos": "vt. vi.",
+    "meaning": "使印象深刻，使钦佩\nvt. 使...谨记"
+  },
+  "impulse": {
+    "pos": "n.",
+    "meaning": "冲动；脉冲；推动力"
+  },
+  "incline": {
+    "pos": "vi. vt.",
+    "meaning": "(使) 倾向;(使) 倾斜\nvt. 点 (头)\nn. 斜坡，斜面"
+  },
+  "increase": {
+    "pos": "vi. vt.",
+    "meaning": "增加，增多，增⻓\nn. 增加，增多，增⻓"
+  },
+  "increment": {
+    "pos": "n.",
+    "meaning": "增量，增加；定期的加薪"
+  },
+  "index": {
+    "pos": "n.",
+    "meaning": "索引；指数；标志，指标\nvt. 为...编索引"
+  },
+  "indifferent": {
+    "pos": "adj.",
+    "meaning": "不感兴趣的，冷淡的；一般的"
+  },
+  "individual": {
+    "pos": "adj.",
+    "meaning": "单独的；个人的；独特的\nn. 个人；有个性的人"
+  },
+  "induce": {
+    "pos": "vt.",
+    "meaning": "引诱，劝说；引起，导致；催产"
+  },
+  "indulge": {
+    "pos": "vt. vi.",
+    "meaning": "(使自己) 沉迷 (于)\nvt. 满足 (欲望等);纵容，迁就"
+  },
+  "inert": {
+    "pos": "adj.",
+    "meaning": "无活动能力的；惰性的；迟缓的"
+  },
+  "infer": {
+    "pos": "vt.",
+    "meaning": "推断，推论；暗示"
+  },
+  "influence": {
+    "pos": "n.",
+    "meaning": "影响 (力);有影响的人 (或事物)\nvt. 影响，对...起作用"
+  },
+  "ingredient": {
+    "pos": "n.",
+    "meaning": "配料，成分；因素"
+  },
+  "injure": {
+    "pos": "vt.",
+    "meaning": "使受伤，弄伤；损害 (名誉等)"
+  },
+  "injury": {
+    "pos": "n.",
+    "meaning": "(身体的) 伤害;(对感情等) 损害"
+  },
+  "inner": {
+    "pos": "adj.",
+    "meaning": "里面的，内部的；内心的"
+  },
+  "innovate": {
+    "pos": "vi. vt.",
+    "meaning": "革新，创新，改革"
+  },
+  "input": {
+    "pos": "n.",
+    "meaning": "投入；输入；输入端\nvt. 输入 (信息)"
+  },
+  "inquire": {
+    "pos": "vi. vt.",
+    "meaning": "询问，打听"
+  },
+  "insane": {
+    "pos": "adj.",
+    "meaning": "精神失常的；愚蠢的，荒唐的\nn. 精神病人，精神失常的人"
+  },
+  "insect": {
+    "pos": "n.",
+    "meaning": "昆虫，虫"
+  },
+  "insert": {
+    "pos": "vt.",
+    "meaning": "插入，嵌入;(在文本中) 插入\nn. (杂志等的) 广告插⻚;插入物"
+  },
+  "inspect": {
+    "pos": "vt.",
+    "meaning": "检查，审视；视察，检阅"
+  },
+  "inspire": {
+    "pos": "vt.",
+    "meaning": "激励，鼓舞；赋予灵感；激起"
+  },
+  "instance": {
+    "pos": "n.",
+    "meaning": "例子，事例\nvt. 举...为例"
+  },
+  "instant": {
+    "pos": "adj.",
+    "meaning": "立即的；即⻝的，速溶的\nn. 刹那，顷刻"
+  },
+  "institute": {
+    "pos": "n.",
+    "meaning": "机构，协会，研究院，学院\nvt. 建立 (体系等),制定 (规章等)"
+  },
+  "institution": {
+    "pos": "n.",
+    "meaning": "机构；收容机构；习俗，制度"
+  },
+  "instruct": {
+    "pos": "vt.",
+    "meaning": "指示，吩咐；教授，传授"
+  },
+  "instrument": {
+    "pos": "n.",
+    "meaning": "仪器；乐器；仪表；手段；工具"
+  },
+  "insult": {
+    "pos": "vt.",
+    "meaning": "辱骂，侮辱\nn. 辱骂，侮辱"
+  },
+  "insure": {
+    "pos": "vt. vi.",
+    "meaning": "(给...) 投保\nvt. 承保，为...提供保险；确保"
+  },
+  "intake": {
+    "pos": "n.",
+    "meaning": "摄取量；征召人数；进口"
+  },
+  "intensity": {
+    "pos": "n.",
+    "meaning": "强烈，剧烈;(光、声等的) 强度"
+  },
+  "interbreed": {
+    "pos": "vi. vt.",
+    "meaning": "(使) 杂交繁殖"
+  },
+  "interest": {
+    "pos": "n.",
+    "meaning": "兴趣；趣味；爱好；利息；利益\nvt. 使感兴趣，使关注"
+  },
+  "interfere": {
+    "pos": "vi.",
+    "meaning": "干涉，介入；妨碍，干扰；弄坏"
+  },
+  "interior": {
+    "pos": "n.",
+    "meaning": "内部；内地，内陆；内政\nadj. 内部的"
+  },
+  "intermediate": {
+    "pos": "adj.",
+    "meaning": "中级的；居中的，中间的\nn. 中级水平者"
+  },
+  "internal": {
+    "pos": "adj.",
+    "meaning": "国内的；内部的；体内的"
+  },
+  "interpret": {
+    "pos": "vt.",
+    "meaning": "解释，说明；把...理解为\nvi. vt. 口译"
+  },
+  "interrupt": {
+    "pos": "vi. vt.",
+    "meaning": "打断，打扰\nvt. 使中断，使暂停；遮挡，阻断"
+  },
+  "intersection": {
+    "pos": "n.",
+    "meaning": "交点，道路交叉口；交叉"
+  },
+  "intervene": {
+    "pos": "vi.",
+    "meaning": "干涉，介入；干扰；介于...之间\nvt. vi. 打断，插嘴"
+  },
+  "intimate": {
+    "pos": "adj.",
+    "meaning": "亲密的；隐私的；幽静舒适的\nvt. 透露,(间接) 表示，暗示\nn. 知己，密友，至交"
+  },
+  "introduce": {
+    "pos": "vt.",
+    "meaning": "介绍；使初次了解；推行；引入"
+  },
+  "intrude": {
+    "pos": "vi.",
+    "meaning": "闯入，侵入；打扰，干涉"
+  },
+  "intuition": {
+    "pos": "n.",
+    "meaning": "直觉"
+  },
+  "invalid": {
+    "pos": "adj.",
+    "meaning": "无法律效力的；站不住脚的\nn. 病弱者，伤残者"
+  },
+  "invent": {
+    "pos": "vt.",
+    "meaning": "发明，创造；捏造，虚构"
+  },
+  "inventory": {
+    "pos": "n.",
+    "meaning": "存货清单；储备，存货，库存\nvt. 开列...的清单，把...编入目录"
+  },
+  "invest": {
+    "pos": "vi. vt.",
+    "meaning": "投资；投入 (时间等);授 (权)"
+  },
+  "investigate": {
+    "pos": "vi. vt.",
+    "meaning": "调查，研究"
+  },
+  "invite": {
+    "pos": "vt.",
+    "meaning": "邀请；招致\nn. 邀请，请柬"
+  },
+  "invoice": {
+    "pos": "n.",
+    "meaning": "发票，发货清单\nvt. 开发票"
+  },
+  "invoke": {
+    "pos": "vt.",
+    "meaning": "援引 (法律);唤起；引用"
+  },
+  "involve": {
+    "pos": "vt.",
+    "meaning": "需要，包含；牵涉，涉及；使参与"
+  },
+  "irritate": {
+    "pos": "vt.",
+    "meaning": "使烦躁，激怒；刺激 (皮肤等)"
+  },
+  "issue": {
+    "pos": "n.",
+    "meaning": "议题；问题；一期，期号\nvt. 宣布；发放，签发；出版；发行"
+  },
+  "itch": {
+    "pos": "vi.",
+    "meaning": "(使) 发痒；渴望\nn. 痒；渴望"
+  },
+  "item": {
+    "pos": "n.",
+    "meaning": "一件 (物品);项目；一篇报道"
+  },
+  "itinerary": {
+    "pos": "n.",
+    "meaning": "行程，旅行计划"
+  },
+  "ivory": {
+    "pos": "n.",
+    "meaning": "象牙；象牙色；钢琴键"
+  },
+  "jacket": {
+    "pos": "n.",
+    "meaning": "夹克，短上衣；书套"
+  },
+  "jade": {
+    "pos": "n.",
+    "meaning": "玉，翡翠；翡翠色"
+  },
+  "jail": {
+    "pos": "n.",
+    "meaning": "监狱，看守所\nvt. 使入狱，监禁"
+  },
+  "jam": {
+    "pos": "n.",
+    "meaning": "果酱；拥挤；卡住\nvt. vi. (使) 卡住；塞进；即兴演奏\nvt. (无线电) 干扰；用力推挤；挤满"
+  },
+  "jar": {
+    "pos": "n.",
+    "meaning": "玻璃罐；缸，坛子；撞击\nvt. vi. (使) 撞击;(使) 不快,(使) 吃惊\nvi. (与...) 不和谐，不相配"
+  },
+  "jaw": {
+    "pos": "n.",
+    "meaning": "颌；下巴；口部，嘴\nvi. 喋喋不休"
+  },
+  "jeopardize": {
+    "pos": "v.",
+    "meaning": "危及；使受到损害或失败的威胁"
+  },
+  "jet": {
+    "pos": "n.",
+    "meaning": "喷气式⻜机；喷射流；黑玉\nvi. 乘坐⻜机旅行\nvi. vt. 喷射，喷出"
+  },
+  "jewel": {
+    "pos": "n.",
+    "meaning": "宝石；珠宝，首饰；珍贵的东西"
+  },
+  "job": {
+    "pos": "n.",
+    "meaning": "工作，职位；任务，事情；职责"
+  },
+  "joke": {
+    "pos": "n.",
+    "meaning": "笑话，玩笑；笑料，笑柄\nvi. vt. 说笑话，开玩笑"
+  },
+  "journal": {
+    "pos": "n.",
+    "meaning": "期刊，杂志；报纸；日志，日记"
+  },
+  "journey": {
+    "pos": "n.",
+    "meaning": "旅行，旅程\nvi. (⻓途) 旅行"
+  },
+  "joy": {
+    "pos": "n.",
+    "meaning": "喜悦；令人高兴的事 (或人)"
+  },
+  "judge": {
+    "pos": "n.",
+    "meaning": "法官；裁判员；鉴定人\nvi. vt. 判断；担任裁判；评价，指责\nvt. 估计，猜测；审理，判决"
+  },
+  "jump": {
+    "pos": "vi.",
+    "meaning": "跳；突然快速移动；激增；略过\nvt. 跳过，越过；跳上 (⻋辆)\nn. 跳，跃；突升，激增"
+  },
+  "junk": {
+    "pos": "n.",
+    "meaning": "废品，垃圾；垃圾⻝品；舢板\nvt. 丢弃，抛弃，废弃"
+  },
+  "just": {
+    "pos": "adv.",
+    "meaning": "正好；正当...时；只是；完全\nadv. 同样；刚好；刚才；正准备\nadj. 公正的，正义的；合适的"
+  },
+  "justify": {
+    "pos": "vt.",
+    "meaning": "证明...有理；为...辩解"
+  },
+  "keen": {
+    "pos": "adj.",
+    "meaning": "渴望的；热情的;(对...) 着迷的\nadj. 机智的；强烈的；灵敏的\nvi. (为死者) 恸哭"
+  },
+  "keeper": {
+    "pos": "n.",
+    "meaning": "看守人，保管人；饲养员"
+  },
+  "kick": {
+    "pos": "vt. vi.",
+    "meaning": "踢，踹；踢蹬，踢腿\nn. 踢，踢腿；极大的乐趣"
+  },
+  "kidnap": {
+    "pos": "vt.",
+    "meaning": "劫持，绑架"
+  },
+  "kin": {
+    "pos": "n.",
+    "meaning": "(统称) 家属，亲戚"
+  },
+  "king": {
+    "pos": "n.",
+    "meaning": "国王;...之王"
+  },
+  "kit": {
+    "pos": "n.",
+    "meaning": "成套工具；配套元件；全套装备"
+  },
+  "knife": {
+    "pos": "n.",
+    "meaning": "刀\nvt. 用刀攻击某人"
+  },
+  "knight": {
+    "pos": "n.",
+    "meaning": "骑士；爵士;(国际象棋) ⻢\nvt. 封...为爵士"
+  },
+  "knob": {
+    "pos": "n.",
+    "meaning": "旋钮；球形把手；疙瘩；小块"
+  },
+  "knock": {
+    "pos": "vi.",
+    "meaning": "敲，击\nvt. 猛力击打，撞\nvt. vi. 碰上，撞上\nn. 敲击声；打击，敲击，撞击"
+  },
+  "label": {
+    "pos": "n.",
+    "meaning": "标签，标牌;(不恰当的) 称谓\nvt. 给...贴标签;(不公地) 把...称为"
+  },
+  "labour": {
+    "pos": "n.",
+    "meaning": "劳动；劳动力；分娩；英国工党\nvi. 努力做；干苦力活"
+  },
+  "lack": {
+    "pos": "n.",
+    "meaning": "缺乏，不足\nvt. 缺少，欠缺"
+  },
+  "lame": {
+    "pos": "adj.",
+    "meaning": "瘸的；无说服力的；差劲的\nvt. 使 (人或动物) 跛，使残废"
+  },
+  "language": {
+    "pos": "n.",
+    "meaning": "语言；语言⻛格；计算机语言"
+  },
+  "lap": {
+    "pos": "n.",
+    "meaning": "(坐着时的) 大腿部;(跑道) 一圈\nvi. (水) 轻拍，轻打\nvt. 舔⻝;领先一圈 (或数圈)"
+  },
+  "launch": {
+    "pos": "vt.",
+    "meaning": "发起，发动；发射；启动\nvt. vi. 推出，发布 (新产品)\nn. 发射；投放市场"
+  },
+  "lavatory": {
+    "pos": "n.",
+    "meaning": "厕所，洗手间"
+  },
+  "law": {
+    "pos": "n.",
+    "meaning": "法律，法规；法学；警方；法则"
+  },
+  "lead": {
+    "pos": "vt. vi.",
+    "meaning": "带路；领导；通往；处于首位\nvi. 导致，造成 (后果)\nvt. 使得出 (观点);过 (某种生活)\nn. 铅；领先地位；超前量；范例"
+  },
+  "leaflet": {
+    "pos": "n.",
+    "meaning": "传单，小册子\nvi. vt. 散发传单 (或小册子)"
+  },
+  "league": {
+    "pos": "n.",
+    "meaning": "联赛；联盟，同盟；级别；里格"
+  },
+  "lean": {
+    "pos": "vi.",
+    "meaning": "倾斜身体；倚靠；依靠\nvt. 使斜靠\nadj. 精瘦的；贫乏的；精干的"
+  },
+  "leap": {
+    "pos": "vi. vt.",
+    "meaning": "跳，跳跃\nvi. 突然做某事；激增，猛涨\nn. 跳，跳跃；激增，猛涨"
+  },
+  "learn": {
+    "pos": "vt. vi.",
+    "meaning": "学习，学到；得知；意识到"
+  },
+  "lease": {
+    "pos": "n.",
+    "meaning": "租约，租契\nvt. 租借，租用，出租"
+  },
+  "length": {
+    "pos": "n.",
+    "meaning": "⻓度；时间的⻓短；篇幅，片⻓"
+  },
+  "lesson": {
+    "pos": "n.",
+    "meaning": "课程，一节课；经验，教训"
+  },
+  "levy": {
+    "pos": "n.",
+    "meaning": "征收额,(尤指) 税款\nvt. 征收，征 (税)"
+  },
+  "liberal": {
+    "pos": "adj.",
+    "meaning": "开明的;(政治) 自由的；通识的\nadj. 慷慨的；不完全准确的\nn. 支持变革的人；自由党成员"
+  },
+  "license": {
+    "pos": "n.",
+    "meaning": "许可证，执照；放肆，放纵\nvt. 批准，许可"
+  },
+  "lick": {
+    "pos": "vt.",
+    "meaning": "舔；轻松战胜，轻易对付\nvt. vi. (火焰) 轻轻触及 (某物)\nn. 舔；一点儿 (涂料)"
+  },
+  "lid": {
+    "pos": "n.",
+    "meaning": "盖，盖子"
+  },
+  "lift": {
+    "pos": "vt. vi.",
+    "meaning": "(被) 提起；高兴起来;(使) 增⻓\nvt. 移开；空运；解除 (限制);偷盗\nvi. 消散，消失\nn. 电梯；搭便⻋;提，抬,举"
+  },
+  "limb": {
+    "pos": "n.",
+    "meaning": "肢，臂,腿；大树枝"
+  },
+  "limit": {
+    "pos": "n.",
+    "meaning": "限制，限度，极限；界限，范围\nvt. 限制，限定；限量"
+  },
+  "line of latitude": {
+    "pos": "n.",
+    "meaning": "纬线；连接地球上相同纬度地点的假想线"
+  },
+  "line of longitude": {
+    "pos": "n.",
+    "meaning": "经线；连接南北两极并表示经度的假想线"
+  },
+  "linger": {
+    "pos": "vi.",
+    "meaning": "继续存留；逗留，流连；奄奄一息"
+  },
+  "lip": {
+    "pos": "n.",
+    "meaning": "嘴唇；边沿；无礼的话"
+  },
+  "liquid": {
+    "pos": "n.",
+    "meaning": "液体，液态物\nadj. 液体的；流动性好的 (资产)"
+  },
+  "list": {
+    "pos": "n.",
+    "meaning": "名单，清单\nvt. (按某次序) 把...列表；列举\nvi. vt. (被) 列入销售清单，列入价目表\nvi. (船) (向一侧) 倾斜"
+  },
+  "lively": {
+    "pos": "adj.",
+    "meaning": "有活力的，活泼的，生动的\nadj. 充满趣味的"
+  },
+  "living room": {
+    "pos": "n.",
+    "meaning": "客厅，起居室"
+  },
+  "load": {
+    "pos": "n.",
+    "meaning": "负载，负荷；装载量；大量\nvt. vi. (把...) 装入；输入，载入\nvi. 承载，装载"
+  },
+  "loaf": {
+    "pos": "n.",
+    "meaning": "(面包的) 一条\nvi. 游荡，闲逛"
+  },
+  "locate": {
+    "pos": "vt.",
+    "meaning": "确定...的位置；使位于\nvi. (公司) 落戶于"
+  },
+  "lodge": {
+    "pos": "n.",
+    "meaning": "乡间小屋;⻔房；传达室；穴\nvi. (付款) 寄宿，租住\nvt. 为...提供住宿；正式提出 (声明)\nvi. vt. (被) 固定，卡住"
+  },
+  "loom": {
+    "pos": "vi.",
+    "meaning": "隐约显现，赫然出现；逐渐逼近\nn. 织布机"
+  },
+  "loosen": {
+    "pos": "vt. vi.",
+    "meaning": "(使) 变松，松开\nvt. 松开 (手等);放宽 (限制或控制)"
+  },
+  "lord": {
+    "pos": "n.",
+    "meaning": "(英国) 贵族；勋爵；阁下；上帝"
+  },
+  "loss": {
+    "pos": "n.",
+    "meaning": "丧失，损失；亏损；逝世；失利"
+  },
+  "lover": {
+    "pos": "n.",
+    "meaning": "爱人，情人；爱好者"
+  },
+  "luggage": {
+    "pos": "n.",
+    "meaning": "行李"
+  },
+  "lumber": {
+    "pos": "n.",
+    "meaning": "木材；废旧大件杂物\nvi. 缓慢笨拙地移动\nvt. 迫使担负 (工作，责任等)"
+  },
+  "lump": {
+    "pos": "n.",
+    "meaning": "块；方糖；肿块；傻大个\nvt. 把...归并一起 (或合起来考虑)"
+  },
+  "lyric": {
+    "pos": "n.",
+    "meaning": "歌词；抒情诗\nadj. (诗歌) 抒情的"
+  },
+  "mad": {
+    "pos": "adj.",
+    "meaning": "疯的；愤怒的；痴迷的；激动的"
+  },
+  "magic": {
+    "pos": "n.",
+    "meaning": "魔法，法术；魔术；魔力，魅力\nadj. 有魔力的；神奇的；好极了\nvt. 用魔法变出或使消失"
+  },
+  "magnet": {
+    "pos": "n.",
+    "meaning": "磁铁，磁体；有吸引力的人或物"
+  },
+  "magnificent": {
+    "pos": "adj.",
+    "meaning": "宏伟的，令人印象深刻的"
+  },
+  "magnify": {
+    "pos": "vt.",
+    "meaning": "放大；使(问题等)加重；夸大"
+  },
+  "maid": {
+    "pos": "n.",
+    "meaning": "女仆，侍女；少女"
+  },
+  "maiden": {
+    "pos": "n.",
+    "meaning": "少女，姑娘\nadj. 初次的，首次的"
+  },
+  "maintain": {
+    "pos": "vt.",
+    "meaning": "维持；维修，保养；坚称；供养"
+  },
+  "make-up": {
+    "pos": "n.",
+    "meaning": "化妆品；性格；组成成分；补考"
+  },
+  "mall": {
+    "pos": "n.",
+    "meaning": "购物中心，商场"
+  },
+  "manage": {
+    "pos": "vt. vi.",
+    "meaning": "经营，管理；成功做到\nvi. 勉强维持生活\nvt. 合理使用 (资源)"
+  },
+  "manager": {
+    "pos": "n.",
+    "meaning": "经理；经纪人；主教练"
+  },
+  "mandatory": {
+    "pos": "adj.",
+    "meaning": "强制的，法定的，义务的"
+  },
+  "manifest": {
+    "pos": "vt.",
+    "meaning": "显现，表明\nadj. 明显的\nn. 载货单，旅客名单"
+  },
+  "manipulate": {
+    "pos": "vt.",
+    "meaning": "(暗中) 操纵;(熟练地) 操作"
+  },
+  "manner": {
+    "pos": "n.",
+    "meaning": "方式；态度，举止；礼貌，礼仪"
+  },
+  "manoeuvre": {
+    "pos": "n.",
+    "meaning": "策略；巧妙的移动；军事演习\nvi. vt. (谨慎或熟练地) 移动；操纵"
+  },
+  "mansion": {
+    "pos": "n.",
+    "meaning": "公馆，宅第；公寓，大厦"
+  },
+  "mantle": {
+    "pos": "n.",
+    "meaning": "职责，衣钵；地幔；披⻛\nvt. 覆盖，遮盖"
+  },
+  "margin": {
+    "pos": "n.",
+    "meaning": "⻚边空白处；差额；利润；余地"
+  },
+  "marine": {
+    "pos": "adj.",
+    "meaning": "海洋的，海产的；海运的\nn. 海军陆战队士兵"
+  },
+  "maritime": {
+    "pos": "adj.",
+    "meaning": "海的，海事的，海运的，船舶的"
+  },
+  "mark": {
+    "pos": "vt.",
+    "meaning": "标记；标明；纪念；标志着\nvt. vi. 留下痕迹，弄脏；评分\nn. 污渍；斑点；记号；分数；标志"
+  },
+  "market": {
+    "pos": "n.",
+    "meaning": "市场\nvt. 推销，促销"
+  },
+  "master": {
+    "pos": "n.",
+    "meaning": "主人；大师；硕士学位；男教师\nvt. 精通，掌握；控制\nadj. 熟练的；最重要的"
+  },
+  "mat": {
+    "pos": "n.",
+    "meaning": "小地毯；厚软垫；衬垫；团，簇"
+  },
+  "match": {
+    "pos": "n.",
+    "meaning": "火柴；比赛；相配的人或物\nvt. vi. 般配，和...相配；相一致\nvt. 配对；与...相匹敌"
+  },
+  "mate": {
+    "pos": "n.",
+    "meaning": "朋友，伙伴；老兄；同伴；伴侣\nvi. (动物) 交配"
+  },
+  "material": {
+    "pos": "n.",
+    "meaning": "材料；布料；素材\nadj. 物质的"
+  },
+  "matter": {
+    "pos": "n.",
+    "meaning": "事情，问题；事态；物质\nvi. vt. 要紧"
+  },
+  "mature": {
+    "pos": "adj.",
+    "meaning": "成熟的；已酿熟的\nvi. 成熟；到期\nvi. vt. 酿成，发酵成熟"
+  },
+  "maximal": {
+    "pos": "adj.",
+    "meaning": "最大的，最高的"
+  },
+  "maximum": {
+    "pos": "adj.",
+    "meaning": "最大数量的，最高限度的\nn. 最大量，最高程度，最大限度"
+  },
+  "mean": {
+    "pos": "vt.",
+    "meaning": "意思是；打算；对某人重要\nadj. 小气的；刻薄的；平均的\nn. 平均数"
+  },
+  "meantime": {
+    "pos": "adv.",
+    "meaning": "在此期间，与此同时\nn. (在此) 期间，其间"
+  },
+  "meanwhile": {
+    "pos": "adv.",
+    "meaning": "在此期间；与此同时"
+  },
+  "measure": {
+    "pos": "vt.",
+    "meaning": "测量；估量，判定\nvlink. (尺寸、数量) 量度为\nn. 措施，方法；度量单位；提案"
+  },
+  "mechanic": {
+    "pos": "n.",
+    "meaning": "技工；力学；机械学；机制"
+  },
+  "mechanics": {
+    "pos": "n.",
+    "meaning": "机械学，力学；机制，运作方式"
+  },
+  "mechanism": {
+    "pos": "n.",
+    "meaning": "机械装置；方法，途径；机制"
+  },
+  "medal": {
+    "pos": "n.",
+    "meaning": "勋章，奖牌"
+  },
+  "medium": {
+    "pos": "adj.",
+    "meaning": "中等的，中号的\nn. 传播媒介；手段，工具；培养基"
+  },
+  "melody": {
+    "pos": "n.",
+    "meaning": "旋律，曲调，歌曲"
+  },
+  "melt": {
+    "pos": "vi. vt.",
+    "meaning": "(使) 融化，熔化；使心软"
+  },
+  "memorial": {
+    "pos": "n.",
+    "meaning": "纪念碑;(追忆逝者的) 纪念物\nadj. (对逝者) 纪念的"
+  },
+  "menace": {
+    "pos": "v./n.",
+    "meaning": "威胁；危及，强调可能造成伤害的人或事物"
+  },
+  "mend": {
+    "pos": "vt.",
+    "meaning": "修理，修补；解决 (争端)\nvi. vt. 愈合，康复，治愈"
+  },
+  "mention": {
+    "pos": "vt.",
+    "meaning": "提及，说起\nn. 提及，说起"
+  },
+  "menu": {
+    "pos": "n.",
+    "meaning": "菜单;(显示器上的) 选单"
+  },
+  "merchandise": {
+    "pos": "n.",
+    "meaning": "商品，货品\nvt. 推销,(运用广告等进行) 销售"
+  },
+  "meridian": {
+    "pos": "n.",
+    "meaning": "经线；子午线，是从两极穿过的经度线"
+  },
+  "merry": {
+    "pos": "adj.",
+    "meaning": "欢乐的，愉快的"
+  },
+  "mess": {
+    "pos": "n.",
+    "meaning": "杂乱；麻烦，困境；不整洁的人\nvt. 使不整洁，弄乱"
+  },
+  "metal": {
+    "pos": "n.",
+    "meaning": "金属"
+  },
+  "microbe": {
+    "pos": "n.",
+    "meaning": "微生物"
+  },
+  "might": {
+    "pos": "",
+    "meaning": "modal. 可能；可以\nn. 强大力量，威力"
+  },
+  "mild": {
+    "pos": "adj.",
+    "meaning": "温和的;(疾病等) 轻微的；淡的"
+  },
+  "million": {
+    "pos": "num.",
+    "meaning": "一百万；许多，无数"
+  },
+  "mind": {
+    "pos": "n.",
+    "meaning": "头脑，思维；心思\nvt. vi. 介意\nvt. 当心，注意"
+  },
+  "minimal": {
+    "pos": "adj.",
+    "meaning": "最小的，极少的，最低限度的"
+  },
+  "minimum": {
+    "pos": "adj.",
+    "meaning": "最小的，最低限度的\nn. 最小值，最低限度\nadv. 至少，最低"
+  },
+  "minor": {
+    "pos": "adj.",
+    "meaning": "较小的，次要的，轻微的；小调的\nn. 未成年人；辅修课程\nvi. 辅修"
+  },
+  "mint": {
+    "pos": "n.",
+    "meaning": "薄荷；薄荷糖；造币厂\nvt. 铸造 (硬币)"
+  },
+  "minus": {
+    "pos": "prep.",
+    "meaning": "减去；缺少\nadj. 小于零的，负的；负面的\nn. 减号，负号；缺点"
+  },
+  "minute": {
+    "pos": "n.",
+    "meaning": "分钟；片刻；时刻；会议记录\nadj. 极小的；细致入微的\nvt. 将...记入会议记录"
+  },
+  "misadventure": {
+    "pos": "n.",
+    "meaning": "意外事故；不幸遭遇，常指计划外发生的坏事"
+  },
+  "mischance": {
+    "pos": "n.",
+    "meaning": "不幸；意外事故，较书面或旧式用词"
+  },
+  "miserable": {
+    "pos": "adj.",
+    "meaning": "痛苦的；令人难受的；不友善的"
+  },
+  "miss": {
+    "pos": "vt. vi.",
+    "meaning": "未击中，未得到，未达到\nvt. 未觉察；不懂；错过；思念\nn. 小姐，女士；错过"
+  },
+  "mission": {
+    "pos": "n.",
+    "meaning": "任务，使命；职责；宗旨；传教"
+  },
+  "mistake": {
+    "pos": "n.",
+    "meaning": "错误\nvt. 误解，误认为"
+  },
+  "mode": {
+    "pos": "n.",
+    "meaning": "方式,⻛格；模式，状态"
+  },
+  "model": {
+    "pos": "n.",
+    "meaning": "模型；模特儿；样式；范例\nvi. 做模特儿\nvt. 将...做成模型；模仿"
+  },
+  "moderate": {
+    "pos": "adj.",
+    "meaning": "中等的；温和的；有节制的\nvt. vi. 缓和，使适中，调节；主持\nn. 持温和观点者"
+  },
+  "modest": {
+    "pos": "adj.",
+    "meaning": "谦虚的；不太大的；端庄的"
+  },
+  "modify": {
+    "pos": "vt.",
+    "meaning": "修改，改进，调整;(语法) 修饰"
+  },
+  "module": {
+    "pos": "n.",
+    "meaning": "单元，组件；模块；分离舱"
+  },
+  "moist": {
+    "pos": "adj.",
+    "meaning": "湿润的，潮湿的"
+  },
+  "molecule": {
+    "pos": "n.",
+    "meaning": "分子"
+  },
+  "moment": {
+    "pos": "n.",
+    "meaning": "片刻，瞬间；某个时刻；时机"
+  },
+  "monitor": {
+    "pos": "vt.",
+    "meaning": "监视；监听\nn. 显示器；监控器；班⻓;监督员"
+  },
+  "monument": {
+    "pos": "n.",
+    "meaning": "纪念碑，纪念馆；名胜；典范"
+  },
+  "mood": {
+    "pos": "n.",
+    "meaning": "情绪，心情；坏心情；气氛"
+  },
+  "mop": {
+    "pos": "n.",
+    "meaning": "拖把；乱蓬蓬的头发\nvt. 用拖把擦；用布擦掉"
+  },
+  "moral": {
+    "pos": "adj.",
+    "meaning": "道德的；出于道义的；有道德的\nn. 品行，道德；寓意"
+  },
+  "mortal": {
+    "pos": "adj.",
+    "meaning": "终有一死的；致命的；极度的\nn. 人，凡人，普通人"
+  },
+  "mortify": {
+    "pos": "vt.",
+    "meaning": "使难堪，使羞愧"
+  },
+  "motion": {
+    "pos": "n.",
+    "meaning": "运动，移动；动作；提议\nvi. vt. (以头或手) 做动作，示意"
+  },
+  "motivate": {
+    "pos": "vt.",
+    "meaning": "成为...的动机；激发，激励"
+  },
+  "mould": {
+    "pos": "n.",
+    "meaning": "模具，铸模;(独特) 类型；霉菌\nvt. (用模具) 浇铸；将...塑造成\nvi. vt. (使) 紧贴于,(使) 与...吻合"
+  },
+  "mount": {
+    "pos": "vt.",
+    "meaning": "安排，组织开展；登上；安置\nvi. 逐步增加\nvt. vi. 骑上，乘上\nn. 山峰；坐骑；托架"
+  },
+  "mouse": {
+    "pos": "n.",
+    "meaning": "老鼠；鼠标；安静畏缩的人"
+  },
+  "mouth": {
+    "pos": "n.",
+    "meaning": "嘴；入口；河口;⻝客；言谈\nvt. (动嘴唇) 不出声地说"
+  },
+  "movement": {
+    "pos": "n.",
+    "meaning": "动作；移动；运动；行踪；转变"
+  },
+  "movie": {
+    "pos": "n.",
+    "meaning": "电影"
+  },
+  "muffle": {
+    "pos": "vt.",
+    "meaning": "压低 (声音);裹住，蒙住"
+  },
+  "mug": {
+    "pos": "n.",
+    "meaning": "⻢克杯，大杯；人脸\nvt. (公然) 行凶抢劫"
+  },
+  "multiply": {
+    "pos": "vi. vt.",
+    "meaning": "乘;(使) 大量增加;(使) 繁殖"
+  },
+  "mundane": {
+    "pos": "adj.",
+    "meaning": "平凡的，单调的，世俗的"
+  },
+  "murmur": {
+    "pos": "vt. vi.",
+    "meaning": "小声说，喃喃细语\nvi. 发出低沉连续的声音；小声抱怨\nn. 低语声；咕哝声;(心脏)杂音"
+  },
+  "mutation": {
+    "pos": "n.",
+    "meaning": "(生物物种的) 变异，突变"
+  },
+  "mute": {
+    "pos": "adj.",
+    "meaning": "沉默的，无声的；哑的\nn. 弱音器；哑巴\nvt. 消音，减音；减弱，缓解"
+  },
+  "mutter": {
+    "pos": "vt. vi.",
+    "meaning": "嘀咕，嘟囔，小声抱怨\nn. 嘀咕，嘟哝，低语"
+  },
+  "mutual": {
+    "pos": "adj.",
+    "meaning": "相互的，彼此的；共有的"
+  },
+  "nail": {
+    "pos": "n.",
+    "meaning": "钉，钉子；指甲，趾甲\nvt. 钉牢；抓住并证明有罪；揭发"
+  },
+  "naked": {
+    "pos": "adj.",
+    "meaning": "裸体的；无遮盖的；毫不掩饰的"
+  },
+  "narrate": {
+    "pos": "vt.",
+    "meaning": "叙述，讲述；给...作解说"
+  },
+  "narrow": {
+    "pos": "adj.",
+    "meaning": "狭窄的；勉强的；狭义的\nvi. vt. 使变窄，缩小"
+  },
+  "nasty": {
+    "pos": "adj.",
+    "meaning": "不友善的；糟糕的；严重的\nadj. 下流的；危险的"
+  },
+  "nation": {
+    "pos": "n.",
+    "meaning": "国家,⺠族;(全体) 国⺠"
+  },
+  "native": {
+    "pos": "adj.",
+    "meaning": "出生地的；本地的；与生俱来的\nn. 出生于某地的人；本地人；土著"
+  },
+  "natural": {
+    "pos": "adj.",
+    "meaning": "自然的；正常的；天生的\nn. 有天赋的人"
+  },
+  "naughty": {
+    "pos": "adj.",
+    "meaning": "顽皮的，淘气的;(书等) 下流的"
+  },
+  "navigate": {
+    "pos": "vi. vt.",
+    "meaning": "(为...) 导航；浏览 (网站)\nvt. 航行；应付 (困难情况);驾驶"
+  },
+  "negative": {
+    "pos": "adj.",
+    "meaning": "有害的；消极的；否定的\nadj. 负的；阴性的\nn. 否定词，否定；底片\nvt. 否定，拒绝"
+  },
+  "neglect": {
+    "pos": "vt.",
+    "meaning": "疏忽，忽略；未做 (某事)\nn. 疏忽,(被) 忽略"
+  },
+  "neighbourhood": {
+    "pos": "n.",
+    "meaning": "居住区，街坊邻居；周边地区"
+  },
+  "nerve": {
+    "pos": "n.",
+    "meaning": "神经；紧张，焦虑；勇气；厚颜"
+  },
+  "neutral": {
+    "pos": "adj.",
+    "meaning": "中立的；中性的；素净的\nn. (汽⻋排档) 空档；中立者"
+  },
+  "nominate": {
+    "pos": "vt.",
+    "meaning": "提名；任命，指定"
+  },
+  "normal": {
+    "pos": "adj.",
+    "meaning": "正常的，平常的；身心健康的\nn. 通常标准，常态"
+  },
+  "notify": {
+    "pos": "vt.",
+    "meaning": "通知，告知"
+  },
+  "nuance": {
+    "pos": "n.",
+    "meaning": "细微差别"
+  },
+  "nuisance": {
+    "pos": "n.",
+    "meaning": "讨厌的人，麻烦的事；非法妨害"
+  },
+  "numerate": {
+    "pos": "adj.",
+    "meaning": "有计算能力的"
+  },
+  "nurse": {
+    "pos": "n.",
+    "meaning": "护士\nvt. 照料 (病人);怀有；培养"
+  },
+  "nursery": {
+    "pos": "n.",
+    "meaning": "托儿所；婴儿室；儿童室；苗圃\nadj. 幼儿教育的"
+  },
+  "nutrient": {
+    "pos": "n.",
+    "meaning": "营养物质，养分"
+  },
+  "oath": {
+    "pos": "n.",
+    "meaning": "宣誓，誓言；咒骂，诅咒的话"
+  },
+  "object": {
+    "pos": "n.",
+    "meaning": "物体，物品；目标；对象；宾语\nvi. 不同意，反对\nvt. 提出...作为反对的理由"
+  },
+  "objective": {
+    "pos": "n.",
+    "meaning": "目标，目的\nadj. 客观的，不带个人感情的"
+  },
+  "obligation": {
+    "pos": "n.",
+    "meaning": "义务，责任"
+  },
+  "oblige": {
+    "pos": "vt.",
+    "meaning": "(因法律或义务) 强迫，迫使\nvi. vt. 帮忙，效劳"
+  },
+  "obscure": {
+    "pos": "adj.",
+    "meaning": "鲜为人知的；难以理解的\nvt. 掩盖，使模糊，使隐晦"
+  },
+  "observe": {
+    "pos": "vt. vi.",
+    "meaning": "观察，注视\nvt. 注意到；遵守；庆祝；评论"
+  },
+  "obsess": {
+    "pos": "vt.",
+    "meaning": "使痴迷，使迷恋，使着迷\nvi. 唠叨，牵挂，念念不忘"
+  },
+  "obstruct": {
+    "pos": "vt.",
+    "meaning": "堵塞，遮挡；阻挠，妨碍"
+  },
+  "obtain": {
+    "pos": "vt.",
+    "meaning": "获得，实现\nvi. 存在，流行"
+  },
+  "occasion": {
+    "pos": "n.",
+    "meaning": "某次；特殊场合；时机"
+  },
+  "occupation": {
+    "pos": "n.",
+    "meaning": "职业；占领；居住，占用；消遣"
+  },
+  "occur": {
+    "pos": "vi.",
+    "meaning": "(意外地) 发生；存在，出现"
+  },
+  "odd": {
+    "pos": "adj.",
+    "meaning": "奇怪的；奇数的；偶尔发生的\nadj. 不成对的；可得到的；大约"
+  },
+  "offend": {
+    "pos": "vt. vi.",
+    "meaning": "冒犯，得罪\nvt. 令人不适\nvi. 违反 (法规、原则等);犯罪"
+  },
+  "offer": {
+    "pos": "vt. vi.",
+    "meaning": "主动提出，自愿给予\nvt. 提供，供应\nn. 提议；出价，报价；特价"
+  },
+  "office": {
+    "pos": "n.",
+    "meaning": "办公室；要职；办事处；诊室"
+  },
+  "offset": {
+    "pos": "vt.",
+    "meaning": "抵消，弥补"
+  },
+  "omit": {
+    "pos": "vt.",
+    "meaning": "省略，遗漏；未 (做)"
+  },
+  "ooze": {
+    "pos": "vi. vt.",
+    "meaning": "(浓液体) 渗出；充满，洋溢着\nn. 泥浆，稀泥"
+  },
+  "opening": {
+    "pos": "n.",
+    "meaning": "开幕式；缺口；空缺；开放\nadj. 开篇的，开头的"
+  },
+  "operation": {
+    "pos": "n.",
+    "meaning": "手术；运转，操作；行动；业务"
+  },
+  "opinion": {
+    "pos": "n.",
+    "meaning": "看法，观点；舆论；专家意⻅"
+  },
+  "opportunity": {
+    "pos": "n.",
+    "meaning": "机会，时机"
+  },
+  "oppose": {
+    "pos": "vt.",
+    "meaning": "反对，阻挠"
+  },
+  "oppress": {
+    "pos": "vt.",
+    "meaning": "压迫，欺压；压抑，使烦恼"
+  },
+  "opt": {
+    "pos": "vi. vt.",
+    "meaning": "选择，作出抉择"
+  },
+  "optical": {
+    "pos": "adj.",
+    "meaning": "视力的，光的，光学的"
+  },
+  "orbit": {
+    "pos": "n.",
+    "meaning": "(天体等的) 运行轨道；影响范围\nvt. vi. 环绕...的轨道运行"
+  },
+  "order": {
+    "pos": "n.",
+    "meaning": "顺序；条理；秩序；命令；订单\nvt. 命令；订购；安排，整理\nvt. vi. 点餐"
+  },
+  "organisation": {
+    "pos": "n.",
+    "meaning": "组织，机构；安排；结构；条理"
+  },
+  "orientation": {
+    "pos": "n.",
+    "meaning": "方向，定位；取向；迎新，培训"
+  },
+  "originate": {
+    "pos": "vi.",
+    "meaning": "起源，发源\nvt. 创始，发起"
+  },
+  "ornament": {
+    "pos": "n.",
+    "meaning": "装饰品；首饰，饰物；点缀\nvt. 装饰，点缀"
+  },
+  "outcome": {
+    "pos": "n.",
+    "meaning": "结果，后果"
+  },
+  "outfit": {
+    "pos": "n.",
+    "meaning": "全套服装；团队\nvt. 给...配置设备，供给服装"
+  },
+  "outline": {
+    "pos": "n.",
+    "meaning": "概要，梗概；轮廓，外形\nvt. 概述，概括；勾勒"
+  },
+  "outlook": {
+    "pos": "n.",
+    "meaning": "世界观，观点；前景；景色"
+  },
+  "outset": {
+    "pos": "n.",
+    "meaning": "开始，起始"
+  },
+  "outside": {
+    "pos": "adv.",
+    "meaning": "在外面，向外面\nprep. 在...外；不属于；除了\nadj. 外部的，向外的；不属于...的\nn. 外部，外观"
+  },
+  "outstanding": {
+    "pos": "adj.",
+    "meaning": "杰出的；显著的；未支付的"
+  },
+  "overlap": {
+    "pos": "vt. vi.",
+    "meaning": "(与...) 重叠;(时间等) 有重叠\nn. 重叠部分"
+  },
+  "overlook": {
+    "pos": "vt.",
+    "meaning": "忽略，忽视；不计较；俯视"
+  },
+  "overseas": {
+    "pos": "adv.",
+    "meaning": "在国外，在海外\nadj. 国外的，海外的"
+  },
+  "oversee": {
+    "pos": "vt.",
+    "meaning": "监督，监管"
+  },
+  "overtake": {
+    "pos": "vt. vi.",
+    "meaning": "超 (⻋),追上 (前面的人)\nvt. 赶超;(不幸等) 突然降临于"
+  },
+  "overwork": {
+    "pos": "vt. vi.",
+    "meaning": "(使) 过度工作，过度劳累\nvt. 把...做过头\nn. 过于繁重的工作"
+  },
+  "pace": {
+    "pos": "n.",
+    "meaning": "(移动) 速度；步伐，节奏；一步\nvi. vt. 来回踱步，走来走去\nvt. 调整自己的工作节奏"
+  },
+  "package": {
+    "pos": "n.",
+    "meaning": "邮包；包，盒；一揽子交易\nvt. 将...包装好；使改头换面"
+  },
+  "packet": {
+    "pos": "n.",
+    "meaning": "小包，小盒；小件包裹"
+  },
+  "pad": {
+    "pos": "n.",
+    "meaning": "软垫；便笺本；爪垫；发射台\nvi. 蹑手蹑脚地走\nvt. (用软材料) 填充，覆盖"
+  },
+  "pail": {
+    "pos": "n.",
+    "meaning": "桶，提桶"
+  },
+  "pain": {
+    "pos": "n.",
+    "meaning": "疼痛，痛苦；讨厌的人 (或事)\nvt. 使痛苦，使疼痛"
+  },
+  "pall": {
+    "pos": "n./v.",
+    "meaning": "覆盖物；阴影；笼罩，强调沉重或阴暗地覆盖"
+  },
+  "pallium": {
+    "pos": "n.",
+    "meaning": "披肩式礼服；外套，也可指覆盖层，属于专业或历史用词"
+  },
+  "palm": {
+    "pos": "n.",
+    "meaning": "手掌，手心；棕榈树\nvt. 把...藏在手中 (尤指玩戏法)"
+  },
+  "pamphlet": {
+    "pos": "n.",
+    "meaning": "小册子，手册"
+  },
+  "pane": {
+    "pos": "n.",
+    "meaning": "(一片) 窗玻璃"
+  },
+  "panic": {
+    "pos": "n.",
+    "meaning": "恐慌，惊慌失措；恐慌局面\nvi. vt. (使) 惊慌失措"
+  },
+  "paper": {
+    "pos": "n.",
+    "meaning": "纸；报纸；文件；试卷；论文"
+  },
+  "parachute": {
+    "pos": "n.",
+    "meaning": "降落伞\nvi. 跳伞\nvt. 伞投，空投"
+  },
+  "paradise": {
+    "pos": "n.",
+    "meaning": "天堂，乐土；伊甸园"
+  },
+  "parallel": {
+    "pos": "adj.",
+    "meaning": "平行的；相似的，同时发生的\nn. 很相似的人 (情况等);相似之处\nvt. 与...相似，与...同时发生"
+  },
+  "parallel of latitude": {
+    "pos": "n.",
+    "meaning": "纬圈；连接所有相同纬度地点的圆圈"
+  },
+  "parameter": {
+    "pos": "n.",
+    "meaning": "参数，界限，范围"
+  },
+  "parasite": {
+    "pos": "n.",
+    "meaning": "寄生虫，寄生动植物"
+  },
+  "parcel": {
+    "pos": "n.",
+    "meaning": "包裹，邮包；一块地"
+  },
+  "parlour": {
+    "pos": "n.",
+    "meaning": "专营店铺；客厅，起居室"
+  },
+  "participate": {
+    "pos": "vi.",
+    "meaning": "参与，参加"
+  },
+  "particle": {
+    "pos": "n.",
+    "meaning": "微粒；粒子；小品词"
+  },
+  "partner": {
+    "pos": "n.",
+    "meaning": "伙伴；配偶，伴侣；合伙人\nvt. 做搭档"
+  },
+  "passage": {
+    "pos": "n.",
+    "meaning": "章节，段落；通道；通过；流逝"
+  },
+  "pastime": {
+    "pos": "n.",
+    "meaning": "消遣，娱乐"
+  },
+  "patent": {
+    "pos": "n.",
+    "meaning": "专利权\nadj. 专利的；明显的\nvt. 得到...的专利权"
+  },
+  "path": {
+    "pos": "n.",
+    "meaning": "小路，小径；路线；途径"
+  },
+  "patron": {
+    "pos": "n.",
+    "meaning": "资助人，赞助人；顾客，常客"
+  },
+  "pattern": {
+    "pos": "n.",
+    "meaning": "模式，方式；图案；典范；样板\nvt. 使形成 (某行为模式)"
+  },
+  "pause": {
+    "pos": "vi.",
+    "meaning": "暂停，停顿\nvt. (使) 暂停播放\nn. 停顿，暂停"
+  },
+  "peach": {
+    "pos": "n.",
+    "meaning": "桃子；非常迷人的人 (或事物)\nadj. 桃红色的"
+  },
+  "peak": {
+    "pos": "n.",
+    "meaning": "顶峰，巅峰；山顶；尖头；帽檐\nvi. 到达最高值\nadj. 高峰时期的"
+  },
+  "peel": {
+    "pos": "vt.",
+    "meaning": "剥皮，去皮\nvi. vt. (表层) 脱落，剥去 (表层)\nvi. 脱皮，蜕皮\nn. 果皮，外皮"
+  },
+  "peer": {
+    "pos": "n.",
+    "meaning": "同龄人，同辈;(英国的) 贵族\nvi. 端详，费力地看"
+  },
+  "penalty": {
+    "pos": "n.",
+    "meaning": "处罚，罚金；判罚；罚球；害处"
+  },
+  "penetrate": {
+    "pos": "vt. vi.",
+    "meaning": "穿过，进入；渗透 (组织、团体)\nvt. 透过...看⻅;发现，揭示"
+  },
+  "perceive": {
+    "pos": "vt.",
+    "meaning": "看待，视为；注意到，察觉"
+  },
+  "perfect": {
+    "pos": "adj.",
+    "meaning": "完美的；完全的\nvt. 使完善，使完美"
+  },
+  "perform": {
+    "pos": "vt. vi.",
+    "meaning": "演出，表演\nvt. 执行，履行\nvi. 表现，运行"
+  },
+  "perfume": {
+    "pos": "n.",
+    "meaning": "香水；芳香，香味\nvt. 使香气弥漫；抹香水"
+  },
+  "peril": {
+    "pos": "n.",
+    "meaning": "重大危险;(某种行为的) 险情"
+  },
+  "perish": {
+    "pos": "vi.",
+    "meaning": "死亡；湮灭，毁灭\nvi. vt. (使橡㬵等) 老化"
+  },
+  "permit": {
+    "pos": "vt.",
+    "meaning": "允许，准许\nvi. vt. 使...有可能\nn. 许可证，特许证"
+  },
+  "persist": {
+    "pos": "vi. vt.",
+    "meaning": "顽强坚持，执着\nvi. 持续，延续"
+  },
+  "personnel": {
+    "pos": "n.",
+    "meaning": "人员，员工；人事部⻔"
+  },
+  "perspective": {
+    "pos": "n.",
+    "meaning": "视⻆,观点；判断力；透视法"
+  },
+  "persuade": {
+    "pos": "vt.",
+    "meaning": "劝说，说服；使信服，使相信"
+  },
+  "pervade": {
+    "pos": "vt.",
+    "meaning": "渗透，弥漫，遍及"
+  },
+  "pest": {
+    "pos": "n.",
+    "meaning": "害虫，有害动物；讨厌⻤"
+  },
+  "petition": {
+    "pos": "n.",
+    "meaning": "请愿书；申诉书\nvi. vt. 请愿;(向法庭) 申请；祈祷"
+  },
+  "petrol": {
+    "pos": "n.",
+    "meaning": "汽油"
+  },
+  "phase": {
+    "pos": "n.",
+    "meaning": "阶段，时期;(月亮的) 盈亏\nvt. 分阶段进行，逐步做"
+  },
+  "philosophy": {
+    "pos": "n.",
+    "meaning": "哲学；哲学体系；信条"
+  },
+  "phone": {
+    "pos": "n.",
+    "meaning": "电话，手机\nvi. vt. 打电话"
+  },
+  "phrase": {
+    "pos": "n.",
+    "meaning": "短语，词组；成语，习语；乐句\nvt. (以某种方式) 表达"
+  },
+  "physician": {
+    "pos": "n.",
+    "meaning": "(内科) 医生"
+  },
+  "pick": {
+    "pos": "vt.",
+    "meaning": "挑选，选择；采，摘；剔除\nn. 挑选，选择；选中的人或物"
+  },
+  "picnic": {
+    "pos": "n.",
+    "meaning": "野餐；野餐吃的⻝物\nvi. 去野餐"
+  },
+  "pill": {
+    "pos": "n.",
+    "meaning": "药丸，药片\nvi. (毛织衣服) 起球，结绒"
+  },
+  "pillar": {
+    "pos": "n.",
+    "meaning": "柱子；主心⻣;核心，支柱"
+  },
+  "pilot": {
+    "pos": "n.",
+    "meaning": "⻜行员；领航员；试播节目\nvt. 驾驶，为...引航；试行\nadj. 试验性的，试点的"
+  },
+  "pin": {
+    "pos": "n.",
+    "meaning": "大头针，别针；胸针\nvt. (用大头针) 钉住，固定；按住"
+  },
+  "pine": {
+    "pos": "n.",
+    "meaning": "松树；松木\nvi. (因死亡、离别而) 悲伤"
+  },
+  "pink": {
+    "pos": "adj.",
+    "meaning": "粉色的\nn. 粉色；石竹"
+  },
+  "pipe": {
+    "pos": "n.",
+    "meaning": "管子，管道；烟斗；管乐器\nvt. 用管道输送\nvt. vi. 用管乐器演奏；尖声地说"
+  },
+  "pirate": {
+    "pos": "n.",
+    "meaning": "海盗；盗版者；非法广播者\nvt. 盗版，侵犯版权"
+  },
+  "pit": {
+    "pos": "n.",
+    "meaning": "深坑；煤矿井；果核；乐池\nvt. 使有凹陷"
+  },
+  "pitch": {
+    "pos": "n.",
+    "meaning": "球场；音高；沥⻘;宣传论点\nvt. 用力扔；搭 (帐篷);定音高\nvi. vt. 投球；推销\nvi. 颠簸，上下飘荡"
+  },
+  "pitfall": {
+    "pos": "n.",
+    "meaning": "危险，陷阱，隐患"
+  },
+  "pith": {
+    "pos": "n.",
+    "meaning": "精髓；核心，也可指植物茎内的髓部"
+  },
+  "pivot": {
+    "pos": "n.",
+    "meaning": "枢轴，支点；中心，核心\nvi. vt. 在枢轴上旋转"
+  },
+  "plague": {
+    "pos": "n.",
+    "meaning": "鼠疫；瘟疫；灾害，祸患\nvt. 困扰，折磨；纠缠，缠扰"
+  },
+  "plain": {
+    "pos": "adj.",
+    "meaning": "清楚的；朴素的；坦率的\nadj. 平凡的；纯色的\nn. 平原\nadv. 完全地，简直"
+  },
+  "plate": {
+    "pos": "n.",
+    "meaning": "盘；一盘；金属牌;⻋牌；板块\nvt. 电镀"
+  },
+  "plaza": {
+    "pos": "n.",
+    "meaning": "广场，集市；购物中心"
+  },
+  "pleasure": {
+    "pos": "n.",
+    "meaning": "愉快，满足；令人快乐的事"
+  },
+  "pledge": {
+    "pos": "n.",
+    "meaning": "誓言，保证，诺言；抵押品\nvt. (使) 保证,(使) 发誓；抵押"
+  },
+  "plough": {
+    "pos": "n.",
+    "meaning": "犁\nvt. vi. 犁 (地),耕 (地)"
+  },
+  "pluck": {
+    "pos": "vt.",
+    "meaning": "摘，拔；拔毛；使 (某人) 脱离\nvt. vi. 弹拨 (乐器的弦)\nn. 胆识，胆量"
+  },
+  "plug": {
+    "pos": "n.",
+    "meaning": "插头；塞子；火花塞\nvt. 堵塞；补足；推广；插插头"
+  },
+  "plume": {
+    "pos": "n.",
+    "meaning": "(飘升的一缕) 烟尘；羽毛；羽饰"
+  },
+  "plunge": {
+    "pos": "vi. vt.",
+    "meaning": "(使) 突然前冲 (或下落)\nvi. 暴跌；陡峭地向下倾斜\nn. 暴跌；突然跌落；卷入；跳水"
+  },
+  "plus": {
+    "pos": "prep.",
+    "meaning": "(数量) 加；和，外加\nn. 优势,⻓处；加号\nadj. 零上的；优点的;(数字后) 多的\nconj. 此外，况且"
+  },
+  "point": {
+    "pos": "n.",
+    "meaning": "观点；重点；特点；时刻；得分\nn. 地点；尖端；意图，用处\nvt. vi. 指向，瞄准\nvi. 对着，朝向"
+  },
+  "polar": {
+    "pos": "adj.",
+    "meaning": "极地的；磁极的；完全相反的"
+  },
+  "pole": {
+    "pos": "n.",
+    "meaning": "杆子；地极；磁极，电极；极端\nvt. vi. 用篙撑船，摆船"
+  },
+  "police": {
+    "pos": "n.",
+    "meaning": "警察，警方\nvt. 在...巡查以维护治安；管制"
+  },
+  "polish": {
+    "pos": "vt. vi.",
+    "meaning": "擦光，抛光\nvt. 改善，润色\nn. 抛光剂，亮光剂；抛光，擦亮"
+  },
+  "polite": {
+    "pos": "adj.",
+    "meaning": "有礼貌的，客气的"
+  },
+  "politics": {
+    "pos": "n.",
+    "meaning": "政治；权力斗争；政⻅;政治学"
+  },
+  "poll": {
+    "pos": "n.",
+    "meaning": "⺠意调查；投票，投票站\nvt. 做⺠意调查\nvt. vi. 获得 (票数)"
+  },
+  "pop": {
+    "pos": "n.",
+    "meaning": "流行音乐；砰的一声；汽水；爸\nvi. vt. (使) 发砰砰声;(使) 爆裂\nvi. (突然地) 去；突然出现;(耳) 胀\nadj. 流行的，通俗的"
+  },
+  "population": {
+    "pos": "n.",
+    "meaning": "人口；某地某类人或动物的总数"
+  },
+  "pore": {
+    "pos": "n.",
+    "meaning": "毛孔，气孔\nvi. 认真研读，仔细打量"
+  },
+  "positive": {
+    "pos": "adj.",
+    "meaning": "积极的；有益的；表示赞同的\nadj. 确信的；阳性的\nn. 优势，优点；阳性结果"
+  },
+  "postage": {
+    "pos": "n.",
+    "meaning": "邮费，邮资"
+  },
+  "postpone": {
+    "pos": "vt.",
+    "meaning": "推迟，延缓"
+  },
+  "postulate": {
+    "pos": "vt.",
+    "meaning": "假定，假设\nn. 假定，假设"
+  },
+  "pot": {
+    "pos": "n.",
+    "meaning": "锅；罐;壶；凑集的资金；大麻\nvt. 把...栽入盆中；击 (球) 入袋"
+  },
+  "power": {
+    "pos": "n.",
+    "meaning": "政权；影响力；能力；权力\nn. 实力；力量；能量；电力供应\nvt. 驱动 (机器或⻋辆)\nvi. vt. (使) 迅猛移动"
+  },
+  "precaution": {
+    "pos": "n.",
+    "meaning": "预防措施，防备"
+  },
+  "precise": {
+    "pos": "adj.",
+    "meaning": "精确的；确切的；一丝不苟的"
+  },
+  "predict": {
+    "pos": "vt.",
+    "meaning": "预言，预测，预告"
+  },
+  "preference": {
+    "pos": "n.",
+    "meaning": "偏好；优惠，优待"
+  },
+  "prejudice": {
+    "pos": "n.",
+    "meaning": "偏⻅,成⻅\nvt. 使有偏⻅;损害，危害"
+  },
+  "premier": {
+    "pos": "adj.",
+    "meaning": "首要的，最好的\nn. 总理，首相"
+  },
+  "prepare": {
+    "pos": "vt.",
+    "meaning": "使做好准备；做 (饭);配制 (药)\nvt. vi. 使 (自己) 有准备，防范"
+  },
+  "present": {
+    "pos": "adj.",
+    "meaning": "当前的；在场的；存在的\nn. 礼物；目前，现在；现在时\nvt. 授予；提交；展现；使经历"
+  },
+  "preserve": {
+    "pos": "vt.",
+    "meaning": "维护，保护；保持；保存 (⻝物)\nn. 专⻔领域；蜜饯，果酱；保护区"
+  },
+  "press": {
+    "pos": "n.",
+    "meaning": "报刊；新闻界；印刷机；出版社\nvt. vi. 压，按\nvt. 把...按入；敦促；把...压平\nvi. 拥挤着移动"
+  },
+  "pressure": {
+    "pos": "n.",
+    "meaning": "压力；挤压；液压，气压\nvt. 对...施压，逼迫"
+  },
+  "presume": {
+    "pos": "vi. vt.",
+    "meaning": "推测，猜测\nvt. (尤指法庭上) 推定，假定；假设\nvi. 妄行，越权行事"
+  },
+  "pretend": {
+    "pos": "vi. vt.",
+    "meaning": "假装;(游戏中) 假扮；自诩\nadj. 假装的，想象的，假想的"
+  },
+  "prevail": {
+    "pos": "vi.",
+    "meaning": "盛行；占优势，占上⻛"
+  },
+  "prevent": {
+    "pos": "vt.",
+    "meaning": "防止，预防，阻止"
+  },
+  "prey": {
+    "pos": "n.",
+    "meaning": "猎物；受害者\nvi. 捕⻝;坑骗"
+  },
+  "primary": {
+    "pos": "adj.",
+    "meaning": "首要的，主要的；最早的；小学的\nn. (美国的) 初选"
+  },
+  "principal": {
+    "pos": "adj.",
+    "meaning": "主要的，最重要的\nn. 校⻓;本金，资金；主⻆"
+  },
+  "print": {
+    "pos": "vt. vi.",
+    "meaning": "印，印刷\nvt. 刊登；洗印，冲洗\nn. 印刷字体；版画；相片；指纹"
+  },
+  "private": {
+    "pos": "adj.",
+    "meaning": "私人的；私下的；私营的\nn. 二等兵，列兵；私处"
+  },
+  "prize": {
+    "pos": "n.",
+    "meaning": "奖，奖品；难能可贵的事物\nadj. 应得奖的；极好的\nvt. 重视，珍视；撬开"
+  },
+  "problem": {
+    "pos": "n.",
+    "meaning": "问题，困难；逻辑题，数学题\nadj. 找麻烦的，成问题的"
+  },
+  "procedure": {
+    "pos": "n.",
+    "meaning": "步骤，程序；手术，治疗"
+  },
+  "process": {
+    "pos": "n.",
+    "meaning": "过程，流程，工序\nvt. 加工，处理；审阅，审核"
+  },
+  "product": {
+    "pos": "n.",
+    "meaning": "产品，制品；生成物；结果；积"
+  },
+  "productive": {
+    "pos": "adj.",
+    "meaning": "多产的，生产的；有成效的"
+  },
+  "profound": {
+    "pos": "adj.",
+    "meaning": "深远的；知识渊博的；玄奥的"
+  },
+  "programme": {
+    "pos": "n.",
+    "meaning": "计划；节目；课程;(机器) 程序\nvt. 计划；使...有倾向；预设"
+  },
+  "progress": {
+    "pos": "n.",
+    "meaning": "进步，进展；前进\nvi. 取得进步；前进;(时间) 流逝"
+  },
+  "prohibit": {
+    "pos": "vt.",
+    "meaning": "禁止；使不可能"
+  },
+  "project": {
+    "pos": "n.",
+    "meaning": "项目，方案；专题研究；住宅区\nvt. 规划；预测；投射；展现；投掷\nvi. 突出，伸出"
+  },
+  "prominent": {
+    "pos": "adj.",
+    "meaning": "杰出的，重要的；显眼的"
+  },
+  "promise": {
+    "pos": "vt. vi.",
+    "meaning": "承诺，保证\nvt. 使很可能，预示\nn. 诺言；前途，潜质；迹象"
+  },
+  "prompt": {
+    "pos": "vt.",
+    "meaning": "促使；引起，激起；提示\nadj. 迅速的，立即的；准时的\nn. 提示符\nadv. 准时地"
+  },
+  "propel": {
+    "pos": "vt.",
+    "meaning": "推动，激励；推进，推"
+  },
+  "proponent": {
+    "pos": "n.",
+    "meaning": "倡导者，支持者"
+  },
+  "proportion": {
+    "pos": "n.",
+    "meaning": "部分，份额；比例；匀称；规模"
+  },
+  "propose": {
+    "pos": "vt.",
+    "meaning": "提议；打算；提出 (某观点等)\nvi. vt. 求婚"
+  },
+  "prosecute": {
+    "pos": "vt. vi.",
+    "meaning": "起诉；担任控方律师；继续做"
+  },
+  "prospect": {
+    "pos": "n.",
+    "meaning": "可能性；展望；前景，前途\nvi. 勘探，探矿"
+  },
+  "protest": {
+    "pos": "n.",
+    "meaning": "抗议，反对\nvi. vt. 抗议，反对\nvt. 申辩，申明"
+  },
+  "prove": {
+    "pos": "vt.",
+    "meaning": "证明，证实；展现\nvlink. 证明是，被发现是\nvi. 发酵"
+  },
+  "provide": {
+    "pos": "vt.",
+    "meaning": "提供；规定"
+  },
+  "provision": {
+    "pos": "n.",
+    "meaning": "提供，供给；准备；储粮；条款\nvt. 给...提供所需物品"
+  },
+  "provoke": {
+    "pos": "vt.",
+    "meaning": "激起，引起；挑衅，煽动"
+  },
+  "publish": {
+    "pos": "vt.",
+    "meaning": "出版；刊登；公布\nvt. vi. 发表 (作品)"
+  },
+  "puff": {
+    "pos": "vi. vt.",
+    "meaning": "吸 (香烟等);气喘吁吁；使喷出\nn. 吸；一缕 (烟、气等);泡芙"
+  },
+  "pull": {
+    "pos": "vt. vi.",
+    "meaning": "拉，拽；移开;(使⻋) 转向\nvt. 拔出；拖;拉上；扭伤；扳动\nn. 拉，拽；引力；诱惑；影响力"
+  },
+  "pulse": {
+    "pos": "n.",
+    "meaning": "脉搏；脉冲；豆子\nvi. 搏动，跳动；洋溢着"
+  },
+  "punishment": {
+    "pos": "n.",
+    "meaning": "处罚，惩罚；粗暴对待"
+  },
+  "puppet": {
+    "pos": "n.",
+    "meaning": "木偶；傀儡"
+  },
+  "purple": {
+    "pos": "n.",
+    "meaning": "紫色\nadj. 紫色的；辞藻华丽的"
+  },
+  "purpose": {
+    "pos": "n.",
+    "meaning": "意图，目标；毅力，决心"
+  },
+  "pursue": {
+    "pos": "vt.",
+    "meaning": "追求，继续进行；追究；追赶"
+  },
+  "purview": {
+    "pos": "n.",
+    "meaning": "范围；权限；眼界，强调职责、活动或考虑所覆盖的范围"
+  },
+  "puzzle": {
+    "pos": "n.",
+    "meaning": "谜，智力游戏；拼图；不解之谜\nvt. 迷惑，使困惑"
+  },
+  "qualify": {
+    "pos": "vt.",
+    "meaning": "使合格，使具备资格\nvi. 取得资格 (或学历),合格\nvi. vt. (使) 有资格,(使) 有权；配得上"
+  },
+  "quality": {
+    "pos": "n.",
+    "meaning": "质量，品质；优质；品德；特质\nadj. 优质的，高质量的"
+  },
+  "quarrel": {
+    "pos": "n.",
+    "meaning": "争吵，吵架；不同意的原因\nvi. 争吵，吵架"
+  },
+  "quartz": {
+    "pos": "n.",
+    "meaning": "石英"
+  },
+  "queen": {
+    "pos": "n.",
+    "meaning": "女王;(为群体产卵的) 雌性昆虫"
+  },
+  "quiet": {
+    "pos": "adj.",
+    "meaning": "安静的；僻静的；文静的\nvi. vt. (使) 平静，安静\nvt. 使 (情绪) 缓解，使减轻"
+  },
+  "quilt": {
+    "pos": "n.",
+    "meaning": "被子\nvi. vt. 缝被子"
+  },
+  "quit": {
+    "pos": "vi. vt.",
+    "meaning": "辞去 (工作);停止；退出；离开"
+  },
+  "quote": {
+    "pos": "vt. vi.",
+    "meaning": "引用，引述\nvt. 举例说明；开价，报价\nn. 引文，引语；报价，估价；引号"
+  },
+  "race": {
+    "pos": "n.",
+    "meaning": "赛跑，竞速比赛；竞争；种族\nvi. vt. 参加比赛;(使) 快速移动"
+  },
+  "rack": {
+    "pos": "n.",
+    "meaning": "支架，架子；肋排\nvt. 使...痛苦不堪，使受折磨"
+  },
+  "radiate": {
+    "pos": "vt. vi.",
+    "meaning": "散发，流露；发出 (光、辐射等)\nvi. 呈辐射状发散 (或伸展)"
+  },
+  "radical": {
+    "pos": "adj.",
+    "meaning": "根本的，彻底的；激进的\nn. 激进分子；游离基"
+  },
+  "rag": {
+    "pos": "n.",
+    "meaning": "抹布，破布；破旧衣服；小报\nvt. 嘲笑，捉弄"
+  },
+  "rail": {
+    "pos": "n.",
+    "meaning": "铁路；铁轨；栏杆，扶手\nvi. vt. 怒斥，责骂"
+  },
+  "railroad": {
+    "pos": "n.",
+    "meaning": "铁路 (系统),铁路公司\nvt. 给...草草定罪；迫使...仓促行事"
+  },
+  "railway": {
+    "pos": "n.",
+    "meaning": "铁路，铁路系统"
+  },
+  "raise": {
+    "pos": "vt.",
+    "meaning": "举起；提高；筹募；提及；抚养\nvt. 引起；饲养\nn. 加薪，工资增⻓"
+  },
+  "rake": {
+    "pos": "n.",
+    "meaning": "耙子，耙状工具\nvt. vi. 耙，梳理\nvi. 搜寻，搜索"
+  },
+  "range": {
+    "pos": "n.",
+    "meaning": "一系列；范围；射程；山脉\nvi. (在一定的范围内) 变化；包括\nvt. (按一定顺序) 排列\nvi. vt. 徘徊，漫步"
+  },
+  "rank": {
+    "pos": "n.",
+    "meaning": "级别，地位；军衔；成员，行列\nvt. vi. 把...分等级，属于某等级\nadj. 难闻的，恶臭的；糟糕的"
+  },
+  "rash": {
+    "pos": "adj.",
+    "meaning": "轻率的，鲁莽的\nn. 疹子，皮疹；大量，许多"
+  },
+  "rat": {
+    "pos": "n.",
+    "meaning": "老鼠，耗子；卑鄙小人"
+  },
+  "rate": {
+    "pos": "n.",
+    "meaning": "比率，率；速度；费用\nvt. vi. 评估，评价\nvt. 划分等级"
+  },
+  "ratio": {
+    "pos": "n.",
+    "meaning": "比，比率，比例"
+  },
+  "raw": {
+    "pos": "adj.",
+    "meaning": "生的；未加工的；原始的"
+  },
+  "react": {
+    "pos": "vi.",
+    "meaning": "(作出) 反应；过敏；起化学反应"
+  },
+  "ready": {
+    "pos": "adj.",
+    "meaning": "准备好的；现成的；乐意的"
+  },
+  "reap": {
+    "pos": "vt.",
+    "meaning": "获得，收获；收割 (庄稼)"
+  },
+  "rear": {
+    "pos": "n.",
+    "meaning": "后部\nadj. 后面的，后部的\nvt. 抚养，养育；饲养\nvi. (尤指⻢) 用后腿直立；巍然耸立"
+  },
+  "reasonable": {
+    "pos": "adj.",
+    "meaning": "合理的；理智的，讲道理的\nadj. (价钱) 公道的；还行的"
+  },
+  "reassure": {
+    "pos": "vt.",
+    "meaning": "使安心，使消除疑虑"
+  },
+  "recall": {
+    "pos": "vt. vi.",
+    "meaning": "记起，回忆起\nvt. 召回；收回 (残次品);使想起\nn. 记忆力；召回"
+  },
+  "receipt": {
+    "pos": "n.",
+    "meaning": "收据；收到；收入"
+  },
+  "reception": {
+    "pos": "n.",
+    "meaning": "接待处；欢迎，接受；接收效果\nn. 欢迎会，招待会"
+  },
+  "recipe": {
+    "pos": "n.",
+    "meaning": "⻝谱，烹饪法；原因，秘诀"
+  },
+  "recite": {
+    "pos": "vt. vi.",
+    "meaning": "朗诵，背诵\nvt. (口头) 列举，逐一详述"
+  },
+  "reckless": {
+    "pos": "adj.",
+    "meaning": "鲁莽的，不顾后果的"
+  },
+  "reckon": {
+    "pos": "vt. vi.",
+    "meaning": "想，认为\nvt. 看作，看待；估算，估计"
+  },
+  "reclaim": {
+    "pos": "vt.",
+    "meaning": "取回，收回；开拓，开垦"
+  },
+  "recognise": {
+    "pos": "vt.",
+    "meaning": "认出；承认；公认；表彰"
+  },
+  "recollect": {
+    "pos": "vt. vi.",
+    "meaning": "记起，回忆起"
+  },
+  "recommend": {
+    "pos": "vt.",
+    "meaning": "推荐；建议；使受欢迎"
+  },
+  "reconcile": {
+    "pos": "vt.",
+    "meaning": "使和谐一致；使和好；妥协"
+  },
+  "record": {
+    "pos": "n.",
+    "meaning": "记录，记载；纪录；唱片；前科\nvt. 记录，记载\nvt. vi. 录制，录 (音)"
+  },
+  "recover": {
+    "pos": "vi.",
+    "meaning": "恢复，复原；康复，痊愈\nvt. 恢复 (知觉等);全额收回；找回"
+  },
+  "recreation": {
+    "pos": "n.",
+    "meaning": "休闲，娱乐；再现"
+  },
+  "recruit": {
+    "pos": "vt. vi.",
+    "meaning": "招收，招聘，征召\nn. 新兵；新成员"
+  },
+  "rectify": {
+    "pos": "vt.",
+    "meaning": "纠正，矫正"
+  },
+  "recycle": {
+    "pos": "vt.",
+    "meaning": "回收利用，循环利用"
+  },
+  "redeem": {
+    "pos": "vt.",
+    "meaning": "弥补；拯救；兑换；赎回\nvt. 履行，遵守 (诺言)"
+  },
+  "reduce": {
+    "pos": "vt.",
+    "meaning": "减少，缩小，降低\nvt. vi. (使) 蒸发\nvi. 减轻体重，节⻝"
+  },
+  "redundant": {
+    "pos": "adj.",
+    "meaning": "多余的，累赘的；被裁员的"
+  },
+  "reel": {
+    "pos": "n.",
+    "meaning": "卷轴，一卷㬵卷；里尔舞\nvi. 踉跄；感到震惊；仿佛天旋地转"
+  },
+  "reference": {
+    "pos": "n.",
+    "meaning": "提到；参考 (书目);推荐信\nvt. 查阅，参考"
+  },
+  "refine": {
+    "pos": "vt.",
+    "meaning": "提炼，精炼；改善，改良"
+  },
+  "reflect": {
+    "pos": "vt.",
+    "meaning": "映出 (影像);反射；反映，显示\nvi. vt. 认真思考"
+  },
+  "reform": {
+    "pos": "n.",
+    "meaning": "变革，改革，革新\nvt. 变革，改革，革新\nvi. vt. (使) 改过自新"
+  },
+  "refreshment": {
+    "pos": "n.",
+    "meaning": "茶点;⻝品和饮料；恢复精力"
+  },
+  "refuge": {
+    "pos": "n.",
+    "meaning": "庇护，避难；避难所，收容所"
+  },
+  "refuse": {
+    "pos": "vi. vt.",
+    "meaning": "拒绝\nvt. 推却，不接受；拒绝给予，不准\nn. 废物，垃圾"
+  },
+  "regard": {
+    "pos": "vt.",
+    "meaning": "认为，看待；注视，凝视\nn. 关注，关心；尊重，敬佩；致意"
+  },
+  "regime": {
+    "pos": "n.",
+    "meaning": "政权，政体；组织方法；养生法"
+  },
+  "regret": {
+    "pos": "vt.",
+    "meaning": "为...感到后悔；对...感到抱歉\nn. 懊悔，遗憾"
+  },
+  "regulate": {
+    "pos": "vt. vi.",
+    "meaning": "(以规章) 管理，约束\nvt. 调整，调节"
+  },
+  "regulation": {
+    "pos": "n.",
+    "meaning": "规章，制度；调控，管理\nadj. 规定的，正规的"
+  },
+  "reign": {
+    "pos": "n.",
+    "meaning": "君主统治时期；任期，当政期\nvi. 统治，当政；成为最佳；盛行"
+  },
+  "rein": {
+    "pos": "n.",
+    "meaning": "缰绳；控制，主宰；保护带\nvt. 控制"
+  },
+  "reject": {
+    "pos": "vt.",
+    "meaning": "拒绝接受；不录用；抛弃；排斥\nn. 次品，不合格者"
+  },
+  "relax": {
+    "pos": "vi.",
+    "meaning": "放松，休息\nvt. vi. (使) 冷静，放心;(使) 放松\nvt. 放宽 (限制等);放松精神"
+  },
+  "release": {
+    "pos": "vt.",
+    "meaning": "释放；松开；发泄；解雇；发布\nn. 释放；公开，发行；排放；解脱"
+  },
+  "relief": {
+    "pos": "n.",
+    "meaning": "宽慰；减轻，缓和；救济 (金)"
+  },
+  "relieve": {
+    "pos": "vt.",
+    "meaning": "减轻，缓和；给...换班；解手"
+  },
+  "remarkable": {
+    "pos": "adj.",
+    "meaning": "非凡的，不同寻常的"
+  },
+  "remedy": {
+    "pos": "n.",
+    "meaning": "解决方法；药品，疗法\nvt. 纠正，补救"
+  },
+  "remind": {
+    "pos": "vt.",
+    "meaning": "提醒；使想起"
+  },
+  "remote": {
+    "pos": "adj.",
+    "meaning": "偏远的，遥远的；久远的\nadj. 微乎其微的；远程的；冷淡的\nn. 遥控器"
+  },
+  "remuneration": {
+    "pos": "n.",
+    "meaning": "酬劳，薪酬"
+  },
+  "render": {
+    "pos": "vt.",
+    "meaning": "使变得；给予，提供；表达；翻译"
+  },
+  "repeat": {
+    "pos": "vt.",
+    "meaning": "重复，重写；转告；跟读\nvt. vi. 重做，重复；再次发生\nn. 重播的节目；重演的事件"
+  },
+  "repent": {
+    "pos": "vi. vt.",
+    "meaning": "悔悟，悔恨，忏悔"
+  },
+  "reply": {
+    "pos": "vi. vt.",
+    "meaning": "回复，答复\nvi. 作出回应\nn. 答复，回应"
+  },
+  "represent": {
+    "pos": "vt.",
+    "meaning": "代表；体现；表示；描绘\nvlink. 相当于，意味着"
+  },
+  "reproduce": {
+    "pos": "vt.",
+    "meaning": "复制，翻印；使再现，再制造\nvi. vt. 繁殖，生殖"
+  },
+  "republic": {
+    "pos": "n.",
+    "meaning": "共和国，共和政体"
+  },
+  "request": {
+    "pos": "n.",
+    "meaning": "请求，要求；点播的歌曲\nvt. 请求，要求"
+  },
+  "require": {
+    "pos": "vt.",
+    "meaning": "需要；要求，规定"
+  },
+  "rescue": {
+    "pos": "vt.",
+    "meaning": "营救，救援\nn. 营救，营救活动"
+  },
+  "research": {
+    "pos": "n.",
+    "meaning": "研究，调查\nvi. vt. 研究，调查"
+  },
+  "reserve": {
+    "pos": "vt.",
+    "meaning": "预订，预约；预留；保留 (权利)\nn. 储备 (量);自然保护区；内向"
+  },
+  "resign": {
+    "pos": "vi. vt.",
+    "meaning": "辞职\nvt. 使顺从"
+  },
+  "resist": {
+    "pos": "vt. vi.",
+    "meaning": "按捺，克制；抵抗，抵制；抵御\nvt. 经得起，抗 (伤害)"
+  },
+  "resolve": {
+    "pos": "vt.",
+    "meaning": "解决\nvt. vi. 决心，决定\nn. 决心，坚定的信念"
+  },
+  "resort": {
+    "pos": "n.",
+    "meaning": "度假胜地；采用的方法\nvi. 诉诸，求助"
+  },
+  "respect": {
+    "pos": "n.",
+    "meaning": "尊敬，尊重；方面\nvt. 尊敬，尊重；遵守"
+  },
+  "respond": {
+    "pos": "vi. vt.",
+    "meaning": "回复，回答\nvi. 作出反应；有良好反应"
+  },
+  "restless": {
+    "pos": "adj.",
+    "meaning": "坐立不安的；没有真正休息的"
+  },
+  "restore": {
+    "pos": "vt.",
+    "meaning": "恢复；修复，使复原；归还"
+  },
+  "restrain": {
+    "pos": "vt.",
+    "meaning": "制止，阻止；克制，抑制"
+  },
+  "restrict": {
+    "pos": "vt.",
+    "meaning": "限制，约束"
+  },
+  "result": {
+    "pos": "n.",
+    "meaning": "结果；得分，成绩；成果\nvi. 由...引起；造成，导致"
+  },
+  "resume": {
+    "pos": "vt. vi.",
+    "meaning": "继续，重新开始\nvt. 恢复 (职位),回到 (座位)\nn. 简历，履历；摘要，概述"
+  },
+  "retell": {
+    "pos": "vt.",
+    "meaning": "复述，重讲"
+  },
+  "retire": {
+    "pos": "vi. vt.",
+    "meaning": "(使) 退休\nvi. 退出，离开；退出比赛，退役"
+  },
+  "retreat": {
+    "pos": "vi.",
+    "meaning": "撤退；后退；撤回 (计划);躲避\nn. 撤退；逃避；僻静处；静修"
+  },
+  "retrieve": {
+    "pos": "vt.",
+    "meaning": "取回，找回；检索数据；挽回"
+  },
+  "reuse": {
+    "pos": "vt.",
+    "meaning": "再次使用，重复使用"
+  },
+  "reveal": {
+    "pos": "vt.",
+    "meaning": "揭示，揭露；展现，显露"
+  },
+  "reverse": {
+    "pos": "vt.",
+    "meaning": "逆转，扭转；撤销，推翻；使反转\nvi. vt. 倒⻋\nn. 相反的情况；背面；倒挡；损失\nadj. 相反的，反面的"
+  },
+  "review": {
+    "pos": "n.",
+    "meaning": "评论；审查；回顾；复习\nvt. 写评论；审查；回顾；复习"
+  },
+  "reward": {
+    "pos": "n.",
+    "meaning": "奖赏，回报；赏金\nvt. 奖励，酬谢"
+  },
+  "rhythm": {
+    "pos": "n.",
+    "meaning": "节奏，韵律；规律性变化"
+  },
+  "rib": {
+    "pos": "n.",
+    "meaning": "肋⻣;排⻣;肋材；罗纹\nvt. (友善地) 开...的玩笑"
+  },
+  "ribbon": {
+    "pos": "n.",
+    "meaning": "丝带；带状物；绶带，勋带"
+  },
+  "riddle": {
+    "pos": "n.",
+    "meaning": "谜，谜语；谜团，费解的事\nvt. 使...满是窟窿"
+  },
+  "rigid": {
+    "pos": "adj.",
+    "meaning": "严格的，死板的；固执的；僵硬的"
+  },
+  "rigorous": {
+    "pos": "adj.",
+    "meaning": "严格的，严厉的；缜密的，细致的"
+  },
+  "rim": {
+    "pos": "n.",
+    "meaning": "(圆形物体的) 边缘；轮圈\nvt. 形成...的边沿"
+  },
+  "risk": {
+    "pos": "n.",
+    "meaning": "⻛险，危险；危险的事 (或人)\nvt. 使...冒⻛险；冒...的⻛险"
+  },
+  "rival": {
+    "pos": "n.",
+    "meaning": "竞争者，对手\nvt. 能与...媲美"
+  },
+  "roar": {
+    "pos": "vi.",
+    "meaning": "吼叫，轰鸣；放声大笑\nvi. vt. 咆哮，大声喊叫\nn. 咆哮，吼叫；呼啸声，隆隆声"
+  },
+  "rob": {
+    "pos": "vt.",
+    "meaning": "抢劫，掠夺"
+  },
+  "robe": {
+    "pos": "n.",
+    "meaning": "⻓袍；浴袍；晨袍"
+  },
+  "rock": {
+    "pos": "n.",
+    "meaning": "岩石；石子；摇滚乐；靠山\nvi. vt. (使) 轻轻摇晃;(使) 剧烈摇摆\nvt. 使震惊，使害怕\nvi. 随摇滚乐跳舞；很好"
+  },
+  "rod": {
+    "pos": "n.",
+    "meaning": "杆，竿,棒；藤杖"
+  },
+  "role": {
+    "pos": "n.",
+    "meaning": "作用，职能;⻆色"
+  },
+  "root": {
+    "pos": "n.",
+    "meaning": "根；根部；根源；起源\nvi. vt. (使) 生根\nvi. 翻找"
+  },
+  "rot": {
+    "pos": "vi. vt.",
+    "meaning": "(使) 腐烂\nn. 腐烂，腐烂物；衰败；废话"
+  },
+  "rough": {
+    "pos": "adj.",
+    "meaning": "粗糙的；大致的；粗暴的\nadj. 艰难的\nn. 草稿，草图\nadv. 粗鲁地，粗野地"
+  },
+  "round": {
+    "pos": "adj.",
+    "meaning": "圆形的，环形的；整数的\nadv. 旋转；周围；到处；调转方向\nprep. 环绕；绕过；在...周围\nn. 阶段；比赛阶段；回合"
+  },
+  "route": {
+    "pos": "n.",
+    "meaning": "路线，路途；途径，渠道\nvt. 按某路线发送"
+  },
+  "routine": {
+    "pos": "n.",
+    "meaning": "惯例，常规;(演出的) 一套动作\nadj. 常规的，例行公事的；乏味的"
+  },
+  "row": {
+    "pos": "n.",
+    "meaning": "一排，一行，一列；吵架；争议\nvi. vt. 划船"
+  },
+  "royal": {
+    "pos": "adj.",
+    "meaning": "皇家的，王室的；盛大的\nn. 王室成员，皇族"
+  },
+  "rub": {
+    "pos": "vt. vi.",
+    "meaning": "擦，搓,揉；摩擦\nvt. 涂，抹\nn. 擦，搓,揉；问题，困难"
+  },
+  "rubber": {
+    "pos": "n.",
+    "meaning": "橡㬵;橡皮擦"
+  },
+  "rubbish": {
+    "pos": "n.",
+    "meaning": "垃圾；劣质物品；胡说八道\nvt. 将...说得一文不值\nadj. 差劲的，糟糕的"
+  },
+  "rudimentary": {
+    "pos": "adj.",
+    "meaning": "基本的，初步的；不成熟的"
+  },
+  "rug": {
+    "pos": "n.",
+    "meaning": "小地毯；男用假发"
+  },
+  "ruin": {
+    "pos": "vt.",
+    "meaning": "毁坏，毁掉；使破产\nn. 毁坏，毁灭；破产；废墟；祸根"
+  },
+  "ruinous": {
+    "pos": "adj.",
+    "meaning": "毁灭性的；导致破产或严重损失的"
+  },
+  "rule": {
+    "pos": "n.",
+    "meaning": "规则；建议；定律；统治；常规\nvt. vi. 控制，统治；裁定，判决\nvt. 支配，操纵"
+  },
+  "sack": {
+    "pos": "n.",
+    "meaning": "麻袋；一满袋；开除；劫掠；床\nvt. 解雇；劫掠"
+  },
+  "sacred": {
+    "pos": "adj.",
+    "meaning": "上帝的，神圣的；受尊重的"
+  },
+  "sadness": {
+    "pos": "n.",
+    "meaning": "悲伤，伤心；使人悲伤的事"
+  },
+  "safari": {
+    "pos": "n.",
+    "meaning": "狩猎旅行，游猎"
+  },
+  "safeguard": {
+    "pos": "vt. vi.",
+    "meaning": "保护，保障，捍卫\nn. 安全设施，保护措施"
+  },
+  "safety": {
+    "pos": "n.",
+    "meaning": "安全；安全场所；保险栓"
+  },
+  "sail": {
+    "pos": "vi. vt.",
+    "meaning": "(乘船) 航行；驾驶 (船只)\nvi. 起航;(轻快地) 移动\nn. 帆；乘船航行"
+  },
+  "sake": {
+    "pos": "n.",
+    "meaning": "目的，利益；缘故；日本清酒"
+  },
+  "salary": {
+    "pos": "n.",
+    "meaning": "薪水，工资"
+  },
+  "salute": {
+    "pos": "vt. vi.",
+    "meaning": "敬礼\nvt. 向...致敬\nn. 致敬；鸣礼炮"
+  },
+  "sanction": {
+    "pos": "n.",
+    "meaning": "制裁；许可，批准；处罚\nvt. 许可，准许；惩罚，实施制裁"
+  },
+  "sane": {
+    "pos": "adj.",
+    "meaning": "心智健全的；明智的，理智的"
+  },
+  "saucer": {
+    "pos": "n.",
+    "meaning": "茶碟，茶托"
+  },
+  "savage": {
+    "pos": "adj.",
+    "meaning": "凶恶的；猛烈抨击的；野蛮的\nn. 野蛮人；残暴的人\nvt. 凶猛地攻击；激烈抨击"
+  },
+  "saving": {
+    "pos": "n.",
+    "meaning": "存款；节省下来的钱 (或物)"
+  },
+  "scale": {
+    "pos": "n.",
+    "meaning": "规模；等级；刻度；秤;鳞片\nn. 比例尺；音阶\nvt. 攀登；去鳞；改变...的大小"
+  },
+  "scan": {
+    "pos": "vt.",
+    "meaning": "扫描；细看，审视\nvt. vi. 粗略地读，浏览，翻阅\nn. (医疗) 扫描检查；浏览"
+  },
+  "scatter": {
+    "pos": "vt.",
+    "meaning": "撒，撒播\nvi. vt. (使) 散开,(使) 散布在各处"
+  },
+  "scene": {
+    "pos": "n.",
+    "meaning": "现场；场面；景色；圈子"
+  },
+  "scent": {
+    "pos": "n.",
+    "meaning": "香味；气味；香水；预感\nvt. 闻到；预感到；使具有香味"
+  },
+  "scheme": {
+    "pos": "n.",
+    "meaning": "计划，方案；阴谋，诡计\nvi. vt. 密谋，秘密策划"
+  },
+  "score": {
+    "pos": "n.",
+    "meaning": "得分，分数；乐谱；二十；大量\nvt. vi. 得分；获得胜利\nvt. 评分；分值是；划下痕迹"
+  },
+  "scrape": {
+    "pos": "vt.",
+    "meaning": "刮掉\nvt. vi. (使) 摩擦；艰难取得\nn. 刮，刮擦声；擦伤，擦痕"
+  },
+  "scratch": {
+    "pos": "vt. vi.",
+    "meaning": "挠，搔；抓破，抓伤；取消\nvt. (意外地) 擦破；刮出痕迹\nvi. 刮出刺耳声\nn. 划痕，划伤；刮擦的声音；挠痒"
+  },
+  "screw": {
+    "pos": "n.",
+    "meaning": "螺丝，螺丝钉；螺旋桨；狱警\nvt. 用螺丝固定；旋紧，拧紧；诈骗\nvi. 拧上去"
+  },
+  "scrutinise": {
+    "pos": "vt.",
+    "meaning": "仔细查看，细致审查"
+  },
+  "seal": {
+    "pos": "n.",
+    "meaning": "海豹；章，印记；密封垫；封蜡\nvt. 封上 (信封);密封；确定；封锁"
+  },
+  "section": {
+    "pos": "n.",
+    "meaning": "部分，区域；部件；节段；阶层\nvt. 切开；做切片；关进精神病院"
+  },
+  "sediment": {
+    "pos": "n.",
+    "meaning": "沉淀物，沉积物"
+  },
+  "seed": {
+    "pos": "n.",
+    "meaning": "种子；起源；种子选手\nvt. (种子) 繁殖；在...播种"
+  },
+  "seek": {
+    "pos": "vt. vi.",
+    "meaning": "寻找；寻求，谋求\nvt. (向人) 请求，寻求"
+  },
+  "seep": {
+    "pos": "vi.",
+    "meaning": "渗漏;(感觉、想法等) 逐渐外露"
+  },
+  "seize": {
+    "pos": "vt.",
+    "meaning": "抓住；攻占，控制；逮捕；没收"
+  },
+  "select": {
+    "pos": "vt.",
+    "meaning": "选择，挑选\nadj. 精选的；高级的"
+  },
+  "sense": {
+    "pos": "n.",
+    "meaning": "感官；感觉；理解力；意思\nvt. 意识到，觉察出"
+  },
+  "sensitive": {
+    "pos": "adj.",
+    "meaning": "体贴的；敏感的；灵敏的"
+  },
+  "sentence": {
+    "pos": "n.",
+    "meaning": "句子；判决，宣判\nvt. 判决，宣判"
+  },
+  "separate": {
+    "pos": "adj.",
+    "meaning": "单独的，分开的；不同的\nvt. vi. (使) 分开\nvt. 隔开，阻隔；区分\nvi. 分居"
+  },
+  "settle": {
+    "pos": "vt. vi.",
+    "meaning": "解决，和解；定居;(使) 平静\nvt. 确定，决定；把...放好\nvi. 降落，停留"
+  },
+  "severe": {
+    "pos": "adj.",
+    "meaning": "严重的；严厉的；严峻的"
+  },
+  "sewage": {
+    "pos": "n.",
+    "meaning": "(下水道的) 污水"
+  },
+  "sewerage": {
+    "pos": "n.",
+    "meaning": "排水系统，污水处理"
+  },
+  "sex": {
+    "pos": "n.",
+    "meaning": "性，性别；性行为"
+  },
+  "shade": {
+    "pos": "n.",
+    "meaning": "阴凉处；灯罩；色度；细微差别\nvt. 给...遮挡光线；加灯罩；画阴影"
+  },
+  "shadow": {
+    "pos": "n.",
+    "meaning": "阴影；阴暗处；少许\nvt. 跟踪，盯梢；跟随...实地学习\nadj. 影子内阁的"
+  },
+  "shake": {
+    "pos": "vi. vt.",
+    "meaning": "摇动,(使) 颤动\nvt. 摇头；握手；使非常震惊；摆脱\nvi. 颤抖，哆嗦;(嗓音) 颤抖\nn. 摇动，颤动；奶昔"
+  },
+  "share": {
+    "pos": "vt. vi.",
+    "meaning": "分享；分担\nvt. 分配，分摊\nn. (分得或承担的) 一份；股份"
+  },
+  "shave": {
+    "pos": "vi. vt.",
+    "meaning": "刮胡子，刮脸\nvt. (少量地) 削减，调低，降低\nn. 刮胡子，刮脸"
+  },
+  "shed": {
+    "pos": "n.",
+    "meaning": "棚屋；厂房；牲口棚\nvt. 去除；使落下；蜕;流 (泪、血)"
+  },
+  "sheet": {
+    "pos": "n.",
+    "meaning": "床单，被单；一张；薄片，薄板"
+  },
+  "shell": {
+    "pos": "n.",
+    "meaning": "外壳；壳层，强调包在事物外面的硬质保护层"
+  },
+  "shift": {
+    "pos": "vi. vt.",
+    "meaning": "转移，挪动；换 (挡)\nvi. (情况等) 改变\nvt. 改变观点 (态度等);推卸 (责任)\nn. 改变，转变；轮班 (职工)"
+  },
+  "shiver": {
+    "pos": "vi.",
+    "meaning": "哆嗦，发抖\nn. 寒战，颤抖"
+  },
+  "shrink": {
+    "pos": "vi. vt.",
+    "meaning": "(使) 缩水;(使) 缩小，减少\nvi. 退缩，畏缩\nn. 精神病学家，心理学家"
+  },
+  "sight": {
+    "pos": "n.",
+    "meaning": "视力；看⻅;视野；景象；名胜\nvt. 看⻅,发现"
+  },
+  "sign": {
+    "pos": "n.",
+    "meaning": "迹象，征兆；标牌，标志；手势\nvt. vi. 签 (名),签字；和...签约"
+  },
+  "signal": {
+    "pos": "n.",
+    "meaning": "信号；标志；信号灯\nvi. vt. 发信号，示意\nvt. 标志，预示；表达，显示"
+  },
+  "silent": {
+    "pos": "adj.",
+    "meaning": "沉默的；寂静的；只字不提的"
+  },
+  "simulate": {
+    "pos": "vt.",
+    "meaning": "假装;(用计算机等) 模拟；冒充"
+  },
+  "sin": {
+    "pos": "n.",
+    "meaning": "罪，罪孽；过错，恶行\nvi. 犯戒律，犯过失"
+  },
+  "sincere": {
+    "pos": "adj.",
+    "meaning": "由衷的，衷心的；真诚的"
+  },
+  "single": {
+    "pos": "adj.",
+    "meaning": "单个的；单身的；单人的\nn. 单人房间；单程票；单曲\nvt. 单独挑出"
+  },
+  "singular": {
+    "pos": "adj.",
+    "meaning": "单数的；非凡的；奇特的\nn. 单数形式"
+  },
+  "sink": {
+    "pos": "vi.",
+    "meaning": "下沉;(人) 倒下；降低\nvt. 使下沉；挖，掘；埋入；使受挫\nn. 洗碗槽；洗脸池\nadj. 贫⺠窟的"
+  },
+  "site": {
+    "pos": "n.",
+    "meaning": "场所，地点；工地；网站\nvt. 使坐落于，为...选址"
+  },
+  "situation": {
+    "pos": "n.",
+    "meaning": "情况，形势；位置，环境；工作"
+  },
+  "skeleton": {
+    "pos": "n.",
+    "meaning": "⻣骼;(建筑等的) 框架；梗概"
+  },
+  "sketch": {
+    "pos": "n.",
+    "meaning": "素描，草图；简报，概述；小品\nvt. vi. 画素描，画速写\nvt. 概述，简述"
+  },
+  "skill": {
+    "pos": "n.",
+    "meaning": "技能，技术"
+  },
+  "skim": {
+    "pos": "vt.",
+    "meaning": "撇去 (液体上漂浮物);惯偷小钱\nvi. vt. 略读，浏览；掠过，滑过；盗取"
+  },
+  "skin": {
+    "pos": "n.",
+    "meaning": "皮肤；毛皮；果皮，果壳\nvt. 剥皮，扒皮；擦破皮肤"
+  },
+  "skirt": {
+    "pos": "n.",
+    "meaning": "裙子；下摆，边缘\nvt. vi. 环绕...的边缘；回避 (困难等)"
+  },
+  "skyline": {
+    "pos": "n.",
+    "meaning": "天际线；建筑物或地形映衬天空形成的轮廓线"
+  },
+  "slender": {
+    "pos": "adj.",
+    "meaning": "苗条的；细⻓的；微薄的"
+  },
+  "slide": {
+    "pos": "vi. vt.",
+    "meaning": "(使) 滑行；悄悄移动\nvi. 逐渐降低，贬值；逐渐衰退 (到)\nn. 衰落；滑行；滑梯；幻灯片"
+  },
+  "slight": {
+    "pos": "adj.",
+    "meaning": "轻微的，微小的；纤细的\nn. 轻视，冷落\nvt. 轻视，冷落"
+  },
+  "slip": {
+    "pos": "vi.",
+    "meaning": "滑倒；滑落；溜走；变差；陷入\nvt. 悄悄塞；摆脱，松开\nvi. vt. (迅速且容易地) 穿或脱\nn. 差错；纸条；滑倒；衬裙"
+  },
+  "slope": {
+    "pos": "n.",
+    "meaning": "斜坡，斜面；滑雪斜坡；坡度\nvi. 倾斜，有坡度；悄悄走，溜走"
+  },
+  "sluggish": {
+    "pos": "adj.",
+    "meaning": "缓慢的，迟钝的，无精打采的"
+  },
+  "sly": {
+    "pos": "adj.",
+    "meaning": "狡猾的，诡诈的；心照不宣的"
+  },
+  "smart": {
+    "pos": "adj.",
+    "meaning": "聪明的；衣冠楚楚的；光鲜的\nadj. 智能的\nvi. 感到剧烈刺痛；因批评等难过"
+  },
+  "smash": {
+    "pos": "vt. vi.",
+    "meaning": "打碎，粉碎;(使) 猛撞；撞开\nvt. 捣毁，打败\nn. 破碎 (声);扣球；走红的歌曲等"
+  },
+  "smooth": {
+    "pos": "adj.",
+    "meaning": "光滑的；顺利的；平稳的\nvt. 使平整，使光滑"
+  },
+  "snatch": {
+    "pos": "vt. vi.",
+    "meaning": "一把抓起，迅速抓住\nvt. 强抢，夺走；抓紧时间做某事\nn. 片段，只言片语；抓，抢"
+  },
+  "snowy": {
+    "pos": "adj.",
+    "meaning": "被雪覆盖的；下雪的；雪白的"
+  },
+  "soak": {
+    "pos": "vt. vi.",
+    "meaning": "浸泡，湿透\nvt. 使湿透，把...浸湿；宰客\nn. 浸泡，湿透；泡澡"
+  },
+  "soda": {
+    "pos": "n.",
+    "meaning": "苏打水；汽水；苏打，纯碱"
+  },
+  "software": {
+    "pos": "n.",
+    "meaning": "软件"
+  },
+  "solve": {
+    "pos": "vt.",
+    "meaning": "解决，解答"
+  },
+  "sore": {
+    "pos": "adj.",
+    "meaning": "疼痛的，酸痛的；恼火的\nn. 痛处，伤处，疮"
+  },
+  "sorrow": {
+    "pos": "n.",
+    "meaning": "悲伤，伤心；令人悲伤的事\nvi. 感到悲伤"
+  },
+  "sort": {
+    "pos": "n.",
+    "meaning": "种类，类别；分类，排序\nvt. 分类，整理；妥善处理"
+  },
+  "sound": {
+    "pos": "n.",
+    "meaning": "声音，声响\nvt. vi. 听起来；鸣警报\nadj. 合理的，正确的；完好的，健康的\nadj. 透彻的，全面的；酣畅的"
+  },
+  "sour": {
+    "pos": "adj.",
+    "meaning": "酸的；馊的;(人) 阴郁的\nvi. vt. (关系、态度) 变坏；变味，变馊"
+  },
+  "source": {
+    "pos": "n.",
+    "meaning": "来源，出处；消息来源；根源\nvt. (从...) 获得"
+  },
+  "span": {
+    "pos": "n.",
+    "meaning": "持续时间；范围；跨度；宽度\nvt. 持续，贯穿；包括，涵盖；横跨"
+  },
+  "spare": {
+    "pos": "adj.",
+    "meaning": "闲置的；备用的；空闲的\nvt. 留出；免去；放过；吝惜\nn. 备用品，备胎；零件，备件"
+  },
+  "spawn": {
+    "pos": "vi. vt.",
+    "meaning": "(⻥、蛙等) 产卵\nvt. 引发，导致\nn. (⻥、蛙等的) 卵"
+  },
+  "specialise": {
+    "pos": "vi.",
+    "meaning": "专⻔从事，专⻔研究"
+  },
+  "specify": {
+    "pos": "vt.",
+    "meaning": "具体指明，明确说明"
+  },
+  "spectator": {
+    "pos": "n.",
+    "meaning": "观众"
+  },
+  "speculate": {
+    "pos": "vi. vt.",
+    "meaning": "推测，猜想\nvi. 做投机买卖"
+  },
+  "speed": {
+    "pos": "n.",
+    "meaning": "速度；迅速\nvt. 快速运送；加速\nvi. 快速前行；超速驾驶"
+  },
+  "spend": {
+    "pos": "vi. vt.",
+    "meaning": "花 (钱)\nvt. 花 (时间);消耗 (精力、努力等)"
+  },
+  "sphere": {
+    "pos": "n.",
+    "meaning": "球 (体),球形；范围，领域"
+  },
+  "spicy": {
+    "pos": "adj.",
+    "meaning": "辣的，加香料的；刺激的"
+  },
+  "spin": {
+    "pos": "vi. vt.",
+    "meaning": "(使) 快速旋转;(使) 急转身；纺\nvt. 吐丝，作茧；有倾向性地陈述\nn. 高速旋转；兜⻛;旋转 (球)"
+  },
+  "spirit": {
+    "pos": "n.",
+    "meaning": "情绪；精神；勇气，意志；灵魂\nn. 本质；烈酒;(某种类型的) 人\nvt. 偷偷带走"
+  },
+  "splendid": {
+    "pos": "adj.",
+    "meaning": "极好的，绝妙的；壮丽的\nint. (表示赞同) 好极了"
+  },
+  "split": {
+    "pos": "vi. vt.",
+    "meaning": "(使) 分裂;(使) 分开;(使) 撕裂\nvt. 分担，分摊；划破，割破\nvi. (和某人) 断绝关系;(迅速) 离开\nn. 分歧；划分，份额；裂缝；劈叉"
+  },
+  "spoil": {
+    "pos": "vt.",
+    "meaning": "破坏，毁掉；宠坏，溺爱；善待\nvi. (⻝物) 变质\nn. 赃物，战利品"
+  },
+  "sponge": {
+    "pos": "n.",
+    "meaning": "海绵；海绵动物；海绵蛋糕\nvt. 用海绵擦拭\nvi. 吃白⻝,揩油"
+  },
+  "sponsor": {
+    "pos": "n.",
+    "meaning": "赞助商，资助者；倡议者；保人\nvt. 赞助，资助；举办；倡议 (法案)"
+  },
+  "spouse": {
+    "pos": "n.",
+    "meaning": "配偶"
+  },
+  "spring": {
+    "pos": "n.",
+    "meaning": "春天；弹簧，发条；泉\nvi. 跳，蹦"
+  },
+  "sprinkle": {
+    "pos": "vt.",
+    "meaning": "洒，撒；使零星分布，点缀\nn. 少量，一点；小雨"
+  },
+  "squash": {
+    "pos": "vt.",
+    "meaning": "把...压 (挤) 变形；制止，粉碎\nvi. vt. (使) 挤进，塞入\nn. 壁球；果汁饮料；南瓜小果"
+  },
+  "squeeze": {
+    "pos": "vt. vi.",
+    "meaning": "挤压，捏;(使) 挤入，塞入\nvt. 榨出；勒索；严格限制\nn. 捏；挤出的液体；挤，塞；拮据"
+  },
+  "stable": {
+    "pos": "adj.",
+    "meaning": "稳定的，稳固的;(人) 稳重的\nn. ⻢厩；养⻢场\nvt. 使 (⻢) 入厩"
+  },
+  "stadium": {
+    "pos": "n.",
+    "meaning": "露天体育场"
+  },
+  "stage": {
+    "pos": "n.",
+    "meaning": "阶段；步骤；舞台\nvt. 上演，举办；组织，筹划"
+  },
+  "stain": {
+    "pos": "vt. vi.",
+    "meaning": "弄脏\nvt. 给...染色；玷污，败坏 (名声)\nn. 污点，污渍；染色剂，着色剂"
+  },
+  "stair": {
+    "pos": "n.",
+    "meaning": "楼梯；一级楼梯"
+  },
+  "stake": {
+    "pos": "n.",
+    "meaning": "股份；重大利益；赌注；桩\nvt. 以...打赌，拿...冒险"
+  },
+  "stamp": {
+    "pos": "n.",
+    "meaning": "邮票；印章，印记\nvt. vi. 跺 (脚),重踩；迈着重步走\nvt. 在...上盖 (字样或图案等)"
+  },
+  "standard": {
+    "pos": "n.",
+    "meaning": "标准，水平；道德水准；军旗\nadj. 通常的，标准的；规范的"
+  },
+  "standpoint": {
+    "pos": "n.",
+    "meaning": "立场，观点,⻆度，立足点"
+  },
+  "stare": {
+    "pos": "vi.",
+    "meaning": "盯着看，凝视\nn. 盯着看，凝视"
+  },
+  "startle": {
+    "pos": "vt.",
+    "meaning": "使...吓一跳，使...大吃一惊"
+  },
+  "state": {
+    "pos": "n.",
+    "meaning": "状况；国家；州;政府\nvt. 陈述，说明；规定\nadj. 国家的；国事的；州的"
+  },
+  "static": {
+    "pos": "adj.",
+    "meaning": "静止的，停滞的；静电的\nn. 静电干扰；静电；指责，抱怨"
+  },
+  "status": {
+    "pos": "n.",
+    "meaning": "地位，身份；状况，状态"
+  },
+  "steadfast": {
+    "pos": "adj.",
+    "meaning": "坚定的，不动摇的"
+  },
+  "steady": {
+    "pos": "adj.",
+    "meaning": "稳步的；稳定的;(人) 可靠的\nvt. vi. 稳住；恢复平稳；使平静\nadv. 稳定地，持续地"
+  },
+  "steal": {
+    "pos": "vt. vi.",
+    "meaning": "偷，窃取"
+  },
+  "steel": {
+    "pos": "n.",
+    "meaning": "钢；钢铁工业；兵器\nvt. 下决心应付"
+  },
+  "steep": {
+    "pos": "adj.",
+    "meaning": "陡的；急剧的;(价格等) 过高的\nvt. 浸泡 (⻝物)"
+  },
+  "steer": {
+    "pos": "vt. vi.",
+    "meaning": "驾驶 (船、汽⻋等);(船等) 行驶\nvt. 操纵，控制，引导；带领\nn. 阉公牛，肉用公牛"
+  },
+  "stem": {
+    "pos": "n.",
+    "meaning": "(植物的) 秆，茎;(烟斗) 柄\nvt. 阻止，遏制，制止\nvi. 源于，由...造成"
+  },
+  "step": {
+    "pos": "n.",
+    "meaning": "脚步；步骤，措施；阶段；台阶\nvi. 迈步，踩,踏"
+  },
+  "stern": {
+    "pos": "adj.",
+    "meaning": "严厉的，苛刻的；难对付的\nn. 船尾"
+  },
+  "steward": {
+    "pos": "n.",
+    "meaning": "乘务员，服务员；统筹人；管家"
+  },
+  "stimulate": {
+    "pos": "vt.",
+    "meaning": "刺激；激发，激励；使活跃"
+  },
+  "stimulus": {
+    "pos": "n.",
+    "meaning": "刺激物，促进因素;(生物) 刺激"
+  },
+  "sting": {
+    "pos": "vt. vi.",
+    "meaning": "蜇，叮;(使) 感觉刺痛\nvt. 激怒，使不安；敲诈，欺诈\nn. 螫针，刺；刺伤，蜇伤；痛苦"
+  },
+  "stipulate": {
+    "pos": "vt.",
+    "meaning": "规定，约定，明确要求"
+  },
+  "stir": {
+    "pos": "vt. vi.",
+    "meaning": "搅动，搅拌;(使) 微动\nvt. 引起，造成，激起\nvi. (情绪等) 开始出现\nn. 激动，愤怒；搅动，搅拌"
+  },
+  "stitch": {
+    "pos": "n.",
+    "meaning": "缝合伤口的缝线;(缝纫的) 针脚\nvt. 缝，缝补；缝合 (伤口)"
+  },
+  "stock": {
+    "pos": "n.",
+    "meaning": "库存；储备物；股票；家畜\nvt. (商店) 存货；贮存，贮备\nadj. 老一套的;(商店) 库存的，常备的"
+  },
+  "stomach": {
+    "pos": "n.",
+    "meaning": "胃，腹部\nvt. 承受，忍受；吃得下"
+  },
+  "stool": {
+    "pos": "n.",
+    "meaning": "凳子；粪便"
+  },
+  "store": {
+    "pos": "n.",
+    "meaning": "商店，店铺；储备，贮存物\nvt. 贮藏;(在计算机里) 存储"
+  },
+  "storey": {
+    "pos": "n.",
+    "meaning": "楼层"
+  },
+  "story": {
+    "pos": "n.",
+    "meaning": "故事，叙述；报道；楼层"
+  },
+  "stove": {
+    "pos": "n.",
+    "meaning": "炉子，火炉；厨灶，炉灶"
+  },
+  "straight": {
+    "pos": "adv.",
+    "meaning": "笔直地；直接；正，直；坦率地\nadj. 直的；连续的；准的；坦率的\nn. 直道"
+  },
+  "strain": {
+    "pos": "n.",
+    "meaning": "压力；劳损，拉伤；品种\nvt. 拉伤，扭伤，劳损；过度使用\nvt. vi. 尽力，使劲\nvi. 用力推 (或拉),拉紧"
+  },
+  "strand": {
+    "pos": "n.",
+    "meaning": "股，缕；部分；海滨，海岸\nvt. 使滞留，使无法脱身；使搁浅"
+  },
+  "stranger": {
+    "pos": "n.",
+    "meaning": "陌生人；外地人，新来的人"
+  },
+  "strangle": {
+    "pos": "vt.",
+    "meaning": "扼死，勒死；限制，扼杀"
+  },
+  "strategy": {
+    "pos": "n.",
+    "meaning": "战略，策略；战略学"
+  },
+  "straw": {
+    "pos": "n.",
+    "meaning": "⻨秆，稻草；吸管"
+  },
+  "stream": {
+    "pos": "n.",
+    "meaning": "小溪；水流，气流；一连串\nvi. vt. (水、气等) 流动\nvi. (人或物) 涌向；飘扬，漂流\nvt. 流媒体播放"
+  },
+  "strenuous": {
+    "pos": "adj.",
+    "meaning": "费力的，繁重的；竭尽全力的"
+  },
+  "stretch": {
+    "pos": "vt. vi.",
+    "meaning": "拉⻓,撑大；伸展；伸出\nvi. (织物) 有弹性；绵延；延续\nvt. 拉紧；消耗；使竭尽所能；滥用\nn. 一段；一段时间；伸展；弹性"
+  },
+  "strict": {
+    "pos": "adj.",
+    "meaning": "严格的；严厉的；恪守教规的"
+  },
+  "stride": {
+    "pos": "vi.",
+    "meaning": "大步走，阔步行走\nn. 大步；进展，进步；步伐"
+  },
+  "strike": {
+    "pos": "vt.",
+    "meaning": "打，击；撞;突然想到；给...印象\nvi. 罢工；行进\nvi. vt. 袭击；侵袭；划 (火柴);敲，鸣\nn. 罢工；袭击；击，打；全中"
+  },
+  "string": {
+    "pos": "n.",
+    "meaning": "细绳，线；一串；一系列；弦\nvt. 悬挂，系；把...连在一起\nadj. 弦乐器的；线织的"
+  },
+  "strip": {
+    "pos": "n.",
+    "meaning": "(纸、布料等的) 条；狭⻓地带\nvt. 除去；全部拿走；拆卸；剥夺\nvi. vt. 脱光衣服，扒光...的衣服"
+  },
+  "stripe": {
+    "pos": "n.",
+    "meaning": "条纹，线条；军阶条；种类"
+  },
+  "stroke": {
+    "pos": "n.",
+    "meaning": "击球；一击；一笔；中⻛;轻抚\nn. (成功的) 举动；钟声；游泳姿势\nvt. 轻抚，抚摸；轻触，轻拭"
+  },
+  "struggle": {
+    "pos": "vi.",
+    "meaning": "努力；艰难地行进；斗争；扭打\nn. 斗争，努力；扭打；难事"
+  },
+  "study": {
+    "pos": "n.",
+    "meaning": "学习；功课；审视；研究；书房\nvt. vi. 学习，攻读\nvt. 审视，端详；研究，调查"
+  },
+  "stuff": {
+    "pos": "n.",
+    "meaning": "东西，物品；特质，原料\nvt. 填满；把...塞进；制作动物标本"
+  },
+  "stumble": {
+    "pos": "vi.",
+    "meaning": "绊脚；踉跄；结巴；出现问题\nn. 绊倒；差错"
+  },
+  "sturdy": {
+    "pos": "adj.",
+    "meaning": "牢固的，强壮的；坚定的"
+  },
+  "style": {
+    "pos": "n.",
+    "meaning": "方式；款式；时髦;⻛度;⻛格\nvt. 把...设计成某种式样；称呼"
+  },
+  "subject": {
+    "pos": "n.",
+    "meaning": "主题；学科；对象；主语；臣⺠\nadj. 易遭...的；取决于...的；受...支配\nvt. 使臣服，使顺从；使遭受"
+  },
+  "submerge": {
+    "pos": "vt. vi.",
+    "meaning": "(使) 浸没，淹没，没入水中\nvt. 掩盖，遮掩 (想法、感情等)"
+  },
+  "submit": {
+    "pos": "vt.",
+    "meaning": "提交，递呈；主张\nvi. vt. 顺从，屈服，被迫接受"
+  },
+  "subordinate": {
+    "pos": "adj.",
+    "meaning": "下级的, 从属的；次要的\nn. 下级，下属\nvt. 把...置于次要地位"
+  },
+  "substance": {
+    "pos": "n.",
+    "meaning": "物质；根据；主旨；重要性"
+  },
+  "substitute": {
+    "pos": "n.",
+    "meaning": "代替者，代替物；替补运动员\nvi. vt. 替换，取代"
+  },
+  "subway": {
+    "pos": "n.",
+    "meaning": "地铁；地下通道"
+  },
+  "succeed": {
+    "pos": "vi.",
+    "meaning": "成功\nvi. vt. 接替，继任，继承；随后出现"
+  },
+  "successor": {
+    "pos": "n.",
+    "meaning": "接任者，继承者"
+  },
+  "succumb": {
+    "pos": "vi.",
+    "meaning": "屈服，不再抵抗；死于 (某疾病)"
+  },
+  "suck": {
+    "pos": "vt.",
+    "meaning": "吮，吸；抽 (空气等);把...卷入\nvi. vt. 含在嘴里吮\nvi. 糟糕透顶，很差"
+  },
+  "suffer": {
+    "pos": "vi. vt.",
+    "meaning": "遭受，蒙受，受苦\nvi. 变差，变糟"
+  },
+  "suffering": {
+    "pos": "n.",
+    "meaning": "痛苦，疼痛；痛苦的经历"
+  },
+  "sugar": {
+    "pos": "n.",
+    "meaning": "糖\nvt. 在...中加糖，给...裹上糖衣"
+  },
+  "suggest": {
+    "pos": "vt.",
+    "meaning": "提议，建议；推荐；表明；暗示"
+  },
+  "suitable": {
+    "pos": "adj.",
+    "meaning": "合适的，适宜的"
+  },
+  "suitcase": {
+    "pos": "n.",
+    "meaning": "行李箱，手提箱"
+  },
+  "sum": {
+    "pos": "n.",
+    "meaning": "金额；总和，总数；全部；算数\nvi. vt. 总结，概括"
+  },
+  "sunlight": {
+    "pos": "n.",
+    "meaning": "阳光"
+  },
+  "sunrise": {
+    "pos": "n.",
+    "meaning": "日出 (时分)"
+  },
+  "sunshine": {
+    "pos": "n.",
+    "meaning": "阳光，日光"
+  },
+  "supervise": {
+    "pos": "vt. vi.",
+    "meaning": "监督，管理，指导，主管"
+  },
+  "supplement": {
+    "pos": "n.",
+    "meaning": "增补 (物),补充 (物);增刊\nvt. 增补，补充"
+  },
+  "supply": {
+    "pos": "n.",
+    "meaning": "供应量；补给；供给，供应\nvt. 供给，供应"
+  },
+  "support": {
+    "pos": "vt.",
+    "meaning": "支持；资助；养活；支撑；证实\nn. 支持；资助；支撑物；证据"
+  },
+  "suppose": {
+    "pos": "vi. vt.",
+    "meaning": "认为，猜想;(婉转表达) 要不\nvt. 假定，假设"
+  },
+  "surmount": {
+    "pos": "vt.",
+    "meaning": "克服，解决；处于...上面"
+  },
+  "surrender": {
+    "pos": "vi. vt.",
+    "meaning": "投降\nvt. (被迫) 放弃，交出\nn. 投降；屈服，屈从；放弃，交出"
+  },
+  "surround": {
+    "pos": "vt.",
+    "meaning": "环绕；包围；与...密切相关\nn. 周围，饰边"
+  },
+  "surroundings": {
+    "pos": "n.",
+    "meaning": "环境，周围事物"
+  },
+  "survey": {
+    "pos": "n.",
+    "meaning": "调查；勘测；概述\nvt. 做调查；审视；勘测；概述"
+  },
+  "survive": {
+    "pos": "vi. vt.",
+    "meaning": "幸存；艰难渡过\nvi. 继续维持生活；保存下来\nvt. 比...活得久"
+  },
+  "suspicion": {
+    "pos": "n.",
+    "meaning": "怀疑，嫌疑，猜疑；猜想，预感"
+  },
+  "swallow": {
+    "pos": "vt. vi.",
+    "meaning": "吞下，咽下\nvi. (由于紧张等) 做吞咽动作\nvt. 吞没，淹没；信以为真；掩饰\nn. 燕子；咽，一口"
+  },
+  "swan": {
+    "pos": "n.",
+    "meaning": "天鹅\nvi. 悠游，闲逛"
+  },
+  "swap": {
+    "pos": "vi. vt.",
+    "meaning": "交换；换班\nvt. 替换\nn. 交换"
+  },
+  "swarm": {
+    "pos": "n.",
+    "meaning": "一大群 (⻜虫或人)\nvi. 成群移动，涌向，蜂拥"
+  },
+  "sway": {
+    "pos": "vi. vt.",
+    "meaning": "(使) 摆动,(使) 摇摆\nvt. 影响，左右\nn. 掌控，影响力；摇摆，摇动"
+  },
+  "swear": {
+    "pos": "vi.",
+    "meaning": "咒骂，诅咒，说脏话\nvt. 发誓要；肯定地说；使起誓\nvi. vt. 发誓，郑重承诺"
+  },
+  "sweep": {
+    "pos": "vt. vi.",
+    "meaning": "打扫；席卷，横扫；迅速传播\nvt. 清除；吹走，冲走；挥动；掠过\nvi. 步态轻盈地走；突然袭来；蜿蜒\nn. 打扫；挥动；广度；巡视"
+  },
+  "swell": {
+    "pos": "vi.",
+    "meaning": "肿胀；变得更响亮；充满 (激情)\nvt. vi. (使) 增加，扩大\nn. 海浪的涌动；隆起处；增加\nadj. 很愉快的"
+  },
+  "switch": {
+    "pos": "n.",
+    "meaning": "(电路的) 开关；骤变，突变\nvt. vi. (使) 改变，转变，突变；调班\nvt. 交换，对调"
+  },
+  "sword": {
+    "pos": "n.",
+    "meaning": "剑"
+  },
+  "syllabus": {
+    "pos": "n.",
+    "meaning": "教学大纲"
+  },
+  "system": {
+    "pos": "n.",
+    "meaning": "体系，制度；系统"
+  },
+  "table": {
+    "pos": "n.",
+    "meaning": "桌子，台子；表格；乘法表\nvt. (正式) 提出;(将计划等) 搁置"
+  },
+  "tablet": {
+    "pos": "n.",
+    "meaning": "平板电脑；药片；丸;牌，匾"
+  },
+  "tackle": {
+    "pos": "vt.",
+    "meaning": "处理 (难题);与某人交涉；抓获\nvt. vi. 抢球，抢断；擒抱摔倒\nn. 抢断球；阻截队员；体育器材"
+  },
+  "tactic": {
+    "pos": "n.",
+    "meaning": "策略，手段；战术，兵法"
+  },
+  "tag": {
+    "pos": "n.",
+    "meaning": "标签；外号，绰号；附加语\nvt. 给...加上标签；把...称作"
+  },
+  "tail": {
+    "pos": "n.",
+    "meaning": "尾巴；尾部；尾状物；末尾部分\nvt. (⻋辆) 跟踪，尾随"
+  },
+  "tailor": {
+    "pos": "n.",
+    "meaning": "裁缝\nvt. 定做"
+  },
+  "tale": {
+    "pos": "n.",
+    "meaning": "故事，传说"
+  },
+  "tame": {
+    "pos": "adj.",
+    "meaning": "驯化的；乏味的;(人) 温顺的\nvt. 驯服，使驯化；控制，驾驭"
+  },
+  "tap": {
+    "pos": "n.",
+    "meaning": "水⻰头；轻敲，轻拍；电话窃听\nvt. vi. 轻敲，轻拍；轻叩；利用，发掘\nvt. (在电话上) 安装窃听器；委任"
+  },
+  "target": {
+    "pos": "n.",
+    "meaning": "目标，指标；攻击对象；靶子\nvt. 把...作为攻击目标；面向，针对"
+  },
+  "tariff": {
+    "pos": "n.",
+    "meaning": "关税"
+  },
+  "tax": {
+    "pos": "n.",
+    "meaning": "税，税款\nvt. 对...征税；给...施压"
+  },
+  "tease": {
+    "pos": "vi. vt.",
+    "meaning": "戏弄，取笑；挑逗\nvt. 逗弄 (动物);倒梳 (头发)\nn. 戏弄，取笑；爱戏弄人的人"
+  },
+  "technology": {
+    "pos": "n.",
+    "meaning": "科技，技术"
+  },
+  "temper": {
+    "pos": "n.",
+    "meaning": "脾气；怒气；心情\nvt. 使缓和；使 (金属) 回火"
+  },
+  "temperate": {
+    "pos": "adj.",
+    "meaning": "温带的；心平气和的"
+  },
+  "tempt": {
+    "pos": "vt.",
+    "meaning": "引诱，怂恿"
+  },
+  "tendency": {
+    "pos": "n.",
+    "meaning": "倾向；趋势"
+  },
+  "tender": {
+    "pos": "adj.",
+    "meaning": "温柔的；嫩的；一碰就疼的\nvt. 提议，提出\nn. 投标；煤水⻋;补给船"
+  },
+  "term": {
+    "pos": "n.",
+    "meaning": "术语；学期；期限\nn. 条款；措辞；关系\nvt. 把...称为"
+  },
+  "terrace": {
+    "pos": "n.",
+    "meaning": "露台；梯田；排屋；阶梯看台"
+  },
+  "terrestrial": {
+    "pos": "adj.",
+    "meaning": "地球的；陆生的；地面播送的"
+  },
+  "terrible": {
+    "pos": "adj.",
+    "meaning": "可怕的，糟糕的；十足的"
+  },
+  "terrific": {
+    "pos": "adj.",
+    "meaning": "极好的；极大的，巨大的"
+  },
+  "terror": {
+    "pos": "n.",
+    "meaning": "恐惧；可怕的人或事；恐怖活动"
+  },
+  "test": {
+    "pos": "n.",
+    "meaning": "测验；检查，化验；试验；考验\nvt. vi. 测验，考查；检查，化验\nvt. (产品) 检验，测试；考验"
+  },
+  "testify": {
+    "pos": "vi. vt.",
+    "meaning": "(出庭) 作证；证实，证明"
+  },
+  "textile": {
+    "pos": "n.",
+    "meaning": "织物，纺织品；纺织业"
+  },
+  "thaw": {
+    "pos": "vt. vi.",
+    "meaning": "(冰雪) 融化；解冻;(使) 回温\nvi. (天气) 变暖；变得友好\nn. 融化季节；关系的缓和"
+  },
+  "theory": {
+    "pos": "n.",
+    "meaning": "理论，学说；理论基础；观点"
+  },
+  "thesis": {
+    "pos": "n.",
+    "meaning": "论文，学位论文；命题，论点"
+  },
+  "thread": {
+    "pos": "n.",
+    "meaning": "线；线索，思路\nvt. 穿 (针);串在一起；用...线缝\nvi. vt. (使) 穿过，通过，穿行"
+  },
+  "threat": {
+    "pos": "n.",
+    "meaning": "威胁；坏事发生的可能"
+  },
+  "threaten": {
+    "pos": "v.",
+    "meaning": "威胁；危及，表示可能造成伤害或不良后果"
+  },
+  "thrill": {
+    "pos": "n.",
+    "meaning": "兴奋感，激动；一阵强烈的感觉\nvt. 使非常兴奋"
+  },
+  "thrive": {
+    "pos": "vi.",
+    "meaning": "兴旺，繁荣，欣欣向荣"
+  },
+  "throne": {
+    "pos": "n.",
+    "meaning": "(君王的) 宝座；王位，王权"
+  },
+  "throw": {
+    "pos": "vt. vi.",
+    "meaning": "投，抛,扔\nvt. 丢，扔；猛推；猛动；使陷入\nn. 抛，扔,投，掷；投掷距离"
+  },
+  "thumb": {
+    "pos": "n.",
+    "meaning": "拇指;(手套的) 拇指部分\nvi. 快速翻阅\nvi. vt. 翘起拇指请求搭乘；用拇指摸"
+  },
+  "thunder": {
+    "pos": "n.",
+    "meaning": "雷，雷声；轰隆声\nvi. 打雷；轰隆隆地响；轰隆隆地动\nvi. vt. 怒喝，大声斥责"
+  },
+  "tight": {
+    "pos": "adj.",
+    "meaning": "紧的；紧身的；严格的；拮据的\nadv. 紧紧地，牢固地"
+  },
+  "tilt": {
+    "pos": "vi. vt.",
+    "meaning": "(使) 倾斜；使倾向于，偏向\nn. 倾斜，倾侧"
+  },
+  "timber": {
+    "pos": "n.",
+    "meaning": "树林；木材，木料；大梁"
+  },
+  "timid": {
+    "pos": "adj.",
+    "meaning": "胆怯的，羞怯的"
+  },
+  "tin": {
+    "pos": "n.",
+    "meaning": "锡；罐头；金属⻝品盒；烤盘"
+  },
+  "tire": {
+    "pos": "vi. vt.",
+    "meaning": "(使) 疲劳，疲倦\nn. 轮胎"
+  },
+  "tissue": {
+    "pos": "n.",
+    "meaning": "纸巾;(动植物的) 组织；薄纸"
+  },
+  "toast": {
+    "pos": "n.",
+    "meaning": "烤面包片，吐司；干杯，祝酒\nvt. 为...举杯敬酒\nvt. vi. 烤 (尤指面包),把...烤得焦⻩"
+  },
+  "toil": {
+    "pos": "vi.",
+    "meaning": "苦干，辛勤劳作；跋涉\nn. 苦工，劳累的工作"
+  },
+  "toilet": {
+    "pos": "n.",
+    "meaning": "抽水⻢桶；厕所；梳洗打扮"
+  },
+  "tolerance": {
+    "pos": "n.",
+    "meaning": "宽容，容忍；忍耐力；公差"
+  },
+  "tomb": {
+    "pos": "n.",
+    "meaning": "坟墓，冢"
+  },
+  "tone": {
+    "pos": "n.",
+    "meaning": "语气；音色;⻛格；色调\nn. 健壮度\nvt. 使更健壮，使更结实"
+  },
+  "tongue": {
+    "pos": "n.",
+    "meaning": "舌头；语言；说话方式；舌状物"
+  },
+  "tool": {
+    "pos": "n.",
+    "meaning": "工具；手段；被操控的人"
+  },
+  "torrent": {
+    "pos": "n.",
+    "meaning": "急流，湍流；迸发，狂潮"
+  },
+  "torture": {
+    "pos": "n.",
+    "meaning": "拷打，拷问；折磨，煎熬\nvt. 拷打，拷问；使痛苦，使受煎熬"
+  },
+  "toss": {
+    "pos": "vt.",
+    "meaning": "扔，掷,抛；甩 (以示愤怒)\nvi. vt. (使) 摇摆，颠簸；掷硬币决定\nn. 掷硬币决定；猛仰头；投掷"
+  },
+  "total": {
+    "pos": "adj.",
+    "meaning": "全部的，总计的；完全的\nn. 总数，合计\nvt. 总计为；计算...的总和"
+  },
+  "touch": {
+    "pos": "vt.",
+    "meaning": "触摸；移动；使感动；影响\nvi. vt. 接触，触及\nn. 触觉；触摸；润色；手法；少许"
+  },
+  "tough": {
+    "pos": "adj.",
+    "meaning": "艰难的；严厉的，强硬的\nadj. 坚强的；剽悍的；结实的\nn. 暴徒，恶棍\nv. 坚持，捱过"
+  },
+  "trace": {
+    "pos": "vt.",
+    "meaning": "追踪；追溯；追述...的历史\nn. 痕迹，踪迹；微量，少许；追踪"
+  },
+  "track": {
+    "pos": "n.",
+    "meaning": "小径；踪迹；轨道；跑道；路线\nn. 站台；田径；歌曲；音轨\nvt. 跟踪，追踪；留下足迹"
+  },
+  "trade": {
+    "pos": "n.",
+    "meaning": "贸易；行业；营业额；手艺\nvi. vt. 做买卖;(在证券交易所) 交易\nvi. 营业，营运\nvt. 交换，以物易物"
+  },
+  "tradition": {
+    "pos": "n.",
+    "meaning": "传统"
+  },
+  "tragedy": {
+    "pos": "n.",
+    "meaning": "不幸，惨剧；悲剧 (作品)"
+  },
+  "trail": {
+    "pos": "n.",
+    "meaning": "痕迹，踪迹;(乡间) 小路；路线\nvt. vi. (被) 拖，拉；落后，失利\nvi. (尤指跟在他人后面) 疲惫地走\nvt. 跟踪，追踪"
+  },
+  "training": {
+    "pos": "n.",
+    "meaning": "培训，训练；体育训练，锻炼"
+  },
+  "transfer": {
+    "pos": "vi. vt.",
+    "meaning": "转移，调动；移交；转存；换乘\nvt. 转账；转让；传染\nn. 转移，调动；转会；换乘"
+  },
+  "transform": {
+    "pos": "vt.",
+    "meaning": "转换，改变，改造"
+  },
+  "transit": {
+    "pos": "n.",
+    "meaning": "运输；交通系统；过境，中转\nvt. vi. 经过，穿过 (某一地区)"
+  },
+  "translate": {
+    "pos": "vt. vi.",
+    "meaning": "翻译;(使) 转变；将...理解为...\nvi. 被翻译为"
+  },
+  "transmit": {
+    "pos": "vt. vi.",
+    "meaning": "传送，发送 (信号、信息等)\nvt. 传播 (疾病);传达 (思想);传导"
+  },
+  "transplant": {
+    "pos": "n.",
+    "meaning": "移植；移植的器官\nvt. 移植；移栽；使迁移"
+  },
+  "trash": {
+    "pos": "n.",
+    "meaning": "垃圾，废物；劣质品；窝囊废\nvt. 损坏，毁坏；抨击；把...抛弃"
+  },
+  "trauma": {
+    "pos": "n.",
+    "meaning": "精神创伤；外伤"
+  },
+  "treasure": {
+    "pos": "n.",
+    "meaning": "金银财宝；珍品；心肝宝⻉\nvt. 珍视，珍惜"
+  },
+  "treat": {
+    "pos": "vt.",
+    "meaning": "对待；治疗；处理；款待\nn. 款待"
+  },
+  "treatment": {
+    "pos": "n.",
+    "meaning": "治疗，疗法；对待；处理；清理"
+  },
+  "treaty": {
+    "pos": "n.",
+    "meaning": "条约，协定"
+  },
+  "trend": {
+    "pos": "n.",
+    "meaning": "趋势，倾向\nvi. 趋向；在社交媒体上引起热议"
+  },
+  "trespass": {
+    "pos": "vi.",
+    "meaning": "擅自进入，非法入侵；做错事\nn. 擅自进入，非法入侵；罪过"
+  },
+  "trial": {
+    "pos": "n.",
+    "meaning": "审判；试验，试用；预赛；考验\nvt. vi. 试验，试用"
+  },
+  "tribe": {
+    "pos": "n.",
+    "meaning": "部落；一伙人;(动植物的) 族"
+  },
+  "trick": {
+    "pos": "n.",
+    "meaning": "诡计，花招；戏法；诀窍\nvt. 欺骗，欺诈\nadj. 意在欺骗的；虚弱的，有毛病的"
+  },
+  "trim": {
+    "pos": "vt.",
+    "meaning": "修剪；削减；装饰，点缀\nn. 修剪;(衣服等的) 饰物\nadj. (人) 苗条的，修⻓的；整⻬的"
+  },
+  "trip": {
+    "pos": "n.",
+    "meaning": "旅行\nvi. 绊，绊倒\nvt. 绊倒 (某人);触发 (开关)"
+  },
+  "triumph": {
+    "pos": "n.",
+    "meaning": "成功，胜利；胜利的喜悦；典范\nvi. 成功，获胜"
+  },
+  "trumpet": {
+    "pos": "n.",
+    "meaning": "喇叭，小号；喇叭形的东西\nvt. 吹嘘，宣扬\nvi. (大象) 吼叫"
+  },
+  "tub": {
+    "pos": "n.",
+    "meaning": "盆，桶;(盛⻝物的) 小盒；浴缸"
+  },
+  "tube": {
+    "pos": "n.",
+    "meaning": "管；软管；管状物；电视；地铁"
+  },
+  "tumble": {
+    "pos": "vi. vt.",
+    "meaning": "(使) 跌倒，滚落\nvi. 倒塌；暴跌；仓促移动；翻跟头\nn. 跌倒，暴跌；混乱的一堆"
+  },
+  "tune": {
+    "pos": "n.",
+    "meaning": "曲调，曲子\nvt. 调音；调整；调频道"
+  },
+  "tunnel": {
+    "pos": "n.",
+    "meaning": "地道，隧道;(动物挖的) 洞穴\nvi. vt. 挖隧道，挖地道"
+  },
+  "turkey": {
+    "pos": "n.",
+    "meaning": "火鸡；火鸡肉；失败之作"
+  },
+  "turn": {
+    "pos": "vi. vt.",
+    "meaning": "(使) 旋转；转身；转弯；翻 (⻚)\nvt. 把...翻过来;(使) 松开；折起\nvlink. (使) 变成，成为；到达 (年龄等)\nn. 旋转;(⻋) 转弯；机会；转变"
+  },
+  "tutor": {
+    "pos": "n.",
+    "meaning": "家庭教师；助教，导师\nvt. 教授，辅导"
+  },
+  "twin": {
+    "pos": "n.",
+    "meaning": "双胞胎之一\nadj. 双胞胎之一的；双重的\nvt. 使结成友好地区"
+  },
+  "twinkle": {
+    "pos": "vi.",
+    "meaning": "闪烁，闪耀;(眼睛) 发亮\nn. (眼睛的) 发亮；闪烁，闪光"
+  },
+  "twist": {
+    "pos": "vt. vi.",
+    "meaning": "(使) 弯曲变形；扭动；缠绕\nvi. 曲折，蜿蜒\nvt. 使弯曲；转动，旋转；扭伤；曲解\nn. 转动，旋转；转折；急转弯处"
+  },
+  "ugly": {
+    "pos": "adj.",
+    "meaning": "丑陋的，难看的；令人不快的"
+  },
+  "uncover": {
+    "pos": "vt.",
+    "meaning": "揭露，发现；揭开...的盖子"
+  },
+  "underground": {
+    "pos": "adv.",
+    "meaning": "在地面下；秘密地，隐蔽地\nadj. 地面下的；秘密的，地下的\nn. 地铁；反政府地下组织"
+  },
+  "undermine": {
+    "pos": "vt.",
+    "meaning": "逐渐削弱，损害"
+  },
+  "understand": {
+    "pos": "vt. vi.",
+    "meaning": "理解，懂得；认识到；体谅\nvt. 得知，获悉"
+  },
+  "undertake": {
+    "pos": "vt.",
+    "meaning": "承担，着手做；承诺，保证"
+  },
+  "undertaking": {
+    "pos": "n.",
+    "meaning": "任务，项目，事业；承诺"
+  },
+  "undo": {
+    "pos": "vt.",
+    "meaning": "打开，解开；撤销，消除；毁掉"
+  },
+  "uneasy": {
+    "pos": "adj.",
+    "meaning": "不安的，不自在的；不稳定的"
+  },
+  "uniform": {
+    "pos": "n.",
+    "meaning": "制服\nadj. 始终如一的，一律的"
+  },
+  "union": {
+    "pos": "n.",
+    "meaning": "工会；协会；联盟；联合"
+  },
+  "unique": {
+    "pos": "adj.",
+    "meaning": "独一无二的；独特的；特有的"
+  },
+  "unite": {
+    "pos": "vi. vt.",
+    "meaning": "(使) 团结,(使) 联合"
+  },
+  "universe": {
+    "pos": "n.",
+    "meaning": "宇宙；领域，范围"
+  },
+  "uphold": {
+    "pos": "vt.",
+    "meaning": "支持，维护；维持 (原判)"
+  },
+  "upset": {
+    "pos": "adj.",
+    "meaning": "难过的，心烦的；肠胃不适的\nvt. 使烦恼；打乱；使 (肠胃) 不适\nn. 意外结果，冷⻔;肠胃病；苦恼"
+  },
+  "uptake": {
+    "pos": "n.",
+    "meaning": "(用某服务的) 人数；吸收，摄取"
+  },
+  "urge": {
+    "pos": "vt.",
+    "meaning": "敦促，强烈要求；驱赶，鞭策\nn. 冲动，强烈的欲望"
+  },
+  "usage": {
+    "pos": "n.",
+    "meaning": "(词语的) 用法；使用 (量)"
+  },
+  "usual": {
+    "pos": "adj.",
+    "meaning": "通常的，平常的，惯常的\nn. 通常会发生的事;(常点的) 酒"
+  },
+  "utilise": {
+    "pos": "vt.",
+    "meaning": "利用，使用"
+  },
+  "vacuum": {
+    "pos": "n.",
+    "meaning": "真空；空虚，空白；真空吸尘器\nvt. vi. 用真空吸尘器打扫"
+  },
+  "vague": {
+    "pos": "adj.",
+    "meaning": "模糊的；含糊的，笼统的"
+  },
+  "vanish": {
+    "pos": "vi.",
+    "meaning": "突然消失；消亡，灭绝"
+  },
+  "variation": {
+    "pos": "n.",
+    "meaning": "变化，差异；变体，变种；变奏"
+  },
+  "vault": {
+    "pos": "n.",
+    "meaning": "保险库；墓穴；拱顶；撑杆跳\nvi. vt. (用手撑或撑杆) 跳跃"
+  },
+  "vegetation": {
+    "pos": "n.",
+    "meaning": "植被，植物，草木"
+  },
+  "velocity": {
+    "pos": "n.",
+    "meaning": "速度，速率"
+  },
+  "vent": {
+    "pos": "n.",
+    "meaning": "通⻛孔，排放口；开衩\nvt. 发泄，宣泄"
+  },
+  "verify": {
+    "pos": "vt.",
+    "meaning": "证明，核实，查证"
+  },
+  "version": {
+    "pos": "n.",
+    "meaning": "版本；描述，说法"
+  },
+  "vest": {
+    "pos": "n.",
+    "meaning": "背心;(特殊用途的) ⻢甲\nvt. 授予，赋予"
+  },
+  "vex": {
+    "pos": "vt.",
+    "meaning": "使烦恼，使生气，使沮丧"
+  },
+  "vibrate": {
+    "pos": "vi. vt.",
+    "meaning": "(使) 振动,(使) 颤动"
+  },
+  "vicinity": {
+    "pos": "n.",
+    "meaning": "周围地区，邻近地区，附近"
+  },
+  "vicious": {
+    "pos": "adj.",
+    "meaning": "残暴的，凶猛的\nadj. 恶毒的；恶性的，严重的"
+  },
+  "victory": {
+    "pos": "n.",
+    "meaning": "胜利，成功"
+  },
+  "view": {
+    "pos": "n.",
+    "meaning": "看法;(思维) 方法；视野；景色\nvt. 视为，看待；看，观看"
+  },
+  "viewpoint": {
+    "pos": "n.",
+    "meaning": "观点，看法；视⻆,⻆度"
+  },
+  "violate": {
+    "pos": "vt.",
+    "meaning": "违反，违背；侵犯，搅扰；亵渎"
+  },
+  "violence": {
+    "pos": "n.",
+    "meaning": "暴力，暴行；激烈，热烈"
+  },
+  "visible horizon": {
+    "pos": "n.",
+    "meaning": "可见地平线；肉眼看到的地面与天空交界线"
+  },
+  "vision": {
+    "pos": "n.",
+    "meaning": "视力，视野；设想；幻象；远⻅"
+  },
+  "visual": {
+    "pos": "adj.",
+    "meaning": "视觉的，视力的，可⻅的\nn. 视觉材料"
+  },
+  "vocation": {
+    "pos": "n.",
+    "meaning": "工作，职业；使命感，神召"
+  },
+  "vogue": {
+    "pos": "n.",
+    "meaning": "流行，时尚,⻛尚"
+  },
+  "void": {
+    "pos": "n.",
+    "meaning": "空白，空虚感\nadj. (合同) 无效的；缺乏...的；空的\nvt. 使...作废；排泄"
+  },
+  "volcano": {
+    "pos": "n.",
+    "meaning": "火山"
+  },
+  "volume": {
+    "pos": "n.",
+    "meaning": "体积，容积；量;音量；卷，册"
+  },
+  "volunteer": {
+    "pos": "n.",
+    "meaning": "志愿者；自告奋勇者\nvi. vt. 自愿做，自告奋勇\nvt. 主动建议，主动提出\nvi. 自愿参军"
+  },
+  "voucher": {
+    "pos": "n.",
+    "meaning": "代金券；凭单，收据"
+  },
+  "voyage": {
+    "pos": "n.",
+    "meaning": "航行，航海，航天\nvi. 航行，航海"
+  },
+  "vulgar": {
+    "pos": "adj.",
+    "meaning": "粗俗的，俗气的；下流的"
+  },
+  "wage": {
+    "pos": "n.",
+    "meaning": "工资，工钱\nvt. 发动，进行 (运动或战争)"
+  },
+  "wagon": {
+    "pos": "n.",
+    "meaning": "四轮运货⻢⻋;(火⻋)货⻋⻋厢"
+  },
+  "wander": {
+    "pos": "vi. vt.",
+    "meaning": "闲逛，游荡\nvi. 偏离 (正道),走失；走神\nn. 闲逛，游荡"
+  },
+  "wardrobe": {
+    "pos": "n.",
+    "meaning": "衣柜；全部服装；服装部"
+  },
+  "warm": {
+    "pos": "adj.",
+    "meaning": "温暖的；保暖的；温情的\nvt. vi. (使) 温暖\nadv. 使人暖和地，温暖地"
+  },
+  "warn": {
+    "pos": "vt. vi.",
+    "meaning": "提醒，警告"
+  },
+  "waste": {
+    "pos": "vt.",
+    "meaning": "浪费，滥用\nn. 浪费；废料，垃圾；粪便；荒原\nadj. 荒芜的；废弃的"
+  },
+  "wax": {
+    "pos": "n.",
+    "meaning": "蜡，蜂蜡，石蜡；耳垢\nvt. 给...打蜡；用蜡除毛\nvi. 说话变得...起来;(月亮) 渐圆"
+  },
+  "way": {
+    "pos": "n.",
+    "meaning": "方式，方法；作⻛;路；方向\nadv. 很远；非常"
+  },
+  "weaken": {
+    "pos": "vt. vi.",
+    "meaning": "(使) 变弱，削弱;(使) 动摇\nvt. vi. (使) 变得不结实"
+  },
+  "weary": {
+    "pos": "adj.",
+    "meaning": "疲劳的，厌倦的；使人疲劳的\nvt. 使疲劳，使疲倦\nvi. 变得不耐烦，感到厌倦"
+  },
+  "wedge": {
+    "pos": "n.",
+    "meaning": "楔子，楔形物\nvt. 将...挤入；把...楔牢"
+  },
+  "weed": {
+    "pos": "n.",
+    "meaning": "杂草；水草；大麻\nvt. vi. 除杂草"
+  },
+  "welfare": {
+    "pos": "n.",
+    "meaning": "幸福；社会福利；社会保障金"
+  },
+  "well-being": {
+    "pos": "n.",
+    "meaning": "幸福，健康，成功"
+  },
+  "wheat": {
+    "pos": "n.",
+    "meaning": "小⻨"
+  },
+  "wheel": {
+    "pos": "n.",
+    "meaning": "轮子,⻋轮；方向盘；机轮；汽⻋\nvi. 旋转，盘旋"
+  },
+  "whirl": {
+    "pos": "vi. vt.",
+    "meaning": "(使) 旋转,(使) 打转\nvi. (思绪) 混乱，恍惚\nn. 旋转，回旋；接连不断的活动"
+  },
+  "white": {
+    "pos": "adj.",
+    "meaning": "白色的；白种人的；苍白的\nn. 白色；白种人；蛋白，蛋清"
+  },
+  "wicked": {
+    "pos": "adj.",
+    "meaning": "邪恶的；调皮的；有害的；极好\nadv. 极其，非常\nn. 恶人，邪恶的人"
+  },
+  "wish": {
+    "pos": "vt. vi.",
+    "meaning": "希望；祝愿\nn. 愿望;(书信中的) 祝福"
+  },
+  "wit": {
+    "pos": "n.",
+    "meaning": "机智⻛趣 (的人);头脑；明智"
+  },
+  "withdraw": {
+    "pos": "vi. vt.",
+    "meaning": "(使) 撤回，撤离;(使) 退出\nvt. 收回，撤销；取 (款);停止供应\nvi. 不与人交往"
+  },
+  "wither": {
+    "pos": "vt. vi.",
+    "meaning": "枯萎，凋谢；萎缩"
+  },
+  "withstand": {
+    "pos": "vt.",
+    "meaning": "经受住，承受，顶住"
+  },
+  "witness": {
+    "pos": "n.",
+    "meaning": "目击者;(出庭的) 证人;⻅证人\nvt. 目击，目睹;⻅证；连署"
+  },
+  "wolf": {
+    "pos": "n.",
+    "meaning": "狼\nvt. 狼吞虎咽地吃"
+  },
+  "worldwide": {
+    "pos": "adj.",
+    "meaning": "遍及全世界的，世界各地的\nadv. 遍及全世界，在世界各地"
+  },
+  "worm": {
+    "pos": "n.",
+    "meaning": "蠕虫；寄生虫；蠕虫病毒；懦夫\nvt. 蠕动，曲折行进；给...驱肠虫"
+  },
+  "worthy": {
+    "pos": "adj.",
+    "meaning": "值得 (或应得)...的；值得尊敬的\nn. 要人，知名人士"
+  },
+  "wound": {
+    "pos": "n.",
+    "meaning": "伤口；情感创伤\nvt. 使 (身体) 受伤；伤害...的情感"
+  },
+  "wrap": {
+    "pos": "vt.",
+    "meaning": "包，裹；用...缠绕 (或围紧)\nn. 披肩，围巾；包装材料；杀⻘"
+  },
+  "wreck": {
+    "pos": "n.",
+    "meaning": "(船、⻋等的) 残骸;(⻋辆) 碰撞\nvt. 破坏，毁坏；使失事"
+  },
+  "wretched": {
+    "pos": "adj.",
+    "meaning": "恶劣的；可怜的；难受的"
+  },
+  "wrong": {
+    "pos": "adj.",
+    "meaning": "错误的；搞错的；有毛病的\nadv. 错误地，不正确地\nn. 恶行；犯罪，罪恶\nvt. 不公正地对待"
+  },
+  "yearly": {
+    "pos": "adj.",
+    "meaning": "一年一度的；年度的\nadv. 年度地"
+  },
+  "yield": {
+    "pos": "vt.",
+    "meaning": "出产；产生；放弃，缴出\nvi. 屈服，让步；给 (⻋辆) 让路\nn. 产量，产出;(投资的) 收益"
+  },
+  "yummy": {
+    "pos": "adj.",
+    "meaning": "很好吃的"
+  }
 }

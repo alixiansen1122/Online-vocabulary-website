@@ -21,6 +21,7 @@ import {
   ListPlus,
   LoaderCircle,
   LogOut,
+  Palette,
   RefreshCw,
   RotateCcw,
   Search,
@@ -57,6 +58,12 @@ const STATS_LEGACY_VIEWS_KEY = "word-memory-stats-legacy-views-v1";
 const BACKUP_FORMAT = "word-memory-web-backup";
 const BACKUP_VERSION = 1;
 const DEFAULT_SENTENCE_RATE = 1;
+const DEFAULT_BACKGROUND_COLOR = "#FFFFFF";
+const BACKGROUND_PRESETS = [
+  { label: "纯白", value: "#FFFFFF" },
+  { label: "黑灰", value: "#24272B" },
+  { label: "纸质黄", value: "#F3E8C8" },
+];
 const MIN_SENTENCE_RATE = 0.6;
 const MAX_SENTENCE_RATE = 1.6;
 const DEFAULT_SHORTCUT_KEYS = Object.freeze({
@@ -99,6 +106,28 @@ function normalizeSentenceRate(value) {
   const rate = Number(value);
   if (!Number.isFinite(rate)) return DEFAULT_SENTENCE_RATE;
   return Math.round(Math.min(MAX_SENTENCE_RATE, Math.max(MIN_SENTENCE_RATE, rate)) * 10) / 10;
+}
+
+function normalizeBackgroundColor(value) {
+  const color = String(value || "").trim().toUpperCase();
+  return /^#[0-9A-F]{6}$/.test(color) ? color : DEFAULT_BACKGROUND_COLOR;
+}
+
+function readerThemeStyle(backgroundColor) {
+  const color = normalizeBackgroundColor(backgroundColor);
+  const red = Number.parseInt(color.slice(1, 3), 16);
+  const green = Number.parseInt(color.slice(3, 5), 16);
+  const blue = Number.parseInt(color.slice(5, 7), 16);
+  const luminance = (0.2126 * red + 0.7152 * green + 0.0722 * blue) / 255;
+  const dark = luminance < 0.48;
+  return {
+    "--reader-bg": color,
+    "--reader-text": dark ? "#F8FAFC" : "#0F172A",
+    "--reader-muted": dark ? "#CBD5E1" : "#64748B",
+    "--reader-faint": dark ? "#94A3B8" : "#94A3B8",
+    "--reader-border": dark ? "#475569" : "#E2E8F0",
+    "--reader-raised": dark ? "#30343A" : color === "#FFFFFF" ? "#F8FAFC" : "#E9DDBD",
+  };
 }
 
 function normalizeShortcutKey(value, fallback) {
@@ -366,6 +395,7 @@ function defaultState() {
     familyWords: [],
     meaningsHidden: true,
     spellingSeparated: true,
+    backgroundColor: DEFAULT_BACKGROUND_COLOR,
     accent: "us",
     sentenceRate: DEFAULT_SENTENCE_RATE,
     activeBookId: MAIN_BOOK_ID,
@@ -387,6 +417,7 @@ function loadState() {
       notes: normalizeNotes(parsed.notes),
       meaningsHidden: true,
       spellingSeparated: parsed.spellingSeparated !== false,
+      backgroundColor: normalizeBackgroundColor(parsed.backgroundColor),
       accent: VOICE_OPTIONS[parsed.accent] ? parsed.accent : "us",
       sentenceRate: normalizeSentenceRate(parsed.sentenceRate),
       shortcutKeys: normalizeShortcutKeys(parsed.shortcutKeys),
@@ -416,6 +447,7 @@ function normalizeBackupState(value) {
     searchHistory: Array.isArray(value.searchHistory) ? value.searchHistory.filter((item) => typeof item === "string") : [],
     meaningsHidden: true,
     spellingSeparated: value.spellingSeparated !== false,
+    backgroundColor: normalizeBackgroundColor(value.backgroundColor),
     accent: VOICE_OPTIONS[value.accent] ? value.accent : defaults.accent,
     sentenceRate: normalizeSentenceRate(value.sentenceRate),
     activeBookId: typeof value.activeBookId === "string" ? value.activeBookId : defaults.activeBookId,
@@ -917,6 +949,8 @@ function WordListPage({
   onOpenDetail,
   onToggleMeanings,
   onToggleAccent,
+  backgroundColor,
+  onBackgroundColorChange,
   onOpenSearch,
   onOpenStats,
   onOpenDashboard,
@@ -926,6 +960,8 @@ function WordListPage({
   const favoriteSet = useMemo(() => new Set(favorites), [favorites]);
   const chapters = book.chapters;
   const [chapterPickerOpen, setChapterPickerOpen] = useState(false);
+  const [colorPickerOpen, setColorPickerOpen] = useState(false);
+  const [colorDraft, setColorDraft] = useState(backgroundColor);
   const scrollParentRef = useRef(null);
   const listItems = useMemo(
     () =>
@@ -974,6 +1010,16 @@ function WordListPage({
     window.addEventListener("keydown", closeOnEscape);
     return () => window.removeEventListener("keydown", closeOnEscape);
   }, [chapterPickerOpen]);
+
+  useEffect(() => setColorDraft(backgroundColor), [backgroundColor]);
+
+  const applyBackgroundColor = (value) => {
+    const normalized = normalizeBackgroundColor(value);
+    if (normalized !== String(value || "").trim().toUpperCase()) return false;
+    setColorDraft(normalized);
+    onBackgroundColorChange(normalized);
+    return true;
+  };
 
   useEffect(() => {
     if (!pendingScrollId) return undefined;
@@ -1067,6 +1113,74 @@ function WordListPage({
             <IconButton label={meaningsHidden ? "显示释义" : "隐藏释义"} onClick={onToggleMeanings}>
               {meaningsHidden ? <Eye className="h-5 w-5 sm:h-6 sm:w-6" /> : <EyeOff className="h-5 w-5 sm:h-6 sm:w-6" />}
             </IconButton>
+            <div className="relative">
+              <IconButton
+                label="更改背景颜色"
+                aria-haspopup="dialog"
+                aria-expanded={colorPickerOpen}
+                onClick={() => setColorPickerOpen((open) => !open)}
+                className={colorPickerOpen ? "bg-orange-50 text-orange-600" : ""}
+              >
+                <Palette className="h-5 w-5 sm:h-6 sm:w-6" />
+              </IconButton>
+              <AnimatePresence>
+                {colorPickerOpen && (
+                  <>
+                    <button type="button" aria-label="关闭背景颜色设置" className="fixed inset-0 z-30 cursor-default" onClick={() => setColorPickerOpen(false)} />
+                    <motion.div
+                      role="dialog"
+                      aria-label="背景颜色设置"
+                      initial={{ opacity: 0, y: -8, scale: 0.98 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: -6, scale: 0.98 }}
+                      transition={{ duration: 0.15 }}
+                      className="theme-color-popover absolute right-0 top-11 z-40 w-72 rounded-xl border p-4 shadow-xl sm:top-12"
+                    >
+                      <p className="text-sm font-bold">背景颜色</p>
+                      <div className="mt-3 grid grid-cols-3 gap-2">
+                        {BACKGROUND_PRESETS.map((preset) => (
+                          <button
+                            key={preset.value}
+                            type="button"
+                            onClick={() => applyBackgroundColor(preset.value)}
+                            className={`rounded-lg border px-2 py-2 text-xs font-bold transition ${backgroundColor === preset.value ? "ring-2 ring-orange-500" : ""}`}
+                            style={{ backgroundColor: preset.value, color: readerThemeStyle(preset.value)["--reader-text"], borderColor: backgroundColor === preset.value ? "#F97316" : "#CBD5E1" }}
+                          >
+                            {preset.label}
+                          </button>
+                        ))}
+                      </div>
+                      <label className="mt-4 block text-xs font-bold" htmlFor="reader-background-hex">输入 HEX 色值</label>
+                      <div className="mt-2 flex items-center gap-2">
+                        <input
+                          id="reader-background-hex"
+                          type="color"
+                          value={normalizeBackgroundColor(colorDraft)}
+                          onChange={(event) => applyBackgroundColor(event.target.value)}
+                          className="h-10 w-11 cursor-pointer rounded border bg-transparent p-1"
+                          aria-label="选择背景颜色"
+                        />
+                        <input
+                          type="text"
+                          value={colorDraft}
+                          onChange={(event) => {
+                            const next = event.target.value.toUpperCase();
+                            setColorDraft(next);
+                            if (/^#[0-9A-F]{6}$/.test(next)) onBackgroundColorChange(next);
+                          }}
+                          onBlur={() => setColorDraft(backgroundColor)}
+                          placeholder="#F3E8C8"
+                          maxLength={7}
+                          className="min-w-0 flex-1 rounded-lg border px-3 py-2 font-mono text-sm uppercase outline-none focus:border-orange-500"
+                          aria-describedby="reader-background-hint"
+                        />
+                      </div>
+                      <p id="reader-background-hint" className="mt-2 text-xs opacity-70">格式示例：#F3E8C8</p>
+                    </motion.div>
+                  </>
+                )}
+              </AnimatePresence>
+            </div>
             <button
               type="button"
               aria-label="切换英美发音"
@@ -1949,6 +2063,7 @@ export default function App({ currentUser: initialCurrentUser = null, signOutPat
   const selectedWord = selectedWordIndex === undefined ? undefined : activeBook.words[selectedWordIndex];
   const detailWord = useMemo(() => wordById.get(detailId), [detailId, wordById]);
   const favoriteSet = useMemo(() => new Set(stored.favorites), [stored.favorites]);
+  const themeStyle = useMemo(() => readerThemeStyle(stored.backgroundColor), [stored.backgroundColor]);
 
   useEffect(() => {
     storedRef.current = stored;
@@ -2389,11 +2504,11 @@ export default function App({ currentUser: initialCurrentUser = null, signOutPat
   }
 
   if (page === "spelling") {
-    return <SpellingReviewPage book={activeBook} records={stored.spellingRecords} accent={stored.accent} separated={stored.spellingSeparated} getPattern={spellingPattern} onAttempt={recordAttempt} onBack={() => setPage("dashboard")} initialScope={reviewScope} />;
+    return <div className="reader-theme min-h-screen" style={themeStyle}><SpellingReviewPage book={activeBook} records={stored.spellingRecords} accent={stored.accent} separated={stored.spellingSeparated} getPattern={spellingPattern} onAttempt={recordAttempt} onBack={() => setPage("dashboard")} initialScope={reviewScope} /></div>;
   }
 
   return (
-    <>
+    <div className="reader-theme min-h-screen" style={themeStyle}>
       <div className="lg:grid lg:h-screen lg:grid-cols-[minmax(420px,46%)_minmax(0,54%)] lg:overflow-hidden xl:grid-cols-[minmax(460px,42%)_minmax(0,58%)]">
         <div className="lg:min-h-0 lg:overflow-hidden lg:border-r lg:border-slate-200">
           {page === "dashboard" ? (
@@ -2446,6 +2561,8 @@ export default function App({ currentUser: initialCurrentUser = null, signOutPat
               onOpenDetail={openDetail}
               onToggleMeanings={toggleMeanings}
               onToggleAccent={toggleAccent}
+              backgroundColor={stored.backgroundColor}
+              onBackgroundColorChange={(backgroundColor) => setStored((current) => ({ ...current, backgroundColor }))}
               onOpenSearch={() => setPage("search")}
               onOpenStats={() => { setDetailId(null); setPage("stats"); flushStudyEvents(); }}
               onOpenDashboard={() => setPage("dashboard")}
@@ -2501,7 +2618,7 @@ export default function App({ currentUser: initialCurrentUser = null, signOutPat
         onSpellingAttempt={recordAttempt}
         spellingRecord={detailWord ? stored.spellingRecords[detailWord.id] : undefined}
       />
-    </>
+    </div>
   );
 }
 

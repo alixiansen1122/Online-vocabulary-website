@@ -73,6 +73,23 @@ test("root and affix topics contain complete, unique, pronounceable entries", ()
   assert.ok(lookup.rootGroups(lookup.entry("teacher")).some(group=>group.id === "suffix-person"));
 });
 
+test("every displayed family word includes its meaning and a word-specific memory chain", () => {
+  const mishap = words.find((word) => word.term === "mishap");
+  const item = lookup.rootGroups(mishap)[0].words[0];
+  assert.equal(item.meaning, "小事故；不幸的意外");
+  assert.deepEqual(item.parts.map((part) => [part.type, part.part, part.meaning]), [
+    ["前缀", "mis-", "错误"],
+    ["词基", "hap", "偶然；运气（旧用法）"],
+  ]);
+  assert.match(item.memory, /错误.*偶然.*小事故/);
+
+  const derivatives = lookup.derivatives(oxide);
+  for (const derivative of derivatives) {
+    assert.ok(derivative.meaning);
+    assert.ok(derivative.memory);
+  }
+});
+
 test("outside-book favorites keep a stable id and survive JSON backup normalization", () => {
   const entry = lookup.entry("oxymoron");
   const normalized = normalizeFamilyWords([entry, entry]);

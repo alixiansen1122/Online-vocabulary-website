@@ -26,7 +26,7 @@ function FamilyRow({ item, current, roots, favorites, onFavorite, onSpeak }) {
     </div>
     {hasDetails && <div id={id} className="family-body" hidden={!open}>
       {item.parts.map((part, index) => <div className="family-explanation" key={`${part.part}-${index}`}><span className="family-label">{part.type}</span><p><strong>{part.part}</strong><span className="family-part-meaning">{part.meaning}</span></p></div>)}
-      {item.memory && <div className="family-explanation"><span className="family-label">构词</span><p>{item.memory}</p></div>}
+      {item.memory && <div className="family-explanation"><span className="family-label">记忆</span><p>{item.memory}</p></div>}
       {item.phrases?.map((phrase) => <div className="family-phrase" key={phrase.en}><button type="button" className="family-phrase-button" aria-label={`朗读 ${phrase.en}`} onClick={() => onSpeak(phrase.en)}>{phrase.en}<Volume2 aria-hidden="true" /></button><p>{phrase.zh}</p></div>)}
       {item.sourceUrl && <a className="family-source" href={item.sourceUrl} target="_blank" rel="noreferrer">词典 / 词源参考 ↗</a>}
     </div>}

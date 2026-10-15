@@ -1,5 +1,19 @@
 export const termKey = (term) => String(term || "").trim().toLowerCase().replace(/[^a-z]/g, "");
 
+function shortMeaning(value, limit = 42) {
+  const text = String(value || "").replace(/\s+/g, " ").trim();
+  return text.length > limit ? `${text.slice(0, limit)}…` : text;
+}
+
+function buildMemory(item, decomposition) {
+  if (!decomposition.length) return item.memory || "";
+  const formula = decomposition.map((part) => `${part.part}（${shortMeaning(part.meaning, 28)}）`).join(" + ");
+  const semanticBridge = decomposition.map((part) => shortMeaning(part.meaning, 16)).join(" + ");
+  const guide = `${formula}。先按“${semanticBridge}”理解构词，再联想到“${shortMeaning(item.meaning, 54)}”。`;
+  const contextualNote = /词源|源于|历史|旧|古|并非|不是|注意|拼写|变化/.test(item.memory || "");
+  return contextualNote ? `${guide}补充：${item.memory}` : guide;
+}
+
 export function normalizeFamilyWords(value) {
   if (!Array.isArray(value)) return [];
   const words = new Map();
@@ -44,7 +58,7 @@ export function createFamilyLookup(words, curated) {
   function decorate(item, mode) {
     const resolved = { ...item, ...entry(item.term) };
     const decomposition = parts(resolved);
-    return { ...resolved, parts: decomposition, highlights: (mode === "roots" ? resolved.rootHighlights : resolved.derivativeHighlights) || decomposition.filter((part) => mode === "roots" ? part.type === "词根" : part.type === "前缀" || part.type === "后缀").map((part) => termKey(part.part)) };
+    return { ...resolved, parts: decomposition, memory: buildMemory(resolved, decomposition), highlights: (mode === "roots" ? resolved.rootHighlights : resolved.derivativeHighlights) || decomposition.filter((part) => mode === "roots" ? part.type === "词根" || part.type === "词基" : part.type === "前缀" || part.type === "后缀").map((part) => termKey(part.part)) };
   }
   function derivatives(word) {
     const families = familiesByTerm.get(termKey(word.term)) || [];
