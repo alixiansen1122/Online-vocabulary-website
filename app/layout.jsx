@@ -1,4 +1,5 @@
 import "./globals.css";
+import "../src/reader-theme.css";
 import { headers } from "next/headers";
 
 export async function generateMetadata() {
