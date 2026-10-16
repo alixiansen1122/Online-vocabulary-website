@@ -393,6 +393,7 @@ function defaultState() {
     notes: {},
     customBooks: [],
     familyWords: [],
+    showWordPosition: true,
     meaningsHidden: true,
     spellingSeparated: true,
     backgroundColor: DEFAULT_BACKGROUND_COLOR,
@@ -416,6 +417,7 @@ function loadState() {
       familyWords: normalizeFamilyWords(parsed.familyWords),
       notes: normalizeNotes(parsed.notes),
       meaningsHidden: true,
+      showWordPosition: parsed.showWordPosition !== false,
       spellingSeparated: parsed.spellingSeparated !== false,
       backgroundColor: normalizeBackgroundColor(parsed.backgroundColor),
       accent: VOICE_OPTIONS[parsed.accent] ? parsed.accent : "us",
@@ -446,6 +448,7 @@ function normalizeBackupState(value) {
     customBooks: Array.isArray(value.customBooks) ? value.customBooks.filter((book) => isRecord(book)) : [],
     searchHistory: Array.isArray(value.searchHistory) ? value.searchHistory.filter((item) => typeof item === "string") : [],
     meaningsHidden: true,
+    showWordPosition: value.showWordPosition !== false,
     spellingSeparated: value.spellingSeparated !== false,
     backgroundColor: normalizeBackgroundColor(value.backgroundColor),
     accent: VOICE_OPTIONS[value.accent] ? value.accent : defaults.accent,
@@ -865,7 +868,7 @@ function DetailContent({ tab, word, accent, note, onPlayExample, onChangeNote, f
   return null;
 }
 
-function WordRowBase({ word, selected, favorite, meaningsHidden, accent, onSelect, onToggleFavorite, onOpenDetail }) {
+function WordRowBase({ word, selected, favorite, meaningsHidden, accent, wordPosition, showWordPosition, onToggleWordPosition, onSelect, onToggleFavorite, onOpenDetail }) {
   const showMeaning = selected && !meaningsHidden;
   const voiceLabel = VOICE_OPTIONS[accent]?.label || VOICE_OPTIONS.us.label;
 
@@ -907,8 +910,22 @@ function WordRowBase({ word, selected, favorite, meaningsHidden, accent, onSelec
 
           {selected && (
             <div className="mt-1 flex items-center gap-1" onClick={(event) => event.stopPropagation()}>
+              {showWordPosition && wordPosition && (
+                <span className="mr-1 max-w-24 text-right text-[10px] leading-4 text-slate-500 sm:max-w-none sm:whitespace-nowrap sm:text-xs">
+                  <span>第{wordPosition.chapterNumber}章</span>
+                  <span className="hidden sm:inline"> · </span>
+                  <span className="block sm:inline">第{wordPosition.wordNumber}/{wordPosition.chapterTotal}词</span>
+                </span>
+              )}
               <IconButton
-                 label={favorite ? "取消收藏" : "收藏到生词本"}
+                label={showWordPosition ? "隐藏章节和单词序号" : "显示章节和单词序号"}
+                onClick={onToggleWordPosition}
+                className="text-slate-500"
+              >
+                {showWordPosition ? <Eye className="h-5 w-5 sm:h-6 sm:w-6" /> : <EyeOff className="h-5 w-5 sm:h-6 sm:w-6" />}
+              </IconButton>
+              <IconButton
+                label={favorite ? "取消收藏" : "收藏到生词本"}
                 className={favorite ? "text-orange-500" : "text-slate-500"}
                 onClick={() => onToggleFavorite(word.id)}
               >
@@ -933,6 +950,9 @@ const WordRow = memo(
     previous.favorite === next.favorite &&
     previous.meaningsHidden === next.meaningsHidden &&
     previous.accent === next.accent &&
+    previous.wordPosition === next.wordPosition &&
+    previous.showWordPosition === next.showWordPosition &&
+    previous.onToggleWordPosition === next.onToggleWordPosition &&
     previous.onSelect === next.onSelect &&
     previous.onToggleFavorite === next.onToggleFavorite &&
     previous.onOpenDetail === next.onOpenDetail
@@ -943,7 +963,9 @@ function WordListPage({
   selectedId,
   favorites,
   meaningsHidden,
+  showWordPosition,
   accent,
+  onToggleWordPosition,
   onSelectWord,
   onToggleFavorite,
   onOpenDetail,
@@ -967,11 +989,14 @@ function WordListPage({
     () =>
       chapters.flatMap((chapter, chapterIndex) => [
         { type: "chapter", key: `chapter-${chapter.id}`, chapter, chapterIndex },
-        ...chapter.words.map((word) => ({
+        ...chapter.words.map((word, wordIndex) => ({
           type: "word",
           key: `word-${word.id}`,
           word,
           chapterId: chapter.id,
+          chapterIndex,
+          wordIndex,
+          chapterTotal: chapter.words.length,
         })),
       ]),
     [chapters],
@@ -980,15 +1005,21 @@ function WordListPage({
     const byWordId = new Map();
     const byChapterId = new Map();
     const chapterByWordId = new Map();
+    const positionByWordId = new Map();
     listItems.forEach((item, index) => {
       if (item.type === "chapter") byChapterId.set(item.chapter.id, index);
       else {
         byWordId.set(item.word.id, index);
         chapterByWordId.set(item.word.id, item.chapterId);
+        positionByWordId.set(item.word.id, {
+          chapterNumber: item.chapterIndex + 1,
+          wordNumber: item.wordIndex + 1,
+          chapterTotal: item.chapterTotal,
+        });
       }
     });
-    return { byWordId, byChapterId, chapterByWordId };
-  }, [listItems]);
+    return { byWordId, byChapterId, chapterByWordId, positionByWordId };
+  }, [chapters, listItems]);
   const selectedChapterId = listIndexes.chapterByWordId.get(selectedId);
   const rowVirtualizer = useVirtualizer({
     count: listItems.length,
@@ -1225,6 +1256,9 @@ function WordListPage({
                       selected={selectedId === item.word.id}
                       favorite={favoriteSet.has(item.word.id)}
                       meaningsHidden={meaningsHidden}
+                      wordPosition={listIndexes.positionByWordId.get(item.word.id)}
+                      showWordPosition={showWordPosition}
+                      onToggleWordPosition={onToggleWordPosition}
                       accent={accent}
                       onSelect={onSelectWord}
                       onToggleFavorite={onToggleFavorite}
@@ -2064,6 +2098,9 @@ export default function App({ currentUser: initialCurrentUser = null, signOutPat
   const detailWord = useMemo(() => wordById.get(detailId), [detailId, wordById]);
   const favoriteSet = useMemo(() => new Set(stored.favorites), [stored.favorites]);
   const themeStyle = useMemo(() => readerThemeStyle(stored.backgroundColor), [stored.backgroundColor]);
+  const toggleWordPosition = useCallback(() => {
+    setStored((current) => ({ ...current, showWordPosition: !current.showWordPosition }));
+  }, []);
 
   useEffect(() => {
     storedRef.current = stored;
@@ -2555,6 +2592,8 @@ export default function App({ currentUser: initialCurrentUser = null, signOutPat
               selectedId={selectedWord?.id}
               favorites={stored.favorites}
               meaningsHidden={stored.meaningsHidden}
+              showWordPosition={stored.showWordPosition}
+              onToggleWordPosition={toggleWordPosition}
               accent={stored.accent}
               onSelectWord={selectWord}
               onToggleFavorite={toggleFavorite}
