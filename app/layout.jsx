@@ -1,6 +1,9 @@
 import "./globals.css";
 import "../src/reader-theme.css";
+import "../src/mobile.css";
 import { headers } from "next/headers";
+
+export const viewport = { width: "device-width", initialScale: 1, viewportFit: "cover", themeColor: "#EA580C" };
 
 export async function generateMetadata() {
   const requestHeaders = await headers();
@@ -14,9 +17,12 @@ export async function generateMetadata() {
     metadataBase: new URL(origin),
     title,
     description,
+    manifest: "/manifest.webmanifest",
+    appleWebApp: { capable: true, title: "雅思词汇", statusBarStyle: "default" },
     icons: {
       icon: "/favicon.svg",
       shortcut: "/favicon.svg",
+      apple: "/app-icon-192.png",
     },
     openGraph: {
       title,

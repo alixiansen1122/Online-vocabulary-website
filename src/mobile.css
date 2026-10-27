@@ -1,0 +1,32 @@
+button, a, summary { touch-action: manipulation; }
+button:focus-visible, a:focus-visible, summary:focus-visible { outline: 2px solid #ea580c; outline-offset: 3px; }
+.reader-word-list { height: 100dvh; }
+.reader-word-scroll, .reader-detail-scroll { overscroll-behavior-y: contain; }
+.reader-detail-sheet { display: flex; flex-direction: column; max-height: 92dvh; }
+.reader-detail-scroll { padding-bottom: max(1.25rem, env(safe-area-inset-bottom)); }
+.reader-word-row { overflow-wrap: anywhere; }
+.reader-bottom-nav { padding-bottom: env(safe-area-inset-bottom); }
+.reader-detail-tabs { scroll-padding-inline: 1rem; }
+@media (max-width: 1023px) {
+  .reader-theme > div > div > main > header, .reader-word-list > header { padding-top: env(safe-area-inset-top); }
+  .reader-theme main { padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right); }
+  .reader-theme input, .reader-theme textarea, .reader-theme select, .reader-theme [contenteditable="true"] { font-size: 16px; }
+  .reader-icon-button { width: 44px; height: 44px; }
+  .reader-detail-tabs > button { min-height: 44px; min-width: 44px; }
+  .reader-theme main:not(.reader-word-list) { padding-bottom: max(2rem, env(safe-area-inset-bottom)); }
+}
+@media (max-width: 639px) {
+  .reader-toolbar { display: grid; grid-template-columns: 44px minmax(0, 1fr); height: auto; padding-top: .25rem; }
+  .reader-toolbar h1 { text-align: left; }
+  .reader-toolbar-actions { grid-column: 1 / -1; justify-content: space-between; position: relative; padding-block: .25rem; }
+  .reader-toolbar-actions > .relative { position: static; }
+  .reader-toolbar-actions > button { min-width: 44px; min-height: 44px; }
+  .reader-toolbar-actions [role="dialog"], .reader-toolbar-actions [role="menu"] { top: 100%; left: 0; right: 0; width: auto; max-height: 65dvh; overflow-y: auto; }
+  .reader-word-actions { width: 140px; flex: none; flex-wrap: wrap; justify-content: flex-end; }
+  .reader-word-actions > span { order: 1; flex-basis: 100%; max-width: none; margin: .25rem 0 0; }
+  .reader-word-actions > span > span { display: inline; }
+  .reader-word-actions > span > span + span { margin-left: .2rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}

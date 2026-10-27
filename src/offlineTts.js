@@ -3,7 +3,26 @@ const NAVIGATION_SPEECH_DELAY = 90;
 let cachedVoices = [];
 const selectedVoices = new Map();
 let pendingSpeechTimer = null;
-let speechEngineWarmed = false;
+let activeUtterance = null;
+let startTimer = null;
+
+function notifySpeechError(text, accent, rate, error) {
+  const message = error === "unsupported"
+    ? "当前浏览器不支持朗读，请在 Safari、Chrome 或 Edge 中打开本站。"
+    : error === "language-unavailable" || error === "voice-unavailable"
+      ? "设备没有可用的英语语音，请在系统语音设置中安装英语语音后重试。"
+      : error === "not-allowed"
+        ? "浏览器未允许播放语音，请点击“重试发音”，或在系统浏览器中打开本站。"
+        : "语音未能开始播放。请检查设备音量和系统英语语音设置，再点击重试；内置浏览器可改用系统浏览器。";
+  window.dispatchEvent(new CustomEvent("reader-speech-error", { detail: { text, accent, rate, message, error } }));
+}
+
+function stopSpeech(synthesis) {
+  if (startTimer) window.clearTimeout(startTimer);
+  startTimer = null;
+  activeUtterance = null;
+  if (synthesis.speaking || synthesis.pending) synthesis.cancel();
+}
 
 function refreshVoices() {
   if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
@@ -33,7 +52,7 @@ function voiceFor(accent) {
 }
 
 function speechSynthesisApi() {
-  if (typeof window === "undefined" || !("speechSynthesis" in window)) return null;
+  if (typeof window === "undefined" || !("speechSynthesis" in window) || typeof window.SpeechSynthesisUtterance !== "function") return null;
   return window.speechSynthesis;
 }
 
@@ -46,8 +65,7 @@ function playWord(word, accent, rate = SPEECH_RATE) {
   const synthesis = speechSynthesisApi();
   if (!synthesis) return;
 
-  if (cachedVoices.length === 0) refreshVoices();
-  synthesis.cancel();
+  refreshVoices();
   if (synthesis.paused) synthesis.resume();
 
   const utterance = new SpeechSynthesisUtterance(word);
@@ -57,36 +75,51 @@ function playWord(word, accent, rate = SPEECH_RATE) {
 
   const voice = voiceFor(accent);
   if (voice) utterance.voice = voice;
-
-  synthesis.speak(utterance);
+  // Keep the utterance alive until playback completes, including on mobile.
+  activeUtterance = utterance;
+  utterance.onstart = () => {
+    if (activeUtterance !== utterance) return;
+    window.clearTimeout(startTimer);
+    startTimer = null;
+    window.dispatchEvent(new CustomEvent("reader-speech-start"));
+  };
+  utterance.onend = () => {
+    if (activeUtterance !== utterance) return;
+    window.clearTimeout(startTimer);
+    startTimer = null;
+    activeUtterance = null;
+  };
+  utterance.onerror = (event) => {
+    if (activeUtterance !== utterance) return;
+    window.clearTimeout(startTimer);
+    startTimer = null;
+    activeUtterance = null;
+    if (!["canceled", "interrupted"].includes(event.error)) notifySpeechError(word, accent, rate, event.error);
+  };
+  startTimer = window.setTimeout(() => {
+    if (activeUtterance === utterance) notifySpeechError(word, accent, rate, "timeout");
+  }, 8000);
+  try { synthesis.speak(utterance); }
+  catch { utterance.onerror({ error: "synthesis-failed" }); }
 }
 
 export function warmSpeechEngine() {
-  const synthesis = speechSynthesisApi();
-  if (!synthesis || speechEngineWarmed) return;
-
-  speechEngineWarmed = true;
+  // Load voice metadata without queueing a silent utterance ahead of a tap.
   refreshVoices();
-  const primer = new SpeechSynthesisUtterance("ready");
-  primer.lang = "en-US";
-  primer.volume = 0;
-  primer.rate = SPEECH_RATE;
-  const voice = voiceFor("us");
-  if (voice) primer.voice = voice;
-  synthesis.speak(primer);
 }
 
 export function speakWord(text, accent = "us", options = {}) {
   const word = String(text || "").trim();
   const synthesis = speechSynthesisApi();
-  if (!word || !synthesis) return;
+  if (!word || typeof window === "undefined") return;
+  if (!synthesis) { notifySpeechError(word, accent, speechRate(options.rate), "unsupported"); return; }
 
   if (pendingSpeechTimer) {
     window.clearTimeout(pendingSpeechTimer);
     pendingSpeechTimer = null;
   }
 
-  synthesis.cancel();
+  stopSpeech(synthesis);
   const delay = Math.max(0, Number(options.delay) || 0);
   const rate = speechRate(options.rate);
   if (delay > 0) {
@@ -108,11 +141,4 @@ if (typeof window !== "undefined" && "speechSynthesis" in window) {
   refreshVoices();
   window.speechSynthesis.addEventListener("voiceschanged", refreshVoices);
 
-  const warmOnce = () => {
-    window.removeEventListener("pointerdown", warmOnce, true);
-    window.removeEventListener("keydown", warmOnce, true);
-    warmSpeechEngine();
-  };
-  window.addEventListener("pointerdown", warmOnce, { capture: true, once: true });
-  window.addEventListener("keydown", warmOnce, { capture: true, once: true });
 }

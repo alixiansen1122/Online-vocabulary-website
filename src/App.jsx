@@ -39,6 +39,9 @@ import exampleAdditions from "./data/example-additions.json";
 import { speakNavigationWord, speakWord } from "./offlineTts";
 import SpellingPractice from "./SpellingPractice";
 import SpellingReviewPage from "./SpellingReviewPage";
+import AppInstallCard from "./AppInstallCard";
+import { useAppInstall } from "./appInstall";
+import SpeechFeedback from "./SpeechFeedback";
 import WordFamilyView from "./WordFamilyView";
 import { createSynonymLookup } from "./synonyms";
 import reviewedSynonyms from "./data/reviewed-synonyms.json";
@@ -520,7 +523,7 @@ function IconButton({ children, label, className = "", ...props }) {
       type="button"
       aria-label={label}
       title={label}
-      className={`inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-slate-900 transition hover:bg-slate-100 active:scale-95 sm:h-10 sm:w-10 ${className}`}
+      className={`reader-icon-button inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-slate-900 transition hover:bg-slate-100 active:scale-95 sm:h-10 sm:w-10 ${className}`}
       {...props}
     >
       {children}
@@ -875,7 +878,7 @@ function WordRowBase({ word, selected, favorite, meaningsHidden, accent, wordPos
   return (
     <div
       id={`word-row-${word.id}`}
-      className={`border-b border-slate-100 px-4 transition sm:px-5 ${selected ? "bg-orange-50" : "bg-white"}`}
+      className={`reader-word-row border-b border-slate-100 px-4 transition sm:px-5 ${selected ? "bg-orange-50" : "bg-white"}`}
       onClick={() => onSelect(word.id)}
     >
       <div className="min-h-14 py-3 sm:min-h-16 sm:py-4">
@@ -909,7 +912,7 @@ function WordRowBase({ word, selected, favorite, meaningsHidden, accent, wordPos
           </div>
 
           {selected && (
-            <div className="mt-1 flex items-center gap-1" onClick={(event) => event.stopPropagation()}>
+            <div className="reader-word-actions mt-1 flex items-center gap-1" onClick={(event) => event.stopPropagation()}>
               {showWordPosition && wordPosition && (
                 <span className="mr-1 max-w-24 text-right text-[10px] leading-4 text-slate-500 sm:max-w-none sm:whitespace-nowrap sm:text-xs">
                   <span>第{wordPosition.chapterNumber}章</span>
@@ -1069,14 +1072,14 @@ function WordListPage({
   };
 
   return (
-    <main className="flex h-screen min-h-0 flex-col bg-white text-slate-950">
+    <main className="reader-word-list flex h-screen min-h-0 flex-col bg-white text-slate-950">
       <header className="z-20 shrink-0 bg-white/95 backdrop-blur">
-        <div className="mx-auto flex h-14 max-w-3xl items-center justify-between px-3 sm:h-16 sm:px-4">
-          <IconButton label="返回">
+        <div className="reader-toolbar mx-auto flex h-14 max-w-3xl items-center justify-between px-3 sm:h-16 sm:px-4">
+          <IconButton label="返回仪表盘" onClick={onOpenDashboard}>
             <ArrowLeft className="h-5 w-5 sm:h-6 sm:w-6" />
           </IconButton>
           <h1 className="min-w-0 truncate px-2 text-base font-bold sm:text-xl">{book.title}</h1>
-          <div className="flex items-center gap-1">
+          <div className="reader-toolbar-actions flex items-center gap-1">
             <div className="relative">
               <IconButton
                 label="跳转章节"
@@ -1230,7 +1233,7 @@ function WordListPage({
         </div>
       </header>
 
-      <section ref={scrollParentRef} className="mx-auto min-h-0 w-full max-w-3xl flex-1 overflow-y-auto pb-16 lg:pb-0">
+      <section ref={scrollParentRef} className="reader-word-scroll mx-auto min-h-0 w-full max-w-3xl flex-1 overflow-y-auto">
         {listItems.length > 0 && (
           <div className="relative w-full" style={{ height: `${rowVirtualizer.getTotalSize()}px` }}>
             {rowVirtualizer.getVirtualItems().map((virtualRow) => {
@@ -1276,7 +1279,7 @@ function WordListPage({
         )}
       </section>
 
-      <nav className="fixed inset-x-0 bottom-0 z-30 border-t border-slate-100 bg-white lg:static lg:shrink-0">
+      <nav className="reader-bottom-nav z-30 shrink-0 border-t border-slate-100 bg-white">
         <div className="mx-auto grid h-14 max-w-3xl grid-cols-3 sm:h-16">
           <button type="button" className="flex flex-col items-center justify-center gap-1 text-orange-600">
             <BookOpen className="h-5 w-5 sm:h-6 sm:w-6" />
@@ -1437,6 +1440,7 @@ function SearchPage({ book, query, onQueryChange, onBack, onSelectResult, search
 }
 
 function DashboardPage({
+  installation,
   favorites,
   viewed,
   wordBooks,
@@ -1520,6 +1524,7 @@ function DashboardPage({
       </header>
 
       <section className="mx-auto max-w-3xl px-4 sm:px-5">
+        <AppInstallCard installation={installation} />
         <button type="button" onClick={onOpenStats} className="mb-4 flex w-full items-center justify-between gap-4 rounded-xl bg-slate-950 p-4 text-left text-white shadow-sm transition hover:bg-slate-800 sm:p-5">
           <span className="flex min-w-0 items-center gap-3">
             <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-white/10 text-orange-300"><CalendarDays className="h-5 w-5" /></span>
@@ -1971,12 +1976,12 @@ function DetailPane({
         </div>
       )}
 
-      <div className="mt-4 flex gap-4 overflow-x-auto border-b border-slate-100 text-sm font-bold text-slate-400 sm:mt-6 sm:gap-6 sm:text-base">
+      <div className="reader-detail-tabs mt-4 flex gap-4 overflow-x-auto border-b border-slate-100 text-sm font-bold text-slate-400 sm:mt-6 sm:gap-6 sm:text-base">
         {DETAIL_TABS.map((item) => (
           <button
             key={item}
             type="button"
-            onClick={() => onTabChange(item)}
+            onClick={(event) => { onTabChange(item); event.currentTarget.scrollIntoView({ block: "nearest", inline: "nearest" }); }}
             className={`relative shrink-0 pb-2.5 sm:pb-3 ${tab === item ? "text-slate-950" : ""}`}
           >
             {item}
@@ -1998,19 +2003,50 @@ function DetailPane({
 }
 
 function DetailSheet({ word, favorite, accent, meaningsHidden, spellingSeparated, tab, note, onTabChange, onChangeNote, onClose, onToggleFavorite, onPlayExample, onSpellingAttempt, spellingRecord, favorites, onFamilyFavorite }) {
+  const sheetRef = useRef(null);
+  const closeRef = useRef(onClose);
+  useEffect(() => { closeRef.current = onClose; }, [onClose]);
+  const isOpen = Boolean(word);
+  useEffect(() => {
+    if (!isOpen || window.matchMedia("(min-width: 1024px)").matches) return;
+    const previousFocus = document.activeElement;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    sheetRef.current?.focus();
+    const handleKey = (event) => {
+      if (event.key === "Escape") { event.preventDefault(); closeRef.current(); }
+      if (event.key !== "Tab") return;
+      const items = Array.from(sheetRef.current?.querySelectorAll('button, input, textarea, a[href], [tabindex="0"]') || []).filter((element) => !element.disabled && element.getClientRects().length);
+      const first = items[0], last = items.at(-1);
+      if (!first) { event.preventDefault(); return; }
+      if (event.shiftKey && (document.activeElement === first || document.activeElement === sheetRef.current)) { event.preventDefault(); last.focus(); }
+      else if (!event.shiftKey && (document.activeElement === last || document.activeElement === sheetRef.current)) { event.preventDefault(); first.focus(); }
+    };
+    document.addEventListener("keydown", handleKey);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener("keydown", handleKey);
+      if (previousFocus?.isConnected) previousFocus.focus({ preventScroll: true });
+    };
+  }, [isOpen]);
   return (
     <AnimatePresence>
       {word && (
         <motion.div className="fixed inset-0 z-50 lg:hidden" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
           <button type="button" aria-label="关闭详情" className="absolute inset-0 bg-black/45" onClick={onClose} />
           <motion.section
+            ref={sheetRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label="单词详情"
+            tabIndex={-1}
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
             exit={{ y: "100%" }}
             transition={{ type: "spring", damping: 28, stiffness: 280 }}
-            className="absolute inset-x-0 bottom-0 mx-auto max-h-[88vh] max-w-3xl overflow-hidden rounded-t-lg bg-white"
+            className="reader-detail-sheet absolute inset-x-0 bottom-0 mx-auto max-h-[88vh] max-w-3xl overflow-hidden rounded-t-lg bg-white"
           >
-            <div className="mx-auto mt-2 h-1 w-16 rounded-full bg-slate-200" />
+            <div className="flex shrink-0 items-center justify-between border-b border-slate-100 px-4 py-1"><span className="text-sm font-bold">单词详情</span><IconButton label="关闭详情面板" onClick={onClose}><X className="h-5 w-5" /></IconButton></div>
             <DetailPane
               word={word}
               favorite={favorite}
@@ -2028,10 +2064,9 @@ function DetailSheet({ word, favorite, accent, meaningsHidden, spellingSeparated
               onFamilyFavorite={onFamilyFavorite}
               onSpellingAttempt={onSpellingAttempt}
               spellingRecord={spellingRecord}
-              showClose
               keyboardMode="mobile"
               layoutId="active-detail-tab-mobile"
-              className="max-h-[86vh] overflow-auto px-4 pb-5 pt-4 sm:px-5 sm:pb-6 sm:pt-5"
+              className="reader-detail-scroll min-h-0 overflow-auto px-4 pb-5 pt-4 sm:px-5 sm:pb-6 sm:pt-5"
             />
           </motion.section>
         </motion.div>
@@ -2041,6 +2076,7 @@ function DetailSheet({ word, favorite, accent, meaningsHidden, spellingSeparated
 }
 
 export default function App({ currentUser: initialCurrentUser = null, signOutPath = "/signout-with-chatgpt?return_to=%2F" }) {
+  const installation = useAppInstall();
   const [stored, setStored] = useState(loadState);
   const [accountUser, setAccountUser] = useState(initialCurrentUser);
   const [cloudReady, setCloudReady] = useState(false);
@@ -2546,10 +2582,12 @@ export default function App({ currentUser: initialCurrentUser = null, signOutPat
 
   return (
     <div className="reader-theme min-h-screen" style={themeStyle}>
+      <SpeechFeedback />
       <div className="lg:grid lg:h-screen lg:grid-cols-[minmax(420px,46%)_minmax(0,54%)] lg:overflow-hidden xl:grid-cols-[minmax(460px,42%)_minmax(0,58%)]">
         <div className="lg:min-h-0 lg:overflow-hidden lg:border-r lg:border-slate-200">
           {page === "dashboard" ? (
             <DashboardPage
+              installation={installation}
               favorites={stored.favorites}
               viewed={stored.viewed}
               wordBooks={wordBooks}
