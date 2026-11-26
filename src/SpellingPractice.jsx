@@ -52,11 +52,22 @@ export default function SpellingPractice({ word, pattern, accent, keyboardMode =
   const status = correct
     ? `${result.firstTry ? "首次答对" : "重试答对"}，${stopAfterCorrect ? "可以继续下一词" : "再输入即可重练"}`
     : wrong ? "拼写错误，红色标出错字；已加入错词记录"
-      : typed ? `${typed.length}/${pattern.target.length}` : "输入完整单词后自动检查";
-  const hasInput = showInput || keyboardMode === "mobile";
+      : typed ? `${typed.length}/${pattern.target.length}` : (keyboardMode === "mobile" ? "点击下方输入框或此处唤起键盘拼写" : "直接按键或点击此处输入完整单词");
+  const hasVisibleInput = showInput || keyboardMode === "mobile";
+  const isActivelyTyping = enabled && typed.length > 0 && !completed;
+
+  const moveCaretToEnd = (element) => {
+    if (!element) return;
+    const end = element.value.length;
+    try {
+      element.setSelectionRange(end, end);
+    } catch {
+      // Ignore selection errors on unsupported input states.
+    }
+  };
 
   return (
-    <div className="flex max-w-full items-stretch justify-end gap-2">
+    <div className="flex max-w-full items-stretch justify-end gap-2" data-spelling-active={isActivelyTyping ? "true" : undefined}>
       <div className="grid shrink-0 content-center gap-1 rounded-lg bg-slate-50 px-3 py-2 text-xs font-semibold" aria-label={`当前单词拼写成功 ${successCount} 次，失败 ${failureCount} 次`}>
         <div className="flex items-baseline justify-between gap-2 text-slate-500">
           <span>成功</span>
@@ -67,7 +78,36 @@ export default function SpellingPractice({ word, pattern, accent, keyboardMode =
           <span className="text-red-600"><strong className="text-base tabular-nums">{failureCount}</strong> 次</span>
         </div>
       </div>
-      <div className="min-w-0 rounded-lg bg-slate-50 px-3 py-3 sm:px-4" aria-label="键盘拼写练习">
+      <div
+        className="relative min-w-0 cursor-text rounded-lg bg-slate-50 px-3 py-3 sm:px-4"
+        aria-label="键盘拼写练习"
+        onClick={() => {
+          if (enabled && !(stopAfterCorrect && correct)) inputRef.current?.focus();
+        }}
+      >
+        {!hasVisibleInput && (
+          <input
+            ref={inputRef}
+            type="text"
+            data-spelling-input="true"
+            inputMode="latin"
+            value={typed}
+            disabled={!enabled || (stopAfterCorrect && correct)}
+            aria-label={`${word.term} 拼写输入`}
+            autoComplete="off"
+            autoCapitalize="none"
+            autoCorrect="off"
+            spellCheck={false}
+            onFocus={(event) => moveCaretToEnd(event.currentTarget)}
+            onClick={(event) => moveCaretToEnd(event.currentTarget)}
+            onChange={(event) => {
+              const value = event.target.value;
+              const restart = completed && value.length > typed.length;
+              updateInput(restart ? value.slice(typed.length) : value, restart);
+            }}
+            className="sr-only"
+          />
+        )}
         <div className="flex max-w-full flex-wrap items-end justify-end gap-x-1.5 gap-y-2 font-mono text-base font-bold sm:text-lg">
           {pattern.groups.map((group, groupIndex) => group.type === "separator" ? (
             <span key={`separator-${groupIndex}`} className="pb-1 text-slate-300">{group.text}</span>
@@ -81,8 +121,9 @@ export default function SpellingPractice({ word, pattern, accent, keyboardMode =
             </span>
           ))}
         </div>
-        {hasInput && <input ref={inputRef} type="text" value={typed} disabled={!enabled || (stopAfterCorrect && correct)} aria-label="输入单词拼写" placeholder="在这里输入英文" autoComplete="off" autoCapitalize="off" autoCorrect="off" spellCheck={false}
-          onFocus={() => { if (completed) inputRef.current?.select(); }}
+        {hasVisibleInput && <input ref={inputRef} type="text" data-spelling-input="true" inputMode="latin" enterKeyHint="done" value={typed} disabled={!enabled || (stopAfterCorrect && correct)} aria-label="输入单词拼写" placeholder="在这里输入英文" autoComplete="off" autoCapitalize="none" autoCorrect="off" spellCheck={false}
+          onFocus={(event) => { if (completed) inputRef.current?.select(); else moveCaretToEnd(event.currentTarget); }}
+          onClick={(event) => { if (!completed) moveCaretToEnd(event.currentTarget); }}
           onChange={(event) => {
             const value = event.target.value;
             const restart = completed && value.startsWith(typed) && value.length > typed.length;

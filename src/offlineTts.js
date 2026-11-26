@@ -1,8 +1,27 @@
 const SPEECH_RATE = 1.05;
 const NAVIGATION_SPEECH_DELAY = 90;
+const PREFERRED_FEMALE_VOICE_KEYWORDS = [
+  "emma",
+  "ava",
+  "jenny",
+  "aria",
+  "libby",
+  "sonia",
+  "samantha",
+  "victoria",
+  "karen",
+  "zira",
+  "hazel",
+  "susan",
+  "female",
+];
+
 let cachedVoices = [];
 const selectedVoices = new Map();
+const missingAudioKeys = new Set();
 let pendingSpeechTimer = null;
+let activeAudio = null;
+let playbackToken = 0;
 let activeUtterance = null;
 let startTimer = null;
 
@@ -24,6 +43,17 @@ function stopSpeech(synthesis) {
   if (synthesis.speaking || synthesis.pending) synthesis.cancel();
 }
 
+export function audioFileName(term) {
+  const slug = String(term || "")
+    .trim()
+    .toLowerCase()
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9-]+/g, "_")
+    .replace(/^_+|_+$/g, "");
+  return `${slug || "word"}.mp3`;
+}
+
 function refreshVoices() {
   if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
   const voices = window.speechSynthesis.getVoices();
@@ -31,6 +61,11 @@ function refreshVoices() {
     cachedVoices = voices;
     selectedVoices.clear();
   }
+}
+
+function isPreferredFemaleVoice(voice) {
+  const name = String(voice?.name || "").toLowerCase();
+  return PREFERRED_FEMALE_VOICE_KEYWORDS.some((keyword) => name.includes(keyword));
 }
 
 function voiceFor(accent) {
@@ -41,9 +76,13 @@ function voiceFor(accent) {
   const sameFamily = (voice) => voice.lang.toLowerCase().startsWith("en-");
 
   const voice = (
-    cachedVoices.find((voice) => sameLanguage(voice) && voice.localService) ||
+    cachedVoices.find((item) => sameLanguage(item) && isPreferredFemaleVoice(item) && item.localService) ||
+    cachedVoices.find((item) => sameLanguage(item) && isPreferredFemaleVoice(item)) ||
+    cachedVoices.find((item) => sameLanguage(item) && item.localService) ||
     cachedVoices.find(sameLanguage) ||
-    cachedVoices.find((voice) => sameFamily(voice) && voice.localService) ||
+    cachedVoices.find((item) => sameFamily(item) && isPreferredFemaleVoice(item) && item.localService) ||
+    cachedVoices.find((item) => sameFamily(item) && isPreferredFemaleVoice(item)) ||
+    cachedVoices.find((item) => sameFamily(item) && item.localService) ||
     cachedVoices.find(sameFamily) ||
     null
   );
@@ -61,14 +100,37 @@ function speechRate(value) {
   return Number.isFinite(rate) ? Math.min(2, Math.max(0.5, rate)) : SPEECH_RATE;
 }
 
-function playWord(word, accent, rate = SPEECH_RATE) {
+function stopCurrentPlayback() {
+  playbackToken += 1;
+  if (pendingSpeechTimer) {
+    window.clearTimeout(pendingSpeechTimer);
+    pendingSpeechTimer = null;
+  }
+  if (activeAudio) {
+    activeAudio.onerror = null;
+    try {
+      activeAudio.pause();
+      activeAudio.currentTime = 0;
+    } catch {
+      // Ignore audio reset errors on detached media elements.
+    }
+  }
   const synthesis = speechSynthesisApi();
-  if (!synthesis) return;
+  if (synthesis) stopSpeech(synthesis);
+  return playbackToken;
+}
+
+function playBrowserSpeech(text, accent, rate = SPEECH_RATE) {
+  const synthesis = speechSynthesisApi();
+  if (!synthesis) { notifySpeechError(text, accent, rate, "unsupported"); return; }
 
   refreshVoices();
   if (synthesis.paused) synthesis.resume();
 
-  const utterance = new SpeechSynthesisUtterance(word);
+  const spokenText = String(text || "").replace(/-\s+/g, "-").trim();
+  if (!spokenText) return;
+
+  const utterance = new SpeechSynthesisUtterance(spokenText);
   utterance.lang = accent === "uk" ? "en-GB" : "en-US";
   utterance.rate = speechRate(rate);
   utterance.pitch = 1;
@@ -94,13 +156,51 @@ function playWord(word, accent, rate = SPEECH_RATE) {
     window.clearTimeout(startTimer);
     startTimer = null;
     activeUtterance = null;
-    if (!["canceled", "interrupted"].includes(event.error)) notifySpeechError(word, accent, rate, event.error);
+    if (!["canceled", "interrupted"].includes(event.error)) notifySpeechError(spokenText, accent, rate, event.error);
   };
   startTimer = window.setTimeout(() => {
-    if (activeUtterance === utterance) notifySpeechError(word, accent, rate, "timeout");
+    if (activeUtterance === utterance) notifySpeechError(spokenText, accent, rate, "timeout");
   }, 8000);
   try { synthesis.speak(utterance); }
   catch { utterance.onerror({ error: "synthesis-failed" }); }
+}
+
+function playWordAudioOrFallback(word, accent, rate, token) {
+  if (token !== playbackToken) return;
+  const normalizedAccent = accent === "uk" ? "uk" : "us";
+  const fileName = audioFileName(word);
+  const cacheKey = `${normalizedAccent}:${fileName}`;
+
+  if (typeof window === "undefined" || typeof Audio === "undefined" || missingAudioKeys.has(cacheKey)) {
+    playBrowserSpeech(word, normalizedAccent, rate);
+    return;
+  }
+
+  const audio = activeAudio || new Audio();
+  activeAudio = audio;
+  audio.preload = "auto";
+  audio.src = `/audio/${normalizedAccent}/${fileName}`;
+  audio.playbackRate = Number.isFinite(Number(rate)) ? Math.min(2, Math.max(0.5, Number(rate))) : 1;
+
+  let fallbackTriggered = false;
+  const fallback = () => {
+    if (fallbackTriggered || token !== playbackToken) return;
+    fallbackTriggered = true;
+    missingAudioKeys.add(cacheKey);
+    playBrowserSpeech(word, normalizedAccent, rate);
+  };
+
+  audio.onerror = fallback;
+  audio.onplaying = () => {
+    if (token === playbackToken) window.dispatchEvent(new CustomEvent("reader-speech-start"));
+  };
+  const playPromise = audio.play();
+  if (playPromise && typeof playPromise.catch === "function") {
+    playPromise.catch((error) => {
+      if (error?.name === "AbortError" && token !== playbackToken) return;
+      fallback();
+    });
+  }
 }
 
 export function warmSpeechEngine() {
@@ -110,31 +210,44 @@ export function warmSpeechEngine() {
 
 export function speakWord(text, accent = "us", options = {}) {
   const word = String(text || "").trim();
-  const synthesis = speechSynthesisApi();
   if (!word || typeof window === "undefined") return;
-  if (!synthesis) { notifySpeechError(word, accent, speechRate(options.rate), "unsupported"); return; }
 
-  if (pendingSpeechTimer) {
-    window.clearTimeout(pendingSpeechTimer);
-    pendingSpeechTimer = null;
-  }
-
-  stopSpeech(synthesis);
+  const token = stopCurrentPlayback();
   const delay = Math.max(0, Number(options.delay) || 0);
-  const rate = speechRate(options.rate);
+  const rate = Number.isFinite(Number(options.rate)) ? speechRate(options.rate) : 1;
+
   if (delay > 0) {
     pendingSpeechTimer = window.setTimeout(() => {
       pendingSpeechTimer = null;
-      playWord(word, accent, rate);
+      playWordAudioOrFallback(word, accent, rate, token);
     }, delay);
     return;
   }
 
-  playWord(word, accent, rate);
+  playWordAudioOrFallback(word, accent, rate, token);
 }
 
 export function speakNavigationWord(text, accent = "us") {
   speakWord(text, accent, { delay: NAVIGATION_SPEECH_DELAY });
+}
+
+export function speakSentence(text, accent = "us", options = {}) {
+  const sentence = String(text || "").trim();
+  if (!sentence || typeof window === "undefined") return;
+
+  const token = stopCurrentPlayback();
+  const delay = Math.max(0, Number(options.delay) || 0);
+  const rate = speechRate(options.rate);
+
+  if (delay > 0) {
+    pendingSpeechTimer = window.setTimeout(() => {
+      pendingSpeechTimer = null;
+      if (token === playbackToken) playBrowserSpeech(sentence, accent, rate);
+    }, delay);
+    return;
+  }
+
+  playBrowserSpeech(sentence, accent, rate);
 }
 
 if (typeof window !== "undefined" && "speechSynthesis" in window) {

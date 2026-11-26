@@ -1,5 +1,6 @@
 import { access, cp, mkdir, rm } from "node:fs/promises";
 import { resolve } from "node:path";
+import process from "node:process";
 
 async function exists(path) {
   try {
@@ -27,10 +28,10 @@ export function sites() {
       const bundledAudio = resolve(root, "dist", "audio");
       const bundledClientAudio = resolve(root, "dist", "client", "audio");
 
-      // The hosted site uses the browser's built-in speech engine. Keeping the
-      // offline audio library local avoids shipping thousands of duplicate files.
-      await rm(bundledAudio, { recursive: true, force: true });
-      await rm(bundledClientAudio, { recursive: true, force: true });
+      if (process.env.OMIT_OFFLINE_AUDIO === "1") {
+        await rm(bundledAudio, { recursive: true, force: true });
+        await rm(bundledClientAudio, { recursive: true, force: true });
+      }
       await rm(outputDirectory, { recursive: true, force: true });
       await mkdir(outputDirectory, { recursive: true });
 
