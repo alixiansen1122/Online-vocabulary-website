@@ -1,7 +1,6 @@
 import { MAX_EXAMPLES, MIN_EXAMPLES, mergeBilingualExamples } from "./examples.js";
-import { lazy, Suspense, useEffect, useMemo, useState } from "react";
+import { lazy, memo, Suspense, useCallback, useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { memo, useCallback, useRef } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import Hypher from "hypher";
 import hyphenationPatterns from "hyphenation.en-us";
@@ -35,7 +34,7 @@ import syllableExceptions from "./data/syllable-exceptions.json";
 import morphemes from "./data/morphemes.json";
 import exampleTranslations from "./data/example-translations.json";
 import exampleAdditions from "./data/example-additions.json";
-import { speakNavigationWord, speakWord } from "./offlineTts";
+import { speakNavigationWord, speakSentence, speakWord } from "./offlineTts";
 import SpellingPractice from "./SpellingPractice";
 import SpellingReviewPage from "./SpellingReviewPage";
 import WordFamilyView from "./WordFamilyView";
@@ -65,7 +64,7 @@ const DEFAULT_SHORTCUT_KEYS = Object.freeze({
   tabPrevious: "ArrowLeft",
   tabNext: "ArrowRight",
   spellingMode: "_",
-  favorite: "f",
+  favorite: "/",
   meaning: " ",
   examplePrevious: "<",
   exampleNext: ">",
@@ -92,6 +91,7 @@ function canonicalShortcutKey(value) {
   if (key === "《") return "<";
   if (key === "》") return ">";
   if (key === "？") return "?";
+  if (key === "、") return "/";
   return key.length === 1 ? key.toLowerCase() : key;
 }
 
@@ -107,8 +107,23 @@ function normalizeShortcutKey(value, fallback) {
   return key;
 }
 
+function isLegacyDefaultFavoriteShortcut(source) {
+  return (
+    canonicalShortcutKey(source.favorite) === "f" &&
+    (!source.previous || canonicalShortcutKey(source.previous) === "ArrowUp") &&
+    (!source.next || canonicalShortcutKey(source.next) === "ArrowDown") &&
+    (!source.tabPrevious || canonicalShortcutKey(source.tabPrevious) === "ArrowLeft") &&
+    (!source.tabNext || canonicalShortcutKey(source.tabNext) === "ArrowRight") &&
+    (!source.spellingMode || canonicalShortcutKey(source.spellingMode) === "_") &&
+    (!source.meaning || canonicalShortcutKey(source.meaning) === " ")
+  );
+}
+
 function normalizeShortcutKeys(value) {
-  const source = isRecord(value) ? value : {};
+  const rawSource = isRecord(value) ? value : {};
+  const source = isLegacyDefaultFavoriteShortcut(rawSource)
+    ? { ...rawSource, favorite: DEFAULT_SHORTCUT_KEYS.favorite }
+    : rawSource;
   const normalized = {
     previous: normalizeShortcutKey(source.previous, DEFAULT_SHORTCUT_KEYS.previous),
     next: normalizeShortcutKey(source.next, DEFAULT_SHORTCUT_KEYS.next),
@@ -122,13 +137,13 @@ function normalizeShortcutKeys(value) {
     exampleRepeat: normalizeShortcutKey(source.exampleRepeat, DEFAULT_SHORTCUT_KEYS.exampleRepeat),
   };
   const fallbackKeys = {
-    meaning: [DEFAULT_SHORTCUT_KEYS.meaning, "m"],
+    meaning: [DEFAULT_SHORTCUT_KEYS.meaning, "="],
     tabPrevious: [DEFAULT_SHORTCUT_KEYS.tabPrevious, "["],
     tabNext: [DEFAULT_SHORTCUT_KEYS.tabNext, "]"],
     spellingMode: [DEFAULT_SHORTCUT_KEYS.spellingMode, "Enter"],
-    previous: [DEFAULT_SHORTCUT_KEYS.previous, "p"],
-    next: [DEFAULT_SHORTCUT_KEYS.next, "n"],
-    favorite: [DEFAULT_SHORTCUT_KEYS.favorite, "v"],
+    previous: [DEFAULT_SHORTCUT_KEYS.previous, "PageUp"],
+    next: [DEFAULT_SHORTCUT_KEYS.next, "PageDown"],
+    favorite: [DEFAULT_SHORTCUT_KEYS.favorite, "'"],
     examplePrevious: [DEFAULT_SHORTCUT_KEYS.examplePrevious, "{"],
     exampleNext: [DEFAULT_SHORTCUT_KEYS.exampleNext, "}"],
     exampleRepeat: [DEFAULT_SHORTCUT_KEYS.exampleRepeat, ";"],
@@ -1156,25 +1171,87 @@ function WordListPage({
   );
 }
 
+const MAX_VISIBLE_SEARCH_RESULTS = 200;
+const IPA_CHAR_RE = /[ˈˌːæɑɒɔəɜɪʊʌθðʃʒŋɡɛ]/i;
+
+function stripPhoneticDelimiters(value) {
+  return String(value || "")
+    .toLowerCase()
+    .replace(/[/[\]ˈˌ'.,\s()-]+/g, "");
+}
+
+function rankWordMatch(entry, rawQuery, cleanPhoneticQuery, allowPhoneticCleanMatch) {
+  const { termLower, termParts, meaningLower, meaningSegments, phoneticLower, phoneticClean } = entry;
+  if (termLower === rawQuery) return 0;
+  if (termLower.startsWith(rawQuery)) return 1;
+  if (termParts.some((part) => part.startsWith(rawQuery))) return 2;
+  if (termLower.includes(rawQuery)) return 3;
+  if (meaningSegments.some((segment) => segment === rawQuery)) return 4;
+  if (meaningSegments.some((segment) => segment.startsWith(rawQuery))) return 5;
+  if (meaningLower.includes(rawQuery)) return 6;
+  if (phoneticLower && phoneticLower.includes(rawQuery)) return 7;
+  if (allowPhoneticCleanMatch && cleanPhoneticQuery && phoneticClean.includes(cleanPhoneticQuery)) return 8;
+  return -1;
+}
+
 function SearchPage({ book, query, onQueryChange, onBack, onSelectResult, searchHistory, onSelectHistory, onRemoveHistory, onClearHistory }) {
-  const normalizedQuery = query.trim().toLowerCase();
+  const deferredQuery = useDeferredValue(query);
+  const normalizedQuery = deferredQuery.trim().toLowerCase();
+  const highlightTerm = normalizedQuery.replace(/^[/[\]]+|[/[\]]+$/g, "");
   const indexedWords = useMemo(
     () =>
       book.chapters.flatMap((chapter, chapterIndex) =>
-        chapter.words.map((word) => ({
-          ...word,
-          chapterTitle: chapterLabel(chapter, chapterIndex),
-        }))
+        chapter.words.map((word, wordIndex) => {
+          const termLower = String(word.term || "").toLowerCase();
+          const meaningSource = `${word.meaning || ""} ${word.rawMeaning || ""}`
+            .replace(/^(?:(?:abbr|adj|adv|aux|conj|det|int|n|num|phr|pl|prep|pron|v|vi|vt)\.\s*)+/gi, "")
+            .toLowerCase();
+          const phoneticLower = [word.phoneticUs, word.phoneticUk, word.phonetic]
+            .filter(Boolean)
+            .join(" ")
+            .toLowerCase();
+          return {
+            ...word,
+            chapterTitle: chapterLabel(chapter, chapterIndex),
+            indexOrder: chapterIndex * 10000 + wordIndex,
+            termLower,
+            termParts: termLower.split(/[\s\-/]+/).filter(Boolean),
+            meaningLower: meaningSource,
+            meaningSegments: meaningSource.split(/[；;，,、（）()【】\n]+/).map((item) => item.trim()).filter(Boolean),
+            phoneticLower,
+            phoneticClean: stripPhoneticDelimiters(phoneticLower),
+          };
+        })
       ),
     [book.chapters]
   );
   const results = useMemo(() => {
     if (!normalizedQuery) return [];
-    return indexedWords.filter((word) => word.term.toLowerCase().startsWith(normalizedQuery));
+    const hasPhoneticDelimiters = /^[/[]|[/\]]$/.test(normalizedQuery);
+    const cleanPhoneticQuery = stripPhoneticDelimiters(normalizedQuery);
+    const allowPhoneticCleanMatch =
+      (hasPhoneticDelimiters && cleanPhoneticQuery.length >= 2) || IPA_CHAR_RE.test(normalizedQuery);
+
+    const matched = [];
+    for (const entry of indexedWords) {
+      const rank = rankWordMatch(entry, normalizedQuery, cleanPhoneticQuery, allowPhoneticCleanMatch);
+      if (rank >= 0) matched.push({ entry, rank });
+    }
+
+    matched.sort((left, right) => {
+      if (left.rank !== right.rank) return left.rank - right.rank;
+      if (left.rank <= 3 && left.entry.termLower.length !== right.entry.termLower.length) {
+        return left.entry.termLower.length - right.entry.termLower.length;
+      }
+      return left.entry.indexOrder - right.entry.indexOrder;
+    });
+
+    return matched.map((item) => item.entry);
   }, [indexedWords, normalizedQuery]);
+  const visibleResults = useMemo(() => results.slice(0, MAX_VISIBLE_SEARCH_RESULTS), [results]);
 
   const handleSelectResult = (id) => {
-    if (normalizedQuery) onSelectHistory(query.trim());
+    if (query.trim()) onSelectHistory(query.trim());
     onSelectResult(id);
   };
 
@@ -1262,27 +1339,42 @@ function SearchPage({ book, query, onQueryChange, onBack, onSelectResult, search
         )}
 
         <div className="divide-y divide-slate-100">
-          {results.map((word) => (
-            <button
-              key={word.id}
-              type="button"
-              onClick={() => handleSelectResult(word.id)}
-              className="flex w-full items-start justify-between gap-4 py-4 text-left transition hover:bg-slate-50"
-            >
-              <div className="min-w-0 flex-1">
-                <div className="flex flex-wrap items-center gap-2">
-                  <span className="text-lg font-bold text-slate-950 sm:text-xl">{word.term}</span>
-                  {(word.phoneticUs || word.phonetic) && <span className="text-sm font-semibold text-slate-400">{word.phoneticUs || word.phonetic}</span>}
+          {visibleResults.map((word) => {
+            const displayPhonetic = word.phoneticUs || word.phoneticUk || word.phonetic;
+            return (
+              <button
+                key={word.id}
+                type="button"
+                onClick={() => handleSelectResult(word.id)}
+                className="flex w-full items-start justify-between gap-4 py-4 text-left transition hover:bg-slate-50"
+              >
+                <div className="min-w-0 flex-1">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="text-lg font-bold text-slate-950 sm:text-xl">
+                      <HighlightedTerm text={word.term} term={highlightTerm} />
+                    </span>
+                    {displayPhonetic && (
+                      <span className="text-sm font-semibold text-slate-400">
+                        <HighlightedTerm text={displayPhonetic} term={highlightTerm} />
+                      </span>
+                    )}
+                  </div>
+                  <div className="mt-1 text-sm leading-6 text-slate-700 sm:text-base">
+                    <span className="font-semibold">{word.pos}</span>{" "}
+                    <HighlightedTerm text={word.meaning} term={highlightTerm} />
+                  </div>
+                  <div className="mt-2 text-xs font-semibold text-orange-600 sm:text-sm">{word.chapterTitle}</div>
                 </div>
-                <div className="mt-1 text-sm leading-6 text-slate-700 sm:text-base">
-                  <span className="font-semibold">{word.pos}</span> {word.meaning}
-                </div>
-                <div className="mt-2 text-xs font-semibold text-orange-600 sm:text-sm">{word.chapterTitle}</div>
-              </div>
-              <ArrowLeft className="mt-1 h-5 w-5 rotate-180 text-slate-300" />
-            </button>
-          ))}
+                <ArrowLeft className="mt-1 h-5 w-5 rotate-180 text-slate-300" />
+              </button>
+            );
+          })}
         </div>
+        {results.length > visibleResults.length && (
+          <div className="py-6 text-center text-xs font-semibold text-slate-400 sm:text-sm">
+            已显示前 {visibleResults.length} 条最相关结果，继续输入可进一步精确筛选
+          </div>
+        )}
       </section>
     </main>
   );
@@ -1479,7 +1571,7 @@ function DashboardPage({
               <div>
                 <h2 className="text-lg font-bold">自定义按键</h2>
                 <p className="mt-1 text-xs font-semibold leading-5 text-slate-400 sm:text-sm">
-                  点击一个按键后，再按下你想使用的键；字母快捷键会优先于拼写练习。
+                  点击一个按键后，再按下你想使用的键；拼写进行中或聚焦拼写框时不会误触字母快捷键。
                 </p>
               </div>
             </div>
@@ -2230,7 +2322,7 @@ export default function App({ currentUser: initialCurrentUser = null, signOutPat
     const example = examples[safeIndex];
     if (!example?.en) return;
     examplePlaybackRef.current = { wordId: word.id, index: safeIndex, examples };
-    speakWord(example.en, stored.accent, { rate: stored.sentenceRate });
+    speakSentence(example.en, stored.accent, { rate: stored.sentenceRate });
   }, [stored.accent, stored.sentenceRate]);
 
   const playExampleShortcut = useCallback(async (direction) => {
@@ -2256,11 +2348,14 @@ export default function App({ currentUser: initialCurrentUser = null, signOutPat
     const handleKeyboardShortcut = (event) => {
       if (page !== "words" || event.ctrlKey || event.metaKey || event.altKey || document.getElementById("chapter-jump-menu")) return;
       const eventTarget = event.target;
-      if (eventTarget instanceof Element && eventTarget.closest("input, textarea, select, [contenteditable='true']")) return;
+      const isSpellingInput = eventTarget instanceof Element && eventTarget.matches("input[data-spelling-input='true']");
+      if (!isSpellingInput && eventTarget instanceof Element && eventTarget.closest("input, textarea, select, [contenteditable='true']")) return;
+      if (isSpellingInput && (event.key === "Backspace" || event.key === "Delete")) return;
 
       if ((event.key === " " || event.key === "Enter") && eventTarget instanceof Element && eventTarget.closest("button, a, summary")) return;
 
       const key = canonicalShortcutKey(event.key);
+      if (/^[a-z]$/i.test(key) && (isSpellingInput || document.querySelector("[data-spelling-active='true']"))) return;
       const shortcuts = normalizeShortcutKeys(stored.shortcutKeys);
       const actionId = Object.entries(shortcuts).find(([, shortcutKey]) => shortcutKey === key)?.[0];
       if (!actionId) return;

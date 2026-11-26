@@ -18,7 +18,6 @@ release
 android/
 file/
 generated-audio/
-public/audio/
 
 # Editor directories and files
 .vscode/*
